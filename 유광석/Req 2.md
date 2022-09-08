@@ -155,3 +155,8 @@ export default App;
 
 ```
 
+**Mint, Burn**
+
+* Mint : 코인 만들기
+* Burn : 코인 없애기
+* 비율 조절!
