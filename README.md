@@ -19,7 +19,7 @@
 
 * .sol 파일을 contract/ 안에 배치 후 complie
 
-    FundRaising.sol
+    test용 : FundRaising.sol
     ```
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
@@ -167,6 +167,48 @@
 
 * web3j 설치
 
+    * linux/macOs
     ```
-    web3j import -s <path to solidity sources> [-o <path>|-n <project name>|-p <package name>] -t
+    curl -L get.web3j.io | sh
     ```
+
+    * window PowerShell
+    ```
+    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/web3j/web3j-installer/master/installer.ps1'))
+    ```
+
+* web3j 버전 확인 
+
+    ![2](as/2.PNG)
+
+* Wrapper 생성
+
+    * truffle compile 이 후 생성된 .json 파일의 경로
+
+    * 자바 어플리이션 main 디렉토리 경로
+
+    * 컨트랙트의 패키지명   
+
+    ```
+    $ web3j generate truffle  --truffle-json=
+  /path/to/<truffle-smart-contract-output>.json 
+  -o /path/to/src/main/java -p com.your.organisation.name
+    ```
+
+* 테스트 환경
+
+    *  .json 경로 : C:\Users\multicampus\Desktop\project\blockchain\triffle\build\contracts\FundRaising.json
+
+    * main 디렉토리 경로 : C:\Users\multicampus\Desktop\spring\web3j\src\main\java
+
+    * 컨트랙트 패키지명 : com.example.contract
+
+    ```
+    web3j generate truffle --truffle-json=Desktop\project\blockchain\triffle\build\contracts\FundRaising.json -o Desktop\spring\web3j\src\main\java -p com.example.contract
+    ```
+
+* Wrapper 생성 결과
+
+![3](as/3.PNG)
+
+![4](as/4.PNG)
