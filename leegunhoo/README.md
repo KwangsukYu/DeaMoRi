@@ -45,7 +45,7 @@ Next.js + TypeScrtipt
 1. page 폴더 안의 모든 파일 삭제
 
 2. index.tsx 생성
-   
+
    ```jsx
    export default function home () {
        return 'ts'
@@ -53,15 +53,15 @@ Next.js + TypeScrtipt
    ```
 
 3. next.js 에서 pages 폴더는 라우터의 기능 (파일 이름이 곧 주소 창의 경로)
-   
+
    1. about.tsx
-      
+
       ```jsx
       export default function about () {
           return "about"
       }
       ```
-      
+
        위와 같이 pages폴더 안에 about.tsx 파일을 생성하게 된다면 `http://localhost:3000/about` 로 접근이 가능.
 
 4. 파일 생성 시 export default가 꼭 지정돼야 함 ([https://quark21.tistory.com/314](https://quark21.tistory.com/314))
@@ -170,24 +170,25 @@ export default Req1;
 **송금과정**
 
 - 0.1 이더리움을 보내는 버튼을 클릭 (그 전에 송금자의 계정의 락을 풀어줘야함)
-  
+
   ![](assets/2022-09-07-21-07-08-image.png)
 
 - 해제 후 송금 버튼을 통해 송금을 시킴
-  
+
   ![](assets/2022-09-07-21-08-38-image.png)
 
 - 송금 트랜잭션을 위해 마이닝 시작 후 종료, 그리고 잔고 확인
-  
+
   ![](assets/2022-09-07-21-10-21-image.png)
 
 - 이후 클라이언트에서 잔고 확인
-  
+
   ![](assets/2022-09-07-21-11-22-image.png)
 
   # Req. 2. ERC-20 토큰 구현 및 배포
+
 - Metamask에서 로컬 지갑 주소 연결 결과
-   ![](assets/meta.png)
+  ![](assets/meta.png)
 
 
 - 토큰 발행을 위한 solidity 코드
@@ -299,4 +300,18 @@ contract DaemoriToken is ERC20Interface, SafeMath {
   ![](assets/tx.png)
 
 - 발행 된 코인을 트랜잭션 등록을 통해 확인 할 수 있다
-    ![](assets/getmoko.PNG)
+  ![](assets/getmoko.PNG)
+
+
+
+### 09/13 Commit
+
+![image-20220913174903164](README.assets/image-20220913174903164.png)
+
+피그마 (진행중)
+
+
+
+![image-20220913175121431](README.assets/image-20220913175121431.png)
+
+Frontend 초기 환경 설정 (TS, redux, router)
