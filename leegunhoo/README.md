@@ -45,7 +45,7 @@ Next.js + TypeScrtipt
 1. page 폴더 안의 모든 파일 삭제
 
 2. index.tsx 생성
-
+   
    ```jsx
    export default function home () {
        return 'ts'
@@ -53,20 +53,18 @@ Next.js + TypeScrtipt
    ```
 
 3. next.js 에서 pages 폴더는 라우터의 기능 (파일 이름이 곧 주소 창의 경로)
-
+   
    1. about.tsx
-
+      
       ```jsx
       export default function about () {
           return "about"
       }
       ```
-
+      
        위와 같이 pages폴더 안에 about.tsx 파일을 생성하게 된다면 `http://localhost:3000/about` 로 접근이 가능.
 
 4. 파일 생성 시 export default가 꼭 지정돼야 함 ([https://quark21.tistory.com/314](https://quark21.tistory.com/314))
-
-
 
 ---
 
@@ -80,11 +78,7 @@ Next.js + TypeScrtipt
 
 초기 타입스크립트 + 리액트로 구현 하려다 실패 (아마 객체 타입 지정이 문제가 돼서 변수에 객체가 담기지 않는 것 같다..)
 
-
-
 이후 자바스크립트로 다시 작성
-
-
 
 ```javascript
 import { useState, React } from "react";
@@ -157,39 +151,34 @@ function Req1() {
 export default Req1;
 ```
 
-
-
 ![](assets/2022-09-07-21-04-32-image.png)
 
 ![](assets/2022-09-07-21-04-55-image.png)
 
 송금 할 계정 잔액 확인
 
-
-
 **송금과정**
 
 - 0.1 이더리움을 보내는 버튼을 클릭 (그 전에 송금자의 계정의 락을 풀어줘야함)
-
+  
   ![](assets/2022-09-07-21-07-08-image.png)
 
 - 해제 후 송금 버튼을 통해 송금을 시킴
-
+  
   ![](assets/2022-09-07-21-08-38-image.png)
 
 - 송금 트랜잭션을 위해 마이닝 시작 후 종료, 그리고 잔고 확인
-
+  
   ![](assets/2022-09-07-21-10-21-image.png)
 
 - 이후 클라이언트에서 잔고 확인
-
+  
   ![](assets/2022-09-07-21-11-22-image.png)
-
+  
   # Req. 2. ERC-20 토큰 구현 및 배포
 
 - Metamask에서 로컬 지갑 주소 연결 결과
   ![](assets/meta.png)
-
 
 - 토큰 발행을 위한 solidity 코드
 
@@ -236,12 +225,12 @@ contract DaemoriToken is ERC20Interface, SafeMath {
     string public name;
     string public symbol;
     uint8 public decimals; 
-    
+
     uint256 public _totalSupply;
-    
+
     mapping(address => uint) balances;
     mapping(address => mapping(address => uint)) allowed;
-    
+
     /**
      * Constructor function
      *
@@ -252,36 +241,36 @@ contract DaemoriToken is ERC20Interface, SafeMath {
         symbol = "MOKO";
         decimals = 18;
         _totalSupply = 2500000000000000000000000000;
-        
+
         balances[msg.sender] = _totalSupply;
         emit Transfer(address(0), msg.sender, _totalSupply);
     }
-    
+
     function totalSupply() public view returns (uint) {
         return _totalSupply  - balances[address(0)];
     }
-    
+
     function balanceOf(address tokenOwner) public view returns (uint balance) {
         return balances[tokenOwner];
     }
-    
+
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
     }
-    
+
     function approve(address spender, uint tokens) public returns (bool success) {
         allowed[msg.sender][spender] = tokens;
         emit Approval(msg.sender, spender, tokens);
         return true;
     }
-    
+
     function transfer(address to, uint tokens) public returns (bool success) {
         balances[msg.sender] = safeSub(balances[msg.sender], tokens);
         balances[to] = safeAdd(balances[to], tokens);
         emit Transfer(msg.sender, to, tokens);
         return true;
     }
-    
+
     function transferFrom(address from, address to, uint tokens) public returns (bool success) {
         balances[from] = safeSub(balances[from], tokens);
         allowed[from][msg.sender] = safeSub(allowed[from][msg.sender], tokens);
@@ -292,17 +281,14 @@ contract DaemoriToken is ERC20Interface, SafeMath {
 }
 ```
 
-
 - 배포를 통해 코인 발행 후 트랜잭션 확인
-
+  
   ![](assets/moko.png)
-
+  
   ![](assets/tx.png)
 
 - 발행 된 코인을 트랜잭션 등록을 통해 확인 할 수 있다
   ![](assets/getmoko.PNG)
-
-
 
 ### 09/13 Commit
 
@@ -310,8 +296,20 @@ contract DaemoriToken is ERC20Interface, SafeMath {
 
 피그마 (진행중)
 
-
-
 ![image-20220913175121431](README.assets/image-20220913175121431.png)
 
 Frontend 초기 환경 설정 (TS, redux, router)
+
+
+
+### 09/14 Commit
+
+![](assets/2022-09-14-17-29-02-image.png)
+
+피그마 작성 시 애매한 부분 컨펌
+
+
+
+![](assets/2022-09-14-17-54-06-image.png)
+
+피그마 업데이트 (90% 마무리)
