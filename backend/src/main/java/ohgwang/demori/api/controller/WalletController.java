@@ -11,6 +11,7 @@ import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.http.HttpService;
@@ -56,8 +57,9 @@ public class WalletController {
 
         List<Type> inputParameters = Arrays.asList(new Uint8(1));
         List<TypeReference<?>> outputParameters = Arrays.asList(new TypeReference<Type>() {});
-
-        Function function  = new Function("setValue",)
+//
+//        Transaction transaction = Transaction.createEtherTransaction();
+//        web3j.ethSendTransaction()
         return "test";
     }
 
