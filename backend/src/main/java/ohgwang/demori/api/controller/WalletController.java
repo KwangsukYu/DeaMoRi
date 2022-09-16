@@ -8,6 +8,8 @@ import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint8;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -15,7 +17,11 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.RawTransactionManager;
+import org.web3j.tx.Transfer;
+import org.web3j.utils.Convert;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -60,6 +66,13 @@ public class WalletController {
 //
 //        Transaction transaction = Transaction.createEtherTransaction();
 //        web3j.ethSendTransaction()
+
+        Credentials credentials = WalletUtils.loadCredentials("1234", "C:\\Users\\multicampus\\Desktop\\project\\blockchain\\account\\admin.wallet");
+        Transfer transfer = new Transfer(web3j, new RawTransactionManager(web3j , credentials , 921));
+
+        System.out.println(transfer.sendFunds("0xf32ac93d2a067ad49671216bdb7317741fdaea9a", BigDecimal.valueOf(34400), Convert.Unit.WEI).send());
+
+
         return "test";
     }
 
