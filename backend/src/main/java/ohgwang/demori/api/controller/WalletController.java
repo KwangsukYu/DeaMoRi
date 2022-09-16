@@ -68,6 +68,7 @@ public class WalletController {
 //        web3j.ethSendTransaction()
 
         Credentials credentials = WalletUtils.loadCredentials("1234", "C:\\Users\\multicampus\\Desktop\\project\\blockchain\\account\\admin.wallet");
+
         Transfer transfer = new Transfer(web3j, new RawTransactionManager(web3j , credentials , 921));
 
         System.out.println(transfer.sendFunds("0xf32ac93d2a067ad49671216bdb7317741fdaea9a", BigDecimal.valueOf(34400), Convert.Unit.WEI).send());
