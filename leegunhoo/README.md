@@ -300,16 +300,42 @@ contract DaemoriToken is ERC20Interface, SafeMath {
 
 Frontend 초기 환경 설정 (TS, redux, router)
 
-
-
 ### 09/14 Commit
 
 ![](assets/2022-09-14-17-29-02-image.png)
 
 피그마 작성 시 애매한 부분 컨펌
 
-
-
 ![](assets/2022-09-14-17-54-06-image.png)
 
 피그마 업데이트 (90% 마무리)
+
+
+
+### 09/16 Commit
+
+![](assets/2022-09-16-17-12-35-image.png)
+
+발표 ppt 제작
+
+
+
+![](assets/2022-09-16-17-20-49-image.png)
+
+와이어프레임 대규모 수정..
+
+
+
+![](assets/2022-09-16-17-21-44-image.png)
+
+전문가 사전 질문 회의
+
+
+
+향후 계획
+
+- 빠르게 퍼블리싱
+
+- 오픈비두
+
+- API 바인딩
