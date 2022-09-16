@@ -1,9 +1,12 @@
 package ohgwang.demori.api.controller;
 
+import ohgwang.demori.DB.entity.User;
+import ohgwang.demori.api.request.UserRegisterPostReq;
+import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.jetbrains.annotations.TestOnly;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
@@ -31,50 +34,13 @@ import java.util.concurrent.ExecutionException;
 public class WalletController {
     Web3j web3j = Web3j.build(new HttpService());
 
-    public EthBlockNumber getBlockNumber() throws Exception{  // 현재 블록 번호
-        EthBlockNumber result = new EthBlockNumber();
-        result = this.web3j.ethBlockNumber()
-                .sendAsync()
-                .get();
-        return result;
-    }
-
-    public EthAccounts getEthAccounts() throws ExecutionException, InterruptedException {
-        EthAccounts result = new EthAccounts();
-        result = this.web3j.ethAccounts()
-                .sendAsync()
-                .get();
-        return result;
-
-    }
-
-    @GetMapping()
-    public String test() throws Exception {
-        System.out.println("1 : " + getBlockNumber());
-        System.out.println("2 : " + getBlockNumber().getBlockNumber());
-        System.out.println("3 : " + getBlockNumber().getJsonrpc());
-        System.out.println("------------------------------------------");
-        System.out.println("1 : " + getEthAccounts());
-        getEthAccounts().getAccounts().forEach(s -> System.out.println(s));
-        System.out.println("2 : " + getEthAccounts().getJsonrpc());
-        System.out.println("3 : " + getEthAccounts().getRawResponse());
-        System.out.println(web3j.ethGetBalance(getEthAccounts().getAccounts().get(0), DefaultBlockParameterName.LATEST).send().getBalance());
+    @PostMapping()
+    public ResponseEntity<? extends BaseResponseBody> registWallet(
+            Authentication authentication, @RequestBody String address) {
 
 
-        List<Type> inputParameters = Arrays.asList(new Uint8(1));
-        List<TypeReference<?>> outputParameters = Arrays.asList(new TypeReference<Type>() {});
-//
-//        Transaction transaction = Transaction.createEtherTransaction();
-//        web3j.ethSendTransaction()
 
-        Credentials credentials = WalletUtils.loadCredentials("1234", "C:\\Users\\multicampus\\Desktop\\project\\blockchain\\account\\admin.wallet");
-
-        Transfer transfer = new Transfer(web3j, new RawTransactionManager(web3j , credentials , 921));
-
-        System.out.println(transfer.sendFunds("0xf32ac93d2a067ad49671216bdb7317741fdaea9a", BigDecimal.valueOf(34400), Convert.Unit.WEI).send());
-
-
-        return "test";
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "SUCCESS"));
     }
 
 
