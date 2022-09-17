@@ -84,6 +84,33 @@ public class WalletController {
     }
 
 
+    @PatchMapping("/{coin}")
+    @ApiOperation(value = "코인충전", notes = "요청한 금액만큼 해당 지갑에 코인 충전")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "지갑 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> requestEth(@ApiIgnore Authentication authentication, @PathVariable  @ApiParam(value = "충전 금액", required = true) String coin) {
+        try {
+            SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+            String userId = userDetails.getUsername();
+            User user = userService.getUserByUserId(userId);
+            String address = user.getWallet().getAddress();
+
+            if (address == null) {
+                return ResponseEntity.status(204).body(BaseResponseBody.of(204, "지갑이 업습니다"));
+            } else {
+                walletService.requestEth(address, Integer.parseInt(coin));
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
+        }
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
+
+    }
+
 
 
 

@@ -21,27 +21,19 @@ public class Wallet {
     @Column(name = "wallet_pk")
     private int id;
 
+    @Column(length = 10000)
     private String address;
-    private String transactionHash;
-
 
     @OneToOne
     @JoinColumn(name = "user_pk",unique = true)
     private User user;
 
+//    @OneToMany(mappedBy = "from")
+//    private List<Transaction> from = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "to")
+//    private List<Transaction> to = new ArrayList<>();
 
-    ///////////////////////////////////////////////////////////
-    public void addTransactionHash(String hash){
-        String addHash = this.transactionHash + "," + hash;
-        this.transactionHash = addHash;
-    }
-    public List<String> getTransactionHashes(){
-        StringTokenizer st = new StringTokenizer(this.transactionHash, ",");
-        List<String> li = new ArrayList<>();
-        while (st.hasMoreTokens()) {
-            li.add(st.nextToken());
-        }
-        return li;
-    }
+
 }
 
