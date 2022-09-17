@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService{
 		if (registerInfo.getPassword().length()<4) {
 			return user;
 		}
+
 		user.setUserId(registerInfo.getUserId());
 		user.setUsername(registerInfo.getUserName());
 		user.setRole("ROLE_USER");

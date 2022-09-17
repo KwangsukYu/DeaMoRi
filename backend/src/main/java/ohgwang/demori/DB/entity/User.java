@@ -31,7 +31,7 @@ public class User {
 	private Timestamp createDate;
 
 
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private Wallet wallet;
 
 

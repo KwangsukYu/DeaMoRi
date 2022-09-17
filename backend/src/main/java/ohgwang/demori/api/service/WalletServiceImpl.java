@@ -11,17 +11,24 @@ import org.web3j.protocol.http.HttpService;
 @Service
 public class WalletServiceImpl implements WalletService{
 
-    static public final Web3j web3j = Web3j.build(new HttpService());
+    private final Web3j web3j = Web3j.build(new HttpService());
 
     @Autowired
     WalletRepository walletRepository;
 
     @Override
-    public void registWallet(User user, String address) {
-        Wallet wallet = new Wallet();
-        wallet.setAddress(address);
-        wallet.setUser(user);
+    public void registAddress(User user, String address) {
+        Wallet wallet = walletRepository.findByUser(user);
+        if(wallet == null){
+            wallet = new Wallet();
+            wallet.setAddress(address);
+            wallet.setUser(user);
+        }else{
+            wallet.setAddress(address);
+        }
         walletRepository.save(wallet);
 
     }
+
+
 }

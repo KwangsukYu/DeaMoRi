@@ -26,6 +26,7 @@ public class Wallet {
 
 
     @OneToOne
+    @JoinColumn(name = "user_pk",unique = true)
     private User user;
 
 
