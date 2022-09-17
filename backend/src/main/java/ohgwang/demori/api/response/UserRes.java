@@ -22,7 +22,7 @@ public class UserRes{
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
-		res.setUserId(user.getUserid());
+		res.setUserId(user.getUserId());
 		res.setUserName(user.getUsername());
 		res.setRole(user.getRole());
 		return res;

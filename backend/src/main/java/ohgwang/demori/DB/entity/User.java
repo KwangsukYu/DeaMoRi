@@ -21,7 +21,7 @@ public class User {
 	@Column(name = "user_pk")
 	private int id;
 
-	private String userid;
+	private String userId;
 	private String password;
 	private String username;
 	private String role;
