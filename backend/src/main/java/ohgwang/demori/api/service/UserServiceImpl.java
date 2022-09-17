@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getUserByUserId(String userId) {
 		// TODO Auto-generated method stub
-		User user = userRepository.findByUserid(userId);
+		User user = userRepository.findByUserId(userId);
 		if(user != null) {
 			return user;
 		}else {
@@ -35,7 +35,8 @@ public class UserServiceImpl implements UserService{
 		if (registerInfo.getPassword().length()<4) {
 			return user;
 		}
-		user.setUserid(registerInfo.getUserId());
+
+		user.setUserId(registerInfo.getUserId());
 		user.setUsername(registerInfo.getUserName());
 		user.setRole("ROLE_USER");
 		user.setPassword(passwordEncoder.encode(registerInfo.getPassword()));
