@@ -21,7 +21,7 @@ public class User {
 	@Column(name = "user_pk")
 	private int id;
 
-	private String userid;
+	private String userId;
 	private String password;
 	private String username;
 	private String role;
@@ -29,6 +29,10 @@ public class User {
 	@CreationTimestamp
 	@JsonFormat(timezone = "Asia/Seoul", pattern = "yyyy-MM-dd HH:mm")
 	private Timestamp createDate;
+
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	private Wallet wallet;
 
 
 }

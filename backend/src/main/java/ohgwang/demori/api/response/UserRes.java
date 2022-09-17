@@ -1,6 +1,8 @@
 package ohgwang.demori.api.response;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import ohgwang.demori.DB.entity.User;
@@ -10,20 +12,19 @@ import ohgwang.demori.DB.entity.User;
  */
 @Getter
 @Setter
-//@ApiModel("UserResponse")
+@ApiModel("UserResponse")
 public class UserRes{
-	//@ApiModelProperty(name="User ID")
+	@ApiModelProperty(name="User ID")
 	String userId;
 	String userName;
-	String nickName;
-	String email;
-	String profileUrl;
+	String address;
 	String role;
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
-		res.setUserId(user.getUserid());
+		res.setUserId(user.getUserId());
 		res.setUserName(user.getUsername());
+		res.setAddress(user.getWallet().getAddress());
 		res.setRole(user.getRole());
 		return res;
 	}

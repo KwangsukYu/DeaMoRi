@@ -53,7 +53,7 @@ public class SsafyUserDetails implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return user.getUserid();
+		return user.getUserId();
 	}
 
 	@Override
