@@ -24,6 +24,12 @@ public class Wallet {
     private String address;
     private String transactionHash;
 
+
+    @OneToOne
+    private User user;
+
+
+    ///////////////////////////////////////////////////////////
     public void addTransactionHash(String hash){
         String addHash = this.transactionHash + "," + hash;
         this.transactionHash = addHash;

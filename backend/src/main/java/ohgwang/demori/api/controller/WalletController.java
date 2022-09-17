@@ -2,8 +2,11 @@ package ohgwang.demori.api.controller;
 
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.request.UserRegisterPostReq;
+import ohgwang.demori.api.service.WalletService;
 import ohgwang.demori.common.model.response.BaseResponseBody;
+import ohgwang.demori.common.util.AuthenticationUtil;
 import org.jetbrains.annotations.TestOnly;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -32,15 +35,27 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/api/wallet")
 public class WalletController {
-    Web3j web3j = Web3j.build(new HttpService());
+
+    final private String SUCCESS = "SUCCESS";
+    final private String FAIL = "FAIL";
+
+    @Autowired
+    AuthenticationUtil authenticationUtil;
+
+    @Autowired
+    WalletService walletService;
 
     @PostMapping()
     public ResponseEntity<? extends BaseResponseBody> registWallet(
             Authentication authentication, @RequestBody String address) {
 
-
-
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "SUCCESS"));
+        User user = authenticationUtil.getAuthenticationUser(authentication);
+        try {
+            walletService.registWallet(user, address);
+        }catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
+        }
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
     }
 
 
