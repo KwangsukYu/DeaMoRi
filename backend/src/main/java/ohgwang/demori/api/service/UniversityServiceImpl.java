@@ -60,4 +60,9 @@ public class UniversityServiceImpl implements UniversityService{
 
         return universityRes;
     }
+
+    @Override
+    public University getUniversity(String id) {
+        return universityRepository.getById(Integer.parseInt(id));
+    }
 }

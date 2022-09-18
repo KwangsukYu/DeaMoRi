@@ -1,6 +1,7 @@
 package ohgwang.demori.api.controller;
 
 import io.swagger.annotations.*;
+import ohgwang.demori.DB.entity.University;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.response.AddressRes;
 import ohgwang.demori.api.response.BaseRes;
@@ -79,9 +80,33 @@ public class UniversityController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }
-
-
     }
+
+
+    @GetMapping("")
+    @ApiOperation(value = "대학 정보 보기")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "리스트 없음"),
+            @ApiResponse(code = 400, message = "잘못된 요청"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<UniversityRes> getUniversity(
+            @RequestParam @ApiParam(value = "id") String id) {
+        try {
+            University u = universityService.getUniversity(id);
+            if(u == null){
+                return ResponseEntity.status(400).body(null);
+            }else{
+                return ResponseEntity.status(200).body(UniversityRes.of(u));
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
+
 
 
 

@@ -15,8 +15,11 @@ import ohgwang.demori.DB.entity.User;
 @Setter
 @ApiModel("UniversityResponse")
 public class UniversityRes {
+	@ApiModelProperty(name="대학교 ID")
+	private int id;
+
 	@ApiModelProperty(name="대학교 이름")
-	String universityName;
+	private String universityName;
 
 	@ApiModelProperty(name="대학교 홈페이지, 웹메일")
 	private String homepage;
@@ -27,6 +30,7 @@ public class UniversityRes {
 	
 	public static UniversityRes of(University university) {
 		UniversityRes res = new UniversityRes();
+		res.setId(university.getId());
 		res.setHomepage(university.getHomepage());
 		res.setUniversityAddress(university.getUniAddress());
 		res.setUniversityName(university.getUniName());
