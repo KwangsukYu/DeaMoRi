@@ -56,15 +56,16 @@ public class WalletServiceImpl implements WalletService{
         TransactionReceipt transactionReceipt = transfer.sendFunds(address, BigDecimal.valueOf(coin), Convert.Unit.WEI).sendAsync().get();
         org.web3j.protocol.core.methods.response.Transaction t  = web3j.ethGetTransactionByHash(transactionReceipt.getTransactionHash()).send().getTransaction().get();
 
-        Transaction transaction = new Transaction();
-        transaction.setTransactionHash(transactionReceipt.getTransactionHash());
-
-        transaction.setBlockHash(t.getBlockHash());
-        transaction.setBlockNumber(t.getBlockNumber().toString());
-        transaction.setFromAddress(t.getFrom());
-        transaction.setToAddress(t.getTo());
-        transaction.setGas(t.getGas().toString());
-        transaction.setValue(t.getValue().toString());
+        Transaction transaction = Transaction.builder()
+                .blockHash(t.getBlockHash())
+                .blockNumber(t.getBlockNumber().toString())
+                .transactionHash(transactionReceipt.getTransactionHash())
+                .gas(t.getGas().toString())
+                .value(t.getValue().toString())
+                .fromAddress(t.getFrom())
+                .toAddress(t.getTo())
+                .isRemit(false)
+                .build();
 
         transactionRepository.save(transaction);
 
