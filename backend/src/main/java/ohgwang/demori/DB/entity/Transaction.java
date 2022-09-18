@@ -30,10 +30,18 @@ public class Transaction { //
     private String toAddress;
     private String gas;
     private String value;
-    private boolean isRemit;   // 송금여부 true 보내는 쪽, false 받는 쪽 트랜잭션
+    private String isRemit;   // 송금여부 1 보내는 쪽, 0 받는 쪽 트랜잭션
+
+    @ManyToOne
+    @JoinColumn(name = "wallet_pk")
+    private Wallet wallet;
+
+
+
+    ////////////////////////////////////////
 
     @Builder
-    public Transaction(String transactionHash, String blockHash, String blockNumber, String fromAddress, String toAddress, String gas, String value, boolean isRemit) {
+    public Transaction(String transactionHash, String blockHash, String blockNumber, String fromAddress, String toAddress, String gas, String value, String isRemit, Wallet wallet) {
         this.transactionHash = transactionHash;
         this.blockHash = blockHash;
         this.blockNumber = blockNumber;
@@ -42,6 +50,7 @@ public class Transaction { //
         this.gas = gas;
         this.value = value;
         this.isRemit = isRemit;
+        this.wallet = wallet;
     }
 }
 
