@@ -30,8 +30,8 @@ public class User {
 	@JsonFormat(timezone = "Asia/Seoul", pattern = "yyyy-MM-dd HH:mm")
 	private Timestamp createDate;
 
-
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@OneToOne
+	@JoinColumn(name = "wallet_pk",unique = true)
 	private Wallet wallet;
 
 

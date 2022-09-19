@@ -1,5 +1,6 @@
 package ohgwang.demori.DB.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -29,18 +30,27 @@ public class Transaction { //
     private String toAddress;
     private String gas;
     private String value;
+    private String isRemit;   // 송금여부 1 보내는 쪽, 0 받는 쪽 트랜잭션
+
+    @ManyToOne
+    @JoinColumn(name = "wallet_pk")
+    private Wallet wallet;
 
 
-    //
-//    @ManyToOne
-//    @JoinColumn(name = "from_wallet_pk")
-//    Wallet from;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "to_wallet_pk")
-//    Wallet to;
-//
 
+    ////////////////////////////////////////
 
+    @Builder
+    public Transaction(String transactionHash, String blockHash, String blockNumber, String fromAddress, String toAddress, String gas, String value, String isRemit, Wallet wallet) {
+        this.transactionHash = transactionHash;
+        this.blockHash = blockHash;
+        this.blockNumber = blockNumber;
+        this.fromAddress = fromAddress;
+        this.toAddress = toAddress;
+        this.gas = gas;
+        this.value = value;
+        this.isRemit = isRemit;
+        this.wallet = wallet;
+    }
 }
 
