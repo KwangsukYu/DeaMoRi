@@ -32,7 +32,7 @@ public class UniversityController {
     @Autowired
     UniversityService universityService;
 
-    @GetMapping("")
+    @GetMapping("/list")
     @ApiOperation(value = "대학 전체 리스트")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
