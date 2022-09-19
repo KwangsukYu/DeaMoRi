@@ -17,13 +17,13 @@ function App() {
       <NavBar />
         <Routes>
           <Route path='/' element={<Home/>}></Route>
-          <Route path='/Leagues' element={<Leagues/>}></Route>
-          <Route path='/Rankings' element={<Rankings/>}></Route>
-          <Route path='/University' element={<University/>}></Route>
+          <Route path='/leagues' element={<Leagues/>}></Route>
+          <Route path='/rankings' element={<Rankings/>}></Route>
+          <Route path='/university' element={<University/>}></Route>
           
-          <Route path='/Login' element={<Login/>}></Route>
-          <Route path='/MyPage' element={<MyPage/>}></Route>
-          <Route path='/SingUp' element={<SingUp/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/mypage' element={<MyPage/>}></Route>
+          <Route path='/singup' element={<SingUp/>}></Route>
         </Routes>
       </BrowserRouter>
 

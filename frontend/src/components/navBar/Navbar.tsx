@@ -80,7 +80,7 @@ const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.href} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.text} onClick={handleCloseNavMenu}>
                   <Link style={{textDecoration: "none"}} to={`/${page.href}`}>{page.text}</Link>
                 </MenuItem>
               ))}
