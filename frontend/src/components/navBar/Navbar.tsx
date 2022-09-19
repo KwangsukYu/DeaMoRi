@@ -16,9 +16,9 @@ import { Link } from 'react-router-dom';
 
 // const pages = ['대회', '랭킹', '대학'];
 const pages = [
-  { text: '대회', href: 'leagues' },
-  { text: '랭킹', href: 'rankings' },
-  { text: '대학', href: 'university' },
+  { text: '대회', href: 'Leagues' },
+  { text: '랭킹', href: 'Rankings' },
+  { text: '대학', href: 'University' },
 ];
 const settings = ['Login', 'Singup', 'MyPage'];
 
