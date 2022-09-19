@@ -88,9 +88,9 @@ const Navbar = () => {
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link style={{textDecoration: "none"}} to={`/${page.href}`}>
+              <Link key={page.text} style={{textDecoration: "none"}} to={`/${page.href}`}>
               <Button
-                key={page.href}
+                key={page.text}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
