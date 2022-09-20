@@ -10,6 +10,8 @@ import Login from "pages/user/Login";
 import MyPage from "pages/user/MyPage";
 import SingUp from "pages/user/SignUp";
 import Edit from "pages/user/Edit";
+import CreateRoom from "pages/live/CreateRoom";
+import LivePage from "pages/live//LivePage";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/signup" element={<SingUp />}></Route>
           <Route path="/edit" element={<Edit />}></Route>
+          <Route path="/createroom/:id" element={<CreateRoom />}></Route>
+          <Route path="/live/:title" element={<LivePage />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
