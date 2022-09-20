@@ -1,141 +1,77 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import DAEMORI_Nav from 'assets/DAEMORI_Nav.png'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./NavBar.scss";
+import NavLogo from "assets/images/DAMORI_navBar.svg";
+import UserDummy from "assets/images/UserDummy.svg";
+import Badge from "assets/images/RewardBadge.svg";
 
-// const pages = ['대회', '랭킹', '대학'];
-const pages = [
-  { text: '대회', href: 'leagues' },
-  { text: '랭킹', href: 'rankings' },
-  { text: '대학', href: 'university' },
-];
-const settings = ['Login', 'Singup', 'MyPage'];
-
-const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+function NavBar() {
+  const [dropDown, setdropDown] = useState(false);
+  const [active, setActive] = useState("대회");
 
   return (
-    <AppBar position="static"  style={{ background: '#1C1C1C' }} >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* DAEMORI LOGO */}
-          <Link style={{textDecoration: "none"}} to={`/`}>
-            <img src={DAEMORI_Nav} alt="DAEMORI_Nav" width={180} />
-          </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              {/* Side Menu icon */}
-              <MenuIcon  />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page.text} onClick={handleCloseNavMenu}>
-                  <Link style={{textDecoration: "none"}} to={`/${page.href}`}>{page.text}</Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link key={page.text} style={{textDecoration: "none"}} to={`/${page.href}`}>
-              <Button
-                key={page.text}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+    <div id="navbar">
+      <div className="navbar">
+        <div className="navbar-content">
+          <div className="navbar-content-logo">
+            <img className="navbar-logo" src={NavLogo} alt="" />
+          </div>
+          <div className="navbar-content-tap">
+            <div className="navbar-content-tap-menu">
+              <Link
+                className={active === "대회" ? "active" : ""}
+                to="leagues"
+                onClick={() => setActive("대회")}
               >
-                {page.text}
-              </Button>
+                대회
               </Link>
-            ))}
-          </Box>
-          
-          {/* Profile 영역(Box~BoX) */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Link style={{textDecoration: "none"}} to={`/${setting}`}>
-                    <Typography textAlign="center">{setting}</Typography>
+              <Link
+                className={active === "랭킹" ? "active" : ""}
+                onClick={() => setActive("랭킹")}
+                to="rankings"
+              >
+                랭킹
+              </Link>
+              <Link
+                className={active === "대학" ? "active" : ""}
+                onClick={() => setActive("대학")}
+                to="university"
+              >
+                대학
+              </Link>
+            </div>
+            {/* <div className="navbar-content-tap-login">
+              <Link to="login">로그인</Link>
+            </div> */}
+            <div className="navbar-content-tap-profile">
+              <div>닉네임은팔글자임</div>
+              <div className="badge-container">
+                <img src={Badge} alt="school-icon" />
+              </div>
+              <div className="profile-container">
+                <button type="button" onClick={() => setdropDown(!dropDown)}>
+                  <img src={UserDummy} alt="dummy" />
+                </button>
+              </div>
+              {dropDown && (
+                <div className="profile-dropdown">
+                  <Link onClick={() => setActive("")} to="mypage">
+                    마이페이지
                   </Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-        </Toolbar>
-      </Container>
-    </AppBar>
+                  <Link onClick={() => setActive("")} to="mypage">
+                    회원정보수정
+                  </Link>
+                  <Link onClick={() => setActive("")} to="login">
+                    로그아웃
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-};
-export default Navbar;
+}
+
+export default NavBar;
