@@ -27,14 +27,14 @@ function Rankings() {
           </h3>
         </div>
         <div className="bar">
-          {bar == "uni" ? (
+          {bar === "uni" ? (
             <div className="bar-state-uni"></div>
           ) : (
             <div className="bar-state-spon"></div>
           )}
         </div>
         <div className="tab-main">
-          {bar == "uni" ? (
+          {bar === "uni" ? (
             <UniRankings></UniRankings>
           ) : (
             <SponRankings></SponRankings>

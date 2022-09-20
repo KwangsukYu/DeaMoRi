@@ -9,8 +9,12 @@ function SponRankings() {
     { rank: "5", name: "이성조", price: "1000000" },
   ];
   const RankMain = universities.map((uni) => {
+    if (uni.rank === "1") {
+
+    }
     return (
       <div className="rank-main">
+        {/* <img src={`${}`} alt="" /> */}
         <p className="rank-main-rank">{uni.rank}</p>
         <p className="rank-main-name">{uni.name}</p>
         <p className="rank-main-money">{uni.price} MOKO</p>
