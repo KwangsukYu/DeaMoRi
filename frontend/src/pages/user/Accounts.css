@@ -1,0 +1,130 @@
+#login {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#login .input-list {
+  display: flex;
+  width: 600px;
+  height: 800px;
+  border: 1px solid;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1c1c1c;
+}
+#login .input-list .logo {
+  width: 215px;
+  height: 185px;
+}
+#login .input-list .login-title {
+  font-size: 60px;
+  margin-top: 0;
+  color: white;
+}
+#login .input-list .inputform {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  min-height: 50px;
+  margin-block: 10px;
+  border-radius: 15px;
+  border: 1px solid;
+  padding-inline: 20px;
+  /* padding-block: 5px; */
+  /* max-width: 360px; */
+  /* margin-inline: auto; */
+}
+#login .input-list .nickname-form {
+  position: relative;
+}
+#login .input-list .nickname-form .IDcheck {
+  position: absolute;
+  top: 15px;
+  left: 245px;
+  color: #797979;
+}
+#login .input-list .inputform-nickname {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  min-height: 50px;
+  margin-block: 10px;
+  border-radius: 15px;
+  border: 1px solid;
+  padding-inline: 20px;
+  /* padding-block: 5px; */
+  /* max-width: 360px; */
+  /* margin-inline: auto; */
+}
+#login .input-list input:disabled {
+  background: #c4c4c4;
+}
+#login .input-list .submit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+  margin-block: 10px;
+  border-radius: 15px;
+  border: 1px solid #ff7f22;
+  padding-inline: 20px;
+  padding-block: 5px;
+  max-width: 280px;
+  margin-inline: auto;
+  background-color: #ff7f22;
+  color: white;
+  font-size: 23px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button_box {
+  display: flex;
+  justify-content: center;
+}
+
+.uni_button {
+  width: 200px;
+  min-height: 90px;
+  margin-block: 10px;
+  border-radius: 15px;
+  border: 1px solid #5b89e6;
+  padding-inline: 20px;
+  padding-block: 5px;
+  max-width: 280px;
+  margin-inline: auto;
+  background-color: #5b89e6;
+  color: white;
+  font-size: 23px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 30px;
+}
+
+.btn_upload {
+  width: 280px;
+  height: 50px;
+  background: #fff;
+  border: 1px solid rgb(77, 77, 77);
+  border-radius: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn_upload :hover {
+  background: rgb(77, 77, 77);
+  color: #fff;
+}
+
+#file {
+  display: none;
+}
