@@ -1,21 +1,31 @@
-import React from 'react'
-import style from './Accounts.module.css'
-import logo from 'assets/images/DAEMORI_logo.svg'
+import React from "react";
+import "./Accounts.scss";
+import logo from "assets/images/DAEMORI_logo.svg";
 const Login = () => {
   return (
     <>
-      <div className={`${style.box}`}>
-        <div className={`${style.input_list}`}>
-          <img className={`${style.logo}`} src={logo} alt="logo" />
-          <h1 style={{ fontSize: '70px', marginTop: 0, color: 'white' }}>Login</h1>
+      <div id="login">
+        <div className="input-list">
+          <img className="logo" src={logo} alt="logo" />
+          <h1 className="login-title">Login</h1>
           <form action="">
-            <input className={`${style.inputform}`} name='id' type="text" placeholder='ID' />
-            <input className={`${style.inputform}`} name='password' type="text" placeholder='PASSWORD' />
-            <button className={`${style.submit_button}`}>SUBMIT</button>
+            <input
+              className="inputform"
+              name="id"
+              type="text"
+              placeholder="ID"
+            />
+            <input
+              className="inputform"
+              name="password"
+              type="text"
+              placeholder="PASSWORD"
+            />
+            <button className="submit-button">SUBMIT</button>
           </form>
         </div>
       </div>
     </>
   );
-}
+};
 export default Login;
