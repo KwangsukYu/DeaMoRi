@@ -73,7 +73,7 @@
 #navbar .navbar-content-tap-profile .profile-container {
   margin-left: 20px;
 }
-#navbar .navbar-content-tap-profile .profile-container > img {
+#navbar .navbar-content-tap-profile .profile-container img {
   width: 32px;
 }
 #navbar .navbar-content-tap-profile .profile-container:hover {

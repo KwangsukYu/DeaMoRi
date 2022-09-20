@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from './rootReducer';
-import logger from 'redux-logger';
-
+import logger from "redux-logger";
+import reducer from "./rootReducer";
 
 const store = configureStore({
-  reducer: reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-})
+  reducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
+});
 
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;
 export default store;

@@ -1,4 +1,11 @@
+import React from "react";
+import "./MyPage.scss";
+
 function MyPage() {
-  return <div>여긴 MyPage 페이지</div>;
+  return (
+    <div id="mypage">
+      <div className="mypage" />
+    </div>
+  );
 }
 export default MyPage;

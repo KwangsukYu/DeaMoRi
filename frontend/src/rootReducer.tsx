@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import users from './Slices/users';
+import users from "./Slices/users";
 
 // 만들어 놓은 리듀서들을 합친다.
 const reducer = combineReducers({
