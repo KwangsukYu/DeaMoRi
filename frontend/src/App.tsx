@@ -3,7 +3,7 @@ import Home from "pages/home/Home";
 import Leagues from "pages/leagues/Leagues";
 import Rankings from "pages/rankings/Rankings";
 import University from "pages/university/University";
-import NavBar from "components/navBar/Navbar";
+import NavBar from "components/navBar/NavBar";
 
 // user
 import Login from "pages/user/Login";
