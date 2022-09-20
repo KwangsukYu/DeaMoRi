@@ -1,3 +1,4 @@
+import './NavBar.scss';
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,8 +12,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import DAEMORI_Nav from 'assets/DAEMORI_Nav.png'
 import { Link } from 'react-router-dom';
+import DAMORI_navBar from 'assets/images/DAMORI_navBar.svg'
 
 // const pages = ['대회', '랭킹', '대학'];
 const pages = [
@@ -47,7 +48,7 @@ const Navbar = () => {
         <Toolbar disableGutters>
           {/* DAEMORI LOGO */}
           <Link style={{textDecoration: "none"}} to={`/`}>
-            <img src={DAEMORI_Nav} alt="DAEMORI_Nav" width={180} />
+            <img src={DAMORI_navBar} alt="DAMORI_navBar" width={180} />
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

@@ -1,6 +1,6 @@
 import React from 'react'
 import style from './Accounts.module.css'
-import logo from 'assets/DAEMORI_Main.png'
+import logo from 'assets/images/DAEMORI_logo.svg'
 const Login = () => {
   return (
     <>
