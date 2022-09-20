@@ -1,0 +1,85 @@
+#rankings {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#rankings .background {
+  display: flex;
+  width: 800px;
+  height: 1000px;
+  border: 1px solid;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #1c1c1c;
+}
+#rankings .background .button-list {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+#rankings .background .button-list .tab-title {
+  color: white;
+  margin-left: 40px;
+}
+#rankings .background .bar {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #acacac;
+  background-color: #acacac;
+  width: 750px;
+  height: 2px;
+}
+#rankings .background .bar-state-uni {
+  border: 1px solid #ff9900;
+  background-color: #ff9900;
+  width: 60px;
+  height: 2px;
+  margin-left: 23px;
+}
+#rankings .background .bar-state-spon {
+  border: 1px solid #ff9900;
+  background-color: #ff9900;
+  width: 70px;
+  height: 2px;
+  margin-left: 95px;
+}
+#rankings #rank-box .rank-menu {
+  display: flex;
+  color: white;
+}
+#rankings #rank-box .rank-menu-rank {
+  margin-left: 63px;
+}
+#rankings #rank-box .rank-menu-name {
+  margin-left: 149px;
+}
+#rankings #rank-box .rank-menu-money {
+  margin-left: 292px;
+}
+#rankings #rank-box .rank-main {
+  display: flex;
+  margin-left: 25px;
+  margin-top: 20px;
+  width: 750px;
+  height: 100px;
+  border: 1px solid;
+  border-radius: 15px;
+  background-color: #ffffff;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+#rankings #rank-box .rank-main-rank {
+  margin-left: 30px;
+}
+#rankings #rank-box .rank-main-name {
+  width: 300px;
+  text-align: center;
+}
+#rankings #rank-box .rank-main-money {
+  width: 300px;
+  text-align: center;
+}
