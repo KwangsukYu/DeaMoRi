@@ -6,12 +6,22 @@
   .container {
     display: flex;
     width: 800px;
-    height: 500px;
+    height: 1000px;
     border: 1px solid;
     border-radius: 20px;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
     background-color: #1c1c1c;
+    border-top: 4px solid #5c6bc0;
+    border-bottom: 4px solid #5c6bc0;
+    .createLeague {
+      margin-top: 10px;
+      background-color: #ff7f22;
+      border-radius: 10px;
+      color: white;
+      width: 120px;
+      height: 40px;
+    }
   }
 }
