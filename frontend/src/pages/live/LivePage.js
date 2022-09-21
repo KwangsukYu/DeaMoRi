@@ -1,15 +1,16 @@
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
-import UserVideoComponent from "./UserVideoComponent";
-// import '../routers.css';
 import { connect } from "react-redux";
+import UserVideoComponent from "./UserVideoComponent";
+import "./LivePage.scss";
+// import '../routers.css';
 import LiveChat from "./LiveChat";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMicrophone, faMicrophoneSlash, faVideo, faVideoSlash, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 // import '../../components/Products/products.css'
 
-const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:4443";
+const OPENVIDU_SERVER_URL = "https://localhost:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 class LivePage extends Component {
@@ -22,13 +23,13 @@ class LivePage extends Component {
     this.state = {
       loading: false,
       myId: "user",
-      params: params,
+      params,
       title: params[2],
       myUserName: "user",
       session: undefined,
       mainStreamManager: undefined,
       publisher: undefined,
-      subscribers: [],
+      subscribers: []
     };
 
     this.state.myId = "user";
@@ -46,78 +47,105 @@ class LivePage extends Component {
 
   handleChangeSessionId(e) {
     this.setState({
-      mySessionId: e.target.value,
+      mySessionId: e.target.value
     });
   }
 
   handleChangeUserName(e) {
     this.setState({
-      myUserName: e.target.value,
+      myUserName: e.target.value
     });
   }
 
   handleMainVideoStream(stream) {
-    if (this.state.mainStreamManager !== stream) {
+    const { mainStreamManager } = this.state;
+    if (mainStreamManager !== stream) {
       this.setState({
-        mainStreamManager: stream,
+        mainStreamManager: stream
       });
     }
   }
 
-  deleteSubscriber(streamManager) {
-    let subscribers = this.state.subscribers;
-    console.log(subscribers);
-    let index = subscribers.indexOf(streamManager, 0);
-    if (index > -1) {
-      subscribers.splice(index, 1);
-      this.setState({
-        subscribers: subscribers,
-      });
-    }
+  getToken(sessionId) {
+    return new Promise((resolve, reject) => {
+      const data = {};
+      const { title } = this.state;
+      console.log("타이틀", title);
+      console.log("서벼유알엘", OPENVIDU_SERVER_URL);
+      console.log(
+        `Basic ${btoa(
+          `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
+        )}Content-Type:application/json`
+      );
+      axios
+        .post(
+          `${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${title}/connection`,
+          data,
+          {
+            headers: {
+              Authorization: `Basic ${btoa(
+                `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
+              )}`,
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(response => {
+          console.log(response.data.token);
+          resolve(response.data.token);
+        })
+        .catch(error => {
+          console.log(error);
+          // document.location.href = '/'
+        });
+    });
   }
 
   joinSession() {
     this.OV = new OpenVidu();
     this.setState(
       {
-        session: this.OV.initSession(),
+        session: this.OV.initSession()
       },
       () => {
-        var mySession = this.state.session;
-        mySession.on("streamCreated", (event) => {
-          var subscriber = mySession.subscribe(event.stream, undefined);
-          var subscribers = this.state.subscribers;
+        const { session } = this.state;
+        session.on("streamCreated", event => {
+          const subscriber = session.subscribe(event.stream, undefined);
+          const { subscribers } = this.state;
           subscribers.push(subscriber);
-          console.log("마이세션", mySession);
+          console.log("마이세션", session);
           console.log("참여자", subscriber);
           console.log("참여자들", subscribers);
 
           this.setState({
-            subscribers: subscribers,
+            subscribers
           });
         });
 
-        mySession.on("streamDestroyed", (event) => {
+        session.on("streamDestroyed", event => {
           console.log("딜리트");
 
           this.deleteSubscriber(event.stream.streamManager);
         });
 
-        mySession.on("exception", (exception) => {});
-        this.getToken(this.state.mySessionId).then((token) => {
-          mySession
+        // session.on("exception",exception => {});
+        const { mySessionId } = this.state;
+        const { myUserName } = this.state;
+        const { myId } = this.state;
+
+        this.getToken(mySessionId).then(token => {
+          session
             .connect(token, {
-              clientData: this.state.myUserName,
-              clientId: this.state.myId,
+              clientData: myUserName,
+              clientId: myId
             })
             .then(async () => {
-              console.log("코넥투송공");
-              var devices = await this.OV.getDevices();
-              var videoDevices = devices.filter(
-                (device) => device.kind === "videoinput"
+              const devices = await this.OV.getDevices();
+              const videoDevices = devices.filter(
+                device => device.kind === "videoinput"
               );
 
-              var publisher = this.OV.initPublisher(undefined, {
+              const publisher = this.OV.initPublisher(undefined, {
                 audioSource: undefined,
                 videoSource: videoDevices[0].deviceId,
                 publishAudio: true,
@@ -125,15 +153,15 @@ class LivePage extends Component {
                 resolution: "800x500",
                 frameRate: 30,
                 insertMode: "APPEND",
-                mirror: true,
+                mirror: true
               });
 
-              mySession.publish(publisher);
+              session.publish(publisher);
 
               this.setState({
                 currentVideoDevice: videoDevices[0],
                 mainStreamManager: publisher,
-                publisher: publisher,
+                publisher
               });
 
               // else {
@@ -151,7 +179,7 @@ class LivePage extends Component {
               //     mirror: true,
               //   });
 
-              //   mySession.publish(publisher2);
+              //   session.publish(publisher2);
 
               //   this.setState({
               //     currentVideoDevice: videoDevices2[0],
@@ -161,10 +189,10 @@ class LivePage extends Component {
 
               // }
               this.setState({
-                loading: true,
+                loading: true
               });
             })
-            .catch((error) => {
+            .catch(error => {
               console.log(error);
               console.log(
                 "There was an error connecting to the session:",
@@ -178,10 +206,10 @@ class LivePage extends Component {
   }
 
   leaveSession() {
-    const mySession = this.state.session;
+    const { session } = this.state;
 
-    if (mySession) {
-      mySession.disconnect();
+    if (session) {
+      session.disconnect();
     }
 
     this.OV = null;
@@ -191,153 +219,122 @@ class LivePage extends Component {
       mySessionId: "user",
       myUserName: "user",
       mainStreamManager: undefined,
-      publisher: undefined,
+      publisher: undefined
     });
   }
 
   async CameraOff() {
-    if (this.state.nowCamera) {
-      this.state.publisher.publishVideo(false);
+    const { nowCamera } = this.state;
+    const { publisher } = this.state;
+    if (nowCamera) {
+      publisher.publishVideo(false);
       this.setState({
-        nowCamera: false,
+        nowCamera: false
       });
     } else {
-      this.state.publisher.publishVideo(true);
+      publisher.publishVideo(true);
       this.setState({
-        nowCamera: true,
+        nowCamera: true
       });
     }
   }
 
   async VoiceOff() {
-    if (this.state.nowVoice) {
+    const { nowVoice } = this.state;
+    const { publisher } = this.state;
+    if (nowVoice) {
       console.log("보이스오프");
-      this.state.publisher.publishAudio(false);
+      publisher.publishAudio(false);
       this.setState({
-        nowVoice: false,
+        nowVoice: false
       });
     } else {
       console.log("보이스온");
-      this.state.publisher.publishAudio(true);
+      publisher.publishAudio(true);
       this.setState({
-        nowVoice: true,
+        nowVoice: true
+      });
+    }
+  }
+
+  deleteSubscriber(streamManager) {
+    const { subscribers } = this.state;
+    console.log(subscribers);
+    const index = subscribers.indexOf(streamManager, 0);
+    if (index > -1) {
+      subscribers.splice(index, 1);
+      this.setState({
+        subscribers
       });
     }
   }
 
   deleteSession() {
     console.log(this.state);
-
+    const { title } = this.state;
     axios
-      .delete(
-        OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + this.state.title,
-        {
-          headers: {
-            Authorization:
-              "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
-          },
+      .delete(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${title}`, {
+        headers: {
+          Authorization: `Basic                ${btoa(
+            `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
+          )}`
         }
-      )
+      })
       .then((document.location.href = `/`));
   }
+
   render() {
-    if (this.state.session === undefined) {
+    const { session } = this.state;
+    const { subscribers } = this.state;
+    const { RoomTitle } = this.state;
+    const { params } = this.state;
+    const { myId } = this.state;
+    const { mainStreamManager } = this.state;
+
+    if (session === undefined) {
       this.joinSession();
     }
+
     return (
       <div>
-        <div className="test">
-          <p>{this.state.subscribers.length}</p>
-          {this.state.session !== undefined ? (
-            <div id="session">
-              <div className="liveTitle my-3">
-                <h3 id="session-title">{this.state.RoomTitle}</h3>
-              </div>
+        {session !== undefined ? (
+          <div className="live">
+            <div className="live-box">
+              <h3 className="live-box-title">{RoomTitle}</h3>
+              <p className="live-box-subscribers">{subscribers.length}</p>
 
-              <button onClick={this.deleteSession} className="delete-button">
+              <UserVideoComponent
+                className="live-box-video"
+                streamManager={mainStreamManager}
+              />
+            </div>
+            <div className="live-chat">
+              <LiveChat props={this.state} />
+            </div>
+            <div className="live-admin">
+              <button
+                type="button"
+                onClick={this.deleteSession}
+                className="delete-button"
+              >
                 중계방 제거
               </button>
-              <button onClick={this.CameraOff}>카메라 전환</button>
-              <button onClick={this.VoiceOff}>소리전환</button>
-
-              {/*관리자 페이지 수정필요 */}
-              <div className="live_container">
-                <div>
-                  {this.state.params[2] === this.state.myId ? (
-                    <div
-                      className="d-flex justify-content-between"
-                      style={{ marginInline: "2rem" }}
-                    >
-                      {/* <div>
-                        {this.state.nowCamera ? <FontAwesomeIcon style={{ color: 'rgba(58, 153, 74, 0.918)', cursor: 'pointer' }} className='exiticon mx-3 iconsize' onClick={this.CameraOff} icon={faVideo} size="1x" /> :
-                          <FontAwesomeIcon className='mx-2 iconsize' style={{ color: 'rgba(238, 81, 81, 0.918)', cursor: 'pointer' }} onClick={this.CameraOff} icon={faVideoSlash} size="1x" />}
-                        {this.state.nowVoice ? <FontAwesomeIcon style={{ color: 'rgba(58, 153, 74, 0.918)', cursor: 'pointer' }} className='exiticon mx-3 iconsize' onClick={this.VoiceOff} icon={faMicrophone} size="1x" /> :
-                          <FontAwesomeIcon className='mx-2 iconsize' style={{ color: 'rgba(238, 81, 81, 0.918)', cursor: 'pointer' }} onClick={this.VoiceOff} icon={faMicrophoneSlash} size="1x" />}
-                        <FontAwesomeIcon className='mx-2 iconsize' style={{ color: 'rgba(238, 81, 81, 0.918)', cursor: 'pointer' }} onClick={this.deleteSession} icon={faArrowRightFromBracket} />
-                      </div> */}
-                    </div>
-                  ) : null}
-                  <div>
-                    <div className="livebox">
-                      <UserVideoComponent
-                        className="livebox2"
-                        streamManager={this.state.mainStreamManager}
-                      />
-                    </div>
-                    <div className="livebox">
-                      <UserVideoComponent
-                        className="livebox2"
-                        streamManager={this.state.subscribers[0]}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <LiveChat props={this.state} />
-                </div>
-              </div>
+              <button type="button" onClick={this.CameraOff}>
+                카메라 전환
+              </button>
+              <button type="button" onClick={this.VoiceOff}>
+                소리전환
+              </button>
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
     );
   }
-
-  getToken(sessionId) {
-    return new Promise((resolve, reject) => {
-      var data = {};
-      console.log("타이틀", this.state.title);
-      console.log("서벼유알엘", OPENVIDU_SERVER_URL);
-      axios
-        .post(
-          OPENVIDU_SERVER_URL +
-            "/openvidu/api/sessions/" +
-            this.state.title +
-            "/connection",
-          data,
-          {
-            headers: {
-              Authorization:
-                "Basic " + btoa("OPENVIDUAPP:" + OPENVIDU_SERVER_SECRET),
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((response) => {
-          console.log(response.data.token);
-          resolve(response.data.token);
-        })
-        .catch((error) => {
-          console.log(error);
-          // document.location.href = '/'
-        });
-    });
-  }
 }
 
-const mapStateToProps = (state) => ({
-  storeInfo: 1,
+const mapStateToProps = state => ({
+  storeInfo: 1
 });
 
 export default connect(mapStateToProps)(LivePage);

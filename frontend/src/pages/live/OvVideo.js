@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import '../routers.css'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faExpand } from '@fortawesome/free-solid-svg-icons'
 
 export default class OpenViduVideoComponent extends Component {
-
   constructor(props) {
     super(props);
     this.videoRef = React.createRef();
     this.openFullscreen = this.openFullscreen.bind(this);
   }
 
-  componentDidUpdate(props) {
-    if (props && !!this.videoRef) {
-      this.props.streamManager.addVideoElement(this.videoRef.current);
+  componentDidMount() {
+    const { streamManager } = this.props;
+    console.log("프롭스", streamManager);
+    if (this.props && !!this.videoRef) {
+      streamManager.addVideoElement(this.videoRef.current);
     }
   }
-
-  componentDidMount() {
-    if (this.props && !!this.videoRef) {
+  componentDidUpdate(props) {
+    if (props && !!this.videoRef) {
       this.props.streamManager.addVideoElement(this.videoRef.current);
     }
   }
@@ -27,27 +27,31 @@ export default class OpenViduVideoComponent extends Component {
     var elem = document.getElementById("myvideo");
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
-    }
-    else if (elem.mozRequestFullScreen) { /* Firefox */
+    } else if (elem.mozRequestFullScreen) {
+      /* Firefox */
       elem.mozRequestFullScreen();
-    }
-    else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    } else if (elem.webkitRequestFullscreen) {
+      /* Chrome, Safari & Opera */
       elem.webkitRequestFullscreen();
-    }
-    else if (elem.msRequestFullscreen) { /* IE/Edge */
+    } else if (elem.msRequestFullscreen) {
+      /* IE/Edge */
       elem.msRequestFullscreen();
     }
   }
 
-
   render() {
     return (
-      <div className='openviduTag'>
-        <video className="videosize" id="myvideo" autoPlay={true} ref={this.videoRef} playsInline={true} controls />
+      <div className="openviduTag">
+        <video
+          className="videosize"
+          id="myvideo"
+          autoPlay={true}
+          ref={this.videoRef}
+          playsInline={true}
+          controls
+        />
         {/* <FontAwesomeIcon className='iconsize fullscreenbutton fullscreenbutton_margin' onClick={this.openFullscreen} icon={faExpand} size="1x" /> */}
       </div>
-
     );
   }
-
 }
