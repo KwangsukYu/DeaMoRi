@@ -16,7 +16,13 @@ function Rankings() {
               setBar("uni");
             }}
           >
-            <p className="tab-button-title">대학</p>
+            <p
+              className={
+                bar === "uni" ? "tab-button-title-active" : "tab-button-title"
+              }
+            >
+              대학
+            </p>
           </button>
           <button
             className="tab-button"
@@ -25,7 +31,13 @@ function Rankings() {
               setBar("spon");
             }}
           >
-            <p className="tab-button-title">후원</p>
+            <p
+              className={
+                bar === "spon" ? "tab-button-title-active" : "tab-button-title"
+              }
+            >
+              후원
+            </p>
           </button>
         </div>
         <div className="bar">
