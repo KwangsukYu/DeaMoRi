@@ -21,6 +21,7 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint", "prettier"],
   rules: {
+    "class-methods-use-this": false,
     "react/prop-types": "off",
     "react/jsx-filename-extension": [
       2,

@@ -103,6 +103,7 @@ class LivePage extends Component {
 
   joinSession() {
     this.OV = new OpenVidu();
+    console.log("이닛세션", this.OV.initSession());
     this.setState(
       {
         session: this.OV.initSession()

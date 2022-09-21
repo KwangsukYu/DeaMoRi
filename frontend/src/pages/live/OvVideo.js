@@ -12,19 +12,21 @@ export default class OpenViduVideoComponent extends Component {
 
   componentDidMount() {
     const { streamManager } = this.props;
-    console.log("프롭스", streamManager);
     if (this.props && !!this.videoRef) {
       streamManager.addVideoElement(this.videoRef.current);
     }
   }
+
   componentDidUpdate(props) {
+    const { streamManager } = this.props;
     if (props && !!this.videoRef) {
-      this.props.streamManager.addVideoElement(this.videoRef.current);
+      streamManager.addVideoElement(this.videoRef.current);
     }
   }
 
   openFullscreen() {
-    var elem = document.getElementById("myvideo");
+    const { streamManager } = this.props;
+    const elem = document.getElementById("myvideo");
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) {
@@ -43,11 +45,12 @@ export default class OpenViduVideoComponent extends Component {
     return (
       <div className="openviduTag">
         <video
+          muted
           className="videosize"
           id="myvideo"
-          autoPlay={true}
+          autoPlay
           ref={this.videoRef}
-          playsInline={true}
+          playsInline
           controls
         />
         {/* <FontAwesomeIcon className='iconsize fullscreenbutton fullscreenbutton_margin' onClick={this.openFullscreen} icon={faExpand} size="1x" /> */}

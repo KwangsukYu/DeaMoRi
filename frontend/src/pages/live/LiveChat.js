@@ -25,17 +25,6 @@ function LiveChat(props) {
       });
       setMessageList([...messageListData]);
     });
-    if (myProps.myUserName) {
-      const welcome = {
-        message: `${myProps.myUserName}님이 입장하셨습니다.`,
-        nickname: myProps.myUserName,
-        streamId: myProps.streamId
-      };
-      myProps.session.signal({
-        data: JSON.stringify(welcome),
-        type: "chat"
-      });
-    }
   }, []);
 
   const sendMessage = () => {
@@ -76,20 +65,17 @@ function LiveChat(props) {
         <p className="chatting-title-text">채팅방</p>
       </div>
 
-      <div className="chatbox">
-        <div className="">
-          {messageList.map(data => (
-            <div key={v4()} id="remoteUsers" className="">
-              <div className="liveChatItem">
-                <div className="livechatcontent">
-                  <p className="chatnickname">{data.nickname}</p>
-                  <p className="livechatbox2">{data.message}</p>
-                </div>
-              </div>
+      <div className="chatting-box">
+        {messageList.map(data => (
+          <div key={v4()} id="remoteUsers" className="">
+            <div className="chatting-box-content">
+              <p className="chatting-box-content-nickname">
+                {data.nickname} : {data.message}
+              </p>
+              {/* <p>{data.message}</p> */}
             </div>
-          ))}
-          to
-        </div>
+          </div>
+        ))}
       </div>
 
       <div className="chatting-input">

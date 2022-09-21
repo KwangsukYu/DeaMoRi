@@ -13,7 +13,28 @@
     &-text {
       color: #ffffff;
       margin: 15px;
+      padding-top: 10px;
+      text-align: center;
     }
+  }
+  &-box {
+    padding-left: 36px;
+    padding-right: 3px;
+    display: inline-block;
+    width: 357px;
+    height: 570px;
+    overflow-y: auto;
+    &-content {
+      table-layout: fixed;
+      word-break: break-all;
+      &-nickname {
+        margin-top: 0px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  &-box::-webkit-scrollbar {
+    background-color: black;
   }
 
   &-input {
@@ -34,7 +55,7 @@
       height: 50px;
       font-weight: bold;
       border-color: #949393;
-      margin-left: 4px;
+      margin-left: 8px;
       border: 0px;
       outline: 0px;
     }
