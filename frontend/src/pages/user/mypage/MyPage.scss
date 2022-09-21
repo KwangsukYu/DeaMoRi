@@ -1,0 +1,164 @@
+#mypage {
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  .mypage {
+    padding: 50px;
+    border-bottom: 4px solid #5c6bc0;
+    border-top: 4px solid #5c6bc0;
+
+    border-radius: 15px;
+    margin-top: 60px;
+    width: 600px;
+    background-color: #1c1c1c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-profile {
+      display: flex;
+      align-items: center;
+      width: 360px;
+      height: 100px;
+
+      &-img {
+        width: 100px;
+        height: 100px;
+      }
+      &-detail {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 260px;
+        height: 100px;
+        .mypage-username {
+          font-weight: bold;
+          font-size: 24px;
+        }
+        .mypage-school {
+          display: flex;
+          &-icon {
+            margin-right: 12px;
+          }
+          &-chk {
+            background-color: #5c6bc0;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            border-radius: 15px;
+            width: 100px;
+            height: 36px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    &-wallet {
+      color: black;
+      margin-top: 60px;
+      width: 400px;
+      height: 160px;
+      border-radius: 15px;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      &-icon {
+        position: absolute;
+        top: -20px;
+        > img {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      &-detail {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        > p {
+          font-weight: 600;
+          font-size: 20px;
+          width: 100%;
+          text-align: center;
+          > span {
+            font-size: 24px;
+            color: #5c6bc0;
+          }
+        }
+        &-btn {
+          display: flex;
+          justify-content: space-evenly;
+          > button {
+            border: none;
+            background-color: #5c6bc0;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            border-radius: 15px;
+            width: 100px;
+            height: 36px;
+            cursor: pointer;
+          }
+          :nth-child(2) {
+            background-color: #ff7f22;
+          }
+        }
+      }
+    }
+    &-badge {
+      margin-top: 20px;
+      width: 100%;
+      > p {
+        font-size: 20px;
+        margin-left: 32px;
+        font-weight: bold;
+      }
+      &-container {
+        padding: 12px;
+        display: flex;
+        flex-flow: wrap;
+        background-color: #fff;
+        border-radius: 15px;
+
+        .badge-item {
+          width: 72px;
+          height: 72px;
+        }
+      }
+    }
+    &-support {
+      margin-top: 20px;
+      width: 100%;
+      > p {
+        font-size: 20px;
+        margin-left: 32px;
+        font-weight: bold;
+      }
+      &-desc {
+        height: 40px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border-radius: 15px;
+        color: black;
+        text-align: center;
+        font-weight: bold;
+        background-color: #5c6bc0;
+        color: white;
+        :nth-child(1) {
+          width: 30%;
+        }
+        :nth-child(2) {
+          width: 45%;
+        }
+        :nth-child(3) {
+          width: 35%;
+        }
+      }
+    }
+  }
+}

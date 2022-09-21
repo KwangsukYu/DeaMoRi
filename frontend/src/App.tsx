@@ -8,7 +8,7 @@ import NavBar from "components/navBar/Navbar";
 
 // user
 import Login from "pages/user/Login";
-import MyPage from "pages/user/MyPage";
+import MyPage from "pages/user/mypage/MyPage";
 import SingUp from "pages/user/SignUp";
 import Edit from "pages/user/Edit";
 
