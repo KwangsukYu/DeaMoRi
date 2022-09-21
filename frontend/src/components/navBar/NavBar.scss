@@ -85,11 +85,12 @@
             }
           }
           .profile-dropdown {
+            z-index: 10;
             font-size: 16px;
             background-color: #1c1c1c;
             width: 200px;
             position: absolute;
-            top: 48px;
+            top: 50px;
             display: flex;
             flex-direction: column;
             align-items: center;
