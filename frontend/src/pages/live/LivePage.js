@@ -8,9 +8,6 @@ import LiveChat from "./LiveChat";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMicrophone, faMicrophoneSlash, faVideo, faVideoSlash, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 // import '../../components/Products/products.css'
-import MoodIcon from "@mui/icons-material/Mood";
-import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
-import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 
 const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
@@ -114,6 +111,7 @@ class LivePage extends Component {
               clientId: this.state.myId,
             })
             .then(async () => {
+              console.log("코넥투송공");
               var devices = await this.OV.getDevices();
               var videoDevices = devices.filter(
                 (device) => device.kind === "videoinput"
@@ -249,16 +247,20 @@ class LivePage extends Component {
     return (
       <div>
         <div className="test">
+          <p>{this.state.subscribers.length}</p>
           {this.state.session !== undefined ? (
             <div id="session">
               <div className="liveTitle my-3">
                 <h3 id="session-title">{this.state.RoomTitle}</h3>
               </div>
 
-              <button onClick={this.deleteSession}>delete</button>
+              <button onClick={this.deleteSession} className="delete-button">
+                중계방 제거
+              </button>
               <button onClick={this.CameraOff}>카메라 전환</button>
               <button onClick={this.VoiceOff}>소리전환</button>
-              {/* 수정필요 */}
+
+              {/*관리자 페이지 수정필요 */}
               <div className="live_container">
                 <div>
                   {this.state.params[2] === this.state.myId ? (
@@ -323,6 +325,7 @@ class LivePage extends Component {
           }
         )
         .then((response) => {
+          console.log(response.data.token);
           resolve(response.data.token);
         })
         .catch((error) => {

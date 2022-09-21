@@ -1,3 +1,51 @@
-// .watching {
-//   color: #ffffff;
-// }
+.chatting {
+  background: #d9d9d9;
+  width: 400px;
+  height: 714px;
+  border-radius: 15px;
+  font-size: 20px;
+  // display: flex;
+  line-height: 200p;
+  position: relative;
+  &-title {
+    // display: flex;
+    justify-content: center;
+    &-text {
+      color: #ffffff;
+      margin: 15px;
+    }
+  }
+
+  &-input {
+    // display: flex;
+    position: absolute;
+    top: 635px;
+    left: 21px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+    align-items: flex-end;
+
+    &-button {
+      color: #ffffff;
+      background-color: #9b1c31;
+      border-radius: 15px;
+      width: 75px;
+      height: 50px;
+      font-weight: bold;
+      border-color: #949393;
+      margin-left: 4px;
+      border: 0px;
+      outline: 0px;
+    }
+    &-form {
+      border-radius: 15px;
+      width: 258px;
+      height: 44px;
+      padding-left: 15px;
+      border-color: #949393;
+      border: 0px;
+      outline: 0px;
+    }
+  }
+}

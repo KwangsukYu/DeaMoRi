@@ -30,7 +30,8 @@ function CreateRoom() {
       .then((response) => {
         console.log("CREATE SESION", response);
         console.log(response.data.id);
-        document.openvidution.href = `/live/broadcast${title}`;
+        // document.openvidution.href = `/live/broadcast${title}`;
+        window.location.href = `/live/broadcast${title}`;
       })
       .catch((err) => {
         console.log("createsessionerr", err);

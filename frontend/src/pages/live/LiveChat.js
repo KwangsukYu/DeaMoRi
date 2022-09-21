@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 // import OfferBuyerModal from "../Modals/OfferBuyerModal";
 // import OfferSellerModal from "../Modals/OfferSellerModal";
 // import LiveNowUser from "../Modals/LiveNowUser";
+import "./LiveChat.scss";
 
 const LiveChat = (props) => {
   console.log("통신", props.props.subscribers);
@@ -73,62 +74,42 @@ const LiveChat = (props) => {
     setNowUserModal(false);
   }
 
-  // function openBuyOfferModal(){
-  //   setBuyOfferModalOpen(true);
-  // }
-  // function closeBuyOfferModal(){
-  //   setBuyOfferModalOpen(false);
-  // }
-
-  // function openSellOfferModal(){
-  //   setSellOfferModalOpen(true);
-  // }
-  // function closeSellOfferModal(){
-  //   setSellOfferModalOpen(false);
-  // }
-
   return (
     <>
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <div>
-          <h5 style={{ marginInline: "1rem" }}>채팅방</h5>
+      <div className="chatting">
+        <div className="chatting-title">
+          <p className="chatting-title-text">채팅방</p>
         </div>
-        <p className="watching">{props.props.subscribers.length}</p>
-        <div></div>
-      </div>
-      <div className="chatbox">
-        <div className="">
-          {messageList.map((data, i) => (
-            <div key={i} id="remoteUsers" className="">
-              <div className="liveChatItem">
-                <div className="livechatcontent">
-                  <p className="chatnickname">{data.nickname}</p>
-                  <p className="livechatbox2">{data.message}</p>
+
+        <div className="chatbox">
+          <div className="">
+            {messageList.map((data, i) => (
+              <div key={i} id="remoteUsers" className="">
+                <div className="liveChatItem">
+                  <div className="livechatcontent">
+                    <p className="chatnickname">{data.nickname}</p>
+                    <p className="livechatbox2">{data.message}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="livechatInput">
-        <input
-          className="inputform3"
-          placeholder="메세지를 입력하세요"
-          id="chatInput"
-          value={message}
-          onChange={handleChange}
-          onKeyPress={handlePressKey}
-          autoComplete="off"
-        />
-        <button className="inputsubmitbutton" onClick={sendMessage}>
-          전송
-        </button>
+
+        <div className="chatting-input">
+          <input
+            className="chatting-input-form"
+            placeholder="메세지를 입력하세요"
+            id="chatInput"
+            value={message}
+            onChange={handleChange}
+            onKeyPress={handlePressKey}
+            autoComplete="off"
+          />
+          <button className="chatting-input-button" onClick={sendMessage}>
+            전송
+          </button>
+        </div>
       </div>
     </>
   );

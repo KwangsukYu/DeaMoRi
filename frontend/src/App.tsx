@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "pages/home/Home";
 import Leagues from "pages/leagues/Leagues";
@@ -29,6 +30,14 @@ function App() {
           <Route path="/edit" element={<Edit />}></Route>
           <Route path="/createroom/:id" element={<CreateRoom />}></Route>
           <Route path="/live/:title" element={<LivePage />}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/leagues" element={<Leagues />} />
+          <Route path="/rankings" element={<Rankings />} />
+          <Route path="/university" element={<University />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/signup" element={<SingUp />} />
+          <Route path="/edit" element={<Edit />} />
         </Routes>
       </div>
     </BrowserRouter>
