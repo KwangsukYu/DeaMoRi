@@ -20,9 +20,19 @@
   margin-top: 20px;
   margin-left: 20px;
 }
-#rankings .background .button-list .tab-title {
+#rankings .background .button-list .tab-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
   color: white;
   margin-left: 40px;
+}
+#rankings .background .button-list .tab-button-title {
+  font-weight: bold;
+  font-size: 20px;
 }
 #rankings .background .bar {
   margin-left: auto;
@@ -35,7 +45,7 @@
 #rankings .background .bar-state-uni {
   border: 1px solid #ff9900;
   background-color: #ff9900;
-  width: 60px;
+  width: 70px;
   height: 2px;
   margin-left: 23px;
 }
@@ -44,11 +54,13 @@
   background-color: #ff9900;
   width: 70px;
   height: 2px;
-  margin-left: 95px;
+  margin-left: 110px;
 }
 #rankings #rank-box .rank-menu {
   display: flex;
   color: white;
+  font-weight: bold;
+  font-size: large;
 }
 #rankings #rank-box .rank-menu-rank {
   margin-left: 63px;

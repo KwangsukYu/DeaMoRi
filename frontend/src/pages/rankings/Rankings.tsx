@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Rankings.scss";
 import UniRankings from "./UniRankings";
 import SponRankings from "./SponRankings";
@@ -9,36 +9,34 @@ function Rankings() {
     <div id="rankings">
       <div className="background">
         <div className="button-list">
-          <h3
-            className="tab-title"
+          <button
+            className="tab-button"
+            type="button"
             onClick={() => {
               setBar("uni");
             }}
           >
-            대학
-          </h3>
-          <h3
-            className="tab-title"
+            <p className="tab-button-title">대학</p>
+          </button>
+          <button
+            className="tab-button"
+            type="button"
             onClick={() => {
               setBar("spon");
             }}
           >
-            후원
-          </h3>
+            <p className="tab-button-title">후원</p>
+          </button>
         </div>
         <div className="bar">
           {bar === "uni" ? (
-            <div className="bar-state-uni"></div>
+            <div className="bar-state-uni" />
           ) : (
-            <div className="bar-state-spon"></div>
+            <div className="bar-state-spon" />
           )}
         </div>
         <div className="tab-main">
-          {bar === "uni" ? (
-            <UniRankings></UniRankings>
-          ) : (
-            <SponRankings></SponRankings>
-          )}
+          {bar === "uni" ? <UniRankings /> : <SponRankings />}
         </div>
       </div>
     </div>

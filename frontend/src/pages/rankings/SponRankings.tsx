@@ -1,3 +1,4 @@
+import React from "react";
 import "./Rankings.scss";
 
 function SponRankings() {
@@ -6,14 +7,11 @@ function SponRankings() {
     { rank: "2", name: "유광석", price: "4000000" },
     { rank: "3", name: "이민재", price: "3000000" },
     { rank: "4", name: "김성민", price: "2000000" },
-    { rank: "5", name: "이성조", price: "1000000" },
+    { rank: "5", name: "이성조", price: "1000000" }
   ];
-  const RankMain = universities.map((uni) => {
-    if (uni.rank === "1") {
-
-    }
+  const RankMain = universities.map(uni => {
     return (
-      <div className="rank-main">
+      <div key={uni.rank} className="rank-main">
         {/* <img src={`${}`} alt="" /> */}
         <p className="rank-main-rank">{uni.rank}</p>
         <p className="rank-main-name">{uni.name}</p>
