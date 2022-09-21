@@ -1,3 +1,108 @@
+<<<<<<< HEAD
 .AppBar {
     position: sticky;
 }
+=======
+#navbar {
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  .active {
+    color: #5c6bc0;
+  }
+  height: 64px;
+  width: 100%;
+  background-color: #1c1c1c;
+
+  .navbar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-bottom: 2px solid #5c6bc0;
+    &-content {
+      display: flex;
+      align-items: center;
+      height: 64px;
+      color: white;
+      width: 1200px;
+      &-logo {
+        height: 40px;
+        .navbar-logo {
+          height: 100%;
+          width: 200px;
+        }
+      }
+      &-tap {
+        width: 1000px;
+        display: flex;
+        justify-content: space-between;
+        a {
+          font-size: 16px;
+          display: block;
+          font-weight: bold;
+          text-decoration: none;
+        }
+        &-menu {
+          display: flex;
+          align-items: center;
+          a {
+            margin-left: 100px;
+          }
+          width: 400px;
+        }
+        &-login {
+          display: flex;
+          align-items: center;
+          font-weight: bold;
+          margin-right: 100px;
+        }
+        &-profile {
+          font-weight: bold;
+          margin-right: 100px;
+          display: flex;
+          align-items: center;
+          position: relative;
+          font-size: 12px;
+          .badge-container {
+            margin-left: 12px;
+            > img {
+              width: 32px;
+              height: 32px;
+            }
+          }
+          .profile-container {
+            margin-left: 20px;
+            img {
+              width: 32px;
+            }
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          .profile-dropdown {
+            font-size: 16px;
+            background-color: #1c1c1c;
+            width: 200px;
+            position: absolute;
+            top: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            a {
+              text-align: center;
+              width: 100%;
+              padding-top: 20px;
+              padding-bottom: 20px;
+              &:hover {
+                background-color: #5c6bc0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+>>>>>>> f10013d3721fce0c4080b972afc7a2e42c580de0

@@ -1,48 +1,16 @@
-import './NavBar.scss';
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
-import DAMORI_navBar from 'assets/images/DAMORI_navBar.svg'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./NavBar.scss";
+import NavLogo from "assets/images/DAMORI_navBar.svg";
+import UserDummy from "assets/images/UserDummy.svg";
+import Badge from "assets/images/RewardBadge.svg";
 
-// const pages = ['대회', '랭킹', '대학'];
-const pages = [
-  { text: '대회', href: 'leagues' },
-  { text: '랭킹', href: 'rankings' },
-  { text: '대학', href: 'university' },
-];
-const settings = ['Login', 'Singup', 'MyPage'];
-
-const Navbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+function NavBar() {
+  const [dropDown, setdropDown] = useState(false);
+  const [active, setActive] = useState("대회");
 
   return (
+<<<<<<< HEAD
     <AppBar position="sticky"  style={{ background: '#1C1C1C' }} >
       <Container maxWidth="xl" style={{ width: 800 }}>
         <Toolbar disableGutters >
@@ -94,10 +62,24 @@ const Navbar = () => {
                 key={page.text}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+=======
+    <div id="navbar">
+      <div className="navbar">
+        <div className="navbar-content">
+          <div className="navbar-content-logo">
+            <img className="navbar-logo" src={NavLogo} alt="" />
+          </div>
+          <div className="navbar-content-tap">
+            <div className="navbar-content-tap-menu">
+              <Link
+                className={active === "대회" ? "active" : ""}
+                to="leagues"
+                onClick={() => setActive("대회")}
+>>>>>>> f10013d3721fce0c4080b972afc7a2e42c580de0
               >
-                {page.text}
-              </Button>
+                대회
               </Link>
+<<<<<<< HEAD
             ))}
           </Box>
           
@@ -137,6 +119,55 @@ const Navbar = () => {
         </Toolbar>
       </Container>
     </AppBar>
+=======
+              <Link
+                className={active === "랭킹" ? "active" : ""}
+                onClick={() => setActive("랭킹")}
+                to="rankings"
+              >
+                랭킹
+              </Link>
+              <Link
+                className={active === "대학" ? "active" : ""}
+                onClick={() => setActive("대학")}
+                to="university"
+              >
+                대학
+              </Link>
+            </div>
+            {/* <div className="navbar-content-tap-login">
+              <Link to="login">로그인</Link>
+            </div> */}
+            <div className="navbar-content-tap-profile">
+              <div>닉네임은팔글자임</div>
+              <div className="badge-container">
+                <img src={Badge} alt="school-icon" />
+              </div>
+              <div className="profile-container">
+                <button type="button" onClick={() => setdropDown(!dropDown)}>
+                  <img src={UserDummy} alt="dummy" />
+                </button>
+              </div>
+              {dropDown && (
+                <div className="profile-dropdown">
+                  <Link onClick={() => setActive("")} to="mypage">
+                    마이페이지
+                  </Link>
+                  <Link onClick={() => setActive("")} to="mypage">
+                    회원정보수정
+                  </Link>
+                  <Link onClick={() => setActive("")} to="login">
+                    로그아웃
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+>>>>>>> f10013d3721fce0c4080b972afc7a2e42c580de0
   );
-};
-export default Navbar;
+}
+
+export default NavBar;

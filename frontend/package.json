@@ -17,6 +17,11 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-slick": "^0.23.10",
     "@types/redux-logger": "^3.0.9",
+<<<<<<< HEAD
+=======
+    "axios": "^0.27.2",
+    "react": "^18.2.0",
+>>>>>>> f10013d3721fce0c4080b972afc7a2e42c580de0
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
@@ -50,5 +55,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1"
   }
 }

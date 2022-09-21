@@ -1,35 +1,33 @@
-import React, { FormEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { ReducerType } from '../../rootReducer';
-import { User, addUser } from '../../Slices/users';
+import React, { FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ReducerType } from "../../rootReducer";
+import { User, addUser } from "../../Slices/users";
 
 function Home() {
-  const users = useSelector<ReducerType, User[]>(state=> state.users);
+  const users = useSelector<ReducerType, User[]>(state => state.users);
   const dispatch = useDispatch();
-  
-  const [ name, setName ] = useState('');
-  
+
+  const [name, setName] = useState("");
+
   const handleChangeName = (e: any) => {
     setName(e.target.value);
-  }
-  
-  const handleAddUser = (e:FormEvent) => {
+  };
+
+  const handleAddUser = (e: FormEvent) => {
     e.preventDefault();
     dispatch(addUser({ name } as User));
-    setName('');
-  }
+    setName("");
+  };
   return (
-    <>
-      <div>
+    <div>
       <form onSubmit={handleAddUser}>
-        <input type='text' value={name} onChange={handleChangeName} />
-        <button type='submit'>Add User</button>
+        <input type="text" value={name} onChange={handleChangeName} />
+        <button type="submit">Add User</button>
       </form>
-      {users.map(user=> (
+      {users.map(user => (
         <div key={user.id}>{user.name}</div>
       ))}
     </div>
-    </>
   );
 }
 
