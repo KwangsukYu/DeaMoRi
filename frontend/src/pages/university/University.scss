@@ -88,7 +88,7 @@
         .button-list {
           display: flex;
           margin-top: 20px;
-          margin-left: 20px;
+          margin-left: 25px;
 
           .tab-button {
             -webkit-appearance: none;
@@ -98,7 +98,7 @@
             border: 0;
             outline: 0;
             color: white;
-            margin-left: 40px;
+            margin-left: 30px;
             &-title {
               font-weight: bold;
               font-size: 20px;
@@ -115,7 +115,7 @@
           margin-right: auto;
           border: 1px solid #acacac;
           background-color: #acacac;
-          width: 750px;
+          width: 700px;
           height: 2px;
           position: relative;
           // margin-top: 1px;
@@ -124,7 +124,7 @@
             background-color: #5c6bc0;
             width: 70px;
             height: 2px;
-            margin-left: 23px;
+            margin-left: 4px;
             margin-bottom: 1px;
             position: absolute;
             top: -1px;
@@ -135,7 +135,7 @@
             background-color: #5c6bc0;
             width: 70px;
             height: 2px;
-            margin-left: 110px;
+            margin-left: 90px;
             margin-bottom: 1px;
             position: absolute;
             top: -1px;

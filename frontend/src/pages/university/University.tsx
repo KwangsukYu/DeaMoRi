@@ -4,6 +4,7 @@ import uniLogo1 from "assets/images/uni1.png";
 import rankLogo1 from "assets/images/rank1.png";
 import LeaguesIng from "./LeaguesIng";
 import LeaguesEd from "./LeaguesEd";
+import Trophy from "./Trophy";
 
 function University() {
   const [bar, setBar] = useState("ing");
@@ -27,6 +28,7 @@ function University() {
           <p className="uni-box-text-total">40전 32승 8패</p>
           <p className="uni-box-text-price">총 후원 금 : 300,000,000 eth</p>
         </div>
+        <Trophy />
         <div id="rankings">
           <div className="modal">
             <div className="button-list">
@@ -51,7 +53,7 @@ function University() {
                 className="tab-button"
                 type="button"
                 onClick={() => {
-                  setBar("spon");
+                  setBar("ed");
                 }}
               >
                 <p
