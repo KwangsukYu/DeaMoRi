@@ -49,7 +49,11 @@ function NavBar() {
                 <img src={Badge} alt="school-icon" />
               </div>
               <div className="profile-container">
-                <button type="button" onClick={() => setdropDown(!dropDown)}>
+                <button
+                  className="nav-button"
+                  type="button"
+                  onClick={() => setdropDown(!dropDown)}
+                >
                   <img src={UserDummy} alt="dummy" />
                 </button>
               </div>

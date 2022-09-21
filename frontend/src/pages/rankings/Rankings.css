@@ -1,0 +1,148 @@
+#rankings {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#rankings .background {
+  display: flex;
+  width: 800px;
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #1c1c1c;
+  border-top: 4px solid #5c6bc0;
+  border-bottom: 4px solid #5c6bc0;
+}
+#rankings .background .button-list {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+#rankings .background .button-list .tab-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  color: white;
+  margin-left: 40px;
+}
+#rankings .background .button-list .tab-button-title {
+  font-weight: bold;
+  font-size: 20px;
+}
+#rankings .background .button-list .tab-button-title-active {
+  font-weight: bold;
+  font-size: 20px;
+  color: #5c6bc0;
+}
+#rankings .background .bar {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #acacac;
+  background-color: #acacac;
+  width: 750px;
+  height: 2px;
+  position: relative;
+}
+#rankings .background .bar-state-uni {
+  border: 1px solid #5c6bc0;
+  background-color: #5c6bc0;
+  width: 70px;
+  height: 2px;
+  margin-left: 23px;
+  margin-bottom: 1px;
+  position: absolute;
+  top: -1px;
+  left: 2px;
+}
+#rankings .background .bar-state-spon {
+  border: 1px solid #5c6bc0;
+  background-color: #5c6bc0;
+  width: 70px;
+  height: 2px;
+  margin-left: 110px;
+  margin-bottom: 1px;
+  position: absolute;
+  top: -1px;
+  left: 6px;
+}
+#rankings #rank-box .rank-menu {
+  display: flex;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+}
+#rankings #rank-box .rank-menu-rank {
+  margin-left: 63px;
+  top: 1px;
+  bottom: 1px;
+}
+#rankings #rank-box .rank-menu-name {
+  margin-left: 175px;
+}
+#rankings #rank-box .rank-menu-price {
+  margin-left: 272px;
+}
+#rankings #rank-box .rank-main {
+  display: flex;
+  margin-left: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 750px;
+  height: 100px;
+  border: 1px solid;
+  border-radius: 15px;
+  background-color: #ffffff;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+#rankings #rank-box .rank-main .logo-box {
+  position: relative;
+}
+#rankings #rank-box .rank-main .logo-box .rankLogo1 {
+  position: absolute;
+  left: -35px;
+  bottom: -33px;
+}
+#rankings #rank-box .rank-main .logo-box .rankLogo2 {
+  position: absolute;
+  left: -36px;
+  bottom: -33px;
+}
+#rankings #rank-box .rank-main .logo-box .rankLogo3 {
+  position: absolute;
+  left: -36px;
+  bottom: -33px;
+}
+#rankings #rank-box .rank-main .logo-box .rankLogo4 {
+  position: absolute;
+  left: -26px;
+  bottom: -33px;
+}
+#rankings #rank-box .rank-main .logo-box .rank-main-rank {
+  position: absolute;
+  bottom: -29px;
+  left: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  width: 50px;
+}
+#rankings #rank-box .rank-main-name {
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+#rankings #rank-box .rank-main-price {
+  width: 200px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
