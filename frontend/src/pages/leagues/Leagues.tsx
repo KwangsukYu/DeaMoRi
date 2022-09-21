@@ -1,8 +1,20 @@
+import "./Leagues.scss";
+import Carousel from "./Carousel";
+import Poster from "./Poster";
+import BasicPagination from "./BasicPagenation";
+// import SwipeableTextMobileStepper from "./SwipeableTextMobileStepper";
+
 function Leagues() {
-    return(
+  return (
+    <div id="leagues">
+      <div className="container">
+        <Carousel />
         <div>
-            여긴 League 페이지
+          <Poster />
         </div>
-    )
+        <BasicPagination />
+      </div>
+    </div>
+  );
 }
-export default Leagues
+export default Leagues;

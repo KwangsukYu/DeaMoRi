@@ -43,11 +43,11 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static"  style={{ background: '#1C1C1C' }} >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="sticky"  style={{ background: '#1C1C1C' }} >
+      <Container maxWidth="xl" style={{ width: 800 }}>
+        <Toolbar disableGutters >
           {/* DAEMORI LOGO */}
-          <Link style={{textDecoration: "none"}} to={`/`}>
+          <Link style={{textDecoration: "none"}} to={`/`}  >
             <img src={DAMORI_navBar} alt="DAMORI_navBar" width={180} />
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -125,11 +125,11 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Link style={{textDecoration: "none"}} to={`/${setting}`}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </Link>
-                </MenuItem>
+                <Link key={setting} style={{textDecoration: "none"}} to={`/${setting}`}>
+                  <MenuItem  onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
