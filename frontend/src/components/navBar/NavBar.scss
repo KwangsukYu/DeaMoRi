@@ -68,7 +68,7 @@
           }
           .profile-container {
             margin-left: 20px;
-            .nav-button{
+            .nav-button {
               -webkit-appearance: none;
               -moz-appearance: none;
               appearance: none;
@@ -78,6 +78,7 @@
             }
             img {
               width: 32px;
+              cursor: pointer;
             }
             &:hover {
               cursor: pointer;
@@ -93,6 +94,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            border: 1px solid #5c6bc0;
+            border-top: none;
             a {
               text-align: center;
               width: 100%;

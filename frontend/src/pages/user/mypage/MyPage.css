@@ -1,0 +1,161 @@
+#mypage {
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+#mypage .mypage {
+  padding: 50px;
+  border-bottom: 4px solid #5c6bc0;
+  border-top: 4px solid #5c6bc0;
+  border-radius: 15px;
+  margin-top: 60px;
+  width: 600px;
+  background-color: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#mypage .mypage-profile {
+  display: flex;
+  align-items: center;
+  width: 360px;
+  height: 100px;
+}
+#mypage .mypage-profile-img {
+  width: 100px;
+  height: 100px;
+}
+#mypage .mypage-profile-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 260px;
+  height: 100px;
+}
+#mypage .mypage-profile-detail .mypage-username {
+  font-weight: bold;
+  font-size: 24px;
+}
+#mypage .mypage-profile-detail .mypage-school {
+  display: flex;
+}
+#mypage .mypage-profile-detail .mypage-school-icon {
+  margin-right: 12px;
+}
+#mypage .mypage-profile-detail .mypage-school-chk {
+  background-color: #5c6bc0;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 15px;
+  width: 100px;
+  height: 36px;
+  cursor: pointer;
+}
+#mypage .mypage-wallet {
+  color: black;
+  margin-top: 60px;
+  width: 400px;
+  height: 160px;
+  border-radius: 15px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+#mypage .mypage-wallet-icon {
+  position: absolute;
+  top: -20px;
+}
+#mypage .mypage-wallet-icon > img {
+  width: 40px;
+  height: 40px;
+}
+#mypage .mypage-wallet-detail {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+#mypage .mypage-wallet-detail > p {
+  font-weight: 600;
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+}
+#mypage .mypage-wallet-detail > p > span {
+  font-size: 24px;
+  color: #5c6bc0;
+}
+#mypage .mypage-wallet-detail-btn {
+  display: flex;
+  justify-content: space-evenly;
+}
+#mypage .mypage-wallet-detail-btn > button {
+  border: none;
+  background-color: #5c6bc0;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 15px;
+  width: 100px;
+  height: 36px;
+  cursor: pointer;
+}
+#mypage .mypage-wallet-detail-btn :nth-child(2) {
+  background-color: #ff7f22;
+}
+#mypage .mypage-badge {
+  margin-top: 20px;
+  width: 100%;
+}
+#mypage .mypage-badge > p {
+  font-size: 20px;
+  margin-left: 32px;
+  font-weight: bold;
+}
+#mypage .mypage-badge-container {
+  padding: 12px;
+  display: flex;
+  flex-flow: wrap;
+  background-color: #fff;
+  border-radius: 15px;
+}
+#mypage .mypage-badge-container .badge-item {
+  width: 72px;
+  height: 72px;
+}
+#mypage .mypage-support {
+  margin-top: 20px;
+  width: 100%;
+}
+#mypage .mypage-support > p {
+  font-size: 20px;
+  margin-left: 32px;
+  font-weight: bold;
+}
+#mypage .mypage-support-desc {
+  height: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 15px;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  background-color: #5c6bc0;
+  color: white;
+}
+#mypage .mypage-support-desc :nth-child(1) {
+  width: 30%;
+}
+#mypage .mypage-support-desc :nth-child(2) {
+  width: 45%;
+}
+#mypage .mypage-support-desc :nth-child(3) {
+  width: 35%;
+}
