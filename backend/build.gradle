@@ -42,7 +42,7 @@ dependencies {
 	implementation group: 'org.web3j', name: 'core', version: '5.0.0'
 	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
 	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
-햣 
+
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 }

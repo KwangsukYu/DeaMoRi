@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.UUID;
 
 @Service
 @NoArgsConstructor
@@ -34,6 +35,7 @@ public class S3Service {
 
     @PostConstruct
     public void setS3Client() {
+
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
 
         s3Client = AmazonS3ClientBuilder.standard()
@@ -42,11 +44,13 @@ public class S3Service {
                 .build();
     }
 
-    public String upload(MultipartFile file) throws IOException {
-        String fileName = file.getOriginalFilename();
+    public String upload(MultipartFile file, String link) throws IOException {
 
-        s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
+        UUID uuid = UUID.randomUUID();
+        String fileName = link + "_"+ uuid.toString() + "_"+ file.getOriginalFilename();
+
+        s3Client.putObject(new PutObjectRequest(bucket + link, fileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        return s3Client.getUrl(bucket, fileName).toString();
+        return s3Client.getUrl(bucket + link, fileName).toString();
     }
 }

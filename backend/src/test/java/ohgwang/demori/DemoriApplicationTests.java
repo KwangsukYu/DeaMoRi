@@ -11,7 +11,6 @@ class DemoriApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Web3j.build(new HttpService()).ethSendTransaction(Transaction )
 	}
 
 }
