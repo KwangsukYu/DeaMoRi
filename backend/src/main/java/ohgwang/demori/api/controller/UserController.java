@@ -52,7 +52,7 @@ public class UserController {
 		}
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
 	}
-	
+
 	@GetMapping("/me")
 	public ResponseEntity<UserRes> getUserInfo(Authentication authentication) {
 		/**
@@ -62,20 +62,20 @@ public class UserController {
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
 		String userId = userDetails.getUsername();
 		User user = userService.getUserByUserId(userId);
-		
+
 		return ResponseEntity.status(200).body(UserRes.of(user));
 	}
-	
+
 	@GetMapping("/check/id")
 	public ResponseEntity<?> getIdCheck(@RequestParam String userId){
 		User user = userService.getUserByUserId(userId);
-		
+
 		if(user == null) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
 		}
-		
+
 	}
 
 

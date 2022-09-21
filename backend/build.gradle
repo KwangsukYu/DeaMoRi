@@ -43,6 +43,8 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
 	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
 
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 }
 
 tasks.named('test') {
