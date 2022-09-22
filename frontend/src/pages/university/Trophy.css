@@ -4,7 +4,7 @@
   margin-right: auto;
   align-items: center;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 .trophy .trophy-title {
   color: white;
@@ -15,7 +15,7 @@
 }
 .trophy .trophy-box {
   margin-top: 20px;
-  width: 90%;
+  width: 700px;
 }
 .trophy .trophy-box > p {
   font-size: 20px;

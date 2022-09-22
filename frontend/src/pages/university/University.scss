@@ -1,14 +1,14 @@
 #university {
-  margin-top: 2%;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin-bottom: 60px;
   .background {
     display: flex;
     position: relative;
     width: 800px;
-    height: 1000px;
+    // height: 1000px;
     border-radius: 15px;
     flex-direction: column;
     background-color: #1c1c1c;
@@ -40,19 +40,19 @@
       text-align: start;
       &-title {
         display: flex;
-        font-size: 30px;
+        font-size: 25px;
         margin-bottom: 5px;
         align-items: center;
         justify-content: flex-start;
         position: relative;
-        margin-top: 16px;
+        margin-top: 23px;
         .rank-logo {
           margin-left: 5px;
         }
         .rank-logo-text {
           position: absolute;
-          left: 184px;
-          bottom: -16px;
+          left: 162px;
+          bottom: -8px;
         }
       }
       &-total {
@@ -61,6 +61,7 @@
         justify-content: flex-start;
         font-size: 18px;
         margin-bottom: 5px;
+        margin-top: 5px;
       }
       &-price {
         display: flex;
@@ -68,6 +69,7 @@
         justify-content: flex-start;
         font-size: 18px;
         margin-bottom: 5px;
+        margin-top: 5px;
       }
     }
     #rankings {
@@ -81,14 +83,18 @@
         // height: 1000px;
         border-radius: 15px;
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
         background-color: #1c1c1c;
+        margin-bottom: 30px;
 
         .button-list {
           display: flex;
-          margin-top: 20px;
-          margin-left: 25px;
+          /* margin-top: 20px; */
+          /* margin-left: 25px; */
+          margin: 0;
+          flex-direction: row;
+          width: 300px;
+          justify-content: space-between;
 
           .tab-button {
             -webkit-appearance: none;
@@ -98,7 +104,6 @@
             border: 0;
             outline: 0;
             color: white;
-            margin-left: 30px;
             &-title {
               font-weight: bold;
               font-size: 20px;
@@ -128,7 +133,7 @@
             margin-bottom: 1px;
             position: absolute;
             top: -1px;
-            left: 2px;
+            left: 196px;
           }
           &-state-spon {
             border: 1px solid #5c6bc0;
@@ -139,7 +144,7 @@
             margin-bottom: 1px;
             position: absolute;
             top: -1px;
-            left: 6px;
+            left: 348px;
           }
         }
       }

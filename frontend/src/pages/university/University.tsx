@@ -4,6 +4,7 @@ import uniLogo1 from "assets/images/uni1.png";
 import rankLogo1 from "assets/images/rank1.png";
 import LeaguesIng from "./LeaguesIng";
 import LeaguesEd from "./LeaguesEd";
+import UniSponRank from "./UniSponRank";
 import Trophy from "./Trophy";
 
 function University() {
@@ -26,9 +27,10 @@ function University() {
             <p className="rank-logo-text">1</p>
           </p>
           <p className="uni-box-text-total">40전 32승 8패</p>
-          <p className="uni-box-text-price">총 후원 금 : 300,000,000 eth</p>
+          <p className="uni-box-text-price">총 후원 금액 : 300,000,000 eth</p>
         </div>
         <Trophy />
+        <UniSponRank />
         <div id="rankings">
           <div className="modal">
             <div className="button-list">
