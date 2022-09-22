@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./LeagueDetail.scss";
 import SchoolIcon from "assets/images/SchoolIcon.svg";
 import SchoolIcon2 from "assets/images/SchoolIcon2.svg";
+import LeagueSupport from "./LeagueSupport";
+import TeamDetail from "./TeamDetail";
 
 function LeagueDetail() {
   const [leagueStatue, setLeagueStatue] = useState("playing");
@@ -71,6 +73,11 @@ function LeagueDetail() {
               <button type="button">대학 정보</button>
             </div>
           </div>
+        </div>
+        <LeagueSupport />
+        <div className="leaguedetail-tip">
+          <TeamDetail teamColor={teamColor1} />
+          <TeamDetail teamColor={teamColor2} />
         </div>
       </div>
     </div>
