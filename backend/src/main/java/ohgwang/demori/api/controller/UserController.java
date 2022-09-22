@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -76,6 +78,21 @@ public class UserController {
 			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
 		}
 
+	}
+
+	@PostMapping("/auth")
+	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(Authentication authentication, @RequestPart MultipartFile file){
+
+		try {
+			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+			String userId = userDetails.getUsername();
+			User user = userService.getUserByUserId(userId);
+
+			userService.uploadAuthImage(file, user);
+		}catch (Exception e){
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"FAIL"));
+		}
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
 	}
 
 

@@ -6,7 +6,10 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.util.IOUtils;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 @Service
@@ -44,13 +50,43 @@ public class S3Service {
                 .build();
     }
 
-    public String upload(MultipartFile file, String link) throws IOException {
+    public Map<String, String> upload(MultipartFile file, String link) throws IOException {
+        // T = 트로피
+        //A = 학생인증
+        //B = 뱃지
+        //P = 포스터
+
+
+        byte[] bytes = IOUtils.toByteArray(file.getInputStream());
+
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(bytes.length);
+        objectMetadata.setContentType(file.getContentType());
+
 
         UUID uuid = UUID.randomUUID();
         String fileName = link + "_"+ uuid.toString() + "_"+ file.getOriginalFilename();
 
-        s3Client.putObject(new PutObjectRequest(bucket + link, fileName, file.getInputStream(), null)
+        s3Client.putObject(new PutObjectRequest(bucket + link, fileName, file.getInputStream(), objectMetadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        return s3Client.getUrl(bucket + link, fileName).toString();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("fileName" , fileName);
+        map.put("fileUrl" , s3Client.getUrl(bucket + link, fileName).toString());
+
+
+        return map;
     }
+
+    public void delete(String fileName) throws IOException {
+        // T = 트로피
+        //A = 학생인증
+        //B = 뱃지
+        //P = 포스터
+        StringTokenizer st = new StringTokenizer(fileName ,"_");
+        String link = st.nextToken();
+
+        s3Client.deleteObject(new DeleteObjectRequest(bucket + link, fileName));
+    }
+
 }
