@@ -34,5 +34,9 @@ public class User {
 	@JoinColumn(name = "wallet_pk",unique = true)
 	private Wallet wallet;
 
+	@OneToOne
+	@JoinColumn(name = "uni_auth_pk")
+	private UniversityAuth universityAuth;
+
 
 }
