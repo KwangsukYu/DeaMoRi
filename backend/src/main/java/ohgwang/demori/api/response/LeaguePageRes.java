@@ -32,6 +32,8 @@ public class LeaguePageRes extends BaseResponseBody {
                     .leagueName(league.getLeagueId())
                     .leagueDatetime(league.getLeagueStartDatetime())
                     .build();
+
+            System.out.println(league.getTeam1().getUniName());
             res.getLeagues.add(getLeague);
         }
 
