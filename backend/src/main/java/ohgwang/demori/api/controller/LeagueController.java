@@ -45,7 +45,7 @@ public class LeagueController {
         if(league == null) {
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
         }
-        if(league.getTeam1().getUniName() == league.getTeam2().getUniName()) {
+        if(league.getTeam1().getUniName().equals(league.getTeam2().getUniName()) == true) {
             return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
         }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
@@ -66,6 +66,6 @@ public class LeagueController {
         if(leaguePage == null || leaguePage.getSize() == 0) {
             return ResponseEntity.status(204).body(BaseResponseBody.of(204, "대회가 존재하지 않습니다."));
         }
-        return ResponseEntity.status(204).body(LeaguePageRes.of(204, "대회가 존재하지 않습니다.", leaguePage));
+        return ResponseEntity.status(200).body(LeaguePageRes.of(200, SUCCESS, leaguePage));
     }
 }
