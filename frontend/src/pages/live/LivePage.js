@@ -29,7 +29,8 @@ class LivePage extends Component {
       session: undefined,
       mainStreamManager: undefined,
       publisher: undefined,
-      subscribers: []
+      subscribers: [],
+      chatSwitch: true
     };
 
     this.state.myId = "user";
@@ -114,9 +115,6 @@ class LivePage extends Component {
           const subscriber = session.subscribe(event.stream, undefined);
           const { subscribers } = this.state;
           subscribers.push(subscriber);
-          console.log("마이세션", session);
-          console.log("참여자", subscriber);
-          console.log("참여자들", subscribers);
 
           this.setState({
             subscribers
@@ -284,51 +282,70 @@ class LivePage extends Component {
       .then((document.location.href = `/`));
   }
 
+  // changeChat(chatSwitch) {
+  //   const { title } = this.state;
+  //   console.log("챗", chatSwitch);
+  //   if (chatSwitch) {
+  //     chatSwitch = false;
+  //   }
+  //   chatSwitch = true;
+  // }
+
   render() {
     const { session } = this.state;
     const { subscribers } = this.state;
-    const { RoomTitle } = this.state;
+    // const { RoomTitle } = this.state;
+    const RoomTitle = "제목입니다.";
     const { params } = this.state;
     const { myId } = this.state;
     const { mainStreamManager } = this.state;
+    const { chatSwitch } = this.state;
 
     if (session === undefined) {
       this.joinSession();
     }
 
     return (
-      <div>
-        {session !== undefined ? (
-          <div className="live">
-            <div className="live-box">
-              <h3 className="live-box-title">{RoomTitle}</h3>
-              <p className="live-box-subscribers">{subscribers.length}</p>
-
-              <UserVideoComponent
-                className="live-box-video"
-                streamManager={mainStreamManager}
-              />
+      <div className="broad">
+        <div className="main">
+          {session !== undefined ? (
+            <div className="live">
+              <div className="live-box">
+                <UserVideoComponent
+                  className="live-box-video"
+                  streamManager={mainStreamManager}
+                />
+                <div className="live-box-information">
+                  <h3 className="live-box-information-title">{RoomTitle}</h3>
+                  <p className="live-box-information-subscribers">
+                    시청자 수 : {subscribers.length}
+                  </p>
+                </div>
+              </div>
+              <div className="live-chat">
+                {chatSwitch === true ? <LiveChat props={this.state} /> : null}
+              </div>
+              {/* <button type="button" onClick={this.changeChat(chatSwitch)}>
+                채팅창끄기
+              </button> */}
             </div>
-            <div className="live-chat">
-              <LiveChat props={this.state} />
-            </div>
-            <div className="live-admin">
-              <button
-                type="button"
-                onClick={this.deleteSession}
-                className="delete-button"
-              >
-                중계방 제거
-              </button>
-              <button type="button" onClick={this.CameraOff}>
-                카메라 전환
-              </button>
-              <button type="button" onClick={this.VoiceOff}>
-                소리전환
-              </button>
-            </div>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
+        <div className="live-admin">
+          <button
+            type="button"
+            onClick={this.deleteSession}
+            className="delete-button"
+          >
+            중계방 제거
+          </button>
+          <button type="button" onClick={this.CameraOff}>
+            카메라 전환
+          </button>
+          <button type="button" onClick={this.VoiceOff}>
+            소리전환
+          </button>
+        </div>
       </div>
     );
   }

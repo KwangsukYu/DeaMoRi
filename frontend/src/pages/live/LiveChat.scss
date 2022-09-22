@@ -1,29 +1,29 @@
 .chatting {
-  background: #d9d9d9;
+  background: #252525;
   width: 400px;
-  height: 714px;
-  border-radius: 15px;
+  height: 614px;
   font-size: 20px;
-  // display: flex;
   line-height: 200p;
   position: relative;
   &-title {
-    // display: flex;
     justify-content: center;
     &-text {
       color: #ffffff;
-      margin: 15px;
+      margin-top: 0;
+      margin-inline: 15px;
+      margin-bottom: 10px;
       padding-top: 10px;
       text-align: center;
     }
   }
   &-box {
-    padding-left: 36px;
+    padding-left: 20px;
     padding-right: 3px;
     display: inline-block;
-    width: 357px;
-    height: 570px;
+    width: 375px;
+    height: 453px;
     overflow-y: auto;
+    color: #d4d4d4;
     &-content {
       table-layout: fixed;
       word-break: break-all;
@@ -34,39 +34,46 @@
     }
   }
   &-box::-webkit-scrollbar {
-    background-color: black;
+    background-color: #d9d9d9;
+    width: 9px;
+  }
+  &-box::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 8px;
   }
 
   &-input {
-    // display: flex;
+    display: flex;
     position: absolute;
-    top: 635px;
-    left: 21px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    justify-content: center;
-    align-items: flex-end;
+    bottom: 52px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding-block: 5px;
 
     &-button {
-      color: #ffffff;
-      background-color: #9b1c31;
-      border-radius: 15px;
-      width: 75px;
+      color: #d4d4d4;
+      background-color: #5c6bc0;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      width: 70px;
       height: 50px;
       font-weight: bold;
-      border-color: #949393;
-      margin-left: 8px;
+      // margin-left: 3px;
       border: 0px;
       outline: 0px;
     }
     &-form {
-      border-radius: 15px;
-      width: 258px;
-      height: 44px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      width: 300px;
+      height: 50px;
       padding-left: 15px;
-      border-color: #949393;
+      padding-block: 0px;
+      border-color: #d4d4d4;
+      color: #d4d4d4;
       border: 0px;
       outline: 0px;
+      background-color: #3c3c3c;
     }
   }
 }

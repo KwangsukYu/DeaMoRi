@@ -1,11 +1,29 @@
-.live {
+.broad {
+}
+.main {
   display: flex;
-  .box {
-    .video {
+  padding-top: 60px;
+  justify-content: center;
+}
+.live {
+  margin-right: 0px;
+  display: flex;
+  background-color: #1c1c1c;
+  justify-content: center;
+  width: 1200px;
+
+  &-box {
+    &-information {
+      color: white;
+      &-subscribers {
+      }
+    }
+
+    &-video {
     }
   }
-  .chat {
+  &-chat {
   }
-  .admin {
+  &-admin {
   }
 }

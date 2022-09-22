@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./LiveChat.scss";
 import { v4 } from "uuid";
+
 // 고유키값
 
 function LiveChat(props) {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState("");
-  // const [nowUserModal, setNowUserModal] = useState(false);
 
   const handleChange = event => {
     setMessage(event.target.value);
@@ -14,7 +14,7 @@ function LiveChat(props) {
 
   useEffect(() => {
     const myProps = { props }.props.props;
-    console.log("프롭스", myProps.subscribers.length);
+
     myProps.session?.on("signal:chat", event => {
       const data = JSON.parse(event.data);
       const messageListData = messageList;
@@ -26,6 +26,20 @@ function LiveChat(props) {
       setMessageList([...messageListData]);
     });
   }, []);
+
+  const messageBoxRef = useRef();
+  // const scrollToBottom = () => {
+  //   // if (messageBoxRef.current) {
+  //   //   // messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
+
+  //   // }
+  // };
+
+  useEffect(() => {
+    messageBoxRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
+  // useEffect(scrollToBottom, [message]);
 
   const sendMessage = () => {
     const myProps = { props }.props.props;
@@ -52,20 +66,13 @@ function LiveChat(props) {
     }
   };
 
-  // function openNowUserModal() {
-  //   setNowUserModal(true);
-  // }
-  // function closeNowUserModal() {
-  //   setNowUserModal(false);
-  // }
-
   return (
     <div className="chatting">
       <div className="chatting-title">
         <p className="chatting-title-text">채팅방</p>
       </div>
 
-      <div className="chatting-box">
+      <div className="chatting-box" ref={messageBoxRef}>
         {messageList.map(data => (
           <div key={v4()} id="remoteUsers" className="">
             <div className="chatting-box-content">
