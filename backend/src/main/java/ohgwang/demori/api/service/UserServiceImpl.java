@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Service("userService")
@@ -77,6 +78,11 @@ public class UserServiceImpl implements UserService{
 		uniAuth.setUser(user);
 
 		universityAuthRepository.save(uniAuth);
+	}
+
+	@Override
+	public List<User> findAllUser() {
+		return userRepository.findAll();
 	}
 
 

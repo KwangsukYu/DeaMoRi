@@ -6,6 +6,7 @@ import ohgwang.demori.api.request.UserRegisterPostReq;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface UserService {
 
@@ -14,4 +15,6 @@ public interface UserService {
 	User createUser(UserRegisterPostReq registerInfo);
 
 	void uploadAuthImage(MultipartFile file, User user) throws IOException;
+
+    List<User> findAllUser();
 }
