@@ -11,6 +11,7 @@ import Login from "pages/user/Login";
 import MyPage from "pages/user/mypage/MyPage";
 import SingUp from "pages/user/SignUp";
 import Edit from "pages/user/Edit";
+import LeagueDetail from "pages/leagues/detail/LeagueDetail";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/leagues" element={<Leagues />} />
+          <Route path="/leagues/detail/:id" element={<LeagueDetail />} />
           <Route path="/rankings" element={<Rankings />} />
           <Route path="/university/:id" element={<University />} />
           <Route path="/login" element={<Login />} />

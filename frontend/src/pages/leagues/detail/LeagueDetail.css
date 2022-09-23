@@ -1,0 +1,138 @@
+#leaguedetail {
+  color: #fff;
+}
+#leaguedetail .active {
+  background-color: #5c6bc0;
+}
+#leaguedetail .white {
+  background-color: #fff;
+}
+#leaguedetail .leaguedetail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+#leaguedetail .leaguedetail-status {
+  width: 300px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#leaguedetail .leaguedetail-status-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#leaguedetail .leaguedetail-status-circle .circle {
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+#leaguedetail .leaguedetail-status-circle > p {
+  font-size: 12px;
+  font-weight: bold;
+}
+#leaguedetail .leaguedetail-status-bar {
+  z-index: -1;
+  position: absolute;
+  top: 9px;
+  left: 20px;
+  width: 85%;
+  height: 2px;
+  background-color: #fff;
+}
+#leaguedetail .leaguedetail-title {
+  margin-top: 30px;
+  font-size: 40px;
+  font-weight: bold;
+}
+#leaguedetail .leaguedetail-info {
+  margin-top: 20px;
+  width: 1400px;
+  display: flex;
+}
+#leaguedetail .leaguedetail-info-team {
+  width: 500px;
+  height: 300px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#leaguedetail .leaguedetail-info-team-info {
+  width: 220px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#leaguedetail .leaguedetail-info-team-info > p {
+  margin: 0;
+  font-size: 60px;
+}
+#leaguedetail .leaguedetail-info-team-info > button {
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  color: white;
+  background-color: #ff7f22;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+#leaguedetail .leaguedetail-info-team-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  height: 240px;
+}
+#leaguedetail .leaguedetail-info-team-profile > img {
+  height: 160px;
+  width: 160px;
+}
+#leaguedetail .leaguedetail-info-team-profile > p {
+  font-size: 24px;
+  font-weight: bold;
+}
+#leaguedetail .leaguedetail-info-desc {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+}
+#leaguedetail .leaguedetail-info-desc > p {
+  font-size: 40px;
+  font-weight: bold;
+}
+#leaguedetail .leaguedetail-info-desc > button {
+  width: 200px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  color: white;
+  background-color: #ff7f22;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+#leaguedetail .leaguedetail-info-desc :nth-child(3) {
+  width: 100px;
+  background-color: red;
+}
+#leaguedetail .leaguedetail-tip {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -5,7 +5,7 @@ import SchoolIcon from "assets/images/SchoolIcon.svg";
 import WalletIcon from "assets/images/Wallet.svg";
 import Badge from "assets/images/RewardBadge.svg";
 import { v4 } from "uuid";
-// import { getWalletBalance } from "apis/web3/web3";
+import { getWalletBalance } from "apis/web3/web3";
 import SupportAmount from "./SupportAmount";
 import CoinCharge from "./CoinCharge";
 import CreateWallet from "./CreateWallet";
@@ -14,8 +14,13 @@ function MyPage() {
   const [schoolChk, setSchoolChk] = useState(true);
   const [modal, setModal] = useState(false);
   const [haveWallet, setHaveWallet] = useState(true);
+  const [userBalance, setUserBalance] = useState<string | number>("???");
   const badgeDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const supportDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const getUserBalance = async () => {
+    const balance = await getWalletBalance();
+    setUserBalance(balance);
+  };
 
   return (
     <div id="mypage">
@@ -47,10 +52,12 @@ function MyPage() {
           {haveWallet ? (
             <div className="mypage-wallet-detail">
               <p>
-                보유 코인 : <span>100,000,000</span>
+                보유 코인 : <span>{userBalance}</span>
               </p>
               <div className="mypage-wallet-detail-btn">
-                <button type="button">코인 조회</button>
+                <button type="button" onClick={getUserBalance}>
+                  코인 조회
+                </button>
                 <button type="button" onClick={() => setModal(true)}>
                   코인 충전
                 </button>
