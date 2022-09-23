@@ -11,9 +11,6 @@ function CheckUniModal({ signal }: CoinChargeProps) {
     <div className="wrapper">
       <div id="check-uni">
         <div className="check-uni">
-          {/* <hr /> */}
-
-          {/* <img src={testImg} alt="" /> */}
           <p>추후 구현</p>
           <button type="button" onClick={signal}>
             취소
