@@ -4,11 +4,17 @@ import SchoolIcon from "assets/images/SchoolIcon.svg";
 import SchoolIcon2 from "assets/images/SchoolIcon2.svg";
 import LeagueSupport from "./LeagueSupport";
 import TeamDetail from "./TeamDetail";
+import LeaegueInfo from "./LeagueInfo";
 
 function LeagueDetail() {
   const [leagueStatue, setLeagueStatue] = useState("playing");
+  const [detailModal, setDetailModal] = useState(false);
   const teamColor1 = "#007350";
   const teamColor2 = "#5b89e6";
+
+  const signal = () => {
+    setDetailModal(false);
+  };
 
   return (
     <div id="leaguedetail">
@@ -56,9 +62,14 @@ function LeagueDetail() {
             </div>
           </div>
           <div className="leaguedetail-info-desc">
-            <button type="button">대회 정보</button>
+            <button type="button" onClick={() => setDetailModal(true)}>
+              대회 정보
+            </button>
+            {detailModal && <LeaegueInfo signal={signal} />}
             <p>VS</p>
-            <button type="button">중계</button>
+            <button type="button" className="live-button">
+              중계
+            </button>
           </div>
           <div
             className="leaguedetail-info-team"

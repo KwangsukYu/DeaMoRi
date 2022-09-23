@@ -1,5 +1,6 @@
 import React from "react";
 import { v4 } from "uuid";
+
 import SupportItem from "./SupportItem";
 
 function SupportList() {
@@ -8,8 +9,8 @@ function SupportList() {
   return (
     <div id="supportlist">
       <div className="supportlist">
-        {dummy.map(() => {
-          return <SupportItem key={v4()} />;
+        {dummy.map((e, i) => {
+          return <SupportItem key={v4()} rank={i + 1} />;
         })}
       </div>
     </div>
