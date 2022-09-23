@@ -1,0 +1,87 @@
+#admin {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+
+  .admin {
+    padding: 50px;
+    border-bottom: 4px solid #5c6bc0;
+    border-top: 4px solid #5c6bc0;
+    border-radius: 15px;
+    margin-top: 60px;
+    width: 800px;
+    background-color: #1c1c1c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-main {
+      display: flex;
+      align-items: center;
+      width: 800px;
+      justify-content: center;
+      flex-direction: column;
+      &-list {
+        display: flex;
+        width: 95%;
+        border: 1px solid black;
+        border-radius: 15px;
+        background-color: white;
+        justify-content: space-between;
+        box-shadow: 2px 2px #5c6bc0;
+        margin-block: 10px;
+        &-desc {
+          display: flex;
+          align-items: center;
+          .select-box {
+            height: 30px;
+          }
+          .submit-button {
+            height: 30px;
+            margin-inline: 10px;
+            color: white;
+            width: 50px;
+            border-radius: 10px;
+            border: #5c6bc0;
+            background-color: #5c6bc0;
+            margin-block: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 2px 2px rgb(180, 180, 180);
+          }
+        }
+        :nth-child(1) {
+          margin-left: 15px;
+          font-weight: bold;
+          text-align: center;
+        }
+        .check-file {
+          color: white;
+          width: 70px;
+          height: 30px;
+          border-radius: 10px;
+          border: #ff7f22;
+          background-color: #ff7f22;
+          margin-block: 10px;
+          cursor: pointer;
+          font-weight: bold;
+          box-shadow: 2px 2px rgb(180, 180, 180);
+        }
+
+        .control-user {
+          color: white;
+          width: 70px;
+          height: 30px;
+
+          margin-right: 30px;
+          border-radius: 10px;
+          border: #5c6bc0;
+          background-color: #5c6bc0;
+          margin-block: 10px;
+          cursor: pointer;
+          font-weight: bold;
+          box-shadow: 2px 2px rgb(180, 180, 180);
+        }
+      }
+    }
+  }
+}
