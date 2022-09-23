@@ -15,6 +15,7 @@ import ohgwang.demori.DB.entity.User;
 @Setter
 @ApiModel("UserResponse")
 public class UserRes{
+	int userPk;
 	@ApiModelProperty(name="User ID")
 	String userId;
 	String userName;
@@ -23,6 +24,7 @@ public class UserRes{
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
+		res.setUserPk(user.getId());
 		res.setUserId(user.getUserId());
 		res.setUserName(user.getUsername());
 		if(user.getWallet() != null){

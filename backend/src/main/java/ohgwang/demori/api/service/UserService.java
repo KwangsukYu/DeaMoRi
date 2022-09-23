@@ -17,4 +17,8 @@ public interface UserService {
 	void uploadAuthImage(MultipartFile file, User user) throws IOException;
 
     List<User> findAllUser();
+
+	User findByPk(int userPk);
+
+	String changeRole(User user, int role);
 }

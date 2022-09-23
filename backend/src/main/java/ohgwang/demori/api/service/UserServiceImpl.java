@@ -85,5 +85,39 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findAll();
 	}
 
+	@Override
+	public User findByPk(int userPk) {
+		return userRepository.findById(userPk).orElse(null);
+	}
+
+	@Override
+	public String changeRole(User user, int role) {
+		String r = null;
+		switch (role){
+			case 0 :
+				r = "ROLE_USER";
+				break;
+			case 1 :
+				r = "ROLE_AUTH";
+				break;
+			case 2 :
+				r = "ROLE_SUS";
+				break;
+			case 3 :
+				r = "ROLE_ADMIN";
+				break;
+			default:
+				break;
+		}
+
+		if(r == null){
+			return "권한없음";
+		}
+
+		user.setRole(r);
+		userRepository.save(user);
+		return r + " 변경 완료";
+	}
+
 
 }
