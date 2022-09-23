@@ -1,0 +1,26 @@
+#create-wallet {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  height: 100%;
+}
+#create-wallet .create-form {
+  margin-top: 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#create-wallet .create-form > p {
+  font-weight: bold;
+  font-size: 20px;
+}
+#create-wallet .create-form > button {
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  background-color: #ff7f22;
+  color: white;
+  cursor: pointer;
+}
