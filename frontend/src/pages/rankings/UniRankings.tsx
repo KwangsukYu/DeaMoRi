@@ -4,6 +4,7 @@ import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
+import MyUniRank from "./MyUniRank";
 
 function UniRankings() {
   const universities = [
@@ -49,6 +50,12 @@ function UniRankings() {
         <p className="rank-menu-name">학교명</p>
         <p className="rank-menu-price">획득상금</p>
       </div>
+      <div>
+        <p className="my-uni-title">내 대학 순위</p>
+        <MyUniRank />
+        <div className="line" />
+      </div>
+      <p className="total-uni-title">전체 대학 순위</p>
       {RankMain}
     </div>
   );
