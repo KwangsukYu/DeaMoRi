@@ -1,0 +1,19 @@
+#leagues-ing .leagues-ing {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#leagues-ing .leagues-ing-box {
+  background-color: white;
+  width: 700px;
+  height: 300px;
+  border-radius: 15px;
+}
+
+.card-box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}

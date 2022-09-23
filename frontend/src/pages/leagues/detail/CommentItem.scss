@@ -1,0 +1,32 @@
+#commentitem {
+  .commentitem {
+    padding: 10px;
+    color: black;
+    margin-top: 20px;
+    width: 380px;
+    border-radius: 15px;
+    background-color: #fff;
+    &-content {
+      height: 80%;
+      > p {
+        margin: 2;
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+    &-hr {
+      margin-top: 6px;
+      height: 2px;
+    }
+    &-user {
+      height: 20%;
+      font-size: 12px;
+      > p {
+        font-weight: bold;
+        text-align: end;
+        margin: 0;
+        margin-top: 6px;
+      }
+    }
+  }
+}
