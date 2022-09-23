@@ -12,6 +12,9 @@ import MyPage from "pages/user/mypage/MyPage";
 import SingUp from "pages/user/SignUp";
 import Edit from "pages/user/Edit";
 
+// admin
+import Admin from "pages/admin/Admin";
+
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +29,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/signup" element={<SingUp />} />
           <Route path="/edit" element={<Edit />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </BrowserRouter>
