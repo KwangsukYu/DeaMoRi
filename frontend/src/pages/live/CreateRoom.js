@@ -12,7 +12,7 @@ function CreateRoom() {
       방 생성하기
     </button>
   );
-
+  // https://j7c208.p.ssafy.io:4443
   const OPENVIDU_SERVER_URL = "https://localhost:4443";
   const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
