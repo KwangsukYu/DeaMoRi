@@ -17,6 +17,7 @@ function Carousel() {
 
   return (
     <div id="carousel">
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Slider {...settings}>
         <div className="poster">Slide 1</div>
         <div className="poster">Slide 2</div>

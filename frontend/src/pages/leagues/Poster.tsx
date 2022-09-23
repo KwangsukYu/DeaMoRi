@@ -18,7 +18,7 @@ interface myProps {
 
 export default function Poster({ item }: myProps) {
   return (
-    <Card sx={{ width: 200, height: 300 }}>
+    <Card id="card" sx={{ width: 200, height: 300, padding: 0, marginTop: 3 }}>
       <CardMedia
         component="img"
         height="200"
