@@ -44,8 +44,8 @@ function SponRankings() {
     <div id="rank-box">
       <div className="rank-menu">
         <p className="rank-menu-rank">순위</p>
-        <p className="rank-menu-name">학교명</p>
-        <p className="rank-menu-price">획득상금</p>
+        <p className="rank-menu-name">후원자명</p>
+        <p className="rank-menu-price">후원금</p>
       </div>
       {RankMain}
     </div>
