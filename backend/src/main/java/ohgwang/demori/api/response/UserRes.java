@@ -3,6 +3,7 @@ package ohgwang.demori.api.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import ohgwang.demori.DB.entity.User;
@@ -14,6 +15,7 @@ import ohgwang.demori.DB.entity.User;
 @Setter
 @ApiModel("UserResponse")
 public class UserRes{
+	int userPk;
 	@ApiModelProperty(name="User ID")
 	String userId;
 	String userName;
@@ -22,9 +24,14 @@ public class UserRes{
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
+		res.setUserPk(user.getId());
 		res.setUserId(user.getUserId());
 		res.setUserName(user.getUsername());
-		res.setAddress(user.getWallet().getAddress());
+		if(user.getWallet() != null){
+			res.setAddress(user.getWallet().getAddress());
+		}else{
+			res.setAddress(null);
+		}
 		res.setRole(user.getRole());
 		return res;
 	}
