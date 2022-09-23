@@ -8,13 +8,13 @@ function Edit() {
     <div id="login">
       <div className="input-list">
         <img className="logo" src={logo} alt="logo" />
-        <h1 className="login-title">Edit</h1>
+        <h1 className="login-title">회원정보 수정</h1>
         <form action="">
           <input
             className="inputform"
             name="name"
             type="text"
-            placeholder="NAME"
+            placeholder="이름"
             disabled
           />
           <div className="nickname-form">
@@ -22,7 +22,7 @@ function Edit() {
               className="inputform"
               name="nickname"
               type="text"
-              placeholder="NICKNAME"
+              placeholder="닉네임"
             />
             <a href="#!">
               <CheckIcon className="IDcheck" />
@@ -32,23 +32,23 @@ function Edit() {
             className="inputform"
             name="id"
             type="text"
-            placeholder="ID"
+            placeholder="아이디"
             disabled
           />
           <input
             className="inputform"
             name="password"
             type="text"
-            placeholder="PASSWORD"
+            placeholder="비밀번호"
           />
           <input
             className="inputform"
             name="check_password"
             type="text"
-            placeholder="CHECK PASSWORD"
+            placeholder="비밀번호 확인"
           />
           <button className="submit-button" type="button">
-            SUBMIT
+            수정하기
           </button>
         </form>
       </div>

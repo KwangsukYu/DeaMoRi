@@ -1,0 +1,115 @@
+#spon-rank {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .spon-rank {
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-title {
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      margin-left: 63px;
+      margin-top: 30px;
+      margin-bottom: 0;
+    }
+    &-box {
+      // display: flex;
+      background-color: white;
+      width: 700px;
+      height: 300px;
+      border-radius: 15px;
+    }
+  }
+}
+.spon-support-desc {
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 15px;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  background-color: #5c6bc0;
+  color: white;
+  margin-bottom: 10px;
+  :nth-child(1) {
+    width: 30%;
+  }
+  :nth-child(2) {
+    width: 45%;
+  }
+  :nth-child(3) {
+    width: 35%;
+  }
+}
+
+#spon-rank-amount {
+  width: 700px;
+  margin-top: 10px;
+  .logo-box {
+    position: relative;
+    margin-left: 89px;
+
+    .rankLogo1 {
+      position: absolute;
+      left: -26px;
+      bottom: -25px;
+      width: 60px;
+    }
+    .rankLogo2 {
+      position: absolute;
+      left: -26px;
+      bottom: -25px;
+      width: 60px;
+    }
+    .rankLogo3 {
+      position: absolute;
+      left: -26px;
+      bottom: -25px;
+      width: 60px;
+    }
+    .rankLogo4 {
+      position: absolute;
+      left: -19px;
+      bottom: -25px;
+      width: 42px;
+    }
+    .spon-rank-rank {
+      position: absolute;
+      bottom: -29px;
+      left: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      width: 50px;
+    }
+  }
+  .spon-rank-amount {
+    height: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 15px;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    background-color: #fff;
+    margin-bottom: 10px;
+    // .spon-rank-rank {
+    //   width: 30%;
+    // }
+    .spon-rank-name {
+      width: 250px;
+      margin-left: 129px;
+    }
+    .spon-rank-price {
+      width: 250px;
+      margin-left: 18px;
+    }
+  }
+}
