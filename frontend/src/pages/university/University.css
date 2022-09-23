@@ -1,0 +1,148 @@
+#university {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+}
+#university .background {
+  display: flex;
+  position: relative;
+  width: 800px;
+  border-radius: 15px;
+  flex-direction: column;
+  background-color: #1c1c1c;
+  border-top: 4px solid #5c6bc0;
+  border-bottom: 4px solid #5c6bc0;
+}
+#university .background .uni-box {
+  display: flex;
+}
+#university .background .uni-box-logo {
+  margin-top: 62px;
+  margin-left: 62px;
+  display: flex;
+  width: 110px;
+  height: 110px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  justify-content: center;
+  align-items: center;
+}
+#university .background .uni-box-text {
+  position: absolute;
+  display: flex;
+  top: 17px;
+  left: 205px;
+  width: 500px;
+  color: white;
+  font-weight: bold;
+  flex-direction: column;
+  text-align: start;
+}
+#university .background .uni-box-text-title {
+  display: flex;
+  font-size: 25px;
+  margin-bottom: 5px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  margin-top: 23px;
+}
+#university .background .uni-box-text-title .rank-logo {
+  margin-left: 5px;
+}
+#university .background .uni-box-text-title .rank-logo-text {
+  position: absolute;
+  left: 162px;
+  bottom: -8px;
+}
+#university .background .uni-box-text-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 18px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+#university .background .uni-box-text-price {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 18px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+#university .background #rankings {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#university .background #rankings .modal {
+  display: flex;
+  width: 800px;
+  border-radius: 15px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1c1c1c;
+  margin-bottom: 30px;
+}
+#university .background #rankings .modal .button-list {
+  display: flex;
+  /* margin-top: 20px; */
+  /* margin-left: 25px; */
+  margin: 0;
+  flex-direction: row;
+  width: 300px;
+  justify-content: space-between;
+}
+#university .background #rankings .modal .button-list .tab-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  color: white;
+}
+#university .background #rankings .modal .button-list .tab-button-title {
+  font-weight: bold;
+  font-size: 20px;
+}
+#university .background #rankings .modal .button-list .tab-button-title-active {
+  font-weight: bold;
+  font-size: 20px;
+  color: #5c6bc0;
+}
+#university .background #rankings .modal .bar {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #acacac;
+  background-color: #acacac;
+  width: 700px;
+  height: 2px;
+  position: relative;
+}
+#university .background #rankings .modal .bar-state-uni {
+  border: 1px solid #5c6bc0;
+  background-color: #5c6bc0;
+  width: 70px;
+  height: 2px;
+  margin-left: 4px;
+  margin-bottom: 1px;
+  position: absolute;
+  top: -1px;
+  left: 196px;
+}
+#university .background #rankings .modal .bar-state-spon {
+  border: 1px solid #5c6bc0;
+  background-color: #5c6bc0;
+  width: 70px;
+  height: 2px;
+  margin-left: 90px;
+  margin-bottom: 1px;
+  position: absolute;
+  top: -1px;
+  left: 348px;
+}
