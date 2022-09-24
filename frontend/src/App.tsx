@@ -5,6 +5,7 @@ import Leagues from "pages/leagues/Leagues";
 import Rankings from "pages/rankings/Rankings";
 import University from "pages/university/University";
 import NavBar from "components/navBar/Navbar";
+import Landing from "pages/LandingPage/Landing";
 
 // user
 import Login from "pages/user/Login";
@@ -22,7 +23,7 @@ function App() {
       <NavBar />
       <div className="background">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/leagues" element={<Leagues />} />
           <Route path="/leagues/detail/:id" element={<LeagueDetail />} />
           <Route path="/rankings" element={<Rankings />} />
