@@ -3,6 +3,7 @@ import "./Leagues.scss";
 import Carousel from "./Carousel";
 import LeagueList from "./LeagueList";
 import Pagination from "./Pagination";
+import Scroll from "./Scroll";
 
 function Leagues() {
   return (
@@ -21,8 +22,9 @@ function Leagues() {
           </span>
         </div>
         <Carousel />
-        <LeagueList />
-        <Pagination />
+        {/* <LeagueList />
+        <Pagination /> */}
+        <Scroll />
       </div>
     </div>
   );

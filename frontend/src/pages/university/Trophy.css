@@ -1,0 +1,35 @@
+.trophy {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.trophy .trophy-title {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 608px;
+  margin-bottom: 0;
+}
+.trophy .trophy-box {
+  margin-top: 20px;
+  width: 700px;
+}
+.trophy .trophy-box > p {
+  font-size: 20px;
+  margin-left: 32px;
+  font-weight: bold;
+}
+.trophy .trophy-box-container {
+  padding: 12px;
+  display: flex;
+  flex-flow: wrap;
+  background-color: #fff;
+  border-radius: 15px;
+}
+.trophy .trophy-box-container .trophy-item {
+  width: 72px;
+  height: 72px;
+}

@@ -14,7 +14,9 @@ function NavBar() {
       <div className="navbar">
         <div className="navbar-content">
           <div className="navbar-content-logo">
-            <img className="navbar-logo" src={NavLogo} alt="" />
+            <Link to="/">
+              <img className="navbar-logo" src={NavLogo} alt="" />
+            </Link>
           </div>
           <div className="navbar-content-tap">
             <div className="navbar-content-tap-menu">
@@ -49,7 +51,11 @@ function NavBar() {
                 <img src={Badge} alt="school-icon" />
               </div>
               <div className="profile-container">
-                <button type="button" onClick={() => setdropDown(!dropDown)}>
+                <button
+                  className="nav-button"
+                  type="button"
+                  onClick={() => setdropDown(!dropDown)}
+                >
                   <img src={UserDummy} alt="dummy" />
                 </button>
               </div>
