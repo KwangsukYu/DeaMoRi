@@ -2,7 +2,6 @@ import React from "react";
 import "./Leagues.scss";
 import Carousel from "./Carousel";
 import LeagueList from "./LeagueList";
-import Pagination from "./Pagination";
 import Scroll from "./Scroll";
 
 function Leagues() {
@@ -22,8 +21,6 @@ function Leagues() {
           </span>
         </div>
         <Carousel />
-        {/* <LeagueList />
-        <Pagination /> */}
         <Scroll />
       </div>
     </div>

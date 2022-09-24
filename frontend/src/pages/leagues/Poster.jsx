@@ -3,38 +3,29 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import posterSample from "assets/images/posterSample.png";
 
-// Materil UI
-type leagueData = {
-  posterImage?: { posterSample: string };
-  title: string;
-  time: string;
-  place: string;
-};
-
-interface myProps {
-  item: leagueData;
-}
-
-export default function Poster({ item }: myProps) {
+/* eslint-disable react/prop-types */
+function Poster({ item: { id, email, body } }) {
   return (
-    <Card id="card" sx={{ width: 200, height: 300, padding: 0, marginTop: 3 }}>
+    <Card id="card" sx={{ width: 200, height: 500, padding: 0, marginTop: 3 }}>
       <CardMedia
         component="img"
         height="200"
-        image={item.posterImage?.posterSample}
+        image={posterSample}
         alt="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {item.title}
+          {id}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {item.time}
+          {email}
           <br />
-          {item.place}
+          {body}
         </Typography>
       </CardContent>
     </Card>
   );
 }
+export default Poster;

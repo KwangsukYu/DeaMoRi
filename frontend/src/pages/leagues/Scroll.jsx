@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./Scroll.scss";
-import Poster2 from "./Poster2";
+import Poster from "./Poster";
 import Loader from "./Loader";
 import EndMessage from "./EndMessage";
 
@@ -60,7 +60,7 @@ function Scroll() {
       >
         <div className="scroll">
           {items.map(item => {
-            return <Poster2 key={item.id} item={item} />;
+            return <Poster key={item.id} item={item} />;
           })}
         </div>
       </InfiniteScroll>
