@@ -1,0 +1,36 @@
+#leagues {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#leagues .leagues {
+  display: flex;
+  width: 1000px;
+  height: 1000px;
+  border: 1px solid;
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1c1c1c;
+  border-top: 4px solid #5c6bc0;
+  border-bottom: 4px solid #5c6bc0;
+}
+#leagues .leagues-function {
+  float: right;
+}
+#leagues .leagues-function-createLeague {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #ff7f22;
+  border-radius: 10px;
+  color: white;
+  width: 120px;
+  height: 40px;
+}
+#leagues .leagues-function-search {
+  width: 200px;
+  height: 32px;
+  border-radius: 10px;
+  text-align: center;
+}
