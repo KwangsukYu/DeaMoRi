@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./NavBar.scss";
 import NavLogo from "assets/images/DAMORI_navBar.svg";
 import UserDummy from "assets/images/UserDummy.svg";
@@ -8,19 +8,16 @@ import Badge from "assets/images/RewardBadge.svg";
 function NavBar() {
   const [dropDown, setdropDown] = useState(false);
   const [active, setActive] = useState("대회");
-  const navigate = useNavigate();
 
   return (
     <div id="navbar">
       <div className="navbar">
         <div className="navbar-content">
-          <button
-            onClick={() => navigate("/")}
-            type="button"
-            className="navbar-content-logo"
-          >
-            <img className="navbar-logo" src={NavLogo} alt="" />
-          </button>
+          <div className="navbar-content-logo">
+            <Link to="/">
+              <img className="navbar-logo" src={NavLogo} alt="" />
+            </Link>
+          </div>
           <div className="navbar-content-tap">
             <div className="navbar-content-tap-menu">
               <Link

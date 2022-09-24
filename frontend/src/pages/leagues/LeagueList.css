@@ -1,0 +1,8 @@
+#leaguelist {
+  width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  border-color: red;
+  border-width: 5cm;
+}
