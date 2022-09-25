@@ -15,7 +15,7 @@ function CoinCharge({ signal }: CoinChargeProps) {
   };
 
   const charge = (num: number) => {
-    chargeCoin(num, "0x4cFc607DE29368301624eEc90a632400B7AdF5e3");
+    chargeCoin(num, "0xCa2bd9C291d431457776534C03E178e3B078FDD1");
     signal();
   };
 
