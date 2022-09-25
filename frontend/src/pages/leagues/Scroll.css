@@ -1,0 +1,16 @@
+#scroll {
+  overflow-y: hidden;
+}
+#scroll .infinitescroll {
+  overflow-y: hidden;
+}
+#scroll .scroll {
+  width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+}
+
+.infinite-scroll-component {
+  overflow-y: hidden;
+}
