@@ -126,7 +126,7 @@
   box-shadow: 4px 4px 2px 1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
-#leaguedetail .leaguedetail-info-desc :nth-child(3) {
+#leaguedetail .leaguedetail-info-desc .live-button {
   width: 100px;
   background-color: red;
 }
