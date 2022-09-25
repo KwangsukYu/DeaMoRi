@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "pages/home/Home";
-import Leagues from "pages/leagues/Leagues";
 import Rankings from "pages/rankings/Rankings";
 import NavBar from "components/navBar/Navbar";
 import Landing from "pages/LandingPage/Landing";
@@ -10,12 +9,16 @@ import Landing from "pages/LandingPage/Landing";
 import UniList from "pages/university/UniList";
 import University from "pages/university/University";
 
+// Leagues
+import Leagues from "pages/leagues/Leagues";
+import Create from "pages/leagues/create/Create";
+import LeagueDetail from "pages/leagues/detail/LeagueDetail";
+
 // user
 import Login from "pages/user/Login";
 import MyPage from "pages/user/mypage/MyPage";
 import SingUp from "pages/user/SignUp";
 import Edit from "pages/user/Edit";
-import LeagueDetail from "pages/leagues/detail/LeagueDetail";
 
 // admin
 import Admin from "pages/admin/Admin";
@@ -28,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/leagues" element={<Leagues />} />
+          <Route path="/leagues/create" element={<Create />} />
           <Route path="/leagues/detail/:id" element={<LeagueDetail />} />
           <Route path="/rankings" element={<Rankings />} />
           <Route path="/university" element={<UniList />} />

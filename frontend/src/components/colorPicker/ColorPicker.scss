@@ -1,0 +1,19 @@
+#colorpicker {
+  width: 250px;
+  height: 320px;
+  border-radius: 15px;
+  background-color: white;
+
+  .container {
+    position: relative;
+    left: 12px;
+    top: 10px;
+    .colorpicker {
+      border-color: white;
+    }
+  }
+}
+#color {
+  text-align: center;
+  margin-bottom: 10px;
+}
