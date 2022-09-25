@@ -7,7 +7,6 @@
 #leagues .leagues {
   display: flex;
   width: 1000px;
-  height: 1000px;
   border: 1px solid;
   border-radius: 20px;
   flex-direction: column;
@@ -17,20 +16,23 @@
   border-bottom: 4px solid #5c6bc0;
 }
 #leagues .leagues-function {
+  width: 100%;
+  margin-top: 10px;
+}
+#leagues .leagues-function-search {
   float: right;
+  margin-right: 5px;
+  width: 200px;
+  height: 32px;
+  border-radius: 10px;
+  text-align: center;
 }
 #leagues .leagues-function-createLeague {
-  display: inline-block;
-  margin-top: 10px;
+  float: right;
+  margin-right: 10px;
   background-color: #ff7f22;
   border-radius: 10px;
   color: white;
   width: 120px;
   height: 40px;
-}
-#leagues .leagues-function-search {
-  width: 200px;
-  height: 32px;
-  border-radius: 10px;
-  text-align: center;
 }

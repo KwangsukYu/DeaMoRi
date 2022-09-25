@@ -3,9 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "pages/home/Home";
 import Leagues from "pages/leagues/Leagues";
 import Rankings from "pages/rankings/Rankings";
-import University from "pages/university/University";
 import NavBar from "components/navBar/Navbar";
 import Landing from "pages/LandingPage/Landing";
+
+// University
+import UniList from "pages/university/UniList";
+import University from "pages/university/University";
 
 // user
 import Login from "pages/user/Login";
@@ -27,6 +30,7 @@ function App() {
           <Route path="/leagues" element={<Leagues />} />
           <Route path="/leagues/detail/:id" element={<LeagueDetail />} />
           <Route path="/rankings" element={<Rankings />} />
+          <Route path="/university" element={<UniList />} />
           <Route path="/university/:id" element={<University />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
