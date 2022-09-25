@@ -38,8 +38,6 @@ function Scroll() {
 
     setItems([...items, ...commentsFormServer]);
 
-    console.log(items);
-
     // 페이지를 끝까지 불러왔는지 확인
     if (commentsFormServer.length === 0 || commentsFormServer.length < 20) {
       // 화면이 끝까지 불러올 경우 false로 변경하여 더이상 불러오지 않음
