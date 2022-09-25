@@ -12,8 +12,8 @@
   #charge {
     z-index: 4;
     border-radius: 15px;
-    width: 600px;
-    height: 800px;
+    width: 400px;
+    height: 600px;
     background-color: #1c1c1c;
     .charge {
       display: flex;
@@ -21,18 +21,50 @@
       justify-content: center;
       align-items: center;
       padding: 50px;
+      &-amount {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: 350px;
+        justify-content: space-evenly;
+        > p {
+          margin: 0;
+          font-size: 20px;
+          font-weight: bold;
+          text-align: center;
+        }
+        > button {
+          background-color: #99a0be;
+          border: none;
+          border-radius: 15px;
+          height: 40px;
+          font-weight: bold;
+          color: white;
+          cursor: pointer;
+        }
+      }
       > p {
         font-size: 30px;
+        margin: 0;
       }
-
-      > button {
-        background-color: #ff7f22;
-        width: 100px;
-        height: 40px;
-        border-radius: 15px;
-        cursor: pointer;
-        font-weight: bold;
-        color: white;
+      &-button {
+        margin-top: 40px;
+        width: 400px;
+        display: flex;
+        justify-content: space-evenly;
+        > button {
+          background-color: #ff7f22;
+          width: 100px;
+          height: 40px;
+          border-radius: 15px;
+          cursor: pointer;
+          font-weight: bold;
+          color: white;
+          cursor: pointer;
+        }
+        .blue {
+          background-color: #5c6bc0;
+        }
       }
     }
   }
