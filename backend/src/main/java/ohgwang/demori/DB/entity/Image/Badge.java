@@ -1,4 +1,4 @@
-package ohgwang.demori.DB.entity;
+package ohgwang.demori.DB.entity.Image;
 
 import lombok.Data;
 
@@ -6,17 +6,12 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class UniversityAuth {
-
+public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "uni_auth_pk")
+    @Column(name = "badge_pk")
     private int id;
 
     String fileName;
     String fileUrl;
-
-    @OneToOne(mappedBy = "universityAuth")
-    User user;
-
 }
