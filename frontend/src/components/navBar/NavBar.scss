@@ -23,6 +23,9 @@
       width: 1200px;
       &-logo {
         height: 40px;
+        background-color: #1c1c1c;
+        border: none;
+        cursor: pointer;
         .navbar-logo {
           height: 100%;
           width: 200px;
@@ -85,11 +88,12 @@
             }
           }
           .profile-dropdown {
+            z-index: 2;
             font-size: 16px;
             background-color: #1c1c1c;
             width: 200px;
             position: absolute;
-            top: 48px;
+            top: 50px;
             display: flex;
             flex-direction: column;
             align-items: center;

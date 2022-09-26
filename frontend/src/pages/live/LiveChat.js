@@ -17,6 +17,7 @@ function LiveChat(props) {
 
     myProps.session?.on("signal:chat", event => {
       const data = JSON.parse(event.data);
+      console.log("데이타", data);
       const messageListData = messageList;
       messageListData.push({
         connectionId: event.from.connectionId,
@@ -26,20 +27,6 @@ function LiveChat(props) {
       setMessageList([...messageListData]);
     });
   }, []);
-
-  const messageBoxRef = useRef();
-  // const scrollToBottom = () => {
-  //   // if (messageBoxRef.current) {
-  //   //   // messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
-
-  //   // }
-  // };
-
-  useEffect(() => {
-    messageBoxRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [message]);
-
-  // useEffect(scrollToBottom, [message]);
 
   const sendMessage = () => {
     const myProps = { props }.props.props;
@@ -65,6 +52,18 @@ function LiveChat(props) {
       sendMessage();
     }
   };
+  //   const ChattingOff = () => {
+  //   if (chattingBox) {
+  //     setChattingBox(false);
+  //   } else {
+  //     setChattingBox(true);
+  //   }
+  // };
+
+  const scrollRef = React.useRef();
+  React.useEffect(() => {
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [messageList]);
 
   return (
     <div className="chatting">
@@ -72,17 +71,17 @@ function LiveChat(props) {
         <p className="chatting-title-text">채팅방</p>
       </div>
 
-      <div className="chatting-box" ref={messageBoxRef}>
+      <div className="chatting-box">
         {messageList.map(data => (
           <div key={v4()} id="remoteUsers" className="">
             <div className="chatting-box-content">
               <p className="chatting-box-content-nickname">
                 {data.nickname} : {data.message}
               </p>
-              {/* <p>{data.message}</p> */}
             </div>
           </div>
         ))}
+        <div ref={scrollRef} />
       </div>
 
       <div className="chatting-input">

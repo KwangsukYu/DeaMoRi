@@ -1,37 +1,59 @@
 import Web3 from "web3";
+import { TokenContarct } from "./SmartContract";
 
 const web3 = new Web3("http://localhost:8545");
-const coinBase = await web3.eth.getCoinbase();
+
+const getCoinBase = async () => {
+  const res = await web3.eth.getCoinbase();
+  return res;
+};
 
 // 공개키, 개인키 생성
-const createAccount = () => {
+export const createAccount = async () => {
+  const coinBase = await getCoinBase();
   const createdObj = web3.eth.accounts.create();
   const account = web3.eth.accounts.privateKeyToAccount(createdObj.privateKey);
   const wallet = web3.eth.accounts.wallet.add(account);
-  return [wallet, account.privateKey];
-};
 
-// 지갑 잔액 조회, 이더
-export const getWalletBalance = () => {
-  const res = web3.eth
-    .getBalance(coinBase)
-    .then(balance => web3.utils.fromWei(balance, "ether"));
-  console.log(res);
-};
-
-// 이더 충전
-const chargeEth = (price, address) => {
+  // 임시 1이더 송금
   web3.eth.personal.unlockAccount(coinBase, "123", 300);
-  const Eth = web3.utils.toWei(String(price), "ether");
+  const Eth = web3.utils.toWei("1", "ether");
   const tx = {
     from: coinBase,
-    to: address,
+    to: wallet.address,
     value: Eth
   };
   web3.eth.sendTransaction(tx).then(receipt => {
     console.log(receipt);
-    web3.eth.personal.lockAccount(coinBase);
   });
+
+  return [wallet.address, wallet.privateKey];
+};
+
+// 지갑 잔액 조회, 이더
+export const getWalletBalance = async () => {
+  // const coinBase = await getCoinBase();
+  const coinBase = "0xCa2bd9C291d431457776534C03E178e3B078FDD1";
+  const res = TokenContarct.methods
+    .balanceOf(coinBase)
+    .call()
+    .then(balance => balance);
+  return res;
+};
+
+// 이더 충전
+export const chargeCoin = async (price, address) => {
+  const coinBase = await getCoinBase();
+
+  await TokenContarct.methods
+    .approve(coinBase, price)
+    .send({ from: coinBase })
+    .then(res => console.log(res));
+
+  await TokenContarct.methods
+    .transferFrom(coinBase, address, price)
+    .send({ from: coinBase })
+    .then(res => console.log(res));
 };
 
 export default {};

@@ -25,6 +25,9 @@
 }
 #navbar .navbar-content-logo {
   height: 40px;
+  background-color: #1c1c1c;
+  border: none;
+  cursor: pointer;
 }
 #navbar .navbar-content-logo .navbar-logo {
   height: 100%;
@@ -83,20 +86,24 @@
 }
 #navbar .navbar-content-tap-profile .profile-container img {
   width: 32px;
+  cursor: pointer;
 }
 #navbar .navbar-content-tap-profile .profile-container:hover {
   cursor: pointer;
 }
 #navbar .navbar-content-tap-profile .profile-dropdown {
+  z-index: 2;
   font-size: 16px;
   background-color: #1c1c1c;
   width: 200px;
   position: absolute;
-  top: 48px;
+  top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 1px solid #5c6bc0;
+  border-top: none;
 }
 #navbar .navbar-content-tap-profile .profile-dropdown a {
   text-align: center;

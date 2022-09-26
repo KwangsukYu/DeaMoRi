@@ -5,7 +5,8 @@ import SchoolIcon from "assets/images/SchoolIcon.svg";
 import WalletIcon from "assets/images/Wallet.svg";
 import Badge from "assets/images/RewardBadge.svg";
 import { v4 } from "uuid";
-// import { getWalletBalance } from "apis/web3/web3";
+import { numberWithCommas } from "utils/numberComma";
+import { getWalletBalance } from "apis/web3/web3";
 import SupportAmount from "./SupportAmount";
 import CoinCharge from "./CoinCharge";
 import CreateWallet from "./CreateWallet";
@@ -13,9 +14,18 @@ import CreateWallet from "./CreateWallet";
 function MyPage() {
   const [schoolChk, setSchoolChk] = useState(true);
   const [modal, setModal] = useState(false);
-  const [haveWallet, setHaveWallet] = useState(true);
+  const [haveWallet, setHaveWallet] = useState(false);
+  const [userBalance, setUserBalance] = useState<string | number>("???");
   const badgeDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const supportDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const getUserBalance = async () => {
+    const balance = await getWalletBalance();
+    setUserBalance(balance);
+  };
+
+  const signal = () => {
+    setHaveWallet(true);
+  };
 
   return (
     <div id="mypage">
@@ -47,17 +57,23 @@ function MyPage() {
           {haveWallet ? (
             <div className="mypage-wallet-detail">
               <p>
-                보유 코인 : <span>100,000,000</span>
+                지갑 주소 <br />
+                <span>0x34a028D08680B252A6b881ab4c155531cfa34f64</span>
+              </p>
+              <p>
+                보유 코인 <br /> <span>{numberWithCommas(userBalance)}</span>
               </p>
               <div className="mypage-wallet-detail-btn">
-                <button type="button">코인 조회</button>
+                <button type="button" onClick={getUserBalance}>
+                  코인 조회
+                </button>
                 <button type="button" onClick={() => setModal(true)}>
                   코인 충전
                 </button>
               </div>
             </div>
           ) : (
-            <CreateWallet />
+            <CreateWallet signal={signal} />
           )}
         </div>
         <div className="mypage-badge">

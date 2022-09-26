@@ -1,8 +1,9 @@
 #rankings {
-  margin-top: 2%;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 60px;
   .background {
     display: flex;
     width: 800px;
@@ -75,6 +76,25 @@
   }
 
   #rank-box {
+    .line {
+      width: 98%;
+      margin-left: 20px;
+      border: #5c6bc0;
+      height: 3px;
+      background-color: #5c6bc0;
+    }
+    .my-uni-title {
+      margin-left: 25px;
+      color: white;
+      font-weight: bold;
+      font-size: large;
+    }
+    .total-uni-title {
+      margin-left: 20px;
+      color: white;
+      font-weight: bold;
+      font-size: large;
+    }
     .rank-menu {
       display: flex;
       color: white;

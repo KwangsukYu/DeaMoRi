@@ -4,6 +4,7 @@ import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
+import MySponRank from "./MySponRank";
 
 function SponRankings() {
   const universities = [
@@ -44,9 +45,15 @@ function SponRankings() {
     <div id="rank-box">
       <div className="rank-menu">
         <p className="rank-menu-rank">순위</p>
-        <p className="rank-menu-name">학교명</p>
-        <p className="rank-menu-price">획득상금</p>
+        <p className="rank-menu-name">후원자명</p>
+        <p className="rank-menu-price">후원금</p>
       </div>
+      <div>
+        <p className="my-uni-title">마이 대학 순위</p>
+        <MySponRank />
+        <div className="line" />
+      </div>
+      <p className="total-uni-title">전체 대학 순위</p>
       {RankMain}
     </div>
   );

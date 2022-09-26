@@ -57,8 +57,8 @@
     &-wallet {
       color: black;
       margin-top: 60px;
-      width: 400px;
-      height: 160px;
+      width: 600px;
+      height: 260px;
       border-radius: 15px;
       background-color: white;
       display: flex;
@@ -80,9 +80,10 @@
         flex-direction: column;
         justify-content: space-evenly;
         > p {
+          width: 100%;
           font-weight: 600;
           font-size: 20px;
-          width: 100%;
+          margin: 0;
           text-align: center;
           > span {
             font-size: 24px;
