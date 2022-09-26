@@ -28,6 +28,8 @@ public class UserAdminRes extends BaseResponseBody {
                     .userPk(user.getId())
                     .userId(user.getUserId())
                     .userName(user.getUsername())
+                    .badge(user.getBadge())
+                    .nickName(user.getNickName())
                     .address(user.getWallet() == null ? null : user.getWallet().getAddress())
                     .role(user.getRole())
                     .fileUrl(user.getUniversityAuth() == null ? null : user.getUniversityAuth().getFileUrl())
@@ -49,5 +51,7 @@ class UserAdmin{
     String userName;
     String address;
     String role;
+    String nickName;
+    String badge;
     String fileUrl;
 }
