@@ -16,7 +16,7 @@ function NavBar() {
 
   const [dropDown, setdropDown] = useState(false);
   const [active, setActive] = useState("대회");
-
+  console.log(storeUser);
   // localStorage.token
   // console.log(storeUser);
   return (
@@ -62,7 +62,7 @@ function NavBar() {
                 <div>asdfasdf</div>
               )}
               <div className="badge-container">
-                <img src={Badge} alt="school-icon" />
+                <img src={storeUser.badge} alt="school-icon" />
               </div>
               <div className="profile-container">
                 <button
