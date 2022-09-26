@@ -1,7 +1,8 @@
 package ohgwang.demori.api.service;
 
-import ohgwang.demori.DB.entity.UniversityAuth;
+import ohgwang.demori.DB.entity.Image.UniversityAuth;
 import ohgwang.demori.DB.entity.User;
+import ohgwang.demori.DB.repository.BadgeRepository;
 import ohgwang.demori.DB.repository.UniversityAuthRepository;
 import ohgwang.demori.DB.repository.UserRepository;
 import ohgwang.demori.api.request.UserRegisterPostReq;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	UniversityAuthRepository universityAuthRepository;
 
+	@Autowired
+	BadgeRepository badgeRepository;
+
 	@Override
 	public User getUserByUserId(String userId) {
 		// TODO Auto-generated method stub
@@ -51,7 +55,10 @@ public class UserServiceImpl implements UserService{
 
 		user.setUserId(registerInfo.getUserId());
 		user.setUsername(registerInfo.getUserName());
+		user.setNickName(registerInfo.getNickName());
+		user.setBadge(badgeRepository.getById(1).getFileUrl());
 		user.setRole("ROLE_USER");
+
 		user.setPassword(passwordEncoder.encode(registerInfo.getPassword()));
 		
 		return userRepository.save(user);
