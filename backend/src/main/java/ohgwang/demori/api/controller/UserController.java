@@ -77,12 +77,10 @@ public class UserController {
 		}else {
 			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
 		}
-
 	}
 
 	@PostMapping("/auth")
 	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(Authentication authentication, @RequestPart MultipartFile file){
-
 		try {
 			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 			String userId = userDetails.getUsername();
