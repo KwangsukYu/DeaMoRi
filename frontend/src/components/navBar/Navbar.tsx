@@ -19,6 +19,16 @@ function NavBar() {
   console.log(storeUser);
   // localStorage.token
   // console.log(storeUser);
+  function deleteToken() {
+    localStorage.removeItem("token");
+  }
+  function Logout(e: any) {
+    e.preventDefault();
+    deleteToken();
+    alert("로그아웃되었습니다");
+    document.location.href = "/";
+  }
+
   return (
     <div id="navbar">
       <div className="navbar">
@@ -57,7 +67,7 @@ function NavBar() {
             </div> */}
             <div className="navbar-content-tap-profile">
               {localStorage.token ? (
-                <div>{storeUser.userName}</div>
+                <div>{storeUser.nickName}</div>
               ) : (
                 <div>asdfasdf</div>
               )}
@@ -73,17 +83,34 @@ function NavBar() {
                   <img src={UserDummy} alt="dummy" />
                 </button>
               </div>
-              {dropDown && (
-                <div className="profile-dropdown">
-                  <Link onClick={() => setActive("")} to="mypage">
-                    마이페이지
-                  </Link>
-                  <Link onClick={() => setActive("")} to="mypage">
-                    회원정보수정
-                  </Link>
-                  <Link onClick={() => setActive("")} to="login">
-                    로그아웃
-                  </Link>
+              {localStorage.token ? (
+                <div>
+                  {dropDown && (
+                    <div className="profile-dropdown">
+                      <Link onClick={() => setActive("")} to="mypage">
+                        마이페이지
+                      </Link>
+                      <Link onClick={() => setActive("")} to="edit">
+                        회원정보수정
+                      </Link>
+                      <Link onClick={e => Logout(e)} to="/">
+                        로그아웃
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  {dropDown && (
+                    <div className="profile-dropdown">
+                      <Link onClick={() => setActive("")} to="login">
+                        로그인
+                      </Link>
+                      <Link onClick={() => setActive("")} to="signup">
+                        회원가입
+                      </Link>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
