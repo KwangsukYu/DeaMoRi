@@ -1,6 +1,6 @@
 package ohgwang.demori.api.service;
 
-import ohgwang.demori.DB.entity.UniversityAuth;
+import ohgwang.demori.DB.entity.Image.UniversityAuth;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.DB.repository.UniversityAuthRepository;
 import ohgwang.demori.DB.repository.UserRepository;

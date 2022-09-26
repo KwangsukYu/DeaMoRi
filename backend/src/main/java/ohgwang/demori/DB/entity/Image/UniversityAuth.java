@@ -1,6 +1,7 @@
-package ohgwang.demori.DB.entity;
+package ohgwang.demori.DB.entity.Image;
 
 import lombok.Data;
+import ohgwang.demori.DB.entity.User;
 
 import javax.persistence.*;
 

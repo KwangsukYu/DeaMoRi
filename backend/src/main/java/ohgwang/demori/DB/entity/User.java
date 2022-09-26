@@ -1,15 +1,13 @@
 package ohgwang.demori.DB.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ohgwang.demori.DB.entity.Image.UniversityAuth;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 @Entity
 @Data
