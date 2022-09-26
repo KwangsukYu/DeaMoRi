@@ -39,7 +39,7 @@ function Login() {
         const token = res.data.accessToken;
         localStorage.setItem("token", token);
         alert("로그인 되었습니다.");
-        // document.location.href = "/";
+        document.location.href = "/";
 
         getMyInfo();
       })
