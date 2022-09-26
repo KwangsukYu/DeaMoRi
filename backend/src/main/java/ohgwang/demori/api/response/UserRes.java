@@ -20,6 +20,8 @@ public class UserRes{
 	String userId;
 	String userName;
 	String address;
+	String nickName;
+	String badge;
 	String role;
 	
 	public static UserRes of(User user) {
@@ -27,6 +29,8 @@ public class UserRes{
 		res.setUserPk(user.getId());
 		res.setUserId(user.getUserId());
 		res.setUserName(user.getUsername());
+		res.setBadge(user.getBadge());
+		res.setNickName(user.getNickName());
 		if(user.getWallet() != null){
 			res.setAddress(user.getWallet().getAddress());
 		}else{
