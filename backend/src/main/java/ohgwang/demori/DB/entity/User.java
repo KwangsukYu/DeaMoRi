@@ -23,6 +23,7 @@ public class User {
 	private String password;
 	private String username;
 	private String nickName;
+	private String badge;
 	private String role;
 
 	@CreationTimestamp
