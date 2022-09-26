@@ -88,6 +88,7 @@ export default function LivePage() {
         await session.publish(newPublisher);
         setMainStreamManager(newPublisher);
         setPublisher(newPublisher);
+        console.log("디바이스", videoDevices);
         setCurrentVideoDevice(videoDevices[0]);
         setLoading(true);
       });

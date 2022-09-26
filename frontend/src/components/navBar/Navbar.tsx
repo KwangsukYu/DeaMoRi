@@ -72,7 +72,7 @@ function NavBar() {
                 <div>asdfasdf</div>
               )}
               <div className="badge-container">
-                <img src={storeUser.badge} alt="school-icon" />
+                <img src={Badge} alt="school-icon" />
               </div>
               <div className="profile-container">
                 <button
