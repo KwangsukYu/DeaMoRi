@@ -33,7 +33,7 @@ export const createAccount = async () => {
 // 지갑 잔액 조회, 이더
 export const getWalletBalance = async () => {
   // const coinBase = await getCoinBase();
-  const coinBase = "0xCa2bd9C291d431457776534C03E178e3B078FDD1";
+  const coinBase = "0x88606631413A02b1CD0820Db7d0ed209a6fF7689";
   const res = TokenContarct.methods
     .balanceOf(coinBase)
     .call()

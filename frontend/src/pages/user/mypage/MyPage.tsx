@@ -18,6 +18,7 @@ function MyPage() {
   const [userBalance, setUserBalance] = useState<string | number>("???");
   const badgeDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const supportDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
   const getUserBalance = async () => {
     const balance = await getWalletBalance();
     setUserBalance(balance);
@@ -102,7 +103,14 @@ function MyPage() {
           return <SupportAmount key={v4()} />;
         })}
       </div>
-      {modal && <CoinCharge signal={() => setModal(!modal)} />}
+      {modal && (
+        <CoinCharge
+          signal={() => {
+            setModal(!modal);
+            getUserBalance();
+          }}
+        />
+      )}
     </div>
   );
 }

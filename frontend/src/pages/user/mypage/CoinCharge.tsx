@@ -2,21 +2,25 @@ import React, { useState } from "react";
 import "./CoinCharge.scss";
 import { numberWithCommas } from "utils/numberComma";
 import { chargeCoin } from "apis/web3/web3";
+import { CircularProgress } from "@mui/material";
 
 interface CoinChargeProps {
   signal: () => void;
 }
 
 function CoinCharge({ signal }: CoinChargeProps) {
+  const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(0);
 
   const addAmount = (num: number) => {
     setAmount(cur => cur + num);
   };
 
-  const charge = (num: number) => {
-    chargeCoin(num, "0xCa2bd9C291d431457776534C03E178e3B078FDD1");
+  const charge = async (num: number) => {
+    setLoading(true);
+    await chargeCoin(num, "0x88606631413A02b1CD0820Db7d0ed209a6fF7689");
     signal();
+    setLoading(false);
   };
 
   return (
@@ -41,18 +45,24 @@ function CoinCharge({ signal }: CoinChargeProps) {
               {numberWithCommas(10000000)}
             </button>
           </div>
-          <div className="charge-button">
-            <button
-              type="button"
-              className="blue"
-              onClick={() => charge(amount)}
-            >
-              충전
-            </button>
-            <button type="button" onClick={signal}>
-              취소
-            </button>
-          </div>
+          {loading ? (
+            <div className="charge-button">
+              <CircularProgress />
+            </div>
+          ) : (
+            <div className="charge-button">
+              <button
+                type="button"
+                className="blue"
+                onClick={() => charge(amount)}
+              >
+                충전
+              </button>
+              <button type="button" onClick={signal}>
+                취소
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
