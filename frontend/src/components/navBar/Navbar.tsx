@@ -69,10 +69,10 @@ function NavBar() {
               {localStorage.token ? (
                 <div>{storeUser.nickName}</div>
               ) : (
-                <div>asdfasdf</div>
+                <div>로그인 ㄴㄴ</div>
               )}
               <div className="badge-container">
-                <img src={storeUser.badge} alt="school-icon" />
+                <img src={Badge} alt="school-icon" />
               </div>
               <div className="profile-container">
                 <button
