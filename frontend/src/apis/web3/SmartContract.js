@@ -286,7 +286,7 @@ const TokenABI = [
     type: "function"
   }
 ];
-const TokenCA = "0xd9c43e8C0B69e9E6DE56EdE7c2355E5e1454A5C0";
+const TokenCA = "0x6c304AfaD7C413A62341565E01562FFf3172CCA4";
 
 export const TokenContarct = new web3.eth.Contract(TokenABI, TokenCA);
 
