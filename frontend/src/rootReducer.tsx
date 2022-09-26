@@ -1,9 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import users from "./Slices/users";
+import userInfo from "./Slices/userInfo";
 
 // 만들어 놓은 리듀서들을 합친다.
 const reducer = combineReducers({
-  users
+  userInfo
 });
 
 // React에서 사용할 수 있도록 타입을 만들어 export 해준다.
