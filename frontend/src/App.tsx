@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "pages/home/Home";
 import Rankings from "pages/rankings/Rankings";
 import NavBar from "components/navBar/Navbar";
 import Landing from "pages/LandingPage/Landing";

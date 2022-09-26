@@ -4,11 +4,21 @@ import "./NavBar.scss";
 import NavLogo from "assets/images/DAMORI_navBar.svg";
 import UserDummy from "assets/images/UserDummy.svg";
 import Badge from "assets/images/RewardBadge.svg";
+import { useSelector } from "react-redux";
+import { infoType } from "Slices/userInfo";
 
 function NavBar() {
+  // const storeUser = useSelector((state: infoType) => {
+  //   return state;
+  // });
+  // let storeUser;
+  const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
+
   const [dropDown, setdropDown] = useState(false);
   const [active, setActive] = useState("대회");
-
+  console.log(storeUser);
+  // localStorage.token
+  // console.log(storeUser);
   return (
     <div id="navbar">
       <div className="navbar">
@@ -46,9 +56,13 @@ function NavBar() {
               <Link to="login">로그인</Link>
             </div> */}
             <div className="navbar-content-tap-profile">
-              <div>닉네임은팔글자임</div>
+              {localStorage.token ? (
+                <div>{storeUser.userName}</div>
+              ) : (
+                <div>asdfasdf</div>
+              )}
               <div className="badge-container">
-                <img src={Badge} alt="school-icon" />
+                <img src={storeUser.badge} alt="school-icon" />
               </div>
               <div className="profile-container">
                 <button
