@@ -9,13 +9,13 @@ import lombok.Data;
 @Data
 //@ApiModel("UserRegisterPostRequest")
 public class UserRegisterPostReq {
-	//@ApiModelProperty(name="유저 ID", example="ssafy_web")
-	String id;
 
 	String userId;
 	//@ApiModelProperty(name="유저 Password", example="your_password")
 	String password;
 	
 	String userName;
+
+	String nickName;
 
 }

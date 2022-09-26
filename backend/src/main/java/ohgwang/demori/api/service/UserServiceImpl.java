@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService{
 
 		user.setUserId(registerInfo.getUserId());
 		user.setUsername(registerInfo.getUserName());
+		user.setNickName(registerInfo.getNickName());
 		user.setRole("ROLE_USER");
 		user.setPassword(passwordEncoder.encode(registerInfo.getPassword()));
 		
