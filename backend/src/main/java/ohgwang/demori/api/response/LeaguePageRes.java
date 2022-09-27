@@ -48,4 +48,5 @@ class GetLeague {
     private String uniName2;
     private String leagueName;
     private LocalDateTime leagueDatetime;
+
 }
