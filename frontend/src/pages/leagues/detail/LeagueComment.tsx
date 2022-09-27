@@ -31,9 +31,7 @@ function LeagueComment({ teamColor }: TeamDetailProps) {
           return <CommentItem key={v4()} teamColor={teamColor} />;
         })}
       </div>
-      <div className="leaguecomment-pagination">
-        <Pagination />
-      </div>
+      <div className="leaguecomment-pagination">{/* <Pagination /> */}</div>
     </div>
   );
 }
