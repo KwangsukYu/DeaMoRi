@@ -15,14 +15,16 @@ function Leagues() {
                 대회 생성
               </button>
             </Link>
-            <input
-              className="leagues-function-search"
-              placeholder="검색창"
-              type="text"
-            />
           </span>
         </div>
+        <h2 className="leagues-function-myuniversity">우리 대학 대회</h2>
         <Carousel />
+        <h2>대회 목록</h2>
+        <input
+          className="leagues-function-search"
+          placeholder="검색창"
+          type="text"
+        />
         <Scroll />
       </div>
     </div>
