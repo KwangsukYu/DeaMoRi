@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./UniList.scss";
 import uniLogo1 from "assets/images/uni1.png";
 import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
+import axios from "axios";
+import Pagination from "../../components/Pagination/Pagination";
 
 function UniList() {
+  const [uniList, setUniList] = useState([]);
+
+  useEffect(() => {
+    axios({
+      url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
+      method: "get",
+      headers: { Authorization: `Bearer ${localStorage.token}` }
+    })
+      .then(res => {
+        console.log(res.data);
+        setUniList(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  console.log(uniList);
   const myUni = { rank: 3, name: "싸피대학교", price: "53000000" };
   let rankImg = "";
   let rankClass = "";
@@ -77,6 +97,7 @@ function UniList() {
             <div className="uni-card-background">adsf</div>
             <div className="uni-card-background">adsf</div>
           </div>
+          <Pagination />
         </div>
       </div>
     </div>
