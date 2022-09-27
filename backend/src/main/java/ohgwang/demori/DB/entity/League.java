@@ -22,9 +22,9 @@ public class League {
     private LocalDateTime leagueStartDatetime;
     private LocalDateTime leagueEndDatetime;
     private LocalDateTime sponStartDatetime;
-    private LocalDateTime sponEndDatetime;
     private String location;
     private boolean isBroadcast;
+    private int live;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team1")

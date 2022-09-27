@@ -10,6 +10,6 @@ public interface LeagueService {
 
     League createLeague(LeagueRegisterPostReq registerInfo);
 
-    Page<League> getLeaguePage(int page, int size, String field);
+    Page<League> getLeaguePage(int page, int size, String field, String keyword);
 
 }
