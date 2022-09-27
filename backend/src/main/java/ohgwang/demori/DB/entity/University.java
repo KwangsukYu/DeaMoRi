@@ -17,5 +17,6 @@ public class University {
     private String uniName;
     private String homepage;
     private String uniAddress;
+    private String logoUrl;
 
 }

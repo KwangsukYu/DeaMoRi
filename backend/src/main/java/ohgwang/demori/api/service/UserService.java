@@ -21,4 +21,6 @@ public interface UserService {
 	User findByPk(int userPk);
 
 	String changeRole(User user, int role);
+
+	User getUserByNickname(String nickName);
 }

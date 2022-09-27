@@ -27,6 +27,9 @@ public class UniversityRes {
 	@ApiModelProperty(name="학교 주소")
 	private String universityAddress;
 
+	@ApiModelProperty(name="로고 이미지 주소, null 있음")
+	private String logoUrl;
+
 	
 	public static UniversityRes of(University university) {
 		UniversityRes res = new UniversityRes();
@@ -34,6 +37,7 @@ public class UniversityRes {
 		res.setHomepage(university.getHomepage());
 		res.setUniversityAddress(university.getUniAddress());
 		res.setUniversityName(university.getUniName());
+		res.setLogoUrl(university.getLogoUrl());
 		return res;
 	}
 }

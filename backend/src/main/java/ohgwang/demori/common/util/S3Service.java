@@ -1,4 +1,4 @@
-package ohgwang.demori.api.service;
+package ohgwang.demori.common.util;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
