@@ -1,6 +1,3 @@
-// btn {
-//   width: 100px;
-// }
 #create {
   .create {
     margin-top: 40px;
@@ -13,21 +10,22 @@
     &-option {
       display: flex;
       width: 800px;
-      height: 530px;
+      height: 620px;
       border: 1px solid;
       border-radius: 20px;
       flex-direction: column;
-      // float: left;
-      // justify-content: center;
       align-items: center;
       background-color: #1c1c1c;
       border-top: 4px solid #5c6bc0;
       border-bottom: 4px solid #5c6bc0;
+      small {
+        color: rgb(202, 0, 0);
+      }
       &-text {
         margin: 10px;
         font-weight: bold;
         color: #5c6bc0;
-        margin-bottom: -3px;
+        margin-bottom: -1px;
       }
       &-input {
         width: 200px;
@@ -37,15 +35,49 @@
         text-align: center;
       }
       &-comment {
-        font-size: 12px;
-        margin-bottom: 10px;
+        font-size: 14px;
+        margin-top: 4px;
         color: #ff7f22;
       }
+      input[type="file"] {
+        color: red;
+        display: none;
+        // margin: 10px;
+      }
       &-poster {
-        margin: 10px;
+        margin-top: 10px;
+        font-size: 14px;
+        width: 120px;
+        height: 38px;
+        border-radius: 12px;
+        margin: 5px;
+        background-color: #007350;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       &-broadcast {
         margin-top: 10px;
+        button {
+          width: 120px;
+          height: 38px;
+          border-radius: 12px;
+          margin: 5px;
+          border: 0px;
+        }
+        &-title {
+          color: #5c6bc0;
+          margin-bottom: -10px;
+        }
+        &-on {
+          background-color: #aa0e03;
+          color: white;
+        }
+        &-off {
+          background-color: #555555;
+          color: white;
+        }
       }
     }
     &-container {
@@ -66,10 +98,10 @@
         }
         float: left;
         margin-top: 30px;
-        margin-right: 40px;
+        // margin-right: 40px;
         display: flex;
         width: 380px;
-        height: 650px;
+        height: 700px;
         border: 1px solid;
         border-radius: 20px;
         flex-direction: column;
@@ -99,11 +131,11 @@
           border-radius: 12px;
           text-align: center;
         }
-        // float: right;
+        float: right;
         margin-top: 30px;
         display: flex;
         width: 380px;
-        height: 650px;
+        height: 700px;
         border: 1px solid;
         border-radius: 20px;
         flex-direction: column;
@@ -120,8 +152,9 @@
       }
     }
     &-buttoncontainer {
-      margin-top: 20px;
       &-cancel {
+        margin-left: 275px;
+        margin-top: 20px;
         margin-right: 10px;
         margin-bottom: 50px;
         background-color: #5c6bc0;
