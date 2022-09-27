@@ -62,58 +62,45 @@ function NavBar() {
                 대학
               </Link>
             </div>
-            {/* <div className="navbar-content-tap-login">
-              <Link to="login">로그인</Link>
-            </div> */}
-            <div className="navbar-content-tap-profile">
-              {localStorage.token ? (
+            {localStorage.token ? (
+              <div className="navbar-content-tap-profile">
                 <div>{storeUser.nickName}</div>
-              ) : (
-                <div>{null}</div>
-              )}
-              <div className="badge-container">
-                <img src={Badge} alt="school-icon" />
-              </div>
-              <div className="profile-container">
-                <button
-                  className="nav-button"
-                  type="button"
-                  onClick={() => setdropDown(!dropDown)}
-                >
-                  <img src={UserDummy} alt="dummy" />
-                </button>
-              </div>
-              {localStorage.token ? (
-                <div>
-                  {dropDown && (
-                    <div className="profile-dropdown">
-                      <Link onClick={() => setActive("")} to="mypage">
-                        마이페이지
-                      </Link>
-                      <Link onClick={() => setActive("")} to="edit">
-                        회원정보수정
-                      </Link>
-                      <Link onClick={e => Logout(e)} to="/">
-                        로그아웃
-                      </Link>
-                    </div>
-                  )}
+                <div className="badge-container">
+                  <img src={Badge} alt="school-icon" />
                 </div>
-              ) : (
-                <div>
-                  {dropDown && (
-                    <div className="profile-dropdown">
-                      <Link onClick={() => setActive("")} to="login">
-                        로그인
-                      </Link>
-                      <Link onClick={() => setActive("")} to="signup">
-                        회원가입
-                      </Link>
-                    </div>
-                  )}
+                <div className="profile-container">
+                  <button
+                    className="nav-button"
+                    type="button"
+                    onClick={() => setdropDown(!dropDown)}
+                  >
+                    <img src={UserDummy} alt="dummy" />
+                  </button>
                 </div>
-              )}
-            </div>
+                {dropDown && (
+                  <div className="profile-dropdown">
+                    <Link onClick={() => setActive("")} to="mypage">
+                      마이페이지
+                    </Link>
+                    <Link onClick={() => setActive("")} to="edit">
+                      회원정보수정
+                    </Link>
+                    <Link onClick={e => Logout(e)} to="/">
+                      로그아웃
+                    </Link>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="navbar-content-tap-login">
+                <Link to="login" onClick={() => setActive("")}>
+                  로그인
+                </Link>
+                <Link to="signup" onClick={() => setActive("")}>
+                  회원가입
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
