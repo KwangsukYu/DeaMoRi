@@ -21,7 +21,7 @@ function Login() {
       .then(res => {
         console.log(res);
         dispatch(getInfo(res.data));
-        // window.location.href = "/";
+        window.location.href = "/";
       })
       .catch(err => {
         console.error(err);
@@ -38,10 +38,10 @@ function Login() {
       .then(res => {
         const token = res.data.accessToken;
         localStorage.setItem("token", token);
-        alert("로그인 되었습니다.");
-        document.location.href = "/";
+        // alert("로그인 되었습니다.");
 
         getMyInfo();
+        document.location.href = "/";
       })
       .catch(err => {
         if (err.response.status === 403) {
