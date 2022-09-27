@@ -4,10 +4,13 @@ import "./NavBar.scss";
 import NavLogo from "assets/images/DAMORI_navBar.svg";
 import UserDummy from "assets/images/UserDummy.svg";
 import Badge from "assets/images/RewardBadge.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { infoType } from "Slices/userInfo";
+import { delInfo } from "../../Slices/userInfo";
 
 function NavBar() {
+  const dispatch = useDispatch();
+
   // const storeUser = useSelector((state: infoType) => {
   //   return state;
   // });
@@ -19,13 +22,12 @@ function NavBar() {
   console.log(storeUser);
   // localStorage.token
   // console.log(storeUser);
-  function deleteToken() {
-    localStorage.removeItem("token");
-  }
+
   function Logout(e: any) {
     e.preventDefault();
-    deleteToken();
-    alert("로그아웃되었습니다");
+    localStorage.removeItem("token");
+    dispatch(delInfo());
+    alert("로그아웃 되었습니다");
     document.location.href = "/";
   }
 
@@ -62,7 +64,7 @@ function NavBar() {
                 대학
               </Link>
             </div>
-            {localStorage.token ? (
+            {storeUser ? (
               <div className="navbar-content-tap-profile">
                 <div>{storeUser.nickName}</div>
                 <div className="badge-container">
