@@ -23,4 +23,6 @@ public interface UserService {
 	String changeRole(User user, int role);
 
 	User getUserByNickname(String nickName);
+
+	void save(User user);
 }
