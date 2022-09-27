@@ -1,5 +1,6 @@
 import Web3 from "web3";
-import { TokenContarct } from "./SmartContract";
+import axios from "axios";
+import { TokenContarct, NFTContract } from "./SmartContract";
 
 const web3 = new Web3("http://localhost:8545");
 
@@ -54,6 +55,60 @@ export const chargeCoin = async (price, address) => {
     .transferFrom(coinBase, address, price)
     .send({ from: coinBase })
     .then(res => console.log(res));
+};
+
+// IPFS 서버 업로드
+
+export const sendFileToIPFS = async (file, league, team, address) => {
+  const coinBase = await getCoinBase();
+  let ImgHash;
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    const resFile = await axios({
+      method: "post",
+      url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+      data: formData,
+      headers: {
+        pinata_api_key: "6bf132913c976501782c",
+        pinata_secret_api_key:
+          "598761323c0a9bf7d37afb0fff220c1ada290f178323ed9f2260ccb60d2d61d9",
+        "Content-Type": "multipart/form-data"
+      }
+    });
+
+    ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+    console.log(ImgHash);
+  } catch (error) {
+    console.log("Error sending File to IPFS: ");
+    console.log(error);
+  }
+
+  const data = JSON.stringify({
+    description: { league },
+    image: ImgHash,
+    name: { team }
+  });
+
+  const config = {
+    method: "post",
+    url: "https://api.pinata.cloud/pinning/pinJSONToIPFS",
+    headers: {
+      "Content-Type": "application/json",
+      pinata_api_key: process.env.REACT_APP_PINATA_API_KEY,
+      pinata_secret_api_key: process.env.REACT_APP_PINATA_SECRET_API_KEY
+    },
+    data
+  };
+
+  const res = await axios(config);
+
+  console.log(res.data);
+
+  await NFTContract.methods
+    .mintNFT(coinBase, `ipfs://${res.data.IpfsHash}`)
+    .send({ from: coinBase })
+    .then(response => console.log(response));
 };
 
 export default {};
