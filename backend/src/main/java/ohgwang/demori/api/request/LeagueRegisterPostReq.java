@@ -21,6 +21,6 @@ public class LeagueRegisterPostReq {
     private List<String> uniName = new ArrayList<>();
     private List<String> teamId = new ArrayList<>();
     private List<String> leaderId = new ArrayList<>();
-    private List<Integer> teamColor = new ArrayList<>();
+    private List<String> teamColor = new ArrayList<>();
 
 }
