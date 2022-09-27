@@ -130,10 +130,10 @@
         flex-wrap: wrap;
         .uni-card-background {
           background-color: #1c1c1c;
-          width: 120px;
-          height: 140px;
+          width: 131px;
+          height: 156px;
           border-radius: 15px;
-          margin: 20px;
+          margin: 14px;
         }
         .uni-card {
           display: flex;
@@ -154,9 +154,10 @@
             }
           }
           .uni-card-text {
-            width: 110px;
+            width: 122px;
             text-align: center;
             font-size: 15px;
+            padding-top: 5px;
           }
         }
       }

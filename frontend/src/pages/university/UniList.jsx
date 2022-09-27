@@ -7,26 +7,55 @@ import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
 import Pagination from "../../components/Pagination/Pagination";
+import UniCompo from "./UniCompo";
+import Loading from "../../components/loading/Loading";
 
 function UniList() {
-  const [uniList, setUniList] = useState([]);
+  const [items, setItems] = useState([]); //  리스트에 나타낼 아이템
+  const [count, setCount] = useState(0); //  아이템 총 개수
+  const [currentpage, setCurrentpage] = useState(1); // 현재페이지
+  const [postPerPage] = useState(10); //  페이지당 아이템 개수
+  const [indexOfLastPost, setIndexOfLastPost] = useState(0);
+  const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
+  const [currentPosts, setCurrentPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // const indexOfLast = currentPage * postsPerPage;
+  // const indexOfFirst = indexOfLast - postsPerPage;
+
+  // const currentPosts = (uniList: any) => {
+  //   let currentPosts = 0;
+  //   currentPosts = uniList.slice(indexOfFirst, indexOfLast);
+  //   return currentPosts;
+  // };
 
   useEffect(() => {
+    setLoading(true);
     axios({
       url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
       method: "get",
       headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
-        console.log(res.data);
-        setUniList(res.data);
+        setItems(res.data);
+        setLoading(false);
       })
       .catch(err => {
         console.log(err);
       });
   }, []);
 
-  console.log(uniList);
+  useEffect(() => {
+    setCount(items.length);
+    setIndexOfLastPost(currentpage * postPerPage);
+    setIndexOfFirstPost(indexOfLastPost - postPerPage);
+    setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+  }, [currentpage, indexOfFirstPost, indexOfLastPost, items, postPerPage]);
+
+  const setPage = e => {
+    setCurrentpage(e);
+  };
+
   const myUni = { rank: 3, name: "싸피대학교", price: "53000000" };
   let rankImg = "";
   let rankClass = "";
@@ -77,28 +106,9 @@ function UniList() {
         </div>
         <div className="uni-list-total">
           <div className="uni-list-total-title">전체 대학교</div>
-          <div className="uni-list-total-background">
-            <div className="uni-card-background">
-              <div className="uni-card">
-                <div className="uni-card-back">
-                  <img className="uni-card-logo" src={uniLogo1} alt="" />
-                </div>
-                <p className="uni-card-text">서울대학교</p>
-              </div>
-            </div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-            <div className="uni-card-background">adsf</div>
-          </div>
-          <Pagination />
+          {loading ? <Loading /> : <UniCompo currentPosts={currentPosts} />}
         </div>
+        <Pagination page={currentpage} count={count} setPage={setPage} />
       </div>
     </div>
   );
