@@ -86,6 +86,8 @@ public class UserServiceImpl implements UserService{
 		uniAuth.setUser(user);
 
 		universityAuthRepository.save(uniAuth);
+		user.setUniversityAuth(uniAuth);
+		userRepository.save(user);
 	}
 
 	@Override
@@ -130,6 +132,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getUserByNickname(String nickName) {
 		return userRepository.findByNickName(nickName);
+	}
+
+	@Override
+	public void save(User user) {
+		userRepository.save(user);
 	}
 
 

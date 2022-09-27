@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface UniversityRepository extends JpaRepository<University, Integer> {
     List<University> findByUniNameContaining(String search);
+
+    University getByUniName(String univesityName);
 }
