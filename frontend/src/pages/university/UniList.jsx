@@ -8,7 +8,6 @@ import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
 import Pagination from "../../components/Pagination/Pagination";
 import UniCompo from "./UniCompo";
-import Loading from "../../components/loading/Loading";
 
 function UniList() {
   const [items, setItems] = useState([]); //  리스트에 나타낼 아이템
@@ -18,7 +17,8 @@ function UniList() {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
 
   // const indexOfLast = currentPage * postsPerPage;
   // const indexOfFirst = indexOfLast - postsPerPage;
@@ -28,9 +28,23 @@ function UniList() {
   //   currentPosts = uniList.slice(indexOfFirst, indexOfLast);
   //   return currentPosts;
   // };
+  const searchUni = e => {
+    e.preventDefault();
+    axios({
+      url: `http://j7c208.p.ssafy.io:8080/api/univers/${search}`,
+      method: "get"
+      // params: { search }
+    })
+      .then(res => {
+        setItems(res.data);
+        document.getElementById("search-input").className.value = "";
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    setLoading(true);
     axios({
       url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
       method: "get",
@@ -38,7 +52,6 @@ function UniList() {
     })
       .then(res => {
         setItems(res.data);
-        setLoading(false);
       })
       .catch(err => {
         console.log(err);
@@ -72,7 +85,7 @@ function UniList() {
     rankImg = rankLogo4;
     rankClass = "rankLogo4";
   }
-
+  console.log(currentPosts);
   return (
     <div id="uni-list">
       <div className="uni-list">
@@ -105,8 +118,33 @@ function UniList() {
           </div>
         </div>
         <div className="uni-list-total">
-          <div className="uni-list-total-title">전체 대학교</div>
-          {loading ? <Loading /> : <UniCompo currentPosts={currentPosts} />}
+          <div className="uni-list-total-title-box">
+            <div className="uni-list-total-title-box-title">전체 대학교</div>
+            <form
+              className="input-box"
+              onSubmit={e => {
+                searchUni(e);
+              }}
+            >
+              <input
+                className="search-input"
+                type="text"
+                onChange={e => {
+                  setSearch(e.target.value);
+                }}
+              />
+              <button type="submit" className="search-button">
+                검색
+              </button>
+            </form>
+          </div>
+          {currentPosts ? (
+            <UniCompo currentPosts={currentPosts} />
+          ) : (
+            <div className="uni-list-total-background-err">
+              <p className="search-err">없는 항목입니다.</p>
+            </div>
+          )}
         </div>
         <Pagination page={currentpage} count={count} setPage={setPage} />
       </div>
