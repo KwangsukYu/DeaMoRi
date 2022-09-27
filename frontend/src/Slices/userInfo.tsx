@@ -6,6 +6,7 @@ export interface infoType {
   role: string;
   userName: string;
   userPk: number;
+  nickName: string;
 }
 
 interface InitialStateType {
