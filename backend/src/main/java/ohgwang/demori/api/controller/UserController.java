@@ -79,6 +79,17 @@ public class UserController {
 		}
 	}
 
+	@GetMapping("/check/nickname")
+	public ResponseEntity<?> getNicknameCheck(@RequestParam String nickName){
+		User user = userService.getUserByNickname(nickName);
+
+		if(user == null) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@PostMapping("/auth")
 	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(Authentication authentication, @RequestPart MultipartFile file){
 		try {

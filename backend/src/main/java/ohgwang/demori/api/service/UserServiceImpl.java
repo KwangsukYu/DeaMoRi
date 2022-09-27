@@ -126,5 +126,10 @@ public class UserServiceImpl implements UserService{
 		return r + " 변경 완료";
 	}
 
+	@Override
+	public User getUserByNickname(String nickName) {
+		return userRepository.findByNickName(nickName);
+	}
+
 
 }
