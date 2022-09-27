@@ -3,7 +3,7 @@
   width: 400px;
   height: 614px;
   font-size: 20px;
-  line-height: 200p;
+  line-height: 25px;
   position: relative;
   &-title {
     justify-content: center;
@@ -21,7 +21,7 @@
     padding-right: 3px;
     display: inline-block;
     width: 375px;
-    height: 453px;
+    height: 434px;
     overflow-y: auto;
     color: #d4d4d4;
     &-content {
@@ -45,7 +45,7 @@
   &-input {
     display: flex;
     position: absolute;
-    bottom: 52px;
+    bottom: 71px;
     left: 50%;
     transform: translate(-50%, 0%);
     padding-block: 5px;

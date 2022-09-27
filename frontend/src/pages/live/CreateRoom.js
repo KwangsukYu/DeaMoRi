@@ -47,52 +47,24 @@ function CreateRoom() {
     createSession(title);
   }
 
-  const [permissionDenied, setPermissionDenied] = useState(false);
-  const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
-
-  const reqCameraAndAudio = async () => {
-    try {
-      console.log("앞쪽,", navigator.mediaDevices.getUserMedia.audio);
-      const res = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true
-      });
-      console.log("확인", res);
-      // { audio: true, video: { facingMode: { exact: "environment" } } } // 후면
-      setActiveCameraAndAudio(res.active);
-    } catch (err) {
-      if (err.message === "Permission denied") {
-        setPermissionDenied(true);
-      }
-    }
-  };
-
-  useEffect(() => {
-    reqCameraAndAudio();
-    // window.location.replace(`/live/${title}`);
-    console.log("타이틀", title);
-  }, []);
+  const uniinfo1 = "대학정보1";
+  const uniinfo2 = "대학정보2";
 
   return (
     <div>
       <div>
-        <div className="test">
-          <div className="test3">
-            <h1 className="my-5">중계생성</h1>
-            <form onSubmit={e => goLive(e)}>
-              <input
-                onChange={e => setTitle(e.target.value)}
-                className="inputform"
-                name="roomTitle"
-                id="roomTitle"
-                type="text"
-                placeholder="방 제목"
-                value={title}
-              />
-              {submitButton}
-            </form>
-          </div>
-        </div>
+        <form onSubmit={e => goLive(e)}>
+          <input
+            onChange={e => setTitle(e.target.value)}
+            className="inputform"
+            name="roomTitle"
+            id="roomTitle"
+            type="text"
+            placeholder="방 제목"
+            value={title}
+          />
+          {submitButton}
+        </form>
       </div>
     </div>
   );

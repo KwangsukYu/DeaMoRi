@@ -1,12 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./LiveChat.scss";
 import { v4 } from "uuid";
-
+import { useSelector, useDispatch } from "react-redux";
+import { infoType } from "Slices/userInfo";
 // 고유키값
 
 function LiveChat(props) {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState("");
+
+  const { nickName } = useSelector(state => state.userInfo.userInfo);
 
   const handleChange = event => {
     setMessage(event.target.value);
@@ -17,11 +20,10 @@ function LiveChat(props) {
 
     myProps.session?.on("signal:chat", event => {
       const data = JSON.parse(event.data);
-      console.log("데이타", data);
       const messageListData = messageList;
       messageListData.push({
         connectionId: event.from.connectionId,
-        nickname: data.nickname,
+        nickname: nickName,
         message: data.message
       });
       setMessageList([...messageListData]);
@@ -35,7 +37,7 @@ function LiveChat(props) {
       if (messageData !== "" && messageData !== " ") {
         const data = {
           message: messageData,
-          nickname: myProps.myUserName,
+          nickname: nickName,
           streamId: myProps.streamId
         };
         myProps.session.signal({

@@ -2,15 +2,20 @@ import React, { useEffect, Component, useState } from "react";
 import axios from "axios";
 import "./LivePage.scss";
 import { OpenVidu, Stream } from "openvidu-browser";
-import share from "assets/images/share.png";
+import closechat from "assets/images/closechat.png";
+import openchat from "assets/images/openchat.png";
+import { useSelector, useDispatch } from "react-redux";
+import { infoType } from "Slices/userInfo";
 import UserVideoComponent from "./UserVideoComponent";
 import LiveChat from "./LiveChat";
 
 const OPENVIDU_SERVER_URL = "https://localhost:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
+let OV;
+
 export default function LivePage() {
-  const [ov, setOv] = useState(new OpenVidu());
+  // const [ov, setOv] = useState(null);
   const [loading, setLoading] = useState(null);
   const [params, setParams] = useState(window.location.pathname.split("/"));
   const [title, setTitle] = useState(params[2]);
@@ -18,16 +23,17 @@ export default function LivePage() {
   const [session, setSession] = useState(null);
   const [mainStreamManager, setMainStreamManager] = useState(null);
   const [publisher, setPublisher] = useState(null);
-  const [subscribers, setSubscribers] = useState([]);
   const [mySessionId, setMySessionId] = useState(null);
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
-  const [currentAudioDevice, setCurrentAudioDevice] = useState(null);
-  const [RoomTitle, setRoomTitile] = useState("제목입니다");
+  const [RoomTitle, setRoomTitile] = useState(
+    "제목입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아"
+  );
   const [camera, setCamera] = useState(true);
   const [voice, setVoice] = useState(true);
   const [chattingBox, setChattingBox] = useState(true);
   const [permissionDenied, setPermissionDenied] = useState(false);
   const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
+  const { nickName } = useSelector(state => state.userInfo.userInfo);
 
   const getToken = sessionId => {
     return new Promise((resolve, reject) => {
@@ -57,35 +63,35 @@ export default function LivePage() {
 
   const joinSession = () => {
     session.on("streamCreated", event => {
-      const subscriber = session.subscribe(event.stream, undefined);
-      if (subscribers in subscriber) return;
-      setSubscribers(preventSubscribers => [subscriber, ...preventSubscribers]);
+      // const subscriber = session.subscribe(event.stream, undefined);
+      // setSubscribers(prevSubscribers => [subscriber, ...prevSubscribers]);
     });
     session.on("streamDestroyed", event => {
-      setSubscribers(prevSubscribers => {
-        return prevSubscribers.filter(
-          stream => stream !== event.stream.streamManager
-        );
-      });
+      // setSubscribers(prevSubscribers => {
+      //   return prevSubscribers.filter(
+      //     stream => stream !== event.stream.streamManager
+      //   );
+      // });
     });
 
     getToken(mySessionId).then(token => {
       session.connect(token, { clientData: myUserName }).then(async () => {
-        const devices = await ov.getDevices();
+        const devices = await OV.getDevices();
         const videoDevices = devices.filter(
           device => device.kind === "videoinput"
         );
-        const newPublisher = ov.initPublisher(undefined, {
+        const newPublisher = OV.initPublisher(undefined, {
           audioSource: undefined,
           videoSource: videoDevices[0].deviceId,
           publishAudio: true,
           publishVideo: true,
-          resolution: "800x500",
+          resolution: "1280x960",
           frameRate: 30,
           insertMode: "APPEND",
-          mirror: true
+          mirror: false
         });
-        await session.publish(newPublisher);
+        console.log("여기체크", OV.initPublisher);
+        session.publish(newPublisher);
         setMainStreamManager(newPublisher);
         setPublisher(newPublisher);
         setCurrentVideoDevice(videoDevices[0]);
@@ -95,24 +101,26 @@ export default function LivePage() {
   };
 
   useEffect(() => {
-    setOv(new OpenVidu());
-    setSession(ov.initSession());
+    OV = new OpenVidu();
+    setSession(OV.initSession());
   }, []);
 
   useEffect(() => {
     if (!session) return;
 
     joinSession();
+    console.log("셋션", session);
+    console.log("세션", session.subscribe);
   }, [session]);
 
   const leaveSession = () => {
     if (session) session.disconnect();
 
-    setOv(null);
+    OV = null;
     setSession(null);
-    setSubscribers([]);
+    // setSubscribers([]);
     setMySessionId("user");
-    setMyUserName("user");
+    setMyUserName(nickName);
     setMainStreamManager(null);
     setPublisher(null);
   };
@@ -175,6 +183,12 @@ export default function LivePage() {
       .then((document.location.href = `/createroom/id`));
   };
 
+  useEffect(() => {
+    reqCameraAndAudio();
+    // window.location.replace(`/live/${title}`);
+    console.log("타이틀", title);
+  }, []);
+
   return (
     <div className="broad">
       <div className="main">
@@ -191,26 +205,26 @@ export default function LivePage() {
               <div className="live-box-information">
                 <h3 className="live-box-information-title">{RoomTitle}</h3>
                 <p className="live-box-information-subscribers">
-                  시청자 수 : {subscribers.length}
+                  {/* 시청자 수 : {subscribers.length} */}
                 </p>
               </div>
             </div>
             <div className="live-chat">
               {chattingBox ? (
                 <div>
+                  <button className="art3" type="button" onClick={ChattingOff}>
+                    <img className="art" alt="open" src={closechat} />
+                  </button>
                   <LiveChat
                     props={{
                       myUserName,
                       session
                     }}
                   />
-                  <button type="button" onClick={ChattingOff}>
-                    <img className="art" alt="open" src={share} />
-                  </button>
                 </div>
               ) : (
-                <button type="button" onClick={ChattingOff}>
-                  <img className="art2" alt="open" src={share} />
+                <button className="art4" type="button" onClick={ChattingOff}>
+                  <img className="art2" alt="open" src={openchat} />
                 </button>
               )}
             </div>
