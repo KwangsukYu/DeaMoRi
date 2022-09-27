@@ -19,7 +19,7 @@ public class Team {
 
     private String teamId;
     private String uniName;
-    private int teamColor;
+    private String teamColor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "leader")
