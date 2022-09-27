@@ -1,6 +1,6 @@
 import Web3 from "web3";
 import axios from "axios";
-import { TokenContarct, NFTContract } from "./SmartContract";
+import { TokenContract, NFTContract } from "./SmartContract";
 
 const web3 = new Web3("http://localhost:8545");
 
@@ -35,7 +35,7 @@ export const createAccount = async () => {
 export const getWalletBalance = async () => {
   // const coinBase = await getCoinBase();
   const coinBase = "0x88606631413A02b1CD0820Db7d0ed209a6fF7689";
-  const res = TokenContarct.methods
+  const res = TokenContract.methods
     .balanceOf(coinBase)
     .call()
     .then(balance => balance);
@@ -45,13 +45,14 @@ export const getWalletBalance = async () => {
 // 이더 충전
 export const chargeCoin = async (price, address) => {
   const coinBase = await getCoinBase();
+  web3.eth.personal.unlockAccount(coinBase, "123", 300);
 
-  await TokenContarct.methods
+  await TokenContract.methods
     .approve(coinBase, price)
     .send({ from: coinBase })
     .then(res => console.log(res));
 
-  await TokenContarct.methods
+  await TokenContract.methods
     .transferFrom(coinBase, address, price)
     .send({ from: coinBase })
     .then(res => console.log(res));

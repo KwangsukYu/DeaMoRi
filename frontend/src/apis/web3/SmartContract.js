@@ -288,7 +288,7 @@ const TokenABI = [
 ];
 const TokenCA = "0x6c304AfaD7C413A62341565E01562FFf3172CCA4";
 
-export const TokenContarct = new web3.eth.Contract(TokenABI, TokenCA);
+export const TokenContract = new web3.eth.Contract(TokenABI, TokenCA);
 
 // NFT Contract
 const NFTABI = [
