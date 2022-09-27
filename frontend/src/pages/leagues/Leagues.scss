@@ -15,14 +15,18 @@
     background-color: #1c1c1c;
     border-top: 4px solid #5c6bc0;
     border-bottom: 4px solid #5c6bc0;
+    h2 {
+      color: #5c6bc0;
+    }
     &-function {
       width: 100%;
       margin-top: 10px;
+      text-align: center;
       &-search {
         float: right;
-        margin-right: 5px;
-        width: 200px;
-        height: 32px;
+        margin: 10px;
+        width: 400px;
+        height: 35px;
         border-radius: 10px;
         text-align: center;
       }
