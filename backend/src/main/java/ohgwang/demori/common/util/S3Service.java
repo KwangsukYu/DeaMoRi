@@ -67,12 +67,12 @@ public class S3Service {
         UUID uuid = UUID.randomUUID();
         String fileName = link + "_"+ uuid.toString() + "_"+ file.getOriginalFilename();
 
-        s3Client.putObject(new PutObjectRequest(bucket + link, fileName, file.getInputStream(), objectMetadata)
+        s3Client.putObject(new PutObjectRequest(bucket + "/"+ link, fileName, file.getInputStream(), objectMetadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
         Map<String, String> map = new HashMap<>();
         map.put("fileName" , fileName);
-        map.put("fileUrl" , s3Client.getUrl(bucket + link, fileName).toString());
+        map.put("fileUrl" , s3Client.getUrl(bucket + "/"+ link, fileName).toString());
 
 
         return map;

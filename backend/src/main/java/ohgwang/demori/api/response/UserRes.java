@@ -15,14 +15,19 @@ import ohgwang.demori.DB.entity.User;
 @Setter
 @ApiModel("UserResponse")
 public class UserRes{
-	int userPk;
+	private int userPk;
 	@ApiModelProperty(name="User ID")
-	String userId;
-	String userName;
-	String address;
-	String nickName;
-	String badge;
-	String role;
+	private String userId;
+	private String userName;
+	private String nickName;
+	private String badge;
+	private String role;
+
+	private String address;
+
+	private int universityPk;
+	private String universityName;
+	private String universityLogo;
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
@@ -33,9 +38,13 @@ public class UserRes{
 		res.setNickName(user.getNickName());
 		if(user.getWallet() != null){
 			res.setAddress(user.getWallet().getAddress());
-		}else{
-			res.setAddress(null);
 		}
+		if(user.getUniversity() != null){
+			res.setUniversityPk(user.getUniversity().getId());
+			res.setUniversityLogo(user.getUniversity().getLogoUrl());
+			res.setUniversityName(user.getUniversity().getUniName());
+		}
+
 		res.setRole(user.getRole());
 		return res;
 	}
