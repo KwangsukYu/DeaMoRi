@@ -42,10 +42,10 @@ public class LeagueController {
             @RequestBody LeagueRegisterPostReq registerInfo) {
 
         League league = leagueService.createLeague(registerInfo);
-        if(league == null) {
+        if (league == null) {
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
         }
-        if(league.getTeam1().getUniName().equals(league.getTeam2().getUniName()) == true) {
+        if (league.getTeam1().getUniName().equals(league.getTeam2().getUniName()) == true) {
             return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
         }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
@@ -54,16 +54,18 @@ public class LeagueController {
     @ApiOperation(value = "대회 조회", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
     @GetMapping()
     @ApiResponses({
-            @ApiResponse(code=200, message = "성공"),
-            @ApiResponse(code=204, message = "대회가 존재하지 않습니다"),
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "대회가 존재하지 않습니다"),
     })
     public ResponseEntity<? extends BaseResponseBody> getLeagueList(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size,
-            @RequestParam(value = "field", defaultValue = "id") String field) {
+            @RequestParam(value = "size", defaultValue = "8") int size,
+            @RequestParam(value = "field", defaultValue = "id") String field,
+            @RequestParam(value = "keyword", required = false) String keyword) {
 
-        Page<League> leaguePage = leagueService.getLeaguePage(page, size, field);
-        if(leaguePage == null || leaguePage.getSize() == 0) {
+        Page<League> leaguePage = leagueService.getLeaguePage(page, size, field, keyword);
+
+        if (leaguePage.isEmpty() == true) {
             return ResponseEntity.status(204).body(BaseResponseBody.of(204, "대회가 존재하지 않습니다."));
         }
         return ResponseEntity.status(200).body(LeaguePageRes.of(200, SUCCESS, leaguePage));

@@ -34,7 +34,6 @@ public class LeagueServiceImpl implements LeagueService {
         league.setLeagueStartDatetime(registerInfo.getLeagueStartDatetime());
         league.setLeagueEndDatetime(registerInfo.getLeagueEndDatetime());
         league.setSponStartDatetime(registerInfo.getSponStartDatetime());
-        league.setSponEndDatetime(registerInfo.getSponEndDatetime());
         league.setLocation(registerInfo.getLocation());
 
         List<Team> teams = new ArrayList<Team>();
@@ -49,7 +48,11 @@ public class LeagueServiceImpl implements LeagueService {
     }
 
     @Override
-    public Page<League> getLeaguePage(int page, int size, String field) {
-        return leagueRepository.findAll(PageRequest.of(page, size).withSort(Sort.by(field)));
+    public Page<League> getLeaguePage(int page, int size, String field, String keyword) {
+        if(keyword == null) {
+            return leagueRepository.findAll(PageRequest.of(page, size).withSort(Sort.by(field)));
+        }
+
+        return leagueRepository.findAllByLeagueId(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
     }
 }
