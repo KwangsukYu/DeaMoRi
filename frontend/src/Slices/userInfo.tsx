@@ -6,6 +6,7 @@ export interface infoType {
   role: string;
   userName: string;
   userPk: number;
+  nickName: string | null;
 }
 
 interface InitialStateType {
@@ -22,10 +23,13 @@ export const user = createSlice({
   reducers: {
     getInfo: (state, action) => {
       state.userInfo = action.payload;
+    },
+    delInfo: state => {
+      state.userInfo = null;
     }
   }
 });
 
 // 액션과 리듀서를 export 해준다. 이건 그냥 따라하면 된다.
-export const { getInfo } = user.actions;
+export const { getInfo, delInfo } = user.actions;
 export default user.reducer;

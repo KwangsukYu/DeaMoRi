@@ -4,10 +4,13 @@ import "./NavBar.scss";
 import NavLogo from "assets/images/DAMORI_navBar.svg";
 import UserDummy from "assets/images/UserDummy.svg";
 import Badge from "assets/images/RewardBadge.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { infoType } from "Slices/userInfo";
+import { delInfo } from "../../Slices/userInfo";
 
 function NavBar() {
+  const dispatch = useDispatch();
+
   // const storeUser = useSelector((state: infoType) => {
   //   return state;
   // });
@@ -19,13 +22,12 @@ function NavBar() {
   console.log(storeUser);
   // localStorage.token
   // console.log(storeUser);
-  function deleteToken() {
-    localStorage.removeItem("token");
-  }
+
   function Logout(e: any) {
     e.preventDefault();
-    deleteToken();
-    alert("로그아웃되었습니다");
+    localStorage.removeItem("token");
+    dispatch(delInfo());
+    alert("로그아웃 되었습니다");
     document.location.href = "/";
   }
 
@@ -62,58 +64,45 @@ function NavBar() {
                 대학
               </Link>
             </div>
-            {/* <div className="navbar-content-tap-login">
-              <Link to="login">로그인</Link>
-            </div> */}
-            <div className="navbar-content-tap-profile">
-              {localStorage.token ? (
+            {storeUser ? (
+              <div className="navbar-content-tap-profile">
                 <div>{storeUser.nickName}</div>
-              ) : (
-                <div>asdfasdf</div>
-              )}
-              <div className="badge-container">
-                <img src={Badge} alt="school-icon" />
-              </div>
-              <div className="profile-container">
-                <button
-                  className="nav-button"
-                  type="button"
-                  onClick={() => setdropDown(!dropDown)}
-                >
-                  <img src={UserDummy} alt="dummy" />
-                </button>
-              </div>
-              {localStorage.token ? (
-                <div>
-                  {dropDown && (
-                    <div className="profile-dropdown">
-                      <Link onClick={() => setActive("")} to="mypage">
-                        마이페이지
-                      </Link>
-                      <Link onClick={() => setActive("")} to="edit">
-                        회원정보수정
-                      </Link>
-                      <Link onClick={e => Logout(e)} to="/">
-                        로그아웃
-                      </Link>
-                    </div>
-                  )}
+                <div className="badge-container">
+                  <img src={Badge} alt="school-icon" />
                 </div>
-              ) : (
-                <div>
-                  {dropDown && (
-                    <div className="profile-dropdown">
-                      <Link onClick={() => setActive("")} to="login">
-                        로그인
-                      </Link>
-                      <Link onClick={() => setActive("")} to="signup">
-                        회원가입
-                      </Link>
-                    </div>
-                  )}
+                <div className="profile-container">
+                  <button
+                    className="nav-button"
+                    type="button"
+                    onClick={() => setdropDown(!dropDown)}
+                  >
+                    <img src={UserDummy} alt="dummy" />
+                  </button>
                 </div>
-              )}
-            </div>
+                {dropDown && (
+                  <div className="profile-dropdown">
+                    <Link onClick={() => setActive("")} to="mypage">
+                      마이페이지
+                    </Link>
+                    <Link onClick={() => setActive("")} to="edit">
+                      회원정보수정
+                    </Link>
+                    <Link onClick={e => Logout(e)} to="/">
+                      로그아웃
+                    </Link>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="navbar-content-tap-login">
+                <Link to="login" onClick={() => setActive("")}>
+                  로그인
+                </Link>
+                <Link to="signup" onClick={() => setActive("")}>
+                  회원가입
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

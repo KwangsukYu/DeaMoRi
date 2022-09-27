@@ -1,7 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import userInfo from "./Slices/userInfo";
-import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import userInfo from "./Slices/userInfo";
 
 // 만들어 놓은 리듀서들을 합친다.
 const reducer = combineReducers({
