@@ -6,6 +6,7 @@ import ohgwang.demori.DB.repository.BadgeRepository;
 import ohgwang.demori.DB.repository.UniversityAuthRepository;
 import ohgwang.demori.DB.repository.UserRepository;
 import ohgwang.demori.api.request.UserRegisterPostReq;
+import ohgwang.demori.common.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService{
     PasswordEncoder passwordEncoder;
 
 	@Autowired
-	S3Service s3Service;
+    S3Service s3Service;
 
 	@Autowired
 	UniversityAuthRepository universityAuthRepository;
