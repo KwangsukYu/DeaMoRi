@@ -47,6 +47,32 @@ function CreateRoom() {
     createSession(title);
   }
 
+  const [permissionDenied, setPermissionDenied] = useState(false);
+  const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
+
+  const reqCameraAndAudio = async () => {
+    try {
+      console.log("앞쪽,", navigator.mediaDevices.getUserMedia.audio);
+      const res = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true
+      });
+      console.log("확인", res);
+      // { audio: true, video: { facingMode: { exact: "environment" } } } // 후면
+      setActiveCameraAndAudio(res.active);
+    } catch (err) {
+      if (err.message === "Permission denied") {
+        setPermissionDenied(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    reqCameraAndAudio();
+    // window.location.replace(`/live/${title}`);
+    console.log("타이틀", title);
+  }, []);
+
   return (
     <div>
       <div>

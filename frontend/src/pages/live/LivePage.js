@@ -26,6 +26,8 @@ export default function LivePage() {
   const [camera, setCamera] = useState(true);
   const [voice, setVoice] = useState(true);
   const [chattingBox, setChattingBox] = useState(true);
+  const [permissionDenied, setPermissionDenied] = useState(false);
+  const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
 
   const getToken = sessionId => {
     return new Promise((resolve, reject) => {
@@ -70,8 +72,6 @@ export default function LivePage() {
     getToken(mySessionId).then(token => {
       session.connect(token, { clientData: myUserName }).then(async () => {
         const devices = await ov.getDevices();
-        console.log("오브이", ov);
-
         const videoDevices = devices.filter(
           device => device.kind === "videoinput"
         );
@@ -88,7 +88,6 @@ export default function LivePage() {
         await session.publish(newPublisher);
         setMainStreamManager(newPublisher);
         setPublisher(newPublisher);
-        console.log("디바이스", videoDevices);
         setCurrentVideoDevice(videoDevices[0]);
         setLoading(true);
       });
@@ -118,7 +117,23 @@ export default function LivePage() {
     setPublisher(null);
   };
 
+  const reqCameraAndAudio = async () => {
+    try {
+      const res = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true
+      });
+      // { audio: true, video: { facingMode: { exact: "environment" } } } // 후면
+      setActiveCameraAndAudio(res.active);
+    } catch (err) {
+      if (err.message === "Permission denied") {
+        setPermissionDenied(true);
+      }
+    }
+  };
+
   const CameraOff = async () => {
+    reqCameraAndAudio();
     if (camera) {
       publisher.publishVideo(false);
       setCamera(false);
@@ -129,6 +144,7 @@ export default function LivePage() {
   };
 
   const VoiceOff = async () => {
+    reqCameraAndAudio();
     if (voice) {
       publisher.publishAudio(false);
       setVoice(false);
@@ -158,7 +174,6 @@ export default function LivePage() {
       })
       .then((document.location.href = `/createroom/id`));
   };
-  console.log("이건 시청자수 ", session);
 
   return (
     <div className="broad">
