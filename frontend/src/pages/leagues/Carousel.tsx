@@ -25,6 +25,7 @@ function Carousel() {
         <div className="poster">Slide 4</div>
         <div className="poster">Slide 5</div>
         <div className="poster">Slide 6</div>
+        <div className="poster">Slide 7</div>
       </Slider>
     </div>
   );

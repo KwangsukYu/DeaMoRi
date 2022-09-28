@@ -1,12 +1,11 @@
 #leagues {
-  margin-top: 5%;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   .leagues {
     display: flex;
     width: 1000px;
-    // height: 1000px;
     border: 1px solid;
     border-radius: 20px;
     flex-direction: column;
@@ -15,13 +14,19 @@
     background-color: #1c1c1c;
     border-top: 4px solid #5c6bc0;
     border-bottom: 4px solid #5c6bc0;
-    h2 {
-      color: #5c6bc0;
-    }
     &-function {
       width: 100%;
       margin-top: 10px;
       text-align: center;
+      &-leaguelist {
+        color: white;
+        font-size: 30px;
+        // font-weight: bold;
+        margin-top: 10px;
+        // margin-right: 700px;
+        // flex-direction: row-reverse;
+        // align-items: ;
+      }
       &-search {
         float: right;
         margin: 10px;
@@ -31,13 +36,38 @@
         text-align: center;
       }
       &-createLeague {
-        float: right;
-        margin-right: 10px;
+        position: absolute;
+        // float: right;
+        margin-left: 360px;
         background-color: #ff7f22;
         border-radius: 10px;
         color: white;
-        width: 120px;
-        height: 40px;
+        width: 130px;
+        height: 45px;
+        font-size: 15px;
+        font-weight: bold;
+        border: 0;
+      }
+    }
+    &-buttonlist {
+      button {
+        width: 500px;
+        height: 50px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        border: 0;
+        border-radius: 10px;
+        outline: 0;
+      }
+      &-active {
+        background-color: #5c6bc0;
+        color: white;
+      }
+      &-nonactive {
+        background-color: #3f3f3f;
+        color: white;
       }
     }
   }
