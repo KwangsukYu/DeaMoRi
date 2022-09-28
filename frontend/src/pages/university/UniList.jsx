@@ -29,19 +29,33 @@ function UniList() {
   //   return currentPosts;
   // };
   const searchUni = e => {
+    console.log(search);
     e.preventDefault();
-    axios({
-      url: `http://j7c208.p.ssafy.io:8080/api/univers/${search}`,
-      method: "get"
-      // params: { search }
-    })
-      .then(res => {
-        setItems(res.data);
-        document.getElementById("search-input").className.value = "";
+    if (search) {
+      axios({
+        url: `http://j7c208.p.ssafy.io:8080/api/univers/${search}`,
+        method: "get"
+        // params: { search }
       })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          setItems(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      axios({
+        url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
+        method: "get",
+        headers: { Authorization: `Bearer ${localStorage.token}` }
+      })
+        .then(res => {
+          setItems(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -85,7 +99,6 @@ function UniList() {
     rankImg = rankLogo4;
     rankClass = "rankLogo4";
   }
-  console.log(currentPosts);
   return (
     <div id="uni-list">
       <div className="uni-list">
