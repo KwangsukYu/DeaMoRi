@@ -6,6 +6,7 @@ import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
+import Loading from "components/Loading/Loading";
 import Pagination from "../../components/Pagination/Pagination";
 import UniCompo from "./UniCompo";
 
@@ -17,17 +18,9 @@ function UniList() {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
-  // const indexOfLast = currentPage * postsPerPage;
-  // const indexOfFirst = indexOfLast - postsPerPage;
-
-  // const currentPosts = (uniList: any) => {
-  //   let currentPosts = 0;
-  //   currentPosts = uniList.slice(indexOfFirst, indexOfLast);
-  //   return currentPosts;
-  // };
   const searchUni = e => {
     console.log(search);
     e.preventDefault();
@@ -39,6 +32,7 @@ function UniList() {
       })
         .then(res => {
           setItems(res.data);
+          setLoading(false);
         })
         .catch(err => {
           console.log(err);
@@ -51,6 +45,7 @@ function UniList() {
       })
         .then(res => {
           setItems(res.data);
+          setLoading(false);
         })
         .catch(err => {
           console.log(err);
@@ -66,6 +61,7 @@ function UniList() {
     })
       .then(res => {
         setItems(res.data);
+        setLoading(false);
       })
       .catch(err => {
         console.log(err);
@@ -73,10 +69,15 @@ function UniList() {
   }, []);
 
   useEffect(() => {
+    // setLoading(true);
     setCount(items.length);
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
-    setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+    // setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+    setTimeout(() => {
+      setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+      // setLoading(false);
+    }, 500);
   }, [currentpage, indexOfFirstPost, indexOfLastPost, items, postPerPage]);
 
   const setPage = e => {
@@ -151,11 +152,17 @@ function UniList() {
               </button>
             </form>
           </div>
-          {currentPosts ? (
-            <UniCompo currentPosts={currentPosts} />
+          {loading ? (
+            <Loading />
           ) : (
-            <div className="uni-list-total-background-err">
-              <p className="search-err">없는 항목입니다.</p>
+            <div>
+              {currentPosts ? (
+                <UniCompo currentPosts={currentPosts} />
+              ) : (
+                <div className="uni-list-total-background-err">
+                  <p className="search-err">없는 항목입니다.</p>
+                </div>
+              )}
             </div>
           )}
         </div>
