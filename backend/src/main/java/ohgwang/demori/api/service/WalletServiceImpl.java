@@ -4,6 +4,7 @@ import ohgwang.demori.DB.entity.Transaction;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.DB.entity.Wallet;
 import ohgwang.demori.DB.repository.TransactionRepository;
+import ohgwang.demori.DB.repository.UserRepository;
 import ohgwang.demori.DB.repository.WalletRepository;
 import ohgwang.demori.api.response.TransactionRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class WalletServiceImpl implements WalletService {
     @Autowired
     TransactionRepository transactionRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     public void registAddress(User user, String address) {
         Wallet wallet = walletRepository.findByUser(user);
@@ -46,6 +50,9 @@ public class WalletServiceImpl implements WalletService {
             wallet.setAddress(address);
         }
         walletRepository.save(wallet);
+        user.setWallet(wallet);
+
+        userRepository.save(user);
 
     }
 
