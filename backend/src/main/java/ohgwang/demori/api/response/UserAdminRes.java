@@ -2,6 +2,8 @@ package ohgwang.demori.api.response;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.common.model.response.BaseResponseBody;
@@ -10,7 +12,8 @@ import org.springframework.data.domain.Page;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class UserAdminRes extends BaseResponseBody {
 
     private List<UserAdmin> userAdmins;

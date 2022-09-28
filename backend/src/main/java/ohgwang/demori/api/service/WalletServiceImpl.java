@@ -62,7 +62,6 @@ public class WalletServiceImpl implements WalletService {
                 .blockHash(t.getBlockHash())
                 .blockNumber(t.getBlockNumber().toString())
                 .transactionHash(transactionReceipt.getTransactionHash())
-                .gas(t.getGas().toString())
                 .value(t.getValue().toString())
                 .fromAddress(t.getFrom())
                 .toAddress(t.getTo())

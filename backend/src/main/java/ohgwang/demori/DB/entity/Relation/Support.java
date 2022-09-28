@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class LeagueUser {
+public class Support {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,15 +22,15 @@ public class LeagueUser {
 
     private String supportName;
     private int supportBalance;
+    private String transactionHash;
+    private String sendUniversity; // 0 , 1 0 = 1번째 대학 , 1 = 2번째 대학
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
     private League league;
-
-
 
 }
