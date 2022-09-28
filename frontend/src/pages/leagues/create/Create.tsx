@@ -3,11 +3,12 @@ import "./Create.scss";
 import ColorPicker from "components/colorPicker/ColorPicker";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import CreateLeague from "apis/leagues/CreateLeague";
 
 type Inputs = {
   leagueTitle: string;
   sponStart: string;
-  leagueStart: Date;
+  leagueStart: string;
   leagueEnd: string;
   place: string;
   poster: File;
@@ -20,16 +21,18 @@ type Inputs = {
   team2Wallet: string;
   team1Color: string;
   team2Color: string;
+  broadcast: number;
 };
 
 function Create() {
   const [team1Color, setTeam1Color] = useState("#5c6bc0");
   const [team2Color, setTeam2Color] = useState("#5c6bc0");
-  const [broadcast, setBroadcast] = useState(1);
+  const [broadcast, setBroadcast] = useState(0);
 
   // useForm submit시 어떤 데이터를 넘겨줄것인지 설정 및 추가해줌
   const onSubmit = (data: Inputs) => {
     const newData = { ...data, team1Color, team2Color, broadcast };
+    CreateLeague(newData);
     console.log(newData);
   };
 
