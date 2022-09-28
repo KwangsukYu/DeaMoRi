@@ -67,7 +67,7 @@ public class UniversityServiceImpl implements UniversityService{
     }
 
     @Override
-    public University getUniversityByName(String univesityName) {
-        return universityRepository.getByUniName(univesityName);
+    public University getUniversityByName(String universityName) {
+        return universityRepository.getByUniName(universityName);
     }
 }

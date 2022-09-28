@@ -1,6 +1,7 @@
 package ohgwang.demori.api.service;
 
 import ohgwang.demori.DB.entity.League;
+import ohgwang.demori.DB.entity.University;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
 import org.springframework.data.domain.Page;
 

@@ -5,10 +5,13 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.Team;
+import ohgwang.demori.DB.entity.University;
+import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
 import ohgwang.demori.api.response.LeaguePageRes;
 import ohgwang.demori.api.service.LeagueService;
 import ohgwang.demori.api.service.TeamService;
+import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +34,9 @@ public class LeagueController {
     @Autowired
     TeamService teamService;
 
+    @Autowired
+    UserService userService;
+
     @ApiOperation(value = "대회 생성")
     @PostMapping("")
     @ApiResponses({
@@ -42,10 +48,10 @@ public class LeagueController {
             @RequestBody LeagueRegisterPostReq registerInfo) {
 
         League league = leagueService.createLeague(registerInfo);
-        if (league == null) {
+        if(league == null) {
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
         }
-        if (league.getTeam1().getUniName().equals(league.getTeam2().getUniName()) == true) {
+        if (league.getTeam1().getUniversity().getUniName().equals(league.getTeam2().getUniversity().getUniName()) == true) {
             return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
         }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
@@ -54,8 +60,8 @@ public class LeagueController {
     @ApiOperation(value = "대회 조회", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
     @GetMapping()
     @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 204, message = "대회가 존재하지 않습니다"),
+            @ApiResponse(code=200, message = "성공"),
+            @ApiResponse(code=204, message = "대회가 존재하지 않습니다"),
     })
     public ResponseEntity<? extends BaseResponseBody> getLeagueList(
             @RequestParam(value = "page", defaultValue = "0") int page,
