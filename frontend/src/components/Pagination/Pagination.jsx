@@ -4,7 +4,6 @@ import Pagination from "react-js-pagination";
 
 function Paging({ page, count, setPage }) {
   // const [page, setPage] = useState(1);
-  console.log(page, count, setPage);
   return (
     <Pagination
       activePage={page} // 현재 페이지
