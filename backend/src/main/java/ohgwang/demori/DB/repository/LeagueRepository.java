@@ -1,6 +1,7 @@
 package ohgwang.demori.DB.repository;
 
 import ohgwang.demori.DB.entity.League;
+import ohgwang.demori.DB.entity.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

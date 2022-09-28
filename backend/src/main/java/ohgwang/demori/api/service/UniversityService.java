@@ -13,4 +13,6 @@ public interface UniversityService {
     List<UniversityRes> searchUniversities(String search);
 
     University getUniversity(String id);
+
+    University getUniversityByName(String univesityName);
 }

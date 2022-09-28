@@ -1,8 +1,11 @@
 package ohgwang.demori.api.controller;
 
+import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.User;
+import ohgwang.demori.DB.repository.UniversityRepository;
 import ohgwang.demori.api.request.UserRegisterPostReq;
 import ohgwang.demori.api.response.UserRes;
+import ohgwang.demori.api.service.UniversityService;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.auth.SsafyUserDetails;
 import ohgwang.demori.common.model.response.BaseResponseBody;
@@ -32,6 +35,7 @@ import java.io.IOException;
  	Authentication authentication
  	로그인 후 생성되는 엑세스 토큰이 헤더에 등록되어 있으면 자동으로 사용
  */
+@Api(value = "User API" , tags = {"Users"})
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -41,6 +45,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	UniversityService universityService;
 
 
 	@PostMapping()
@@ -90,20 +97,45 @@ public class UserController {
 		}
 	}
 
+	@ApiOperation(value = "대학 인증 사진 업로드 , 토큰 필요")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "저장완료"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
 	@PostMapping("/auth")
-	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(Authentication authentication, @RequestPart MultipartFile file){
+	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file ,@ApiParam(value = "대학 이름") @RequestParam String univesityName){
 		try {
 			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 			String userId = userDetails.getUsername();
 			User user = userService.getUserByUserId(userId);
+			user.setUniversity(universityService.getUniversityByName(univesityName));
 
 			userService.uploadAuthImage(file, user);
+
 		}catch (Exception e){
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"FAIL"));
 		}
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
 	}
 
+	@ApiOperation(value = "유저에 인증안하고 대학 등록해주는 테스트용 api 나중에 삭제 예정, 토큰 필요")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "저장완료"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	@PostMapping("/authtest")
+	public ResponseEntity<? extends BaseResponseBody> testSetUniversity(Authentication authentication,@ApiParam(value = "대학 이름") @RequestParam String univesityName){
+		try {
+			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+			String userId = userDetails.getUsername();
+			User user = userService.getUserByUserId(userId);
+			user.setUniversity(universityService.getUniversityByName(univesityName));
+			userService.save(user);
+		}catch (Exception e){
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"FAIL"));
+		}
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
+	}
 
 
 
