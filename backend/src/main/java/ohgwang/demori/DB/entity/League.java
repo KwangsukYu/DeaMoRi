@@ -2,8 +2,6 @@ package ohgwang.demori.DB.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,8 +21,9 @@ public class League {
     private LocalDateTime leagueEndDatetime;
     private LocalDateTime sponStartDatetime;
     private String location;
-    private boolean isBroadcast;
-    private int live;
+    private int isBroadcast;
+    private String status;
+    private String contractAddress;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team1")

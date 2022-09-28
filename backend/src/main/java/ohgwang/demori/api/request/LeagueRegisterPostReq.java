@@ -14,13 +14,18 @@ public class LeagueRegisterPostReq {
     private LocalDateTime leagueStartDatetime;
     private LocalDateTime leagueEndDatetime;
     private LocalDateTime sponStartDatetime;
-    private LocalDateTime sponEndDatetime;
     private String location;
+    private String contractAddress;
 
     // TEAM
-    private List<String> uniName = new ArrayList<>();
-    private List<String> teamId = new ArrayList<>();
-    private List<String> leaderId = new ArrayList<>();
-    private List<String> teamColor = new ArrayList<>();
+    private String team1Id;
+    private String team1University;
+    private String team1LeaderId;
+    private String team1Color;
+
+    private String team2Id;
+    private String team2University;
+    private String team2LeaderId;
+    private String team2Color;
 
 }

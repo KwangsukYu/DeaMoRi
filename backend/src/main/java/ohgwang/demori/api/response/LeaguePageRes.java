@@ -27,13 +27,12 @@ public class LeaguePageRes extends BaseResponseBody {
         res.getLeagues = new ArrayList<>();
         for(League league : leaguePage) {
             GetLeague getLeague = GetLeague.builder()
-                    .uniName1(league.getTeam1().getUniName())
-                    .uniName2(league.getTeam2().getUniName())
+                    .uniName1(league.getTeam1().getUniversity().getUniName())
+                    .uniName2(league.getTeam2().getUniversity().getUniName())
                     .leagueName(league.getLeagueId())
                     .leagueDatetime(league.getLeagueStartDatetime())
                     .build();
 
-            System.out.println(league.getTeam1().getUniName());
             res.getLeagues.add(getLeague);
         }
 
