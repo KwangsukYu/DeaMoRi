@@ -28,14 +28,27 @@
         // align-items: ;
       }
       &-search {
-        float: right;
-        margin: 10px;
-        width: 400px;
-        height: 35px;
-        border-radius: 10px;
-        text-align: center;
+        &-bar {
+          float: right;
+          margin: 10px;
+          width: 300px;
+          height: 40px;
+          border-radius: 12px;
+          text-align: center;
+          // background-color: #ececec;
+        }
+
+        &-icon {
+          position: absolute;
+          margin: 21px;
+          display: flex;
+          justify-content: center;
+          width: 25px;
+          height: 25px;
+        }
       }
       &-createLeague {
+        cursor: pointer;
         position: absolute;
         // float: right;
         margin-left: 360px;
@@ -50,24 +63,46 @@
       }
     }
     &-buttonlist {
+      display: flex;
+      width: 940px;
+      justify-content: center;
       button {
-        width: 500px;
+        width: 460px;
         height: 50px;
         margin-top: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 5px;
         font-size: 20px;
         font-weight: bold;
         border: 0;
         border-radius: 10px;
         outline: 0;
+        background-color: transparent;
       }
       &-active {
-        background-color: #5c6bc0;
-        color: white;
+        cursor: pointer;
+        color: #5c6bc0;
       }
       &-nonactive {
-        background-color: #3f3f3f;
-        color: white;
+        cursor: pointer;
+        color: #acacac;
+      }
+      &-bar-active {
+        cursor: pointer;
+        background-color: #5c6bc0;
+        width: 480px;
+        height: 4px;
+        position: relative;
+        margin-bottom: 30px;
+        // left: 10%;
+      }
+      &-bar-nonactive {
+        cursor: pointer;
+        background-color: #acacac;
+        width: 480px;
+        height: 4px;
+        position: relative;
+        margin-bottom: 30px;
+        // right: 20px;
       }
     }
   }

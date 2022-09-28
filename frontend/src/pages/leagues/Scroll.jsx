@@ -11,12 +11,12 @@ function Scroll() {
   // 끝까지 갈 경우 페이지를 더이상 불러오지 않도록 설정
   const [hasMore, setHasMore] = useState(true);
 
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const getComments = async () => {
       const res = await fetch(
-        `https://jsonplaceholder.typicode.com/comments?_page=1&_limit=20`
+        `https://jsonplaceholder.typicode.com/comments?_page=0&_limit=20`
       );
       const data = await res.json();
       setItems(data);
