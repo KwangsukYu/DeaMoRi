@@ -13,6 +13,6 @@ public class SupportRegisterPostReq {
     private String transactionHash;
     @ApiModelProperty(name="보낼 대학", example="0 or 1" , value = "0으로 보내면 1번팀의 대학의 후원 1은 2번팀")
     private String sendUniversity;
-    @ApiModelProperty(name="대학 pk", example="leaguePk")
+    @ApiModelProperty(name="대회 pk", example="leaguePk")
     private String leaguePk;
 }
