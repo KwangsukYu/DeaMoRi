@@ -28,7 +28,6 @@ public class Transaction { //
     private String blockNumber;
     private String fromAddress;
     private String toAddress;
-    private String gas;
     private String value;
     private String isRemit;   // 송금여부 1 보내는 쪽, 0 받는 쪽 트랜잭션
 
@@ -47,7 +46,6 @@ public class Transaction { //
         this.blockNumber = blockNumber;
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
-        this.gas = gas;
         this.value = value;
         this.isRemit = isRemit;
         this.wallet = wallet;
