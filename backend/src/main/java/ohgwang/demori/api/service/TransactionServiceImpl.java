@@ -1,12 +1,13 @@
 package ohgwang.demori.api.service;
 
 import ohgwang.demori.DB.entity.League;
+import ohgwang.demori.DB.entity.Relation.Cheer;
 import ohgwang.demori.DB.entity.Relation.Support;
 import ohgwang.demori.DB.entity.Transaction;
 import ohgwang.demori.DB.entity.User;
-import ohgwang.demori.DB.repository.LeagueRepository;
-import ohgwang.demori.DB.repository.SupportRepository;
-import ohgwang.demori.DB.repository.TransactionRepository;
+import ohgwang.demori.DB.entity.Wallet;
+import ohgwang.demori.DB.repository.*;
+import ohgwang.demori.api.request.CheerRegisterPostReq;
 import ohgwang.demori.api.request.SupportRegisterPostReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class SupportServiceImpl implements SupportService {
+public class TransactionServiceImpl implements TransactionService {
 
     private final Web3j web3j = Web3j.build(new HttpService());
 
@@ -30,6 +31,12 @@ public class SupportServiceImpl implements SupportService {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    CheerRepository cheerRepository;
+
+    @Autowired
+    WalletRepository  walletRepository;
 
     public Map<String,String> inputCutting(String input){
         Map<String, String> map = new HashMap<>();
@@ -73,6 +80,53 @@ public class SupportServiceImpl implements SupportService {
         transactionRepository.save(transaction);
 
 
+
+    }
+
+    @Override
+    public void registerCheer(CheerRegisterPostReq cheerReq, User user) throws IOException {
+        Cheer cheer = new Cheer();
+        cheer.setCheertName(cheerReq.getSupportName());
+        cheer.setContent(cheerReq.getContent());
+        cheer.setSendTeam(cheerReq.getSendTeam());
+        cheer.setTransactionHash(cheer.getTransactionHash());
+        cheer.setUser(user);
+
+        League league = leagueRepository.getById(Integer.parseInt(cheerReq.getLeaguePk()));
+        cheer.setLeague(league);
+
+        org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(cheerReq.getTransactionHash()).send().getTransaction().get();
+        Map<String,String> map = inputCutting(t.getInput());
+        cheer.setCheerBalance(Integer.parseInt(map.get("balance"),16));
+
+        cheerRepository.save(cheer);
+
+        Transaction transaction1 = Transaction.builder()    // 보내는 사람 지갑에 트랜션 저장
+                .blockHash(t.getBlockHash())
+                .blockNumber(t.getBlockNumber().toString())
+                .transactionHash(cheerReq.getTransactionHash())
+                .value(Integer.toString(Integer.parseInt(map.get("balance"),16)))
+                .fromAddress(map.get("sender"))
+                .toAddress(map.get("receiver"))
+                .isRemit("1")
+                .wallet(user.getWallet())
+                .build();
+
+        transactionRepository.save(transaction1);
+
+
+        Transaction transaction0 = Transaction.builder()   // 받는 사람 지갑에 트랜션 저장
+                .blockHash(t.getBlockHash())
+                .blockNumber(t.getBlockNumber().toString())
+                .transactionHash(cheerReq.getTransactionHash())
+                .value(Integer.toString(Integer.parseInt(map.get("balance"),16)))
+                .fromAddress(map.get("sender"))
+                .toAddress(map.get("receiver"))
+                .isRemit("0")
+                .wallet( walletRepository.findByAddress(map.get("receiver")))
+                .build();
+
+        transactionRepository.save(transaction0);
 
     }
 }
