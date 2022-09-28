@@ -2,6 +2,7 @@ package ohgwang.demori.DB.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ohgwang.demori.DB.entity.Relation.Cheer;
 import ohgwang.demori.DB.entity.Relation.Support;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -40,5 +41,7 @@ public class League {
     @OneToMany(mappedBy = "league" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<Support> supports = new ArrayList<>();
 
+    @OneToMany(mappedBy = "league" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<Cheer> cheers = new ArrayList<>();
 
 }
