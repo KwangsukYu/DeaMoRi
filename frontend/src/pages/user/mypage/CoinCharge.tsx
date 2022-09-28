@@ -6,9 +6,10 @@ import { CircularProgress } from "@mui/material";
 
 interface CoinChargeProps {
   signal: () => void;
+  userAddress: string;
 }
 
-function CoinCharge({ signal }: CoinChargeProps) {
+function CoinCharge({ signal, userAddress }: CoinChargeProps) {
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(0);
 
@@ -18,7 +19,7 @@ function CoinCharge({ signal }: CoinChargeProps) {
 
   const charge = async (num: number) => {
     setLoading(true);
-    await chargeCoin(num, "0x88606631413A02b1CD0820Db7d0ed209a6fF7689");
+    await chargeCoin(num, userAddress);
     signal();
     setLoading(false);
   };

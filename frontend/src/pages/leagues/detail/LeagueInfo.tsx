@@ -3,7 +3,7 @@ import "./LeagueInfo.scss";
 import PosterSample from "assets/images/poster_sample.jpg";
 
 interface LeagueDetailProps {
-  signal: () => void;
+  signal: (type: string) => void;
 }
 
 function LeaegueInfo({ signal }: LeagueDetailProps) {
@@ -18,7 +18,7 @@ function LeaegueInfo({ signal }: LeagueDetailProps) {
             <p>대회 일시</p>
             <p>대회 장소</p>
           </div>
-          <button type="button" onClick={signal}>
+          <button type="button" onClick={() => signal("info")}>
             닫기
           </button>
         </div>

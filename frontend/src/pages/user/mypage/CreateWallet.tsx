@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createAccount } from "apis/web3/web3";
+import { addWallet } from "apis/wallet";
 import "./CreateWallet.scss";
 
 interface CreateWalletProps {
@@ -13,6 +14,7 @@ function CreateWallet({ signal }: CreateWalletProps) {
   const createWallet = async () => {
     const res = (await createAccount()) as string[];
     setWalletInfo(res);
+    await addWallet(res[0]);
     setIsCreate(true);
   };
 
