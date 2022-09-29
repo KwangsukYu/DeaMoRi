@@ -22,32 +22,33 @@ function UniRankings() {
   const [uniRank, setUniRank] = useState<uniRankType[]>([]);
 
   useEffect(() => {
-    const getUni = () => {
-      axios({
-        url: "http://j7c208.p.ssafy.io:8080/api/ranking/university",
-        method: "get",
-        params: { page: 0, size: 10 }
+    axios({
+      url: "http://j7c208.p.ssafy.io:8080/api/ranking/university",
+      method: "get",
+      params: { page: 0, size: 10 }
+    })
+      .then(res => {
+        setUniRank(res.data.universityRankings);
       })
-        .then(res => {
-          setUniRank(res.data.userRankings);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    };
-    getUni();
+      .catch(err => {
+        console.error(err);
+      });
   }, []);
 
-  const universities = [
-    { rank: 1, name: "전남대학교", price: "5000000" },
-    { rank: 2, name: "조선대학교", price: "4000000" },
-    { rank: 3, name: "서울대학교", price: "3000000" },
-    { rank: 4, name: "연세대학교", price: "2000000" },
-    { rank: 500, name: "고려대학교", price: "1000000" }
-  ];
+  useEffect(() => {
+    axios({
+      url: "http://j7c208.p.ssafy.io:8080/api/ranking/update/university",
+      method: "patch"
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
 
   const RankMain = uniRank.map(uni => {
-    console.log(uni);
     let rankImg = "";
     let rankClass = "";
     if (uni.ranking === 1) {

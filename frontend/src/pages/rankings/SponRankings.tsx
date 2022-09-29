@@ -1,11 +1,9 @@
-import React, { useEffect, useState }, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Rankings.scss";
 import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
-import axios from "axios";
-import { v4 } from "uuid";
 import axios from "axios";
 import { v4 } from "uuid";
 import MySponRank from "./MySponRank";
@@ -41,11 +39,8 @@ function SponRankings() {
       url: "http://j7c208.p.ssafy.io:8080/api/ranking/user",
       method: "get",
       params: { page: 0, size: 10 }
-
-      // headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
-        console.log(res);
         setUserRank(res.data.userRankings);
       })
       .catch(err => {
@@ -53,13 +48,19 @@ function SponRankings() {
       });
   }, []);
 
-  // const universities = [
-  //   { rank: 1, name: "홍석호홍석호홍석호", price: "5000000" },
-  //   { rank: 2, name: "유광석", price: "4000000" },
-  //   { rank: 3, name: "이민재", price: "3000000" },
-  //   { rank: 4, name: "김성민", price: "2000000" },
-  //   { rank: 5, name: "이성조", price: "1000000" }
-  // ];
+  useEffect(() => {
+    axios({
+      url: "http://j7c208.p.ssafy.io:8080/api/ranking/update/user",
+      method: "put",
+      params: { page: 0, size: 10 }
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
 
   const RankMain = userRank.map(user => {
     let rankImg = "";
@@ -78,7 +79,6 @@ function SponRankings() {
       rankImg = rankLogo4;
       rankClass = "rankLogo4";
     }
-
 
     return (
       <div key={v4()} className="rank-main">
