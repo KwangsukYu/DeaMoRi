@@ -15,6 +15,7 @@ import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,23 +41,22 @@ public class LeagueController {
     UserService userService;
 
     @ApiOperation(value = "대회 생성")
-    @PostMapping("")
+    @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 422, message = "대학 이름이 같습니다."),
             @ApiResponse(code = 500, message = "실패"),
     })
     public ResponseEntity<? extends BaseResponseBody> registerLeague(
-            @RequestPart MultipartFile file, @RequestBody LeagueRegisterPostReq registerInfo) throws IOException {
+            @RequestPart MultipartFile file, @RequestPart LeagueRegisterPostReq registerInfo) throws IOException {
 
         League league = leagueService.createLeague(registerInfo, file);
-
         if(league == null) {
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
         }
-        if (league.getTeam1().getUniversity().getUniName().equals(league.getTeam2().getUniversity().getUniName())) {
-            return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
-        }
+//        if (league.getTeam1().getUniversity().getUniName().equals(league.getTeam2().getUniversity().getUniName())) {
+//            return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
+//        }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
     }
 
