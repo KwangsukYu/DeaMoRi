@@ -26,6 +26,9 @@ public class User {
 	private String badge;
 	private String role;
 
+	private int donation;
+	private int ranking;
+
 	@CreationTimestamp
 	@JsonFormat(timezone = "Asia/Seoul", pattern = "yyyy-MM-dd HH:mm")
 	private Timestamp createDate;
