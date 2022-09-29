@@ -4,18 +4,22 @@ import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
+import { infoType } from "Slices/userInfo";
+import { useSelector } from "react-redux";
 
 function MySponRank() {
+  const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
+  console.log(storeUser);
   const myUni = { rank: 123, name: "김싸피", price: "20000" };
   let rankImg = "";
   let rankClass = "";
-  if (myUni.rank === 1) {
+  if (storeUser.ranking === 1) {
     rankImg = rankLogo1;
     rankClass = "rankLogo1";
-  } else if (myUni.rank === 2) {
+  } else if (storeUser.ranking === 2) {
     rankImg = rankLogo2;
     rankClass = "rankLogo2";
-  } else if (myUni.rank === 3) {
+  } else if (storeUser.ranking === 3) {
     rankImg = rankLogo3;
     rankClass = "rankLogo3";
   } else {
@@ -23,13 +27,13 @@ function MySponRank() {
     rankClass = "rankLogo4";
   }
   return (
-    <div key={myUni.rank} className="rank-main">
+    <div key={storeUser.ranking} className="rank-main">
       <div className="logo-box">
         <img className={rankClass} src={rankImg} alt="" />
-        <p className="rank-main-rank">{myUni.rank}</p>
+        <p className="rank-main-rank">{storeUser.ranking}</p>
       </div>
-      <p className="rank-main-name">{myUni.name}</p>
-      <p className="rank-main-price">{myUni.price} MOKO</p>
+      <p className="rank-main-name">{storeUser.nickName}</p>
+      <p className="rank-main-price">{storeUser.donation} MOKO</p>
     </div>
   );
 }
