@@ -44,8 +44,8 @@ function UniList() {
     } else {
       axios({
         url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
-        method: "get",
-        headers: { Authorization: `Bearer ${localStorage.token}` }
+        method: "get"
+        // headers: { Authorization: `Bearer ${localStorage.token}` }
       })
         .then(res => {
           setItems(res.data);
@@ -64,8 +64,8 @@ function UniList() {
 
     axios({
       url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
-      method: "get",
-      headers: { Authorization: `Bearer ${localStorage.token}` }
+      method: "get"
+      // headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
         setItems(res.data);
