@@ -5,15 +5,16 @@
   height: 100%;
 }
 #create-wallet .create-form {
-  margin-top: 12px;
+  margin-top: -12px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 #create-wallet .create-form > p {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
 }
 #create-wallet .create-form > button {
   width: 100px;
@@ -23,4 +24,38 @@
   background-color: #ff7f22;
   color: white;
   cursor: pointer;
+}
+#create-wallet .confirm-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+}
+#create-wallet .confirm-form > p {
+  font-size: 24px;
+}
+#create-wallet .confirm-form-text {
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+#create-wallet .confirm-form .wallet-address {
+  font-size: 16px;
+  color: #5c6bc0;
+}
+#create-wallet .confirm-form .wallet-password {
+  color: red;
+  font-size: 14px;
+}
+#create-wallet .confirm-form > button {
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  background-color: #ff7f22;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
 }

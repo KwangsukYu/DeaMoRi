@@ -58,6 +58,10 @@
   font-weight: bold;
   margin-right: 100px;
 }
+#navbar .navbar-content-tap-login > a {
+  font-size: 12px;
+  margin-left: 20px;
+}
 #navbar .navbar-content-tap-profile {
   font-weight: bold;
   margin-right: 100px;
