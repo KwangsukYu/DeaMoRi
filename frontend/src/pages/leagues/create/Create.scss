@@ -91,6 +91,25 @@
       }
     }
     &-container {
+      &-dropdown {
+        z-index: 5;
+        width: 210px;
+        position: absolute;
+        background-color: rgb(62, 62, 62);
+        margin-top: 125px;
+        border: 2px;
+        border-color: white;
+        border-radius: 10px;
+        text-align: center;
+        &-item {
+          border: 5;
+          border-color: white;
+        }
+        &-item:hover {
+          background-color: rgb(97, 97, 97);
+          border-radius: 10px;
+        }
+      }
       &-teamoption1 {
         h2 {
           color: #5c6bc0;

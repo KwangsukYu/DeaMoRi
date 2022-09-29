@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
 import Scroll from "./Scroll";
+import Search from "./Search";
 
 function Leagues() {
   const [ing, setIng] = useState(true);
@@ -77,7 +78,8 @@ function Leagues() {
             className="leagues-function-search-icon"
           />
         </div>
-        <Scroll />
+        <Search />
+        {/* <Scroll /> */}
       </div>
     </div>
   );
