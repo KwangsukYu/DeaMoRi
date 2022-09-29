@@ -38,7 +38,7 @@ function SignUp() {
         document.location.href = "/login";
       })
       .catch(err => {
-        console.log(credentials);
+        // console.log(credentials);
         console.log(err);
       });
   }
