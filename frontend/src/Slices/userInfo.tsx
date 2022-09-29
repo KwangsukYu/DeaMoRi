@@ -7,6 +7,8 @@ export interface infoType {
   userName: string;
   userPk: number;
   nickName: string | null;
+  ranking: number;
+  donation: number;
 }
 
 interface InitialStateType {
