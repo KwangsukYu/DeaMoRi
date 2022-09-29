@@ -18,6 +18,8 @@ import Login from "pages/user/Login";
 import MyPage from "pages/user/mypage/MyPage";
 import SingUp from "pages/user/SignUp";
 import Edit from "pages/user/Edit";
+import LivePage from "pages/live/LivePage";
+import CreateRoom from "pages/live/CreateRoom";
 
 // admin
 import Admin from "pages/admin/Admin";
@@ -39,6 +41,8 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/signup" element={<SingUp />} />
           <Route path="/edit" element={<Edit />} />
+          <Route path="/live/broadcast:title" element={<LivePage />} />
+          <Route path="/createroom/:id" element={<CreateRoom />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
