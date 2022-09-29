@@ -37,6 +37,9 @@ public class RankingController {
                                                          @RequestParam(value = "size", defaultValue = "10") int size) {
         try{
             Page<User> userList = rankingService.getUserRanking(page, size);
+            if(userList == null){
+                return ResponseEntity.status(204).body(UserRankingRes.of(204, "데이터 없음" , null));
+            }
             return ResponseEntity.status(200).body(UserRankingRes.of(200, "유저 랭킹" , userList));
         }catch (Exception e){
             return ResponseEntity.status(500).body(UserRankingRes.of(500, "서버 오류", null));

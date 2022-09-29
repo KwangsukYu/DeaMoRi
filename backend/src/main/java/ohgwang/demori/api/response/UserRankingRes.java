@@ -2,6 +2,8 @@ package ohgwang.demori.api.response;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.common.model.response.BaseResponseBody;
@@ -11,8 +13,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRankingRes extends BaseResponseBody {
+@Getter
+@Setter
+public class UserRankingRes extends BaseResponseBody{
     private List<UserRanking> UserRankings;
+
 
     public static UserRankingRes of(int statusCode, String message, Page<User> userPage) {
 
@@ -21,7 +26,9 @@ public class UserRankingRes extends BaseResponseBody {
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.UserRankings = new ArrayList<>();
+
         if(userPage != null){
+
             for(User user : userPage) {
                 UserRanking userRanking = UserRanking.builder()
                         .badge(user.getBadge())
