@@ -59,6 +59,8 @@ public class UserServiceImpl implements UserService{
 		user.setNickName(registerInfo.getNickName());
 		user.setBadge(badgeRepository.getById(1).getFileUrl());
 		user.setRole("ROLE_USER");
+		user.setDonation(0);
+		user.setRanking(-1);
 
 		user.setPassword(passwordEncoder.encode(registerInfo.getPassword()));
 		
