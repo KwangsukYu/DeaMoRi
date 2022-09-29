@@ -19,12 +19,16 @@ public class RankingServiceImpl implements RankingService {
     @Override
     public void updateUserRanking() {
         List<Integer> ranklist = userRepository.getRank();
+        System.out.println(1);
         List<User> userList = userRepository.findAllByOrderByDonationDesc();
+        System.out.println(2);
         for(int i = 0 ; i < userList.size() ; i++){
             User now = userList.get(i);
             now.setRanking(ranklist.get(i));
         }
+        System.out.println(3);
         userRepository.saveAll(userList);
+        System.out.println(4);
     }
 
     @Override
