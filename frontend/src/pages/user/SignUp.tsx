@@ -10,6 +10,9 @@ function SignUp() {
   const [pwConfirm, setPwConfirm] = useState("");
   const [nickname, setNickname] = useState("");
   const [username, setUsername] = useState("");
+  const [idCheck, setIdCheck] = useState(false);
+  const [nickNameCheck, setnickNameCheck] = useState(false);
+
   // const [idCheck, setIdCheck] = useState(false);
 
   const signUpForm = {
@@ -68,6 +71,55 @@ function SignUp() {
     }
   }
 
+  // 아이디 중복 검사
+  function CheckID(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (userId === "") {
+      alert("아이디를 입력해주세요");
+    } else {
+      axios({
+        url: "http://j7c208.p.ssafy.io:8080/api/users/check/id",
+        method: "get",
+        params: { userId }
+      })
+        .then(res => {
+          console.log(res);
+          // setWaitID(id)
+          setIdCheck(true);
+        })
+        .catch(err => {
+          console.log(err);
+          setIdCheck(false);
+          alert("이미 사용중인 ID 입니다.");
+        });
+    }
+  }
+
+  // 닉네임 중복 검사
+  function CheckNickName(e: React.MouseEvent<SVGSVGElement, MouseEvent>) {
+    if (nickname === "") {
+      alert("닉네임을 입력해주세요");
+    } else {
+      e.preventDefault();
+      axios({
+        url: "http://j7c208.p.ssafy.io:8080/api/users/check/nickname",
+        method: "get",
+        params: { nickName: nickname }
+      })
+        .then(res => {
+          console.log(res);
+          // setnickNameCheck(id)
+          setnickNameCheck(true);
+        })
+        .catch(err => {
+          console.log(err);
+          setIdCheck(false);
+          console.log(nickname);
+          alert("이미 사용중인 닉네임 입니다.");
+        });
+    }
+  }
+
   return (
     <div id="login">
       <div className="input-list">
@@ -97,9 +149,21 @@ function SignUp() {
                 inputForm(e);
               }}
             />
-            <a href="#!">
-              <CheckIcon className="IDcheck" />
-            </a>
+            {nickNameCheck ? (
+              <CheckIcon
+                className="IDcheck-true"
+                onClick={e => {
+                  CheckNickName(e);
+                }}
+              />
+            ) : (
+              <CheckIcon
+                className="IDcheck-false"
+                onClick={e => {
+                  CheckNickName(e);
+                }}
+              />
+            )}
           </div>
           <div className="nickname-form">
             <input
@@ -111,9 +175,21 @@ function SignUp() {
                 inputForm(e);
               }}
             />
-            <a href="#!">
-              <CheckIcon className="IDcheck" />
-            </a>
+            {idCheck ? (
+              <CheckIcon
+                className="IDcheck-true"
+                onClick={e => {
+                  CheckID(e);
+                }}
+              />
+            ) : (
+              <CheckIcon
+                className="IDcheck-false"
+                onClick={e => {
+                  CheckID(e);
+                }}
+              />
+            )}
           </div>
           <input
             className="inputform"
