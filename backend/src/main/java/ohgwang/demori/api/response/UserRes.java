@@ -21,6 +21,8 @@ public class UserRes{
 	private String userName;
 	private String nickName;
 	private String badge;
+	private int donation;
+	private int ranking;
 	private String role;
 
 	private String address;
@@ -44,6 +46,8 @@ public class UserRes{
 			res.setUniversityLogo(user.getUniversity().getLogoUrl());
 			res.setUniversityName(user.getUniversity().getUniName());
 		}
+		res.setDonation(user.getDonation());
+		res.setRanking(user.getRanking());
 
 		res.setRole(user.getRole());
 		return res;
