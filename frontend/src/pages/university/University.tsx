@@ -1,32 +1,79 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./University.scss";
-import uniLogo1 from "assets/images/uni1.png";
+import nullLogo from "assets/images/noimage.gif";
+
 import rankLogo1 from "assets/images/rank1.png";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import LeaguesIng from "./LeaguesIng";
 import LeaguesEd from "./LeaguesEd";
 import UniSponRank from "./UniSponRank";
 import Trophy from "./Trophy";
 
+interface myUniType {
+  universityName: string;
+  universityAddress: string;
+  homepage: string;
+  logoUrl: string | undefined;
+}
+
 function University() {
   const [bar, setBar] = useState("ing");
+  const [myUni, setMyUni] = useState<myUniType>({
+    universityName: "",
+    homepage: "",
+    universityAddress: "",
+    logoUrl: ""
+  });
 
+  const uniId = useParams().id;
+
+  useEffect(() => {
+    axios({
+      url: `http://j7c208.p.ssafy.io:8080/api/univers`,
+      method: "get",
+      headers: { Authorization: `Bearer ${localStorage.token}` },
+      params: { id: uniId }
+    })
+      .then(res => {
+        setMyUni(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  console.log(myUni.homepage);
   return (
     <div id="university">
       <div className="background">
         <div className="uni-box">
           <div className="uni-box-logo">
-            <img src={uniLogo1} alt="" />
+            {myUni.logoUrl ? (
+              <img className="uni-logo" src={myUni.logoUrl} alt="" />
+            ) : (
+              <img className="uni-logo" src={nullLogo} alt="" />
+            )}
           </div>
         </div>
         {/* <div className="trophy-box"></div>
         <div className="leagues-box"></div> */}
         <div className="uni-box-text">
           <p className="uni-box-text-title">
-            서울대학교
-            <img className="rank-logo" src={rankLogo1} alt="" />
-            <p className="rank-logo-text">1</p>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://www.${myUni.homepage.trim()}`}
+              className="homepage-link"
+            >
+              {myUni.universityName}
+            </a>
+            <div className="rank-logo-box">
+              <img className="rank-logo" src={rankLogo1} alt="" />
+              <p className="rank-logo-text">1</p>
+            </div>
           </p>
-          <p className="uni-box-text-total">40전 32승 8패</p>
+          <p className="uni-box-text-total">{myUni.universityAddress}</p>
           <p className="uni-box-text-price">총 후원 금액 : 300,000,000 eth</p>
         </div>
         <Trophy />

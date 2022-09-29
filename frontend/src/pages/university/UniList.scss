@@ -18,11 +18,11 @@
     &-title {
       font-weight: bold;
       font-size: large;
-      margin-right: 680px;
+      margin-right: 720px;
     }
 
     &-background {
-      width: 95%;
+      width: 100%;
       height: 200px;
       background-color: #ffffff;
       border-radius: 15px;
@@ -114,26 +114,84 @@
     }
     .uni-list-total {
       margin-top: 30px;
-      &-title {
-        font-weight: bold;
-        font-size: large;
-        margin-right: 680px;
+      &-title-box {
+        display: flex;
+        /* width: 700px; */
+        justify-content: space-between;
         margin-bottom: 18px;
+        &-title {
+          font-weight: bold;
+          font-size: large;
+        }
+        .input-box {
+          .search-input {
+            width: 200px;
+            height: 20px;
+            float: left;
+            border-radius: 12px;
+            text-align: center;
+          }
+          .search-button {
+            width: 50px;
+            margin-inline: 8px;
+            color: white;
+            height: 24px;
+            border-radius: 12px;
+            border: #5c6bc0;
+            background-color: #ff7f22;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 2px 2px rgb(80, 80, 80);
+          }
+        }
       }
-
+      &-background-err {
+        background-color: #ffffff;
+        border-radius: 15px;
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 800px;
+        height: 368px;
+        align-content: center;
+        justify-content: center;
+        .search-err {
+          font-size: large;
+          font-weight: bold;
+          color: black;
+        }
+      }
       &-background {
         background-color: #ffffff;
         border-radius: 15px;
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
+        // align-items: center;
         flex-wrap: wrap;
+        width: 800px;
+        height: 368px;
         .uni-card-background {
           background-color: #1c1c1c;
-          width: 120px;
-          height: 140px;
+          width: 131px;
+          height: 156px;
           border-radius: 15px;
-          margin: 20px;
+          margin: 14px;
+
+          &-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            border: 0;
+            outline: 0;
+            color: white;
+            cursor: pointer;
+          }
+        }
+
+        .go-detail {
+          text-decoration: none;
+          color: white;
         }
         .uni-card {
           display: flex;
@@ -154,9 +212,11 @@
             }
           }
           .uni-card-text {
-            width: 110px;
+            width: 122px;
             text-align: center;
             font-size: 15px;
+            padding-top: 5px;
+            text-decoration: none;
           }
         }
       }
