@@ -20,12 +20,12 @@ public class LeagueRegisterPostReq {
     // TEAM
     private String team1Id;
     private String team1University;
-    private String team1LeaderId;
+    private String team1Wallet;
     private String team1Color;
 
     private String team2Id;
     private String team2University;
-    private String team2LeaderId;
+    private String team2Wallet;
     private String team2Color;
 
 }
