@@ -27,8 +27,8 @@ import Admin from "pages/admin/Admin";
 function App() {
   return (
     <BrowserRouter>
-      <NavBar />
       <div className="background">
+        <NavBar />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/leagues" element={<Leagues />} />

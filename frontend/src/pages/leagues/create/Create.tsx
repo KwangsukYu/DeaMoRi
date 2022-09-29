@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Create.scss";
 import ColorPicker from "components/colorPicker/ColorPicker";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import CreateLeague from "apis/leagues/CreateLeague";
+import UniversityData from "./UniversityData.json";
 
 type Inputs = {
   leagueTitle: string;
   sponStart: string;
-  leagueStart: Date;
+  leagueStart: string;
   leagueEnd: string;
   place: string;
   poster: File;
@@ -20,16 +22,26 @@ type Inputs = {
   team2Wallet: string;
   team1Color: string;
   team2Color: string;
+  broadcast: number;
 };
 
 function Create() {
   const [team1Color, setTeam1Color] = useState("#5c6bc0");
   const [team2Color, setTeam2Color] = useState("#5c6bc0");
-  const [broadcast, setBroadcast] = useState(1);
+  const [broadcast, setBroadcast] = useState(0);
+
+  // 대학 검색 드롭다운
+  const [search1, setSearch1] = useState([]);
+  const [search2, setSearch2] = useState([]);
+  const [isHaveInputValue1, setIsHaveInputValue1] = useState(false);
+  const [isHaveInputValue2, setIsHaveInputValue2] = useState(false);
+  const [team1uni, setTeam1uni] = useState("");
+  const [team2uni, setTeam2uni] = useState("");
 
   // useForm submit시 어떤 데이터를 넘겨줄것인지 설정 및 추가해줌
   const onSubmit = (data: Inputs) => {
     const newData = { ...data, team1Color, team2Color, broadcast };
+    CreateLeague(newData);
     console.log(newData);
   };
 
@@ -53,14 +65,73 @@ function Create() {
     } else if (n === 2) {
       setTeam2Color(c);
     }
-    // 색상 코드 선택 확인
-    // console.log(c);
+  };
+
+  // UniversityData.json 에서 대학 이름 가져오기
+  const dataFull = JSON.parse(JSON.stringify(UniversityData));
+
+  const updateChange1 = (e: any) => {
+    const data = e.target.value;
+
+    let filterData = dataFull.name.filter((i: any) => i.includes(data));
+    if (data.length === 0) {
+      filterData = [];
+    } else if (data.length !== 0 && filterData.length === 0) {
+      filterData = ["검색 결과가 없습니다."];
+      // 데이터에 있는 검색어를 입력시 dropdown 창이 사라짐
+    } else if (data === filterData[0] && filterData.length === 1) {
+      filterData = [];
+    }
+    setSearch1(filterData);
+  };
+
+  const updateChange2 = (e: any) => {
+    const data = e.target.value;
+
+    let filterData = dataFull.name.filter((i: any) => i.includes(data));
+    if (data.length === 0) {
+      filterData = [];
+    } else if (data.length !== 0 && filterData.length === 0) {
+      filterData = ["검색 결과가 없습니다."];
+      // 데이터에 있는 검색어를 입력시 dropdown 창이 사라짐
+    } else if (data === filterData[0] && filterData.length === 1) {
+      filterData = [];
+    }
+    setSearch2(filterData);
+  };
+
+  // 1팀 대학검색 dropdwon
+  const handleInputChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTeam1uni(e.target.value); // input에 입력한 값을 newValue에 담아둔다.
+    // 여기서 입력을 해준다고 바로바로 밑의 출력값이 변하지 않는다.
+    // 왜냐하면 handleBlur에 의해서 handleValueChange 함수가 실행되어야 값이 바뀌기 때문이다.
+  };
+
+  const clickDropDownItem1 = (clickedItem: string) => {
+    setTeam1uni(clickedItem);
+    setIsHaveInputValue1(false);
+  };
+
+  // 2팀 대학검색 dropdwon
+  const handleInputChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTeam2uni(e.target.value); // input에 입력한 값을 newValue에 담아둔다.
+    // 여기서 입력을 해준다고 바로바로 밑의 출력값이 변하지 않는다.
+    // 왜냐하면 handleBlur에 의해서 handleValueChange 함수가 실행되어야 값이 바뀌기 때문이다.
+  };
+
+  const clickDropDownItem2 = (clickedItem: string) => {
+    setTeam2uni(clickedItem);
+    setIsHaveInputValue2(false);
   };
 
   return (
     <div id="create">
       <div className="create">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          method="post"
+          // encType="multipart/form-data"
+        >
           {/* 공통 옵션 선택 */}
           <div className="create-option">
             <h1>대회생성</h1>
@@ -121,7 +192,7 @@ function Create() {
             <input
               className="create-option-input"
               type="text"
-              placeholder="장소"
+              placeholder="대회 장소"
               id="leagueend"
               {...register("place", {
                 required: "대회 장소를 입력해주세요."
@@ -135,9 +206,9 @@ function Create() {
                 type="file"
                 placeholder="포스터"
                 id="poster"
-                {...register("poster", {
-                  required: "포스터를 등록해주세요."
-                })}
+                // {...register("poster", {
+                //   required: "포스터를 등록해주세요."
+                // })}
               />
             </label>
             {errors.poster && (
@@ -180,7 +251,28 @@ function Create() {
                 {...register("team1University", {
                   required: "학교명을 입력해주세요."
                 })}
-              />{" "}
+                onChange={e => {
+                  setIsHaveInputValue1(true);
+                  updateChange1(e);
+                  handleInputChange1(e);
+                }}
+                value={team1uni}
+              />
+              <div className="create-container-dropdown">
+                {isHaveInputValue1 &&
+                  search1.map(item => {
+                    return (
+                      <div
+                        className="create-container-dropdown-item"
+                        key={item}
+                        onClick={() => clickDropDownItem1(item)}
+                        role="presentation"
+                      >
+                        {item}
+                      </div>
+                    );
+                  })}
+              </div>
               {errors.team1University && (
                 <small role="alert">{errors.team1University.message}</small>
               )}
@@ -220,7 +312,28 @@ function Create() {
                 {...register("team2University", {
                   required: "학교명을 입력해주세요."
                 })}
+                onChange={e => {
+                  setIsHaveInputValue2(true);
+                  updateChange2(e);
+                  handleInputChange2(e);
+                }}
+                value={team2uni}
               />
+              <div className="create-container-dropdown">
+                {isHaveInputValue2 &&
+                  search2.map(item => {
+                    return (
+                      <div
+                        className="create-container-dropdown-item"
+                        key={item}
+                        onClick={() => clickDropDownItem2(item)}
+                        role="presentation"
+                      >
+                        {item}
+                      </div>
+                    );
+                  })}
+              </div>
               {errors.team2University && (
                 <small role="alert">{errors.team2University.message}</small>
               )}
@@ -258,7 +371,11 @@ function Create() {
                 취소
               </button>
             </Link>
-            <button className="create-buttoncontainer-approve" type="submit">
+            <button
+              className="create-buttoncontainer-approve"
+              // onClick={handleSubmit}
+              type="submit"
+            >
               대회 생성
             </button>
           </div>
