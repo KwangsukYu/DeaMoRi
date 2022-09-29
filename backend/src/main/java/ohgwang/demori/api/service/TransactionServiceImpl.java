@@ -33,6 +33,9 @@ public class TransactionServiceImpl implements TransactionService {
     TransactionRepository transactionRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     CheerRepository cheerRepository;
 
     @Autowired
@@ -63,7 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
         Map<String,String> map = inputCutting(t.getInput());
         support.setSupportBalance(Integer.parseInt(map.get("balance"),16));
 
-        supportRepository.save(support);
+        supportRepository.save(support);    // 후원 내역 저장
 
 
         Transaction transaction = Transaction.builder()
@@ -77,7 +80,10 @@ public class TransactionServiceImpl implements TransactionService {
                 .wallet(user.getWallet())
                 .build();
 
-        transactionRepository.save(transaction);
+        transactionRepository.save(transaction);  // 트랜잭션 저장
+
+        user.setDonation(user.getDonation() + Integer.parseInt(map.get("balance"),16));
+        userRepository.save(user);
 
 
 
@@ -123,10 +129,15 @@ public class TransactionServiceImpl implements TransactionService {
                 .fromAddress(map.get("sender"))
                 .toAddress(map.get("receiver"))
                 .isRemit("0")
-                .wallet( walletRepository.findByAddress(map.get("receiver")))
+                .wallet(walletRepository.findByAddress(map.get("receiver")))
                 .build();
 
         transactionRepository.save(transaction0);
+
+
+        user.setDonation(user.getDonation() + Integer.parseInt(map.get("balance"),16));
+        userRepository.save(user);
+
 
     }
 }
