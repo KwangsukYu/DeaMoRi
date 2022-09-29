@@ -62,4 +62,9 @@ public class LeagueServiceImpl implements LeagueService {
 
         return leagueRepository.findAllByLeagueId(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
     }
+
+    @Override
+    public League getLeagueByLeagueId(int leagueId) {
+        return leagueRepository.getById(leagueId);
+    }
 }

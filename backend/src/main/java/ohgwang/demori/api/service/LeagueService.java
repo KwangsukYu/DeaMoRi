@@ -15,4 +15,5 @@ public interface LeagueService {
 
     Page<League> getLeaguePage(int page, int size, String field, String keyword);
 
+    League getLeagueByLeagueId(int leagueId);
 }
