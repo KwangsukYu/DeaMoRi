@@ -47,11 +47,13 @@ public class RankingController {
     }
 
     @PatchMapping("/update/university")
-    public ResponseEntity<? extends BaseResponseBody> updateUniversityRanking(
-            @RequestBody LeagueRegisterPostReq registerInfo) {
-
-
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "td"));
+    public ResponseEntity<? extends BaseResponseBody> updateUniversityRanking() {
+        try{
+            rankingService.updateUserRanking();
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "대학 랭킹 갱신"));
+        }catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(500, "서버 오류"));
+        }
     }
 
 }

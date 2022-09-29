@@ -19,4 +19,7 @@ public class University {
     private String uniAddress;
     private String logoUrl;
 
+    private int donation;
+    private int ranking;
+
 }
