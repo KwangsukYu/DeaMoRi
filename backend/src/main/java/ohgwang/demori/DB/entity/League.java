@@ -2,6 +2,7 @@ package ohgwang.demori.DB.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ohgwang.demori.DB.entity.Relation.Cheer;
 import ohgwang.demori.DB.entity.Relation.Support;
 import org.hibernate.annotations.OnDelete;
@@ -15,6 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@ToString
 public class League {
 
     @Id
