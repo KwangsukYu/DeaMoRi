@@ -25,4 +25,5 @@ public interface UserService {
 	User getUserByNickname(String nickName);
 
 	void save(User user);
+
 }
