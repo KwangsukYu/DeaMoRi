@@ -19,7 +19,7 @@ function Login() {
       headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
-        console.log(res);
+        console.log(res.data, "로그인 시 스토어 저장 데이터");
         dispatch(getInfo(res.data));
         window.location.href = "/";
       })
