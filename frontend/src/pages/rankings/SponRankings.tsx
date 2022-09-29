@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState }, { useEffect, useState } from "react";
 import "./Rankings.scss";
 import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
@@ -6,7 +6,21 @@ import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
 import { v4 } from "uuid";
+import axios from "axios";
+import { v4 } from "uuid";
 import MySponRank from "./MySponRank";
+
+interface userRankType {
+  userPk: number;
+  ranking: number;
+  donation: number;
+  nickName: string;
+  userName: string;
+  badge: string;
+  universityPk: number;
+  universityName: null;
+  universityLogo: null;
+}
 
 interface userRankType {
   userPk: number;
@@ -64,6 +78,7 @@ function SponRankings() {
       rankImg = rankLogo4;
       rankClass = "rankLogo4";
     }
+
 
     return (
       <div key={v4()} className="rank-main">
