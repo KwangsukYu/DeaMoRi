@@ -7,10 +7,10 @@ import {
   getContractCA
 } from "./SmartContract";
 
-// const web3 = new Web3("http://localhost:8545");
-const web3 = new Web3("http://j7c2081.p.ssafy.io:8545");
+const web3 = new Web3("http://localhost:8545");
+// const web3 = new Web3("http://j7c2081.p.ssafy.io:8545");
 
-const getCoinBase = async () => {
+export const getCoinBase = async () => {
   const res = await web3.eth.getCoinbase();
   return res;
 };
@@ -28,7 +28,7 @@ export const createAccount = async () => {
     process.env.REACT_APP_COINBASE_PASSWORD,
     300
   );
-  console.loe(1);
+
   const Eth = web3.utils.toWei("1", "ether");
   const tx = {
     from: coinBase,
