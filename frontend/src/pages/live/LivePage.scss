@@ -15,6 +15,7 @@
   &-box {
     &-information {
       color: white;
+      height: 100px;
       &-subscribers {
       }
       &-title {
@@ -57,4 +58,9 @@
 .art4 {
   background-color: transparent;
   border: none;
+}
+
+.donation {
+  position: absolute;
+  padding-left: 20px;
 }

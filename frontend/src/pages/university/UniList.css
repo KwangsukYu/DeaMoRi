@@ -16,12 +16,16 @@
   flex-direction: column;
   align-items: center;
 }
+#uni-list .uni-list-title {
+  font-weight: bold;
+  font-size: large;
+  margin-right: 680px;
+}
 #uni-list .uni-list-background {
   width: 95%;
   height: 200px;
   background-color: #ffffff;
   border-radius: 15px;
-  display: flex;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +59,103 @@
   margin-block: 0;
   font-weight: bold;
 }
-#uni-list .uni-list-background .uni-list-my-title {
+#uni-list .uni-list-background .uni-list-my-text-box {
+  font-weight: bold;
+  margin-left: 20px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text {
   display: flex;
   width: 500px;
+  justify-content: space-around;
+  text-align: center;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text :nth-child(1) {
+  width: 70px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text :nth-child(2) {
+  width: 200px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text :nth-child(3) {
+  width: 200px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text .uni-list-my-text-logo-box {
+  position: relative;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text .uni-list-my-text-logo-box .rankLogo1 {
+  position: absolute;
+  top: 4px;
+  left: 2px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text .uni-list-my-text-logo-box .rankLogo2 {
+  position: absolute;
+  top: 4px;
+  left: 2px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text .uni-list-my-text-logo-box .rankLogo3 {
+  position: absolute;
+  top: 4px;
+  left: 2px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text .uni-list-my-text-logo-box .rankLogo4 {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 4px;
+  left: 10px;
+}
+#uni-list .uni-list-background .uni-list-my-text-box .uni-list-my-text .uni-list-my-text-logo-box-text {
+  width: 45px;
+  position: absolute;
+  font-size: 18px;
+  top: -3px;
+  left: 13px;
+  text-align: center;
+}
+#uni-list .uni-list .uni-list-total {
+  margin-top: 30px;
+}
+#uni-list .uni-list .uni-list-total-title {
+  font-weight: bold;
+  font-size: large;
+  margin-right: 680px;
+  margin-bottom: 18px;
+}
+#uni-list .uni-list .uni-list-total-background {
+  background-color: #ffffff;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#uni-list .uni-list .uni-list-total-background .uni-card-background {
+  background-color: #1c1c1c;
+  width: 120px;
+  height: 140px;
+  border-radius: 15px;
+  margin: 20px;
+}
+#uni-list .uni-list .uni-list-total-background .uni-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+#uni-list .uni-list .uni-list-total-background .uni-card .uni-card-back {
+  background-color: #ffffff;
+  width: 80px;
+  height: 80px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#uni-list .uni-list .uni-list-total-background .uni-card .uni-card-back .uni-card-logo {
+  width: 70px;
+  height: 70px;
+}
+#uni-list .uni-list .uni-list-total-background .uni-card .uni-card-text {
+  width: 110px;
+  text-align: center;
+  font-size: 15px;
 }

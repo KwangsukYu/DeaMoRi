@@ -1,3 +1,52 @@
-.delete .button {
-  background-color: #ffffff;
+.main {
+  display: flex;
+  padding-top: 60px;
+  justify-content: center;
+}
+
+.live {
+  margin-right: 0px;
+  display: flex;
+  background-color: #1c1c1c;
+  justify-content: center;
+  width: 1040px;
+}
+.live-box-information {
+  color: white;
+}
+.live-box-information-title {
+  width: 600px;
+  color: white;
+  padding-inline: 20px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.art {
+  height: 25px;
+  width: 25px;
+}
+
+.art2 {
+  height: 25px;
+  width: 25px;
+}
+
+.art3 {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  z-index: 1;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.art4 {
+  background-color: transparent;
+  border: none;
+}
+
+.doonation {
+  background-color: white;
 }

@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 function CreateRoom() {
-  const [title, setTitle] = useState("");
-  const productid = useParams().id;
+  const pk = 2;
 
-  const submitButton = (
-    <button className="inputform submitbutton-able" type="submit">
-      방 생성하기
-    </button>
-  );
   // https://j7c208.p.ssafy.io:4443
   const OPENVIDU_SERVER_URL = "https://localhost:4443";
   const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
-  function createSession(sessionId) {
-    console.log("방제목", title);
-    const data = JSON.stringify({ customSessionId: `broadcast${sessionId}` });
+  function createSession() {
+    const data = JSON.stringify({ customSessionId: `broadcast${pk}` });
     axios
       .post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, data, {
         headers: {
@@ -29,44 +20,24 @@ function CreateRoom() {
         }
       })
       .then(response => {
-        console.log("CREATE SESION", response);
-        console.log(response.data.id);
         // document.openvidution.href = `/live/broadcast${title}`;
-        window.location.href = `/live/broadcast${title}`;
+        window.location.href = `/live/broadcast${pk}`;
       })
       .catch(err => {
-        console.log("createsessionerr", err);
         if (err.response.status === 409) {
           // document.location.href = `/live/sell1`
         }
       });
   }
 
-  function goLive(e) {
-    e.preventDefault();
-    createSession(title);
-  }
-
-  const uniinfo1 = "대학정보1";
-  const uniinfo2 = "대학정보2";
-
   return (
-    <div>
-      <div>
-        <form onSubmit={e => goLive(e)}>
-          <input
-            onChange={e => setTitle(e.target.value)}
-            className="inputform"
-            name="roomTitle"
-            id="roomTitle"
-            type="text"
-            placeholder="방 제목"
-            value={title}
-          />
-          {submitButton}
-        </form>
-      </div>
-    </div>
+    <button
+      className="inputform submitbutton-able"
+      type="button"
+      onClick={createSession}
+    >
+      방 생성하기
+    </button>
   );
 }
 

@@ -6,8 +6,10 @@ import closechat from "assets/images/closechat.png";
 import openchat from "assets/images/openchat.png";
 import { useSelector, useDispatch } from "react-redux";
 import { infoType } from "Slices/userInfo";
+
 import UserVideoComponent from "./UserVideoComponent";
 import LiveChat from "./LiveChat";
+import Donation from "./Donation";
 
 const OPENVIDU_SERVER_URL = "https://localhost:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
@@ -34,6 +36,8 @@ export default function LivePage() {
   const [permissionDenied, setPermissionDenied] = useState(false);
   const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
   const { nickName } = useSelector(state => state.userInfo.userInfo);
+  const [donation, setDonation] = useState("text");
+  const [donationSwitch, setDonationSwitch] = useState("false");
 
   const getToken = sessionId => {
     return new Promise((resolve, reject) => {
@@ -189,12 +193,31 @@ export default function LivePage() {
     console.log("타이틀", title);
   }, []);
 
+  const donaitonOff = () => {
+    setDonationSwitch(false);
+  };
+
+  const donationOn = () => {
+    setDonationSwitch(true);
+    setTimeout(donaitonOff, 2000);
+  };
+
+  const playTTS = e => {
+    donationOn();
+    console.log("컨설", e);
+    const msg = new SpeechSynthesisUtterance(e);
+    window.speechSynthesis.speak(msg);
+  };
+
   return (
     <div className="broad">
       <div className="main">
         {session !== null ? (
           <div className="live">
             <div className="live-box">
+              <div className="donation">
+                {donationSwitch === true ? <Donation /> : null}
+              </div>
               {mainStreamManager !== null ? (
                 <UserVideoComponent
                   className="live-box-video"
@@ -221,6 +244,21 @@ export default function LivePage() {
                       session
                     }}
                   />
+                  <div>
+                    <input
+                      type="text"
+                      onChange={event => setDonation(event.target.value)}
+                    />
+                    ;
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        playTTS(donation);
+                      }}
+                    >
+                      도네이션
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <button className="art4" type="button" onClick={ChattingOff}>

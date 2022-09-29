@@ -1,7 +1,7 @@
 .chatting {
   background: #252525;
   width: 400px;
-  height: 614px;
+  height: 543px;
   font-size: 20px;
   line-height: 25px;
   position: relative;
@@ -45,7 +45,7 @@
   &-input {
     display: flex;
     position: absolute;
-    bottom: 71px;
+    bottom: 1px;
     left: 50%;
     transform: translate(-50%, 0%);
     padding-block: 5px;
