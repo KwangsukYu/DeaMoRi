@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.scss";
 import NavLogo from "assets/images/DAMORI_navBar.svg";
 import UserDummy from "assets/images/UserDummy.svg";
@@ -10,6 +10,7 @@ import { delInfo } from "../../Slices/userInfo";
 
 function NavBar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // const storeUser = useSelector((state: infoType) => {
   //   return state;
@@ -28,11 +29,11 @@ function NavBar() {
     localStorage.removeItem("token");
     dispatch(delInfo());
     alert("로그아웃 되었습니다");
-    document.location.href = "/";
+    navigate("/");
   }
 
   return (
-    <div id="navbar">
+    <div id="navbar" onMouseLeave={() => setdropDown(false)}>
       <div className="navbar">
         <div className="navbar-content">
           <div className="navbar-content-logo">

@@ -6,6 +6,7 @@ import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
+import Loading from "components/Loading/Loading";
 import Pagination from "../../components/Pagination/Pagination";
 import UniCompo from "./UniCompo";
 
@@ -17,19 +18,13 @@ function UniList() {
   const [indexOfLastPost, setIndexOfLastPost] = useState(0);
   const [indexOfFirstPost, setIndexOfFirstPost] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [searchNum, setSearchNum] = useState(0);
 
-  // const indexOfLast = currentPage * postsPerPage;
-  // const indexOfFirst = indexOfLast - postsPerPage;
-
-  // const currentPosts = (uniList: any) => {
-  //   let currentPosts = 0;
-  //   currentPosts = uniList.slice(indexOfFirst, indexOfLast);
-  //   return currentPosts;
-  // };
   const searchUni = e => {
     console.log(search);
+    setLoading(true);
     e.preventDefault();
     if (search) {
       axios({
@@ -39,6 +34,9 @@ function UniList() {
       })
         .then(res => {
           setItems(res.data);
+          setLoading(false);
+          setSearchNum(res.data.length);
+          setCurrentpage(1);
         })
         .catch(err => {
           console.log(err);
@@ -46,11 +44,14 @@ function UniList() {
     } else {
       axios({
         url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
-        method: "get",
-        headers: { Authorization: `Bearer ${localStorage.token}` }
+        method: "get"
+        // headers: { Authorization: `Bearer ${localStorage.token}` }
       })
         .then(res => {
           setItems(res.data);
+          setSearchNum(res.data.length);
+          setLoading(false);
+          setCurrentpage(1);
         })
         .catch(err => {
           console.log(err);
@@ -59,13 +60,16 @@ function UniList() {
   };
 
   useEffect(() => {
+    setLoading(true);
+
     axios({
       url: "http://j7c208.p.ssafy.io:8080/api/univers/list",
-      method: "get",
-      headers: { Authorization: `Bearer ${localStorage.token}` }
+      method: "get"
+      // headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
         setItems(res.data);
+        setLoading(false);
       })
       .catch(err => {
         console.log(err);
@@ -73,10 +77,17 @@ function UniList() {
   }, []);
 
   useEffect(() => {
+    // setLoading(true);
     setCount(items.length);
     setIndexOfLastPost(currentpage * postPerPage);
     setIndexOfFirstPost(indexOfLastPost - postPerPage);
     setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+    setSearchNum(items.slice(indexOfFirstPost, indexOfLastPost).length);
+
+    // setTimeout(() => {
+    //   setCurrentPosts(items.slice(indexOfFirstPost, indexOfLastPost));
+    //   setLoading(false);
+    // }, 500);
   }, [currentpage, indexOfFirstPost, indexOfLastPost, items, postPerPage]);
 
   const setPage = e => {
@@ -99,6 +110,10 @@ function UniList() {
     rankImg = rankLogo4;
     rankClass = "rankLogo4";
   }
+
+  console.log(currentPosts.length);
+  console.log(searchNum);
+
   return (
     <div id="uni-list">
       <div className="uni-list">
@@ -151,11 +166,17 @@ function UniList() {
               </button>
             </form>
           </div>
-          {currentPosts ? (
-            <UniCompo currentPosts={currentPosts} />
+          {loading ? (
+            <Loading />
           ) : (
-            <div className="uni-list-total-background-err">
-              <p className="search-err">없는 항목입니다.</p>
+            <div>
+              {currentPosts.length === 10 || items.length === searchNum ? (
+                <UniCompo currentPosts={currentPosts} />
+              ) : (
+                <div className="uni-list-total-background-err">
+                  <p className="search-err">없는 항목입니다.</p>
+                </div>
+              )}
             </div>
           )}
         </div>

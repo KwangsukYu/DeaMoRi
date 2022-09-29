@@ -1,0 +1,79 @@
+.chatting {
+  background: #252525;
+  width: 400px;
+  height: 543px;
+  font-size: 15px;
+  line-height: 25px;
+  position: relative;
+  &-title {
+    justify-content: center;
+    &-text {
+      color: #ffffff;
+      margin-top: 0;
+      margin-inline: 15px;
+      margin-bottom: 10px;
+      padding-top: 10px;
+      text-align: center;
+    }
+  }
+  &-box {
+    padding-left: 20px;
+    padding-right: 3px;
+    display: inline-block;
+    width: 375px;
+    height: 434px;
+    overflow-y: auto;
+    color: #d4d4d4;
+    &-content {
+      table-layout: fixed;
+      word-break: break-all;
+      &-nickname {
+        margin-top: 0px;
+        margin-bottom: 2px;
+      }
+    }
+  }
+  &-box::-webkit-scrollbar {
+    background-color: #d9d9d9;
+    width: 9px;
+  }
+  &-box::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  &-input {
+    display: flex;
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding-block: 5px;
+
+    &-button {
+      color: #d4d4d4;
+      background-color: #5c6bc0;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      width: 70px;
+      height: 50px;
+      font-weight: bold;
+      // margin-left: 3px;
+      border: 0px;
+      outline: 0px;
+    }
+    &-form {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      width: 300px;
+      height: 50px;
+      padding-left: 15px;
+      padding-block: 0px;
+      border-color: #d4d4d4;
+      color: #d4d4d4;
+      border: 0px;
+      outline: 0px;
+      background-color: #3c3c3c;
+    }
+  }
+}

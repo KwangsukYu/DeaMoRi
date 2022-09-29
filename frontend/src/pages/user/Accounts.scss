@@ -45,11 +45,17 @@
     }
     .nickname-form {
       position: relative;
-      .IDcheck {
+      .IDcheck-false {
         position: absolute;
         top: 15px;
         left: 245px;
         color: #797979;
+      }
+      .IDcheck-true {
+        position: absolute;
+        top: 15px;
+        left: 245px;
+        color: #19ed24;
       }
     }
     .inputform-nickname {
@@ -131,6 +137,15 @@
 .btn_upload :hover {
   background: rgb(77, 77, 77);
   color: #fff;
+}
+
+.reduple-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
 }
 
 #file {

@@ -38,10 +38,7 @@ function Login() {
       .then(res => {
         const token = res.data.accessToken;
         localStorage.setItem("token", token);
-        // alert("로그인 되었습니다.");
-
         getMyInfo();
-        document.location.href = "/";
       })
       .catch(err => {
         if (err.response.status === 403) {

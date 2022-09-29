@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MyPage.scss";
 import UserDummy from "assets/images/UserDummy.svg";
 import SchoolIcon from "assets/images/SchoolIcon.svg";
@@ -7,22 +7,30 @@ import Badge from "assets/images/RewardBadge.svg";
 import { v4 } from "uuid";
 import { numberWithCommas } from "utils/numberComma";
 import { getWalletBalance } from "apis/web3/web3";
+import { useSelector } from "react-redux";
+import { infoType } from "Slices/userInfo";
 import SupportAmount from "./SupportAmount";
 import CoinCharge from "./CoinCharge";
 import CreateWallet from "./CreateWallet";
 
 function MyPage() {
-  const [schoolChk, setSchoolChk] = useState(true);
+  const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
+  const [schoolChk, setSchoolChk] = useState(
+    !!userInfo.universityName || false
+  );
   const [modal, setModal] = useState(false);
-  const [haveWallet, setHaveWallet] = useState(false);
+  const [haveWallet, setHaveWallet] = useState(!!userInfo.address || false);
   const [userBalance, setUserBalance] = useState<string | number>("???");
-  const badgeDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const supportDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const getUserBalance = async () => {
-    const balance = await getWalletBalance();
+    const balance = await getWalletBalance(userInfo.address);
     setUserBalance(balance);
   };
+
+  useEffect(() => {
+    getUserBalance();
+  }, []);
 
   const signal = () => {
     setHaveWallet(true);
@@ -36,13 +44,15 @@ function MyPage() {
             <img src={UserDummy} alt="" />
           </div>
           <div className="mypage-profile-detail">
-            <div className="mypage-username">닉네임은팔글자임</div>
+            <div className="mypage-username">{userInfo.userName}</div>
             {schoolChk ? (
               <div className="mypage-school">
                 <div className="mypage-school-icon">
-                  <img src={SchoolIcon} alt="" />
+                  <img src={userInfo.universityLgo} alt="" />
                 </div>
-                <div className="mypage-school-name">전남대학교</div>
+                <div className="mypage-school-name">
+                  {userInfo.universityName}
+                </div>
               </div>
             ) : (
               <button type="button" className="mypage-school-chk">
@@ -59,7 +69,7 @@ function MyPage() {
             <div className="mypage-wallet-detail">
               <p>
                 지갑 주소 <br />
-                <span>0x34a028D08680B252A6b881ab4c155531cfa34f64</span>
+                <span>{userInfo.address}</span>
               </p>
               <p>
                 보유 코인 <br /> <span>{numberWithCommas(userBalance)}</span>
@@ -80,7 +90,7 @@ function MyPage() {
         <div className="mypage-badge">
           <p>보유 뱃지</p>
           <div className="mypage-badge-container">
-            {badgeDummy.map(() => (
+            {[userInfo.badge].map(() => (
               <img
                 src={Badge}
                 alt="badge"
@@ -105,6 +115,7 @@ function MyPage() {
       </div>
       {modal && (
         <CoinCharge
+          userAddress={userInfo.address}
           signal={() => {
             setModal(!modal);
             getUserBalance();
