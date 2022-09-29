@@ -21,7 +21,8 @@ export default function LivePage() {
   const [loading, setLoading] = useState(null);
   const [params, setParams] = useState(window.location.pathname.split("/"));
   const [title, setTitle] = useState(params[2]);
-  const [myUserName, setMyUserName] = useState("user");
+  const { nickName } = useSelector(state => state.userInfo.userInfo);
+  const [myUserName, setMyUserName] = useState(nickName);
   const [session, setSession] = useState(null);
   const [mainStreamManager, setMainStreamManager] = useState(null);
   const [publisher, setPublisher] = useState(null);
@@ -35,7 +36,6 @@ export default function LivePage() {
   const [chattingBox, setChattingBox] = useState(true);
   const [permissionDenied, setPermissionDenied] = useState(false);
   const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
-  const { nickName } = useSelector(state => state.userInfo.userInfo);
   const [donation, setDonation] = useState("text");
   const [donationSwitch, setDonationSwitch] = useState("false");
 

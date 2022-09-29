@@ -9,8 +9,6 @@ function LiveChat(props) {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState("");
 
-  const { nickName } = useSelector(state => state.userInfo.userInfo);
-
   const handleChange = event => {
     setMessage(event.target.value);
   };
@@ -18,12 +16,15 @@ function LiveChat(props) {
   useEffect(() => {
     const myProps = { props }.props.props;
 
+    console.log("통신확인", myProps);
+
     myProps.session?.on("signal:chat", event => {
       const data = JSON.parse(event.data);
       const messageListData = messageList;
+      console.log("닉네임 확인", data);
       messageListData.push({
         connectionId: event.from.connectionId,
-        nickname: nickName,
+        nickname: data.nickName,
         message: data.message
       });
       setMessageList([...messageListData]);
@@ -37,7 +38,7 @@ function LiveChat(props) {
       if (messageData !== "" && messageData !== " ") {
         const data = {
           message: messageData,
-          nickname: nickName,
+          nickName: myProps.myUserName,
           streamId: myProps.streamId
         };
         myProps.session.signal({
