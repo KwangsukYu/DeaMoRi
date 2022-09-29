@@ -22,7 +22,7 @@ public class RankingController {
     RankingService rankingService;
 
 
-    @PatchMapping("/update/user")
+    @PutMapping("/update/user")
     public ResponseEntity<? extends BaseResponseBody> updateUserRanking() {
         try{
             rankingService.updateUserRanking();
