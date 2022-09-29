@@ -2,17 +2,20 @@ package ohgwang.demori.api.service;
 
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.Team;
-import ohgwang.demori.DB.entity.University;
 import ohgwang.demori.DB.repository.LeagueRepository;
 import ohgwang.demori.DB.repository.TeamRepository;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
+import ohgwang.demori.common.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -27,8 +30,12 @@ public class LeagueServiceImpl implements LeagueService {
     @Autowired
     TeamRepository teamRepository;
 
+    @Autowired
+    S3Service s3Service;
     @Override
-    public League createLeague(LeagueRegisterPostReq registerInfo) {
+    public League createLeague(LeagueRegisterPostReq registerInfo, MultipartFile file) throws IOException {
+
+        Map<String,String> map = s3Service.upload(file, "P");
 
         League league = new League();
 
@@ -41,6 +48,8 @@ public class LeagueServiceImpl implements LeagueService {
         List<Team> teamList = teamService.createTeam(registerInfo);
         league.setTeam1(teamList.get(0));
         league.setTeam2(teamList.get(1));
+
+        league.setPosterURL(map.get("fileUrl"));
 
         return leagueRepository.save(league);
     }

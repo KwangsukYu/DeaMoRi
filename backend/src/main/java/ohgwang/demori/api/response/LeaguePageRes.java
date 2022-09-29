@@ -27,10 +27,13 @@ public class LeaguePageRes extends BaseResponseBody {
         res.getLeagues = new ArrayList<>();
         for(League league : leaguePage) {
             GetLeague getLeague = GetLeague.builder()
+                    .leagueId(league.getId())
+                    .leagueName(league.getLeagueId())
+                    .posterURL(league.getPosterURL())
                     .uniName1(league.getTeam1().getUniversity().getUniName())
                     .uniName2(league.getTeam2().getUniversity().getUniName())
-                    .leagueName(league.getLeagueId())
-                    .leagueDatetime(league.getLeagueStartDatetime())
+                    .leagueStartDatetime(league.getLeagueStartDatetime())
+                    .leagueEndDatetime(league.getLeagueEndDatetime())
                     .build();
 
             res.getLeagues.add(getLeague);
@@ -43,8 +46,11 @@ public class LeaguePageRes extends BaseResponseBody {
 @Data
 @Builder
 class GetLeague {
+    private int leagueId;
+    private String leagueName;
+    private String posterURL;
     private String uniName1;
     private String uniName2;
-    private String leagueName;
-    private LocalDateTime leagueDatetime;
+    private LocalDateTime leagueStartDatetime;
+    private LocalDateTime leagueEndDatetime;
 }

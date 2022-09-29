@@ -30,6 +30,7 @@ public class League {
     private int isBroadcast;
     private String status;
     private String contractAddress;
+    private String posterURL;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team1")

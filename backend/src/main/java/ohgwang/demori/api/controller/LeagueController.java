@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +47,14 @@ public class LeagueController {
             @ApiResponse(code = 500, message = "실패"),
     })
     public ResponseEntity<? extends BaseResponseBody> registerLeague(
-            @RequestBody LeagueRegisterPostReq registerInfo) {
+            @RequestPart MultipartFile file, @RequestBody LeagueRegisterPostReq registerInfo) throws IOException {
 
-        League league = leagueService.createLeague(registerInfo);
+        League league = leagueService.createLeague(registerInfo, file);
+
         if(league == null) {
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
         }
-        if (league.getTeam1().getUniversity().getUniName().equals(league.getTeam2().getUniversity().getUniName()) == true) {
+        if (league.getTeam1().getUniversity().getUniName().equals(league.getTeam2().getUniversity().getUniName())) {
             return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
         }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
@@ -71,7 +74,7 @@ public class LeagueController {
 
         Page<League> leaguePage = leagueService.getLeaguePage(page, size, field, keyword);
 
-        if (leaguePage.isEmpty() == true) {
+        if (leaguePage.isEmpty()) {
             return ResponseEntity.status(204).body(BaseResponseBody.of(204, "대회가 존재하지 않습니다."));
         }
         return ResponseEntity.status(200).body(LeaguePageRes.of(200, SUCCESS, leaguePage));
