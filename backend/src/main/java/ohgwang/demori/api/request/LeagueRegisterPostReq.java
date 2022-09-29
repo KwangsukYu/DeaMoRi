@@ -10,20 +10,21 @@ import java.util.List;
 public class LeagueRegisterPostReq {
 
     // League
-    private String leagueId;
-    private LocalDateTime leagueStartDatetime;
-    private LocalDateTime leagueEndDatetime;
-    private LocalDateTime sponStartDatetime;
-    private String location;
+    private String leagueTitle;
+    private LocalDateTime leagueStart;
+    private LocalDateTime leagueEnd;
+    private LocalDateTime sponStart;
+    private String place;
     private String contractAddress;
+    private int broadcast;
 
     // TEAM
-    private String team1Id;
+    private String team1Name;
     private String team1University;
     private String team1Wallet;
     private String team1Color;
 
-    private String team2Id;
+    private String team2Name;
     private String team2University;
     private String team2Wallet;
     private String team2Color;

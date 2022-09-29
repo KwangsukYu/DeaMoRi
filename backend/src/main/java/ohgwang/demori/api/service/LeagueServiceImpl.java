@@ -39,11 +39,11 @@ public class LeagueServiceImpl implements LeagueService {
 
         League league = new League();
 
-        league.setLeagueId(registerInfo.getLeagueId());
-        league.setLeagueStartDatetime(registerInfo.getLeagueStartDatetime());
-        league.setLeagueEndDatetime(registerInfo.getLeagueEndDatetime());
-        league.setSponStartDatetime(registerInfo.getSponStartDatetime());
-        league.setLocation(registerInfo.getLocation());
+        league.setLeagueId(registerInfo.getLeagueTitle());
+        league.setLeagueStartDatetime(registerInfo.getLeagueStart());
+        league.setLeagueEndDatetime(registerInfo.getLeagueEnd());
+        league.setSponStartDatetime(registerInfo.getSponStart());
+        league.setLocation(registerInfo.getPlace());
 
         List<Team> teamList = teamService.createTeam(registerInfo);
         league.setTeam1(teamList.get(0));
