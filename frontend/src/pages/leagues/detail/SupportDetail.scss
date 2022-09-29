@@ -1,4 +1,7 @@
 .support-wrapper {
+  .active-team {
+    color: #5c6bc0;
+  }
   position: fixed;
   top: 0;
   background-color: rgba(0, 0, 0, 0.8);
@@ -14,6 +17,7 @@
     width: 500px;
     height: 800px;
     background-color: #1c1c1c;
+
     .supportdetail {
       color: white;
       display: flex;
@@ -21,6 +25,49 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
+      &-title {
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 12px;
+        margin-bottom: 0;
+      }
+      &-team {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        &-label {
+          font-size: 16px;
+          font-weight: bold;
+          color: #ff7f22;
+        }
+        &-wrapper {
+          margin-top: 20px;
+          display: flex;
+          width: 400px;
+          justify-content: space-between;
+        }
+        &-container {
+          background-color: #1c1c1c;
+          color: white;
+          border-radius: 15px;
+          border: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          width: 180px;
+          cursor: pointer;
+
+          > p {
+            font-size: 16px;
+            font-weight: bold;
+          }
+          > img {
+            width: 130px;
+            height: 130px;
+          }
+        }
+      }
     }
   }
 }

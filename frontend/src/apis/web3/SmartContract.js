@@ -1,6 +1,6 @@
 import Web3 from "web3";
 
-const web3 = new Web3("http://j7c2081.p.ssafy.io:7545");
+const web3 = new Web3("http://j7c2081.p.ssafy.io:8545");
 
 // Token Contract
 const TokenABI = [
