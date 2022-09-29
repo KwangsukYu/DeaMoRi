@@ -52,6 +52,10 @@ function SignUp() {
       // e.target.pwconfirm.value = "";
       setPassword("");
       setPwConfirm("");
+    } else if (nickNameCheck === false) {
+      alert("닉네임 중복검사를 해주세요");
+    } else if (idCheck === false) {
+      alert("아이디 중복검사를 해주세요");
     } else {
       axiosSignup(signUpForm);
     }
