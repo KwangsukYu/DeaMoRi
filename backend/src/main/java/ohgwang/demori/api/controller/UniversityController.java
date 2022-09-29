@@ -2,22 +2,13 @@ package ohgwang.demori.api.controller;
 
 import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.University;
-import ohgwang.demori.DB.entity.User;
-import ohgwang.demori.api.response.AddressRes;
-import ohgwang.demori.api.response.BaseRes;
 import ohgwang.demori.api.response.UniversityRes;
 import ohgwang.demori.api.service.UniversityService;
-import ohgwang.demori.api.service.UserService;
-import ohgwang.demori.api.service.WalletService;
-import ohgwang.demori.common.auth.SsafyUserDetails;
-import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
