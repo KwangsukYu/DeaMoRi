@@ -1,15 +1,13 @@
-package ohgwang.demori.api.response;
+package ohgwang.demori.api.response.Ranking;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.springframework.data.domain.Page;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
