@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Rankings.scss";
 import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
+import axios from "axios";
 import MySponRank from "./MySponRank";
 
 function SponRankings() {
+  useEffect(() => {
+    axios({
+      url: "http://j7c208.p.ssafy.io:8080/api/ranking/user",
+      method: "get",
+      params: { page: 0, size: 10 }
+
+      // headers: { Authorization: `Bearer ${localStorage.token}` }
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  });
+
   const universities = [
     { rank: 1, name: "홍석호홍석호홍석호", price: "5000000" },
     { rank: 2, name: "유광석", price: "4000000" },
