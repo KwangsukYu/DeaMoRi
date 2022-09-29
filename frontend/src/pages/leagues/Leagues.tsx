@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Leagues.scss";
 import { Link } from "react-router-dom";
+import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
 import Scroll from "./Scroll";
+import Search from "./Search";
 
 function Leagues() {
+  const [ing, setIng] = useState(true);
+
   return (
     <div id="leagues">
       <div className="leagues">
@@ -15,17 +19,67 @@ function Leagues() {
                 대회 생성
               </button>
             </Link>
+            <div className="leagues-function-leaguelist">우리 대학 대회</div>
           </span>
         </div>
-        <h2 className="leagues-function-myuniversity">우리 대학 대회</h2>
         <Carousel />
-        <h2>대회 목록</h2>
-        <input
-          className="leagues-function-search"
-          placeholder="검색창"
-          type="text"
-        />
-        <Scroll />
+        <div className="leagues-function-leaguelist">대회 목록</div>
+        <div className="leagues-buttonlist">
+          <div>
+            <button
+              type="button"
+              className={
+                ing === true
+                  ? "leagues-buttonlist-active"
+                  : "leagues-buttonlist-nonactive"
+              }
+              onClick={() => {
+                setIng(true);
+              }}
+            >
+              진행중
+            </button>
+            {ing === true ? (
+              <div className="leagues-buttonlist-bar-active" />
+            ) : (
+              <div className="leagues-buttonlist-bar-nonactive" />
+            )}
+          </div>
+          <div>
+            <button
+              type="button"
+              className={
+                ing === false
+                  ? "leagues-buttonlist-active"
+                  : "leagues-buttonlist-nonactive"
+              }
+              onClick={() => {
+                setIng(false);
+              }}
+            >
+              종료
+            </button>
+            {ing === false ? (
+              <div className="leagues-buttonlist-bar-active" />
+            ) : (
+              <div className="leagues-buttonlist-bar-nonactive" />
+            )}
+          </div>
+        </div>
+        <div className="leagues-function-search">
+          <input
+            className="leagues-function-search-bar"
+            // placeholder="대회 검색"
+            type="text"
+          />
+          <img
+            src={SearchIcon}
+            alt="searchIcon"
+            className="leagues-function-search-icon"
+          />
+        </div>
+        <Search />
+        {/* <Scroll /> */}
       </div>
     </div>
   );

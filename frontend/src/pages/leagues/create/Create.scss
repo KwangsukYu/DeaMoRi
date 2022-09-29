@@ -1,6 +1,6 @@
 #create {
   .create {
-    margin-top: 40px;
+    margin-top: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,6 +45,7 @@
         // margin: 10px;
       }
       &-poster {
+        cursor: pointer;
         margin-top: 10px;
         font-size: 14px;
         width: 120px;
@@ -74,11 +75,13 @@
           background-color: #007350;
         }
         &-on {
+          cursor: pointer;
           background-color: #aa0e03;
           color: white;
         }
 
         &-off {
+          cursor: pointer;
           background-color: #555555;
           color: white;
           :hover {
@@ -88,6 +91,25 @@
       }
     }
     &-container {
+      &-dropdown {
+        z-index: 5;
+        width: 210px;
+        position: absolute;
+        background-color: rgb(62, 62, 62);
+        margin-top: 125px;
+        border: 2px;
+        border-color: white;
+        border-radius: 10px;
+        text-align: center;
+        &-item {
+          border: 5;
+          border-color: white;
+        }
+        &-item:hover {
+          background-color: rgb(97, 97, 97);
+          border-radius: 10px;
+        }
+      }
       &-teamoption1 {
         h2 {
           color: #5c6bc0;
@@ -160,6 +182,7 @@
     }
     &-buttoncontainer {
       &-cancel {
+        cursor: pointer;
         margin-left: 275px;
         margin-top: 20px;
         margin-right: 10px;
@@ -172,6 +195,7 @@
         font-weight: bold;
       }
       &-approve {
+        cursor: pointer;
         background-color: #ff7f22;
         border-radius: 10px;
         color: white;
