@@ -1,10 +1,9 @@
 package ohgwang.demori.api.service;
 
 import ohgwang.demori.DB.entity.League;
+import ohgwang.demori.DB.entity.Relation.UniversityLeague;
 import ohgwang.demori.DB.entity.Team;
-import ohgwang.demori.DB.repository.LeagueRepository;
-import ohgwang.demori.DB.repository.TeamRepository;
-import ohgwang.demori.DB.repository.UserRepository;
+import ohgwang.demori.DB.repository.*;
 import ohgwang.demori.api.request.LeaguePatchReq;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
 import ohgwang.demori.common.util.S3Service;
@@ -36,6 +35,12 @@ public class LeagueServiceImpl implements LeagueService {
     UserRepository userRepository;
 
     @Autowired
+    UniversityRepository universityRepository;
+
+    @Autowired
+    UniversityLeagueRepository universityLeagueRepository;
+
+    @Autowired
     S3Service s3Service;
     @Override
     public League createLeague(LeagueRegisterPostReq registerInfo, MultipartFile file) throws IOException {
@@ -62,6 +67,17 @@ public class LeagueServiceImpl implements LeagueService {
         league.setTeam2(teamList.get(1));
 
         league.setPosterURL(map.get("fileUrl"));
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        UniversityLeague universityLeague = new UniversityLeague();
+        universityLeague.setLeague(league);
+        universityLeague.setUniversity(universityRepository.getByUniName(registerInfo.getTeam2University()));
+        universityLeagueRepository.save(universityLeague);
+        universityLeague.setUniversity(universityRepository.getByUniName(registerInfo.getTeam1University()));
+        universityLeagueRepository.save(universityLeague);
+
+        //////////////////////////////////////////////////////////////////////////////////////////////
 
         return leagueRepository.save(league);
     }

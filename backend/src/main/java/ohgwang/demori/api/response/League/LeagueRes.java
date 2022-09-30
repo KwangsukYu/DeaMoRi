@@ -1,4 +1,4 @@
-package ohgwang.demori.api.response;
+package ohgwang.demori.api.response.League;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.Relation.Cheer;
-import ohgwang.demori.DB.entity.Team;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 
 import java.time.LocalDate;

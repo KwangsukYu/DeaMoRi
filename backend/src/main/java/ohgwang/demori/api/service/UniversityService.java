@@ -1,6 +1,7 @@
 package ohgwang.demori.api.service;
 
 
+import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.University;
 import ohgwang.demori.api.response.UniversityRes;
 
@@ -15,4 +16,6 @@ public interface UniversityService {
     University getUniversity(String id);
 
     University getUniversityByName(String univesityName);
+
+    List<League> findUniversityLeague(University u);
 }
