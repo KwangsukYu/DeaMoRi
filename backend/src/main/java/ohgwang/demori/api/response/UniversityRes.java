@@ -41,6 +41,7 @@ public class UniversityRes {
 	@ApiModelProperty(name="로고 이미지 주소, null 있음")
 	private String logoUrl;
 
+	@ApiModelProperty(name="트로피 리스트")
 	private List<TrophyRes> trophyList;
 
 	
