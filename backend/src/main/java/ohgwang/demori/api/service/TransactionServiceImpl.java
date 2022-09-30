@@ -21,7 +21,7 @@ import java.util.Map;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final Web3j web3j = Web3j.build(new HttpService());
+    private final Web3j web3j = Web3j.build(new HttpService("http://j7c2081.p.ssafy.io:8545"));
 
     @Autowired
     LeagueRepository leagueRepository;
@@ -65,7 +65,14 @@ public class TransactionServiceImpl implements TransactionService {
         org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(supportReq.getTransactionHash()).send().getTransaction().get();
         Map<String,String> map = inputCutting(t.getInput());
         support.setSupportBalance(Integer.parseInt(map.get("balance"),16));
+        if(supportReq.getSendUniversity().equals("0")){
+            league.setTeamOneDonation(league.getTeamOneDonation() + Integer.parseInt(map.get("balance"),16));
+        }else{
+            league.setTeamTwoDonation(league.getTeamTwoDonation() + Integer.parseInt(map.get("balance"),16));
+        }
+        league.setAllDonation(league.getAllDonation() + Integer.parseInt(map.get("balance"),16));
 
+        leagueRepository.save(league); // 대회에 후원금 갱신
         supportRepository.save(support);    // 후원 내역 저장
 
 
