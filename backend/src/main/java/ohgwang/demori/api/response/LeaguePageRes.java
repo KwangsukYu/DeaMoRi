@@ -35,6 +35,8 @@ public class LeaguePageRes extends BaseResponseBody {
                     .leagueStartDate(league.getLeagueStartDate())
                     .leagueEndDate(league.getLeagueEndDate())
                     .status(league.getStatus())
+                    .donation(league.getAllDonation())
+                    .prizeMoney(league.getPrizeMoney())
                     .build();
 
             res.getLeagues.add(getLeague);
@@ -55,4 +57,6 @@ class GetLeague {
     private LocalDate leagueStartDate;
     private LocalDate leagueEndDate;
     private String status;
+    private int donation;
+    private int prizeMoney;
 }
