@@ -1,5 +1,6 @@
 package ohgwang.demori.api.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,6 +18,9 @@ public class LeagueRegisterPostReq {
     private String place;
     private String contractAddress;
     private String broadcast;
+
+    @ApiModelProperty(name="개최자 유저 PK")
+    private String ownerPk;
 
     // TEAM
     private String team1Name;

@@ -116,7 +116,7 @@ public class LeagueController {
                 return ResponseEntity.status(400).body(BaseResponseBody.of(400, "잘못된 요청(대회가 이미 개최 중 or 종료)"));
             }
 
-            if (user.getId() != league.getUser().getId()) {
+            if (user.getId() != league.getOwner().getId()) {
                 return ResponseEntity.status(403).body(BaseResponseBody.of(403, "해당 유저에게 대회를 시작할 권한이 없음"));
             }
 
@@ -148,7 +148,7 @@ public class LeagueController {
                 return ResponseEntity.status(400).body(BaseResponseBody.of(400, "잘못된 요청(대회가 시작 안함 or 이미 종료)"));
             }
 
-            if (user.getId() != league.getUser().getId()) {
+            if (user.getId() != league.getOwner().getId()) {
                 return ResponseEntity.status(403).body(BaseResponseBody.of(403, "해당 유저에게 대회를 시작할 권한이 없음"));
             }
 

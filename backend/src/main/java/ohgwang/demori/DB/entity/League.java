@@ -46,7 +46,7 @@ public class League {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
-    private User user;
+    private User owner;
 
     @OneToMany(mappedBy = "league" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<Support> supports = new ArrayList<>();
