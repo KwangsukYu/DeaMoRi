@@ -44,6 +44,12 @@ public class UniversityRes {
 	@ApiModelProperty(name="트로피 리스트")
 	private List<TrophyRes> trophyList;
 
+	@ApiModelProperty(name="후원금")
+	private int donation;
+
+	@ApiModelProperty(name="랭킹")
+	private int ranking;
+
 	
 	public static UniversityRes of(University university) {
 		UniversityRes res = new UniversityRes();
@@ -52,6 +58,8 @@ public class UniversityRes {
 		res.setUniversityAddress(university.getUniAddress());
 		res.setUniversityName(university.getUniName());
 		res.setLogoUrl(university.getLogoUrl());
+		res.setDonation(university.getDonation());
+		res.setRanking(university.getRanking());
 		res.trophyList = new ArrayList<>();
 		if(university.getTrophyList() != null){
 			for(Trophy trophy : university.getTrophyList()){
