@@ -5,8 +5,8 @@ function CreateRoom() {
   const pk = 2;
 
   // https://j7c208.p.ssafy.io:4443
-  const OPENVIDU_SERVER_URL = "https://localhost:4443";
-  const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+  const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:8443";
+  const OPENVIDU_SERVER_SECRET = "ohgwang12";
 
   function createSession() {
     const data = JSON.stringify({ customSessionId: `broadcast${pk}` });

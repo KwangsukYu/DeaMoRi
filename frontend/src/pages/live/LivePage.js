@@ -11,8 +11,8 @@ import UserVideoComponent from "./UserVideoComponent";
 import LiveChat from "./LiveChat";
 import Donation from "./Donation";
 
-const OPENVIDU_SERVER_URL = "https://localhost:4443";
-const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:8443";
+const OPENVIDU_SERVER_SECRET = "ohgwang12";
 
 let OV;
 
