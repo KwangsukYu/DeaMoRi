@@ -51,7 +51,10 @@ public class LeagueServiceImpl implements LeagueService {
         league.setContractAddress(registerInfo.getContractAddress());
         league.setIsBroadcast(registerInfo.getBroadcast());
         league.setStatus("0");
+
         league.setOwner(userRepository.getById(Integer.parseInt(registerInfo.getOwnerPk())));
+
+        league.setPrizeMoney(registerInfo.getPrizeMoney());
 
 
         List<Team> teamList = teamService.createTeam(registerInfo);
@@ -69,7 +72,7 @@ public class LeagueServiceImpl implements LeagueService {
             return leagueRepository.findAll(PageRequest.of(page, size).withSort(Sort.by(field)));
         }
 
-        return leagueRepository.findAllByLeagueId(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
+        return leagueRepository.findAllByLeagueIdContaining(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
     }
 
     @Override
@@ -82,6 +85,5 @@ public class LeagueServiceImpl implements LeagueService {
         league.setStatus(s);
         leagueRepository.save(league);
     }
-
 
 }

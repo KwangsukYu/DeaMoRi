@@ -93,7 +93,7 @@ public class TransactionServiceImpl implements TransactionService {
         }else{
             league.setTeamTwoDonation(league.getTeamTwoDonation() + Integer.parseInt(map.get("balance"),16));
         }
-        league.setTotalDonation(league.getTotalDonation() + Integer.parseInt(map.get("balance"),16));
+        league.setAllDonation(league.getAllDonation() + Integer.parseInt(map.get("balance"),16));
 
         leagueRepository.save(league); // 대회에 후원금 갱신
         supportRepository.save(support);    // 후원 내역 저장
