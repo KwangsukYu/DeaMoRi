@@ -14,9 +14,9 @@ function LeagueSupport() {
   return (
     <div id="leaguesupport">
       <div className="leaguesupport">
-        <p className="leaguesupport-amount">
+        <div className="leaguesupport-amount">
           <Counter end={200000000} timer={0.1} /> WON
-        </p>
+        </div>
         <div className="leaguesupport-bar">
           <div
             className="leaguesupport-bar-item"
