@@ -36,7 +36,7 @@ public class TeamServiceImpl implements TeamService {
         Team team2 = new Team();
         team2.setTeamId(registerInfo.getTeam2Name());
         team2.setTeamColor(registerInfo.getTeam2Color());
-        team1.setWallet(walletRepository.findByAddress(registerInfo.getTeam2Wallet()));
+        team2.setWallet(walletRepository.findByAddress(registerInfo.getTeam2Wallet()));
         team2.setUniversity(universityService.getUniversityByName(registerInfo.getTeam2University()));
         teamList.add(teamRepository.save(team2));
 
