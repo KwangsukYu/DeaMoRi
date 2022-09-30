@@ -34,6 +34,7 @@ public class LeaguePageRes extends BaseResponseBody {
                     .uniName2(league.getTeam2().getUniversity().getUniName())
                     .leagueStartDate(league.getLeagueStartDate())
                     .leagueEndDate(league.getLeagueEndDate())
+                    .status(league.getStatus())
                     .build();
 
             res.getLeagues.add(getLeague);
@@ -53,4 +54,5 @@ class GetLeague {
     private String uniName2;
     private LocalDate leagueStartDate;
     private LocalDate leagueEndDate;
+    private String status;
 }
