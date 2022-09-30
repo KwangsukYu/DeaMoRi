@@ -1,5 +1,6 @@
 package ohgwang.demori.api.response.League;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -58,6 +59,7 @@ class UniLeague {
     private String uniName2;
     private LocalDate leagueStartDate;
     private LocalDate leagueEndDate;
+    @ApiModelProperty(name="대회 상태", example="0", value = "0 : 대회 준비, 1 : 대회 중 , 2 : 대회 종료")
     private String status;
     private int donation;
     private int prizeMoney;
