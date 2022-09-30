@@ -1,5 +1,6 @@
 package ohgwang.demori.DB.entity.Relation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ohgwang.demori.DB.entity.Image.Badge;
@@ -18,9 +19,11 @@ public class UserBadge {
     @Column(name = "badge_user_pk")
     private int id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "badge_id")

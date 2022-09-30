@@ -1,6 +1,7 @@
 package ohgwang.demori.DB.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ohgwang.demori.DB.entity.Image.Badge;

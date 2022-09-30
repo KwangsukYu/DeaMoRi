@@ -1,5 +1,6 @@
 package ohgwang.demori.DB.entity.Relation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ohgwang.demori.DB.entity.League;
@@ -25,9 +26,11 @@ public class Support {
     private String transactionHash;
     private String sendUniversity; // 0 , 1 0 = 1번째 대학 , 1 = 2번째 대학
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
