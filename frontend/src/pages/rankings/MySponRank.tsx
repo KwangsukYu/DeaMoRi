@@ -33,7 +33,10 @@ function MySponRank() {
         <p className="rank-main-rank">{storeUser.ranking}</p>
       </div>
       <p className="rank-main-name">{storeUser.nickName}</p>
-      <p className="rank-main-price">{storeUser.donation} MOKO</p>
+      <p className="rank-main-price">
+        {storeUser.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+        MOKO
+      </p>
     </div>
   );
 }

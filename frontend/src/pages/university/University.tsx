@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./University.scss";
 import nullLogo from "assets/images/noimage.gif";
-
 import rankLogo1 from "assets/images/rank1.png";
+import rankLogo2 from "assets/images/rank2.png";
+import rankLogo3 from "assets/images/rank3.png";
+import rankLogo4 from "assets/images/rank4.png";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import LeaguesIng from "./LeaguesIng";
@@ -11,22 +13,51 @@ import UniSponRank from "./UniSponRank";
 import Trophy from "./Trophy";
 
 interface myUniType {
-  universityName: string;
-  universityAddress: string;
+  donation: number;
   homepage: string;
-  logoUrl: string | undefined;
+  id: number;
+  logoUrl: string;
+  ranking: number;
+  trophyList: [];
+  universityAddress: string;
+  universityName: string;
 }
 
 function University() {
   const [bar, setBar] = useState("ing");
   const [myUni, setMyUni] = useState<myUniType>({
-    universityName: "",
+    donation: 0,
     homepage: "",
+    id: 0,
+    logoUrl: "",
+    ranking: 0,
+    trophyList: [],
     universityAddress: "",
-    logoUrl: ""
+    universityName: ""
   });
 
   const uniId = useParams().id;
+
+  let rankImg = "";
+  let uniRankClass = "";
+  let textClass = "";
+  if (myUni.ranking === 1) {
+    rankImg = rankLogo1;
+    uniRankClass = "rankLogo1";
+    textClass = "1";
+  } else if (myUni.ranking === 2) {
+    rankImg = rankLogo2;
+    uniRankClass = "rankLogo2";
+    textClass = "2";
+  } else if (myUni.ranking === 3) {
+    rankImg = rankLogo3;
+    uniRankClass = "rankLogo3";
+    textClass = "3";
+  } else {
+    rankImg = rankLogo4;
+    uniRankClass = "rankLogo4";
+    textClass = "4";
+  }
 
   useEffect(() => {
     axios({
@@ -43,7 +74,7 @@ function University() {
       });
   }, []);
 
-  console.log(myUni.homepage);
+  console.log(myUni);
   return (
     <div id="university">
       <div className="background">
@@ -69,12 +100,15 @@ function University() {
               {myUni.universityName}
             </a>
             <div className="rank-logo-box">
-              <img className="rank-logo" src={rankLogo1} alt="" />
-              <p className="rank-logo-text">1</p>
+              <img className={uniRankClass} src={rankImg} alt="" />
+              <p className={`rank-logo-text-${textClass}`}>{myUni.ranking}</p>
             </div>
           </p>
           <p className="uni-box-text-total">{myUni.universityAddress}</p>
-          <p className="uni-box-text-price">총 후원 금액 : 300,000,000 eth</p>
+          <p className="uni-box-text-price">
+            {myUni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+            WON
+          </p>
         </div>
         <Trophy />
         <UniSponRank />
