@@ -5,11 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ohgwang.demori.DB.entity.Relation.Cheer;
 import ohgwang.demori.DB.entity.Relation.Support;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +23,17 @@ public class League {
     private int id;
 
     private String leagueId;
-    private LocalDateTime leagueStartDatetime;
-    private LocalDateTime leagueEndDatetime;
-    private LocalDateTime sponStartDatetime;
+    private LocalDate leagueStartDate;
+    private LocalDate leagueEndDate;
     private String location;
-    private int isBroadcast;
+    private String isBroadcast;
     private String status; // 0 = 대회 준비, 1 = 대회시작 , 2 = 대회 종료
     private String contractAddress;
     private String posterURL;
 
-    private int OriginalWinning;
+    private int prizeMoney;
 
-    private int allDonation;
+    private int totalDonation;
     private int teamOneDonation;
     private int teamTwoDonation;
 

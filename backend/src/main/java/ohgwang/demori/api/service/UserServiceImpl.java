@@ -141,5 +141,10 @@ public class UserServiceImpl implements UserService{
 		userRepository.save(user);
 	}
 
+	@Override
+	public User getByWallet(String walletAddress) {
+		return userRepository.findByWallet_Address(walletAddress);
+	}
+
 
 }
