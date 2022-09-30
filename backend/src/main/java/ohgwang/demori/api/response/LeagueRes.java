@@ -18,6 +18,7 @@ public class LeagueRes extends BaseResponseBody {
 
     private int leaguePk;
     private int ownerPk;
+    private String ownerAddress;
     private String leagueId;
     private String leagueContractAddress;
     private LocalDate leagueStartDate;
@@ -37,6 +38,7 @@ public class LeagueRes extends BaseResponseBody {
         res.setStatusCode(statusCode);
         res.setMessage(message);
         res.setOwnerPk(league.getOwner().getId());
+        res.setOwnerAddress(league.getOwner().getWallet().getAddress());
         res.setLeaguePk(league.getId());
         res.setLeagueId(league.getLeagueId());
         res.setLeagueContractAddress(league.getContractAddress());
