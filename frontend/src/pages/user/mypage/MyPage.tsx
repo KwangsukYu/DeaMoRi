@@ -29,7 +29,9 @@ function MyPage() {
   };
 
   useEffect(() => {
-    getUserBalance();
+    if (userInfo.address) {
+      getUserBalance();
+    }
   }, []);
 
   const signal = () => {
@@ -44,7 +46,7 @@ function MyPage() {
             <img src={UserDummy} alt="" />
           </div>
           <div className="mypage-profile-detail">
-            <div className="mypage-username">{userInfo.userName}</div>
+            <div className="mypage-username">{userInfo.nickName}</div>
             {schoolChk ? (
               <div className="mypage-school">
                 <div className="mypage-school-icon">
