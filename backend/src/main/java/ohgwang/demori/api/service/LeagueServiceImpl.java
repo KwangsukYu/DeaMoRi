@@ -4,6 +4,8 @@ import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.Team;
 import ohgwang.demori.DB.repository.LeagueRepository;
 import ohgwang.demori.DB.repository.TeamRepository;
+import ohgwang.demori.DB.repository.UserRepository;
+import ohgwang.demori.api.request.LeaguePatchReq;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
 import ohgwang.demori.common.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class LeagueServiceImpl implements LeagueService {
     TeamRepository teamRepository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     S3Service s3Service;
     @Override
     public League createLeague(LeagueRegisterPostReq registerInfo, MultipartFile file) throws IOException {
@@ -46,7 +51,11 @@ public class LeagueServiceImpl implements LeagueService {
         league.setContractAddress(registerInfo.getContractAddress());
         league.setIsBroadcast(registerInfo.getBroadcast());
         league.setStatus("0");
+
+        league.setOwner(userRepository.getById(Integer.parseInt(registerInfo.getOwnerPk())));
+
         league.setPrizeMoney(registerInfo.getPrizeMoney());
+
 
         List<Team> teamList = teamService.createTeam(registerInfo);
         league.setTeam1(teamList.get(0));
@@ -67,8 +76,14 @@ public class LeagueServiceImpl implements LeagueService {
     }
 
     @Override
-    public League getLeagueByLeagueId(int leagueId) {
-        return leagueRepository.getById(leagueId);
+    public League getByPk(int leaguePK) {
+        return leagueRepository.getById(leaguePK);
+    }
+
+    @Override
+    public void updateLeagueStatus(League league, String s) {
+        league.setStatus(s);
+        leagueRepository.save(league);
     }
 
 }

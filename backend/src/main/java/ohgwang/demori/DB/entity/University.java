@@ -2,8 +2,12 @@ package ohgwang.demori.DB.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ohgwang.demori.DB.entity.Image.Trophy;
+import ohgwang.demori.DB.entity.Relation.Cheer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,5 +25,8 @@ public class University {
 
     private int donation;
     private int ranking;
+
+    @OneToMany(mappedBy = "university" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<Trophy> trophyList = new ArrayList<>();
 
 }
