@@ -1,10 +1,9 @@
 package ohgwang.demori.api.service;
 
-import ohgwang.demori.DB.entity.Transaction;
-import ohgwang.demori.DB.entity.University;
-import ohgwang.demori.DB.entity.User;
-import ohgwang.demori.DB.entity.Wallet;
+import ohgwang.demori.DB.entity.*;
+import ohgwang.demori.DB.entity.Relation.UniversityLeague;
 import ohgwang.demori.DB.repository.TransactionRepository;
+import ohgwang.demori.DB.repository.UniversityLeagueRepository;
 import ohgwang.demori.DB.repository.UniversityRepository;
 import ohgwang.demori.DB.repository.WalletRepository;
 import ohgwang.demori.api.response.UniversityRes;
@@ -19,6 +18,7 @@ import org.web3j.tx.RawTransactionManager;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,9 @@ public class UniversityServiceImpl implements UniversityService{
 
     @Autowired
     UniversityRepository universityRepository;
+
+    @Autowired
+    UniversityLeagueRepository  universityLeagueRepository;
 
     @Override
     public List<UniversityRes> getUniversities() {
@@ -69,5 +72,20 @@ public class UniversityServiceImpl implements UniversityService{
     @Override
     public University getUniversityByName(String universityName) {
         return universityRepository.getByUniName(universityName);
+    }
+
+    @Override
+    @Transactional
+    public List<League> findUniversityLeague(University u) {
+        List<UniversityLeague> universityLeagues = universityLeagueRepository.findByUniversity(u);
+        if(universityLeagues == null) return null;
+
+        List<League> leagues = new ArrayList<>();
+        for(UniversityLeague ul : universityLeagues){
+            leagues.add(ul.getLeague());
+        }
+
+
+        return leagues;
     }
 }

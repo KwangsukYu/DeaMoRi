@@ -1,4 +1,4 @@
-package ohgwang.demori.api.response;
+package ohgwang.demori.api.response.League;
 
 import lombok.Builder;
 import lombok.Data;
