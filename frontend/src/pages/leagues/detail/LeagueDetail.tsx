@@ -83,7 +83,12 @@ function LeagueDetail() {
             </button>
             {detailModal && <LeaegueInfo signal={signal} />}
             <p>VS</p>
-            {leagueState === "start" && <div> 시작 전</div>}
+            {leagueState === "start" && (
+              <div>
+                <p>대회 기간</p>
+                <p>2022.08.11 ~ 2022.09.11</p>
+              </div>
+            )}
             {leagueState === "playing" && (
               <button type="button" className="live-button">
                 중계

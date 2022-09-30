@@ -7,10 +7,10 @@ import {
   getContractCA
 } from "./SmartContract";
 
-// const web3 = new Web3("http://localhost:8545");
-const web3 = new Web3("http://j7c2081.p.ssafy.io:7545");
+const web3 = new Web3("http://localhost:8545");
+// const web3 = new Web3("http://j7c2081.p.ssafy.io:8545");
 
-const getCoinBase = async () => {
+export const getCoinBase = async () => {
   const res = await web3.eth.getCoinbase();
   return res;
 };
@@ -23,11 +23,12 @@ export const createAccount = async () => {
   const wallet = web3.eth.accounts.wallet.add(account);
 
   // 임시 1이더 송금 (가스비 처리용, 추후 이벤트로 지급 or Besu서버로 해결)
-  web3.eth.personal.unlockAccount(
+  await web3.eth.personal.unlockAccount(
     coinBase,
     process.env.REACT_APP_COINBASE_PASSWORD,
     300
   );
+
   const Eth = web3.utils.toWei("1", "ether");
   const tx = {
     from: coinBase,
