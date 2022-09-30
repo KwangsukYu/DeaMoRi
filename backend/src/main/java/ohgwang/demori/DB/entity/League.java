@@ -30,9 +30,15 @@ public class League {
     private LocalDateTime sponStartDatetime;
     private String location;
     private int isBroadcast;
-    private String status;
+    private String status; // 0 = 대회 준비, 1 = 대회시작 , 2 = 대회 종료
     private String contractAddress;
     private String posterURL;
+
+    private int OriginalWinning;
+
+    private int allDonation;
+    private int teamOneDonation;
+    private int teamTwoDonation;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team1")
@@ -46,5 +52,6 @@ public class League {
 
     @OneToMany(mappedBy = "league" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<Cheer> cheers = new ArrayList<>();
+
 
 }
