@@ -36,7 +36,7 @@ public class LeagueController {
     UniversityService universityService;
 
     @ApiOperation(value = "대회 생성")
-    @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 422, message = "대학 이름이 같습니다."),
