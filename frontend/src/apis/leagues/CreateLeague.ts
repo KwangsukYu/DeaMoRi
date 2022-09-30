@@ -1,4 +1,5 @@
 // import React from "react";
+
 import axios from "axios";
 
 // type createLeague = {
@@ -20,6 +21,23 @@ import axios from "axios";
 //   team2Color: string;
 //   // broadcast: number;
 // };
+
+// const {
+//   leagueTitle,
+//   sponStart,
+//   leagueStart,
+//   leagueEnd,
+//   place,
+//   broadcast,
+//   team1University,
+//   team1Name,
+//   team1Wallet,
+//   team2University,
+//   team2Name,
+//   team2Wallet,
+//   team1Color,
+//   team2Color
+// } = data;
 
 type createLeague = {
   leagueTitle: string;
@@ -43,44 +61,27 @@ type createLeague = {
 function CreateLeague(data: createLeague) {
   // // function CreateLeague(data) {
   // // data.poster = data.poster[0];
-  // console.log(data.poster);
-  // console.log("잘 되나?");
-  const {
-    leagueTitle,
-    sponStart,
-    leagueStart,
-    leagueEnd,
-    place,
-    broadcast,
-    team1University,
-    team1Name,
-    team1Wallet,
-    team2University,
-    team2Name,
-    team2Wallet,
-    team1Color,
-    team2Color
-  } = data;
+  console.log("잘 되나?↓");
+  console.log(data);
+
+  // axios에 묶어 보낼 폼데이터 생성
+  const formData = new FormData();
+
+  // form 데이터에 포스터를 넣어준다.
+  // (swagger의 prams 이름을 맞추기 위해 file이라는 이름으로 저장한다.)
+  formData.append("file", data.poster);
+
+  const newdata = { ...data, contractAddress: "" };
+  console.log(newdata);
+  const key = "poster";
+
+  // delete newdata[key];
+  // const uploader: Uploader = { name: "huewilliams" };
 
   axios({
     url: "http://j7c208.p.ssafy.io:8080/api/league",
     method: "post",
-    data: {
-      leagueTitle,
-      sponStart,
-      leagueStart,
-      leagueEnd,
-      place,
-      broadcast,
-      team1University,
-      team1Name,
-      team1Wallet,
-      team2University,
-      team2Name,
-      team2Wallet,
-      team1Color,
-      team2Color
-    },
+    data,
     headers: {
       Authorization: `Bearer ${localStorage.token}`
       // "Content-Type": "multipart/form-data"

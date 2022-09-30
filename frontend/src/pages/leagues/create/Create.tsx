@@ -41,8 +41,9 @@ function Create() {
   // useForm submit시 어떤 데이터를 넘겨줄것인지 설정 및 추가해줌
   const onSubmit = (data: Inputs) => {
     const newData = { ...data, team1Color, team2Color, broadcast };
-    CreateLeague(newData);
     console.log(newData);
+    console.log(typeof newData);
+    CreateLeague(newData);
   };
 
   const broadcasting = (e: number) => {
@@ -128,7 +129,7 @@ function Create() {
     <div id="create">
       <div className="create">
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={() => handleSubmit(onSubmit)}
           method="post"
           // encType="multipart/form-data"
         >

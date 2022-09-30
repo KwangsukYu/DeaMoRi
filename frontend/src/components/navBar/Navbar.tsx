@@ -20,7 +20,7 @@ function NavBar() {
 
   const [dropDown, setdropDown] = useState(false);
   const [active, setActive] = useState("대회");
-  console.log(storeUser);
+  // console.log(storeUser);
   // localStorage.token
   // console.log(storeUser);
 

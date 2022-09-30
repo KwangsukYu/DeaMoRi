@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import posterSample from "assets/images/posterSample.png";
 
 /* eslint-disable react/prop-types */
-function Poster2({ item: { uniName1, uniName2, leagueName, leagueDatetime } }) {
+function Poster({ item: { id, email, body } }) {
   return (
     <Card id="card" sx={{ width: 200, height: 500, padding: 0, marginTop: 3 }}>
       <CardMedia
@@ -17,15 +17,15 @@ function Poster2({ item: { uniName1, uniName2, leagueName, leagueDatetime } }) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {leagueName}
+          {id}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {uniName1} {uniName2}
+          {email}
           <br />
-          {leagueDatetime}
+          {body}
         </Typography>
       </CardContent>
     </Card>
   );
 }
-export default Poster2;
+export default Poster;

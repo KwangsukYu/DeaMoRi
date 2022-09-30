@@ -14,26 +14,23 @@ function Scroll() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    console.log(items.length);
     const getComments = async () => {
       const res = await fetch(
-        `http://j7c208.p.ssafy.io:8080/api/league?field=id&_page=0&size=8`
+        `https://jsonplaceholder.typicode.com/comments?_page=0&_limit=20`
       );
       const data = await res.json();
-      // console.log(res);
-      // console.log(data);
-      // console.log(data.getLeagues);
-      setItems(data.getLeagues);
+      setItems(data);
     };
     getComments();
   }, []);
 
   const fetchComments = async () => {
     const res = await fetch(
-      `http://j7c208.p.ssafy.io:8080/api/league?field=id&page=${page}&size=8`
+      `https://jsonplaceholder.typicode.com/comments?_page=${page}&_limit=20`
     );
+    console.log(res);
     const data = await res.json();
-    return data.getLeagues;
+    return data;
   };
 
   // fetchData : 화면이 아래까지 도착함을 감지할 경우 다음 페이지를 불러옴
@@ -43,7 +40,7 @@ function Scroll() {
     setItems([...items, ...commentsFormServer]);
 
     // 페이지를 끝까지 불러왔는지 확인
-    if (commentsFormServer.length === 0 || commentsFormServer.length < 8) {
+    if (commentsFormServer.length === 0 || commentsFormServer.length < 20) {
       // 화면이 끝까지 불러올 경우 false로 변경하여 더이상 불러오지 않음
       setHasMore(false);
     }
@@ -62,7 +59,7 @@ function Scroll() {
       >
         <div className="scroll">
           {items.map(item => {
-            return <Poster key={item.leagueId} item={item} />;
+            return <Poster key={item.id} item={item} />;
           })}
         </div>
       </InfiniteScroll>

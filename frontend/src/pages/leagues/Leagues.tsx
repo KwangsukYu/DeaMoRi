@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Leagues.scss";
 import { Link } from "react-router-dom";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
 import Scroll from "./Scroll";
-import Search from "./Search";
 
 function Leagues() {
   const [ing, setIng] = useState(true);
+  const [inputValue, setInputValue] = useState("");
+  const [isValue, setIsvalue] = useState(false);
+
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    // if (inputValue.length >= )
+    console.log(inputValue);
+  };
+
+  useEffect(() => {
+    console.log(inputValue);
+  }, []);
 
   return (
     <div id="leagues">
@@ -69,7 +80,9 @@ function Leagues() {
         <div className="leagues-function-search">
           <input
             className="leagues-function-search-bar"
-            // placeholder="대회 검색"
+            onChange={e => {
+              handleInputValue(e);
+            }}
             type="text"
           />
           <img
@@ -78,8 +91,8 @@ function Leagues() {
             className="leagues-function-search-icon"
           />
         </div>
-        <Search />
-        {/* <Scroll /> */}
+        {/* <Search /> */}
+        <Scroll />
       </div>
     </div>
   );
