@@ -6,11 +6,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import ohgwang.demori.DB.entity.Image.Badge;
+import ohgwang.demori.DB.entity.Relation.UserBadge;
 import ohgwang.demori.DB.entity.User;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 회원 본인 정보 조회 API ([GET] /api/v1/users/me) 요청에 대한 응답값 정의.
  */
+
 @Getter
 @Setter
 @ApiModel("UserResponse")
@@ -30,7 +37,10 @@ public class UserRes{
 	private int universityPk;
 	private String universityName;
 	private String universityLogo;
-	
+
+	private List<String> bagdeList;
+
+
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
 		res.setUserPk(user.getId());
@@ -50,6 +60,11 @@ public class UserRes{
 		res.setRanking(user.getRanking());
 
 		res.setRole(user.getRole());
+
+		res.bagdeList = new ArrayList<>();
+		for(UserBadge b : user.getBadgeList()){
+			res.bagdeList.add(b.getBadge().getFileUrl());
+		}
 		return res;
 	}
 }

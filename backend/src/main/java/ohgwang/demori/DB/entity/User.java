@@ -1,13 +1,19 @@
 package ohgwang.demori.DB.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ohgwang.demori.DB.entity.Image.Badge;
+import ohgwang.demori.DB.entity.Image.Trophy;
 import ohgwang.demori.DB.entity.Image.UniversityAuth;
+import ohgwang.demori.DB.entity.Relation.UserBadge;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -44,5 +50,8 @@ public class User {
 	@OneToOne
 	@JoinColumn(name = "uni_pk")
 	private University university;
+
+	@OneToMany(mappedBy = "user" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	private List<UserBadge> badgeList = new ArrayList<>();
 
 }

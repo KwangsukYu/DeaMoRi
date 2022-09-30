@@ -1,5 +1,6 @@
 package ohgwang.demori.DB.entity.Relation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ohgwang.demori.DB.entity.League;
