@@ -3,10 +3,12 @@ import "./Accounts.scss";
 import logo from "assets/images/DAEMORI_logo.svg";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getInfo } from "../../Slices/userInfo";
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,7 @@ function Login() {
       .then(res => {
         console.log(res.data, "로그인 시 스토어 저장 데이터");
         dispatch(getInfo(res.data));
-        window.location.href = "/";
+        navigate("/");
       })
       .catch(err => {
         console.error(err);
