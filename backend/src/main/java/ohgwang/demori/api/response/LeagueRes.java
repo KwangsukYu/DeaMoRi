@@ -68,6 +68,10 @@ public class LeagueRes extends BaseResponseBody {
                 .teamUniversitylogoUrl(league.getTeam2().getUniversity().getLogoUrl())
                 .build());
 
+        res.getTeam1().setGetCheers(new ArrayList<>());
+        res.getTeam2().setGetCheers(new ArrayList<>());
+
+
         for(Cheer cheer : league.getCheers()) {
             GetCheer getCheer = GetCheer.builder()
                     .cheerId(cheer.getId())
