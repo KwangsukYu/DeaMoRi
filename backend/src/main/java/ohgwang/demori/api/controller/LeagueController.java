@@ -152,7 +152,7 @@ public class LeagueController {
                 return ResponseEntity.status(403).body(BaseResponseBody.of(403, "해당 유저에게 대회를 시작할 권한이 없음"));
             }
 
-            transactionService.endLeague(leagueReq.getTransactionHash());
+            transactionService.endLeague(league , leagueReq);
             leagueService.updateLeagueStatus(league, "2");
 
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));

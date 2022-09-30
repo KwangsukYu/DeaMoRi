@@ -1,11 +1,9 @@
 package ohgwang.demori.api.service;
 
-import ohgwang.demori.DB.entity.League;
+import ohgwang.demori.DB.entity.*;
+import ohgwang.demori.DB.entity.Image.Trophy;
 import ohgwang.demori.DB.entity.Relation.Cheer;
 import ohgwang.demori.DB.entity.Relation.Support;
-import ohgwang.demori.DB.entity.Transaction;
-import ohgwang.demori.DB.entity.User;
-import ohgwang.demori.DB.entity.Wallet;
 import ohgwang.demori.DB.repository.*;
 import ohgwang.demori.api.request.CheerRegisterPostReq;
 import ohgwang.demori.api.request.LeaguePatchReq;
@@ -41,6 +39,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     WalletRepository  walletRepository;
+
+    @Autowired
+    TrophyRepository trophyRepository;
+
+    @Autowired
+    UniversityRepository universityRepository;
 
     public Map<String,String> inputCutting(String input){
         Map<String, String> map = new HashMap<>();
@@ -131,10 +135,34 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void endLeague(String transactionHash) throws IOException {
-        org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get();
+    public void endLeague(League league, LeaguePatchReq leagueReq) throws IOException {
+        org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(leagueReq.getTransactionHash()).send().getTransaction().get();
         Map<String,String> map = inputCutting(t.getInput());
+        saveTransaction(t,leagueReq.getTransactionHash(),map,walletRepository.findByAddress(map.get("receiver")),"0");   // 받는 사람 지갑에 트랜션 저장
 
-        saveTransaction(t,transactionHash,map,walletRepository.findByAddress(map.get("receiver")),"0");   // 받는 사람 지갑에 트랜션 저장
+
+
+        Trophy trophy = new Trophy();  // 트로피
+        trophy.setFileUrl(leagueReq.getTrophyUrl());
+        University teamOneUniversity = league.getTeam1().getUniversity();
+        University teamTwoUniversity = league.getTeam2().getUniversity();
+        if(leagueReq.getWinner().equals("0")){
+            trophy.setUniversity(teamOneUniversity);
+        }else{
+            trophy.setUniversity(teamTwoUniversity);
+        }
+        trophy.setLeague(league);
+        trophyRepository.save(trophy);
+
+
+        teamOneUniversity.setDonation(teamOneUniversity.getDonation() + league.getTeamOneDonation()); // 후원금 정산
+        teamTwoUniversity.setDonation(teamTwoUniversity.getDonation() + league.getTeamTwoDonation());
+
+        universityRepository.save(teamOneUniversity);
+        universityRepository.save(teamTwoUniversity);
+
+
     }
+
+
 }

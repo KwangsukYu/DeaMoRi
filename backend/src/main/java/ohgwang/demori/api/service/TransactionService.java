@@ -13,5 +13,6 @@ public interface TransactionService {
 
     void registerCheer(CheerRegisterPostReq cheerReq, User user) throws IOException;
 
-    void endLeague(String transactionHash) throws IOException;
+
+    void endLeague(League league, LeaguePatchReq leagueReq) throws IOException;
 }
