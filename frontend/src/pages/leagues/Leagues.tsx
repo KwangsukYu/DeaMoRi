@@ -78,8 +78,8 @@ function Leagues() {
             className="leagues-function-search-icon"
           />
         </div>
-        <Search />
-        {/* <Scroll /> */}
+        {/* <Search /> */}
+        <Scroll />
       </div>
     </div>
   );
