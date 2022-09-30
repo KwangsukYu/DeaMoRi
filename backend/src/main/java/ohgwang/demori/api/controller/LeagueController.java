@@ -96,14 +96,14 @@ public class LeagueController {
     }
 
     @ApiOperation(value = "대회 상세 조회")
-    @GetMapping("/{leagueId}")
+    @GetMapping("/{leaguePk}")
     @ApiResponses({
             @ApiResponse(code=200, message = "성공"),
             @ApiResponse(code=204, message = "대회가 존재하지 않습니다"),
     })
     public ResponseEntity<? extends BaseResponseBody> getLeague(
-            @PathVariable("leagueId") int leagueId) {
-        League league = leagueService.getLeagueByLeagueId(leagueId);
+            @PathVariable("leaguePk") int leaguePk) {
+        League league = leagueService.getByPk(leaguePk);
 
         if(league == null) {
             return ResponseEntity.status(204).body(BaseResponseBody.of(204, "대회가 존재하지 않습니다"));

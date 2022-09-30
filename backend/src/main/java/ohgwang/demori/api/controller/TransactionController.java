@@ -20,7 +20,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
-@Api(value = "후원 API" , tags = {"support","cheer","transaction"})
+@Api(value = "후원 API" , tags = {"transaction"})
 @RestController
 @RequestMapping("api/transaction")
 public class TransactionController {
