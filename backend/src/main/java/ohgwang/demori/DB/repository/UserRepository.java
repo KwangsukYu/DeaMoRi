@@ -18,13 +18,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByNickName(String nickName);
 
-
-    @Query(value = "SELECT rank() over (order by u.donation desc) from user u",
-            nativeQuery = true)
+    @Query(value = "SELECT rank() over (order by u.donation desc) from user u", nativeQuery = true)
     List<Integer> getRank();
 
     List<User> findAllByOrderByDonationDesc();
 
     Page<User> findAll(Pageable pageable);
+
+    User findByWallet_Address(String walletAddress);
+
 }
 

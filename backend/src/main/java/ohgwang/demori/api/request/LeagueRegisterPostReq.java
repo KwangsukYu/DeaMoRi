@@ -2,6 +2,7 @@ package ohgwang.demori.api.request;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,11 @@ public class LeagueRegisterPostReq {
 
     // League
     private String leagueTitle;
-    private LocalDateTime leagueStart;
-    private LocalDateTime leagueEnd;
-    private LocalDateTime sponStart;
+    private LocalDate leagueStart;
+    private LocalDate leagueEnd;
     private String place;
     private String contractAddress;
-    private int broadcast;
+    private String broadcast;
 
     // TEAM
     private String team1Name;
