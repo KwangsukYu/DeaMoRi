@@ -8,7 +8,7 @@ import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.springframework.data.domain.Page;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +32,8 @@ public class LeaguePageRes extends BaseResponseBody {
                     .posterURL(league.getPosterURL())
                     .uniName1(league.getTeam1().getUniversity().getUniName())
                     .uniName2(league.getTeam2().getUniversity().getUniName())
-                    .leagueStartDatetime(league.getLeagueStartDatetime())
-                    .leagueEndDatetime(league.getLeagueEndDatetime())
+                    .leagueStartDate(league.getLeagueStartDate())
+                    .leagueEndDate(league.getLeagueEndDate())
                     .build();
 
             res.getLeagues.add(getLeague);
@@ -51,6 +51,6 @@ class GetLeague {
     private String posterURL;
     private String uniName1;
     private String uniName2;
-    private LocalDateTime leagueStartDatetime;
-    private LocalDateTime leagueEndDatetime;
+    private LocalDate leagueStartDate;
+    private LocalDate leagueEndDate;
 }
