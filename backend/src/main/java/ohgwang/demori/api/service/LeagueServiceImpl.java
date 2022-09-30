@@ -46,6 +46,7 @@ public class LeagueServiceImpl implements LeagueService {
         league.setContractAddress(registerInfo.getContractAddress());
         league.setIsBroadcast(registerInfo.getBroadcast());
         league.setStatus("0");
+        league.setPrizeMoney(registerInfo.getPrizeMoney());
 
         List<Team> teamList = teamService.createTeam(registerInfo);
         league.setTeam1(teamList.get(0));
@@ -64,4 +65,10 @@ public class LeagueServiceImpl implements LeagueService {
 
         return leagueRepository.findAllByLeagueId(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
     }
+
+    @Override
+    public League getLeagueByLeagueId(int leagueId) {
+        return leagueRepository.getById(leagueId);
+    }
+
 }

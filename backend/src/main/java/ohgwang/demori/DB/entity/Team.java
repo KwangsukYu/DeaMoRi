@@ -21,7 +21,7 @@ public class Team {
     private String teamColor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "leader_id")
+    @JoinColumn(name = "leader_wallet")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Wallet wallet;
 

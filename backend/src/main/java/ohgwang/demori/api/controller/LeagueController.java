@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiResponses;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
 import ohgwang.demori.api.response.LeaguePageRes;
+import ohgwang.demori.api.response.LeagueRes;
 import ohgwang.demori.api.service.LeagueService;
 import ohgwang.demori.api.service.UniversityService;
 import ohgwang.demori.api.service.UserService;
@@ -36,7 +37,7 @@ public class LeagueController {
     UniversityService universityService;
 
     @ApiOperation(value = "대회 생성")
-    @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 422, message = "대학 이름이 같습니다."),
@@ -85,5 +86,21 @@ public class LeagueController {
         return ResponseEntity.status(200).body(LeaguePageRes.of(200, SUCCESS, leaguePage));
     }
 
+    @ApiOperation(value = "대회 상세 조회")
+    @GetMapping("/{leagueId}")
+    @ApiResponses({
+            @ApiResponse(code=200, message = "성공"),
+            @ApiResponse(code=204, message = "대회가 존재하지 않습니다"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> getLeague(
+            @PathVariable("leagueId") int leagueId) {
+        League league = leagueService.getLeagueByLeagueId(leagueId);
+
+        if(league == null) {
+            return ResponseEntity.status(204).body(BaseResponseBody.of(204, "대회가 존재하지 않습니다"));
+        }
+
+        return ResponseEntity.status(200).body(LeagueRes.of(200, SUCCESS, league));
+    }
 
 }

@@ -11,12 +11,13 @@ import java.util.List;
 public class LeagueRegisterPostReq {
 
     // League
-    private String leagueTitle;
-    private LocalDate leagueStart;
-    private LocalDate leagueEnd;
-    private String place;
-    private String contractAddress;
-    private String broadcast;
+    private String leagueTitle;         // 리그 제목
+    private LocalDate leagueStart;      // 시작 날짜
+    private LocalDate leagueEnd;        // 종료
+    private String place;               // 장소
+    private String contractAddress;     // 컨트렉트 주소
+    private String broadcast;           // 중계 여부
+    private int prizeMoney;             // 상금
 
     // TEAM
     private String team1Name;
