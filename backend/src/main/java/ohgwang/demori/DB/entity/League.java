@@ -44,6 +44,10 @@ public class League {
     @JoinColumn(name = "team2")
     private Team team2;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner")
+    private User user;
+
     @OneToMany(mappedBy = "league" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<Support> supports = new ArrayList<>();
 

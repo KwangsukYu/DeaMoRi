@@ -4,6 +4,7 @@ import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.Team;
 import ohgwang.demori.DB.repository.LeagueRepository;
 import ohgwang.demori.DB.repository.TeamRepository;
+import ohgwang.demori.api.request.LeaguePatchReq;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
 import ohgwang.demori.common.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,4 +65,17 @@ public class LeagueServiceImpl implements LeagueService {
 
         return leagueRepository.findAllByLeagueId(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
     }
+
+    @Override
+    public League getByPk(int leaguePK) {
+        return leagueRepository.getById(leaguePK);
+    }
+
+    @Override
+    public void updateLeagueStatus(League league, String s) {
+        league.setStatus(s);
+        leagueRepository.save(league);
+    }
+
+
 }
