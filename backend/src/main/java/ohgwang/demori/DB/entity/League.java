@@ -33,7 +33,7 @@ public class League {
 
     private int prizeMoney;
 
-    private int totalDonation;
+    private int allDonation;
     private int teamOneDonation;
     private int teamTwoDonation;
 

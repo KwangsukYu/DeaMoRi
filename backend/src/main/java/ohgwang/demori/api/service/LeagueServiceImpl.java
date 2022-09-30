@@ -63,7 +63,7 @@ public class LeagueServiceImpl implements LeagueService {
             return leagueRepository.findAll(PageRequest.of(page, size).withSort(Sort.by(field)));
         }
 
-        return leagueRepository.findAllByLeagueId(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
+        return leagueRepository.findAllByLeagueIdContaining(keyword, PageRequest.of(page, size).withSort(Sort.by(field)));
     }
 
     @Override
