@@ -32,7 +32,7 @@ function MyPage() {
     if (userInfo.address) {
       getUserBalance();
     }
-  }, []);
+  }, [userInfo.address]);
 
   const signal = () => {
     setHaveWallet(true);
