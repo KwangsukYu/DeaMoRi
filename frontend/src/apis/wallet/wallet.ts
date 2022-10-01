@@ -13,4 +13,15 @@ export const addWallet = async (address: string) => {
   return res;
 };
 
+export const getWalletTransactions = async (state: number) => {
+  const res = await axios({
+    method: "get",
+    url: `${BASE_URL}/wallet`,
+    headers: { Authorization: `Bearer ${localStorage.token}` },
+    params: state
+  });
+  console.log(res);
+  return res;
+};
+
 export default {};

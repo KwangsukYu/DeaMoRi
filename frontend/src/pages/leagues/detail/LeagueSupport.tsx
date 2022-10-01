@@ -1,34 +1,44 @@
 import React, { useState } from "react";
 import "./LeagueSupport.scss";
+import { leagueDetailType, teamType } from "apis/leagues/LeagueDetail";
 import { numberWithCommas } from "utils/numberComma";
 import Counter from "components/Counter/Counter";
 import SupportDetail from "./SupportDetail";
 
-function LeagueSupport() {
+interface leagueSupportType {
+  leagueInfo: leagueDetailType;
+  change: () => void;
+}
+
+function LeagueSupport({ leagueInfo, change }: leagueSupportType) {
   const test = 60;
   const test2 = 40;
-  const teamColor1 = "#007350";
-  const teamColor2 = "#5b89e6";
   const [detailModal, setDetailModal] = useState(false);
 
   return (
     <div id="leaguesupport">
       <div className="leaguesupport">
         <div className="leaguesupport-amount">
-          <Counter end={200000000} timer={0.1} /> WON
+          <Counter end={leagueInfo.allDonation} timer={0.1} /> WON
         </div>
         <div className="leaguesupport-bar">
           <div
             className="leaguesupport-bar-item"
-            style={{ width: test * 10, backgroundColor: teamColor1 }}
+            style={{
+              width: test * 10,
+              backgroundColor: leagueInfo.team1.teamColor
+            }}
           >
-            {numberWithCommas(120000000)} WON
+            {numberWithCommas(leagueInfo.team1.teamDonation)} WON
           </div>
           <div
             className="leaguesupport-bar-item"
-            style={{ width: test2 * 10, backgroundColor: teamColor2 }}
+            style={{
+              width: test2 * 10,
+              backgroundColor: leagueInfo.team2.teamColor
+            }}
           >
-            {numberWithCommas(80000000)} WON
+            {numberWithCommas(leagueInfo.team2.teamDonation)} WON
           </div>
         </div>
         <button
@@ -40,7 +50,9 @@ function LeagueSupport() {
         </button>
         {detailModal && (
           <SupportDetail
+            leagueInfo={leagueInfo}
             signal={() => {
+              change();
               setDetailModal(false);
             }}
           />

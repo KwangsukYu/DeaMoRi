@@ -3,6 +3,8 @@ import "./SupportDetail.scss";
 import SchoolIcon from "assets/images/SchoolIcon.svg";
 import SchoolIcon2 from "assets/images/SchoolIcon2.svg";
 import WalletIcon from "assets/images/Wallet.svg";
+import { leagueDetailType, teamType } from "apis/leagues/LeagueDetail";
+import { addSupport, addSupportType } from "apis/web3/Transactions";
 import { numberWithCommas } from "utils/numberComma";
 import { fundWithERC20, getWalletBalance } from "apis/web3/web3";
 import { useSelector } from "react-redux";
@@ -11,19 +13,17 @@ import PasswordInput from "components/passwordInput/PasswordInput";
 
 interface SupportDetailProps {
   signal: () => void;
+  leagueInfo: leagueDetailType;
 }
 
-function SupportDetail({ signal }: SupportDetailProps) {
-  const [selectTeam, setSelectTeam] = useState<null | number>(null);
-  const [nowSelected, setNowSelected] = useState("후원할 팀을 선택해주세요");
+function SupportDetail({ signal, leagueInfo }: SupportDetailProps) {
+  const [selectTeam, setSelectTeam] = useState<number>(-1);
   const [inputModal, setInputModal] = useState(false);
   const [userBalance, setUserBalance] = useState(0);
   const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
-  const teamColor1 = "#007350";
-  const teamColor2 = "#5b89e6";
   const inputRef = useRef<HTMLInputElement>(null);
-  const tmpID = "0xec25cD677935183AA1741881F78d2836A44BeEEC";
-  const tmpCA = "0x9cf11416164226F863B39CEa79F5F55585e579D5";
+  const inputRef2 = useRef<HTMLInputElement>(null);
+  const tmpCA = "0x8cBf8cC0a22EeC674477cB7C6838Cd9F16A8bA01";
 
   const getUserBalance = async () => {
     const balance = await getWalletBalance(userInfo.address);
@@ -37,17 +37,45 @@ function SupportDetail({ signal }: SupportDetailProps) {
   }, []);
 
   const passwordConfirm = async (password: string) => {
-    await fundWithERC20(
+    const res = await fundWithERC20(
       userInfo.address,
-      tmpCA,
+      leagueInfo.leagueContractAddress,
       inputRef.current?.value,
       password
     );
+
+    const data = {
+      leaguePk: leagueInfo.leaguePk,
+      sendUniversity: selectTeam,
+      supportName: inputRef2.current?.value as string,
+      transactionHash: res
+    };
+
+    await addSupport(data);
+
     await getUserBalance();
     if (inputRef.current) {
       inputRef.current.value = "";
     }
+    if (inputRef2.current) {
+      inputRef2.current.value = "";
+    }
     setInputModal(false);
+    signal();
+
+    return res;
+  };
+
+  const chk = () => {
+    if (selectTeam === -1) {
+      return alert("후원 할 팀을 선택해주세요!");
+    }
+
+    if (!inputRef.current?.value.trim() || !inputRef2.current?.value.trim()) {
+      return alert("값을 입력해주세요!");
+    }
+
+    return setInputModal(true);
   };
 
   return (
@@ -56,35 +84,34 @@ function SupportDetail({ signal }: SupportDetailProps) {
         <div className="supportdetail">
           <p className="supportdetail-title">후원 하기</p>
           <div className="supportdetail-team">
-            <p className="supportdetail-team-label">{nowSelected}</p>
             <div className="supportdetail-team-wrapper">
               <button
                 type="button"
                 className="supportdetail-team-container"
                 style={{
-                  backgroundColor: selectTeam === 1 ? teamColor1 : "#1c1c1c"
+                  backgroundColor:
+                    selectTeam === 0 ? leagueInfo.team1.teamColor : ""
                 }}
                 onClick={() => {
-                  setSelectTeam(1);
-                  setNowSelected("전남대학교");
+                  setSelectTeam(0);
                 }}
               >
-                <img src={SchoolIcon} alt="" />
-                <p>전남대학교</p>
+                <img src={leagueInfo.team1.teamUniversitylogoUrl} alt="" />
+                <p>{leagueInfo.team1.teamUniversityName}</p>
               </button>
               <button
                 type="button"
                 className="supportdetail-team-container"
                 style={{
-                  backgroundColor: selectTeam === 2 ? teamColor2 : "#1c1c1c"
+                  backgroundColor:
+                    selectTeam === 1 ? leagueInfo.team2.teamColor : ""
                 }}
                 onClick={() => {
-                  setSelectTeam(2);
-                  setNowSelected("조선대학교");
+                  setSelectTeam(1);
                 }}
               >
-                <img src={SchoolIcon2} alt="" />
-                <p>조선대학교</p>
+                <img src={leagueInfo.team2.teamUniversitylogoUrl} alt="" />
+                <p>{leagueInfo.team2.teamUniversityName}</p>
               </button>
             </div>
           </div>
@@ -104,16 +131,28 @@ function SupportDetail({ signal }: SupportDetailProps) {
               </div>
             </div>
           </div>
-          <div className="supportdetail-input">
-            <p className="supportdetail-input-label">금액 입력</p>
-            <input type="text" ref={inputRef} />
+          <div className="input-wrapper">
+            <div className="supportdetail-input">
+              <p className="supportdetail-input-label">후원자 명</p>
+              <input
+                className="supportdetail-supporter"
+                type="text"
+                placeholder="후원자 명"
+                ref={inputRef2}
+              />
+            </div>
+            <div className="supportdetail-input">
+              <p className="supportdetail-input-label">금액 입력</p>
+              <input
+                className="supportdetail-amount"
+                placeholder="금액을 입력해주세요"
+                type="number"
+                ref={inputRef}
+              />
+            </div>
           </div>
           <div className="button-container">
-            <button
-              className="blue"
-              type="button"
-              onClick={() => setInputModal(true)}
-            >
+            <button className="blue" type="button" onClick={chk}>
               후원 하기
             </button>
             <button type="button" onClick={signal}>

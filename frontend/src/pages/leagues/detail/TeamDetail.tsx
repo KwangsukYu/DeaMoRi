@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "./TeamDetail.scss";
+import { teamType } from "apis/leagues/LeagueDetail";
 import SupportList from "./SupportList";
 import LeagueComment from "./LeagueComment";
 
 interface LeagueDetailProps {
-  teamColor: string;
+  teamInfo: teamType;
+  teamNumber: number;
+  leaguePk: number;
 }
 
-function TeamDetail({ teamColor }: LeagueDetailProps) {
+function TeamDetail({ teamInfo, teamNumber, leaguePk }: LeagueDetailProps) {
   const [tap, setTap] = useState("응원");
-  const dummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <div id="teamdetail">
@@ -19,7 +21,8 @@ function TeamDetail({ teamColor }: LeagueDetailProps) {
             type="button"
             className="teamdetail-header-tap"
             style={{
-              borderBottom: tap === "응원" ? `4px solid ${teamColor}` : ""
+              borderBottom:
+                tap === "응원" ? `4px solid ${teamInfo.teamColor}` : ""
             }}
             onClick={() => setTap("응원")}
           >
@@ -29,7 +32,8 @@ function TeamDetail({ teamColor }: LeagueDetailProps) {
             type="button"
             className="teamdetail-header-tap"
             style={{
-              borderBottom: tap === "후원" ? `4px solid ${teamColor}` : ""
+              borderBottom:
+                tap === "후원" ? `4px solid ${teamInfo.teamColor}` : ""
             }}
             onClick={() => setTap("후원")}
           >
@@ -38,7 +42,11 @@ function TeamDetail({ teamColor }: LeagueDetailProps) {
         </div>
         <div className="teamdetail-detail">
           {tap === "응원" ? (
-            <LeagueComment teamColor={teamColor} />
+            <LeagueComment
+              leaguePk={leaguePk}
+              teamInfo={teamInfo}
+              teamNumber={teamNumber}
+            />
           ) : (
             <SupportList />
           )}
