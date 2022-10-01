@@ -7,8 +7,8 @@ import {
   getContractCA
 } from "./SmartContract";
 
-const web3 = new Web3("http://localhost:8545");
-// const web3 = new Web3("http://j7c2081.p.ssafy.io:8545");
+// const web3 = new Web3("http://localhost:8545");
+const web3 = new Web3(process.env.REACT_APP_GETH_NODE);
 
 export const getCoinBase = async () => {
   const res = await web3.eth.getCoinbase();
@@ -60,15 +60,12 @@ export const chargeCoin = async (price, address) => {
     300
   );
 
-  await TokenContract.methods
-    .approve(coinBase, price)
-    .send({ from: coinBase })
-    .then(res => console.log(res));
-
   const txHash = await TokenContract.methods
-    .transferFrom(coinBase, address, price)
+    .transfer(address, price)
     .send({ from: coinBase })
     .then(res => res.transactionHash);
+
+  console.log(txHash);
 
   return txHash;
 };
@@ -93,7 +90,6 @@ export const sendFileToIPFS = async (file, league, team, address) => {
     });
 
     ImgHash = `ipfs://${resFile.data.IpfsHash}`;
-    console.log();
     console.log(ImgHash);
   } catch (error) {
     console.log("Error sending File to IPFS: ");
@@ -137,6 +133,42 @@ export const isOpened = async address => {
   return resp;
 };
 
+// 팀 후원
+export const cheerWithERC20 = async (
+  userAddress,
+  teamAddress,
+  amount,
+  privateKey
+) => {
+  const coinBase = await web3.eth.getCoinbase();
+
+  const data = await TokenContract.methods
+    .approve(coinBase, amount)
+    .encodeABI();
+
+  const txData = {
+    from: userAddress,
+    gasPrice: web3.utils.toWei("42", "gwei"),
+    gas: web3.utils.toHex("320000"),
+    to: TokenCA,
+    value: "0x",
+    data
+  };
+
+  const tx = await web3.eth.accounts
+    .signTransaction(txData, privateKey)
+    .then(res => res);
+
+  await web3.eth.sendSignedTransaction(tx.rawTransaction).then(res => res);
+
+  const txHash = await TokenContract.methods
+    .transferFrom(userAddress, teamAddress, amount)
+    .send({ from: coinBase })
+    .then(res => res.transactionHash);
+
+  return txHash;
+};
+
 // 대회 후원
 export const fundWithERC20 = async (
   userAddress,
@@ -164,19 +196,18 @@ export const fundWithERC20 = async (
     const tx = await web3.eth.accounts
       .signTransaction(txData, privateKey)
       .then(res => res);
-    console.log(tx);
 
-    await web3.eth
-      .sendSignedTransaction(tx.rawTransaction)
-      .then(res => console.log(res));
+    await web3.eth.sendSignedTransaction(tx.rawTransaction).then(res => res);
 
-    await TokenContract.methods
+    const txHash = await TokenContract.methods
       .transferFrom(userAddress, leagueAddress, amount)
       .send({ from: coinBase })
-      .then(res => console.log(res));
-  } else {
-    alert("종료된 대회입니다.");
+      .then(res => res.transactionHash);
+
+    return txHash;
   }
+  alert("종료된 대회입니다.");
+  return 0;
 };
 
 // 대회 종료하기

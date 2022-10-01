@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getInfo } from "Slices/userInfo";
 import { createAccount } from "apis/web3/web3";
-import { addWallet } from "apis/wallet";
+import { addWallet } from "apis/wallet/wallet";
+import { getMyInfo } from "apis/login/Login";
 import "./CreateWallet.scss";
 
 interface CreateWalletProps {
@@ -8,6 +11,7 @@ interface CreateWalletProps {
 }
 
 function CreateWallet({ signal }: CreateWalletProps) {
+  const dispatch = useDispatch();
   const [isCreate, setIsCreate] = useState(false);
   const [walletInfo, setWalletInfo] = useState(["", ""]);
 
@@ -15,6 +19,8 @@ function CreateWallet({ signal }: CreateWalletProps) {
     const res = (await createAccount()) as string[];
     setWalletInfo(res);
     await addWallet(res[0]);
+    const userInfo = await getMyInfo();
+    dispatch(getInfo(userInfo));
     setIsCreate(true);
   };
 
