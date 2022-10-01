@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.Relation.Cheer;
+import ohgwang.demori.DB.entity.Relation.Support;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 
 import java.time.LocalDate;
@@ -36,8 +37,10 @@ public class LeagueRes extends BaseResponseBody {
 
         res.setStatusCode(statusCode);
         res.setMessage(message);
+
         res.setOwnerPk(league.getOwner().getId());
         res.setOwnerAddress(league.getOwner().getWallet().getAddress());
+
         res.setLeaguePk(league.getId());
         res.setLeagueId(league.getLeagueId());
         res.setLeagueContractAddress(league.getContractAddress());
@@ -72,8 +75,6 @@ public class LeagueRes extends BaseResponseBody {
 
         res.getTeam1().setGetCheers(new ArrayList<>());
         res.getTeam2().setGetCheers(new ArrayList<>());
-
-
         for(Cheer cheer : league.getCheers()) {
             GetCheer getCheer = GetCheer.builder()
                     .cheerId(cheer.getId())
@@ -89,6 +90,25 @@ public class LeagueRes extends BaseResponseBody {
             }
             else {
                 res.getTeam2().getGetCheers().add(getCheer);
+            }
+        }
+
+        res.getTeam1().setGetSupports(new ArrayList<>());
+        res.getTeam2().setGetSupports(new ArrayList<>());
+        for(Support support : league.getSupports()) {
+            GetSupport getSupport = GetSupport.builder()
+                    .supportId(support.getId())
+                    .supportName(support.getSupportName())
+                    .supportBalance(support.getSupportBalance())
+                    .selectUniversity(support.getSendUniversity())
+                    .sendId(support.getUser().getId())
+                    .build();
+
+            if(support.getSendUniversity().equals("0")) {
+                res.getTeam1().getGetSupports().add(getSupport);
+            }
+            else {
+                res.getTeam2().getGetSupports().add(getSupport);
             }
         }
 
@@ -108,6 +128,7 @@ class GetTeam {
     private String teamUniversityName;
     private String teamUniversitylogoUrl;
     private List<GetCheer> getCheers;
+    private List<GetSupport> getSupports;
 }
 
 @Data
@@ -119,4 +140,14 @@ class GetCheer {
     private String cheerContent;
     private String selectTeam;
     private String sendId;
+}
+
+@Data
+@Builder
+class GetSupport {
+    private int supportId;
+    private String supportName;
+    private int supportBalance;
+    private String selectUniversity;
+    private int sendId;
 }
