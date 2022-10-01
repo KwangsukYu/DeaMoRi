@@ -48,7 +48,7 @@ public class User {
 	@JoinColumn(name = "uni_auth_pk")
 	private UniversityAuth universityAuth;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "uni_pk")
 	private University university;
 

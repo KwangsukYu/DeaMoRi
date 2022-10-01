@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -50,6 +52,9 @@ public class UniversityRes {
 	@ApiModelProperty(name="랭킹")
 	private int ranking;
 
+	@ApiModelProperty(name="대학교 내의 유저(후원금 순 정렬)")
+	private List<UserUniversityRes> userList;
+
 	
 	public static UniversityRes of(University university) {
 		UniversityRes res = new UniversityRes();
@@ -71,6 +76,30 @@ public class UniversityRes {
 				res.trophyList.add(trophyRes);
 			}
 		}
+
+		res.userList = new ArrayList<>();
+		Collections.sort(university.getUserList(), new Comparator<User>() {
+			@Override
+			public int compare(User user, User t1) {
+				return - user.getDonation() + t1.getDonation() ;
+			}
+		});
+
+		for(User u : university.getUserList()){
+			UserUniversityRes uRes = UserUniversityRes.builder()
+					.userPk(u.getId())
+					.userId(u.getUserId())
+					.userName(u.getUsername())
+					.nickName(u.getNickName())
+					.badge(u.getBadge())
+					.donation(u.getDonation())
+					.ranking(u.getRanking())
+					.address(u.getWallet().getAddress())
+					.role(u.getRole())
+					.build();
+			res.userList.add(uRes);
+		}
+
 		return res;
 	}
 }
@@ -80,4 +109,20 @@ class TrophyRes{
 	private int id;
 	String fileUrl;
 	private int leaguePk;
+}
+
+@Data
+@Builder
+class UserUniversityRes{
+	private int userPk;
+	@ApiModelProperty(name="User ID")
+	private String userId;
+	private String userName;
+	private String nickName;
+	private String badge;
+	private int donation;
+	private int ranking;
+	private String role;
+	private String address;
+
 }
