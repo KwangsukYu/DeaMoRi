@@ -1,5 +1,6 @@
 package ohgwang.demori.DB.entity.Relation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ohgwang.demori.DB.entity.League;
@@ -18,10 +19,12 @@ public class UniversityLeague {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
+    @JsonIgnore
     private League league;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "league_id")
+    @JoinColumn(name = "university_id")
+    @JsonIgnore
     private University university;
 
 }
