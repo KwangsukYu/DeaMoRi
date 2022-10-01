@@ -21,7 +21,7 @@ public class UniversityLeague {
     private League league;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "league_id")
+    @JoinColumn(name = "university_id")
     private University university;
 
 }
