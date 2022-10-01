@@ -1,6 +1,89 @@
-.card-container {
-  width: 1000px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
+#search {
+  overflow-y: hidden;
+  // overflow-y: hidden;
+  // overflow-x: hidden;
+  // .infinitescroll {
+  // }
+
+  .search {
+    display: flex;
+    align-items: center;
+    &-container {
+      width: 1000px;
+      height: 60px;
+
+      text-align: center;
+      &-input {
+        margin: 10px;
+        width: 300px;
+        height: 40px;
+        border-radius: 12px;
+        text-align: center;
+
+        &-icon {
+          position: absolute;
+          margin-top: -46px;
+          margin-left: 320px;
+          display: flex;
+          justify-content: center;
+          width: 25px;
+          height: 25px;
+        }
+        &-button {
+          // margin-top: 10px;
+          width: 70px;
+          height: 45px;
+          border-radius: 12px;
+          background-color: #ff7f22;
+          font-size: 15px;
+          // font-weight: bold;
+          color: white;
+        }
+      }
+    }
+  }
+  .infinitescroll {
+    overflow-y: hidden;
+  }
+  .scroll {
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+  }
+
+  .infinite-scroll-component {
+    overflow-y: hidden;
+  }
 }
+// #search {
+//   overflow-y: hidden;
+//   .infinitescroll {
+//     overflow-y: hidden;
+//   }
+//   .search {
+//     width: 1000px;
+//     display: grid;
+//     grid-template-columns: repeat(4, 1fr);
+//     justify-items: center;
+//     overflow-y: hidden;
+//     &-input {
+//       float: right;
+//       margin: 10px;
+//       width: 300px;
+//       height: 40px;
+//       border-radius: 12px;
+//       text-align: center;
+//       // background-color: #ececec;
+
+//       &-icon {
+//         position: absolute;
+//         margin: 21px;
+//         display: flex;
+//         justify-content: center;
+//         width: 25px;
+//         height: 25px;
+//       }
+//     }
+//   }
+// }

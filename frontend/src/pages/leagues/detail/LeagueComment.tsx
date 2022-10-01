@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./LeagueComment.scss";
 import { v4 } from "uuid";
 import Pagination from "components/Pagination/Pagination";
+import TeamSupport from "components/teamSupport/TeamSupport";
 import CommentItem from "./CommentItem";
 
 interface TeamDetailProps {
@@ -10,6 +11,8 @@ interface TeamDetailProps {
 
 function LeagueComment({ teamColor }: TeamDetailProps) {
   const commentDummy = [1, 2, 3, 4, 5];
+  const [teamModal, setTeamModal] = useState(false);
+
   return (
     <div id="leaguecomment">
       <div className="leaguecomment">
@@ -22,6 +25,7 @@ function LeagueComment({ teamColor }: TeamDetailProps) {
           className="leaguecomment-button"
           style={{ backgroundColor: teamColor }}
           type="button"
+          onClick={() => setTeamModal(true)}
         >
           응원하기
         </button>
@@ -31,6 +35,7 @@ function LeagueComment({ teamColor }: TeamDetailProps) {
           return <CommentItem key={v4()} teamColor={teamColor} />;
         })}
       </div>
+      {teamModal && <TeamSupport signal={() => setTeamModal(false)} />}
       <div className="leaguecomment-pagination">{/* <Pagination /> */}</div>
     </div>
   );

@@ -14,7 +14,10 @@ function Poster({
     uniName1,
     uniName2,
     leagueStartDate,
-    leagueEndDate
+    leagueEndDate,
+    status,
+    donation,
+    prizeMoney
   }
 }) {
   return (
@@ -22,7 +25,7 @@ function Poster({
       id="card"
       sx={{
         width: 230,
-        height: 430,
+        height: 450,
         padding: 0,
         marginTop: 3,
         textAlign: "center"
@@ -42,7 +45,10 @@ function Poster({
           {uniName1} VS {uniName2}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {leagueStartDate} ~ {leagueEndDate}
+          {leagueStartDate} ~ {leagueEndDate} <br />
+          대회 상금 : {prizeMoney}
+          <br />
+          후원금 : {prizeMoney}
         </Typography>
       </CardContent>
     </Card>

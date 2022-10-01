@@ -4,11 +4,18 @@ import { Link } from "react-router-dom";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
 import Scroll from "./Scroll";
+import Search from "./Search";
 
 function Leagues() {
   const [ing, setIng] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [isValue, setIsvalue] = useState(false);
+  // date : 대회중 & 대회종료 필터 구분
+  const [date, setDate] = useState("start");
+
+  const changeSearch = (value: boolean) => {
+    setIsvalue(value);
+  };
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -16,9 +23,22 @@ function Leagues() {
     console.log(inputValue);
   };
 
-  useEffect(() => {
-    console.log(inputValue);
-  }, []);
+  // enter클릭시 해당 키워드에 해당하는 대회 찾기
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsvalue(true);
+    if (inputValue === "") {
+      setIsvalue(false);
+    }
+    // return null;
+    // Search(inputValue);
+  };
+
+  const reset = () => {
+    setIsvalue(false);
+  };
+
+  // useEffect(() => {}, [inputValue]);
 
   return (
     <div id="leagues">
@@ -77,22 +97,35 @@ function Leagues() {
             )}
           </div>
         </div>
-        <div className="leagues-function-search">
-          <input
-            className="leagues-function-search-bar"
-            onChange={e => {
-              handleInputValue(e);
+        {/* <div className="leagues-function-search">
+          <form
+            action="submit"
+            onSubmit={e => {
+              handleSearch(e);
             }}
-            type="text"
-          />
-          <img
-            src={SearchIcon}
-            alt="searchIcon"
-            className="leagues-function-search-icon"
-          />
-        </div>
-        {/* <Search /> */}
-        <Scroll />
+          >
+            <input
+              className="leagues-function-search-bar"
+              onChange={e => {
+                handleInputValue(e);
+              }}
+              type="text"
+            />
+            <img
+              src={SearchIcon}
+              alt="searchIcon"
+              className="leagues-function-search-icon"
+            />
+          </form>
+        </div> */}
+        <Search leagueStatus={ing} />
+        {inputValue && (
+          <div>
+            {/* <Search keyword={inputValue} change={changeSearch} /> */}
+          </div>
+        )}
+        {/* {isValue && <Search keyword={inputValue} />} */}
+        {/* {!isValue && <Scroll />} */}
       </div>
     </div>
   );

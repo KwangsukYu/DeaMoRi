@@ -8,12 +8,12 @@ import UniversityData from "./UniversityData.json";
 
 type Inputs = {
   leagueTitle: string;
-  sponStart: string;
+  prizeMoney: number;
   leagueStart: string;
   leagueEnd: string;
   place: string;
   poster: File;
-
+  contractAddress: string;
   team1University: string;
   team1Name: string;
   team1Wallet: string;
@@ -22,13 +22,19 @@ type Inputs = {
   team2Wallet: string;
   team1Color: string;
   team2Color: string;
-  broadcast: number;
+  broadcast: string;
 };
 
 function Create() {
   const [team1Color, setTeam1Color] = useState("#5c6bc0");
   const [team2Color, setTeam2Color] = useState("#5c6bc0");
-  const [broadcast, setBroadcast] = useState(0);
+  const [broadcast, setBroadcast] = useState("0");
+  const [files, setFiles] = useState([] as any);
+
+  // 파일 객체 생성
+  const createFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiles(e.target.files);
+  };
 
   // 대학 검색 드롭다운
   const [search1, setSearch1] = useState([]);
@@ -41,16 +47,15 @@ function Create() {
   // useForm submit시 어떤 데이터를 넘겨줄것인지 설정 및 추가해줌
   const onSubmit = (data: Inputs) => {
     const newData = { ...data, team1Color, team2Color, broadcast };
+    CreateLeague(files, newData);
     console.log(newData);
-    console.log(typeof newData);
-    CreateLeague(newData);
   };
 
-  const broadcasting = (e: number) => {
-    if (e === 1) {
-      setBroadcast(1);
-    } else if (e === 0) {
-      setBroadcast(0);
+  const broadcasting = (e: string) => {
+    if (e === "1") {
+      setBroadcast("1");
+    } else if (e === "0") {
+      setBroadcast("0");
     }
   };
 
@@ -136,6 +141,8 @@ function Create() {
           {/* 공통 옵션 선택 */}
           <div className="create-option">
             <h1>대회생성</h1>
+            <div className="create-option-text">{/* 대회명 */}</div>
+
             <input
               className="create-option-input"
               type="text"
@@ -149,22 +156,25 @@ function Create() {
             {errors.leagueTitle && (
               <small role="alert">{errors.leagueTitle.message}</small>
             )}
-            <div className="create-option-text">후원 시작일</div>
+            <div className="create-option-text">{/* 대회 상금 */}</div>
+
+            <input
+              className="create-option-input"
+              type="text"
+              id="sponstart"
+              placeholder="대회 상금"
+              // onChange={(e) => setNum(inputPriceFormat(e.target.value))}
+              {...register("prizeMoney", {
+                required: "대회 상금을 입력해주세요."
+              })}
+            />
+            {errors.prizeMoney && (
+              <small role="alert">{errors.prizeMoney.message}</small>
+            )}
+            <div className="create-option-text">대회 일정</div>
             <div className="create-option-comment">
               후원 종료일은 대회 종료일과 동일하게 적용됩니다.
             </div>
-            <input
-              className="create-option-input"
-              type="date"
-              id="sponstart"
-              {...register("sponStart", {
-                required: "후원 시작일을 입력해주세요."
-              })}
-            />
-            {errors.sponStart && (
-              <small role="alert">{errors.sponStart.message}</small>
-            )}
-            <div className="create-option-text">대회 일정</div>
             <span>
               <input
                 className="create-option-input"
@@ -199,6 +209,15 @@ function Create() {
                 required: "대회 장소를 입력해주세요."
               })}
             />
+            <input
+              className="create-option-input"
+              type="text"
+              placeholder="컨트랙트 어드레스"
+              id="leagueend"
+              {...register("contractAddress", {
+                required: "대회 장소를 입력해주세요."
+              })}
+            />
             {errors.place && <small role="alert">{errors.place.message}</small>}
             <label className="create-option-poster" htmlFor="poster">
               포스터 등록
@@ -210,6 +229,9 @@ function Create() {
                 // {...register("poster", {
                 //   required: "포스터를 등록해주세요."
                 // })}
+                onChange={e => {
+                  createFile(e);
+                }}
               />
             </label>
             {errors.poster && (
@@ -218,22 +240,22 @@ function Create() {
             <span className="create-option-broadcast">
               <button
                 className={
-                  broadcast === 0
+                  broadcast === "0"
                     ? "create-option-broadcast-on"
                     : "create-option-broadcast-off"
                 }
-                onClick={() => broadcasting(0)}
+                onClick={() => broadcasting("0")}
                 type="button"
               >
                 중개 Off
               </button>
               <button
                 className={
-                  broadcast === 1
+                  broadcast === "1"
                     ? "create-option-broadcast-on"
                     : "create-option-broadcast-off"
                 }
-                onClick={() => broadcasting(1)}
+                onClick={() => broadcasting("1")}
                 type="button"
               >
                 중개 On

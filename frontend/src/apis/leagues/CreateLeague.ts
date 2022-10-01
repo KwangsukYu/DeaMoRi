@@ -41,13 +41,13 @@ import axios from "axios";
 
 type createLeague = {
   leagueTitle: string;
-  sponStart: string;
+  prizeMoney: number;
   leagueStart: string;
   leagueEnd: string;
   place: string;
-  poster: File;
-  broadcast: number;
-
+  // poster: File;
+  broadcast: string;
+  contractAddress: string;
   team1University: string;
   team1Name: string;
   team1Wallet: string;
@@ -58,36 +58,28 @@ type createLeague = {
   team2Color: string;
 };
 
-function CreateLeague(data: createLeague) {
+function CreateLeague(files: any, data: createLeague) {
   // // function CreateLeague(data) {
   // // data.poster = data.poster[0];
-  console.log("잘 되나?↓");
-  console.log(data);
-
-  // axios에 묶어 보낼 폼데이터 생성
+  // console.log(data.poster);
+  // console.log("잘 되나?");
   const formData = new FormData();
-
-  // form 데이터에 포스터를 넣어준다.
-  // (swagger의 prams 이름을 맞추기 위해 file이라는 이름으로 저장한다.)
-  formData.append("file", data.poster);
-
-  const newdata = { ...data, contractAddress: "" };
-  console.log(newdata);
-  const key = "poster";
-
-  // delete newdata[key];
-  // const uploader: Uploader = { name: "huewilliams" };
+  formData.append("file", files[0]);
+  // formData.append(
+  //   "registerInfo ",
+  //   new Blob([JSON.stringify(data)], { type: "application/json" })
+  // );
+  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+  formData.append("registerInfo", blob);
 
   axios({
     url: "http://j7c208.p.ssafy.io:8080/api/league",
     method: "post",
-    data,
+    data: formData,
     headers: {
       Authorization: `Bearer ${localStorage.token}`
       // "Content-Type": "multipart/form-data"
     }
-    // params: {file: , registerInfo:data}
-    // config: {"Content-Type": 'application/json'}
   })
     .then(response => {
       alert("대회 등록이 완료되었습니다.");
@@ -96,6 +88,14 @@ function CreateLeague(data: createLeague) {
     })
     .catch(err => {
       console.log(err);
+      console.log(files);
+      console.log(blob);
+      formData.forEach((value, key) => {
+        console.log(`key: ${key}//value: ${value}`);
+      });
+      formData.forEach(value => {
+        console.log(value);
+      });
       console.log(data);
     });
 }

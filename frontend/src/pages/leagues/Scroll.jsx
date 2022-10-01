@@ -20,9 +20,6 @@ function Scroll() {
         `http://j7c208.p.ssafy.io:8080/api/league?field=id&_page=0&size=8`
       );
       const data = await res.json();
-      // console.log(res);
-      // console.log(data);
-      // console.log(data.getLeagues);
       setItems(data.getLeagues);
     };
     getComments();
