@@ -51,7 +51,7 @@ public class UniversityController {
 
     }
 
-    @GetMapping("/{search}")
+    @GetMapping({"/search/{search}","/search"})
     @ApiOperation(value = "대학 검색")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -60,9 +60,15 @@ public class UniversityController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<List<UniversityRes>> searchUniversities(
-            @PathVariable(required = false) @ApiParam(value = "검색어, null 일 경우 전체 조회") String search) {
+            @ApiParam(value = "검색어, null 일 경우 전체 조회")@PathVariable(required = false)  String search) {
         try {
-            List<UniversityRes> l = universityService.searchUniversities(search);
+            List<UniversityRes> l = null;
+            if(search == null){
+                l = universityService.getUniversities();
+            }else{
+                l = universityService.searchUniversities(search);
+            }
+
             if(l == null){
                 return ResponseEntity.status(400).body(null);
             }else if(l.size() == 0){
@@ -101,7 +107,7 @@ public class UniversityController {
     }
 
 
-    @GetMapping("/{universityPk}")
+    @GetMapping("/league/{universityPk}")
     @ApiOperation(value = "해당 대학과 관련된 대회 보기")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),

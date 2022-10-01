@@ -37,7 +37,6 @@ public class UniversityServiceImpl implements UniversityService{
         List<University> l = null;
         l = universityRepository.findAll();
 
-
         if(l == null){
             return null;
         }
@@ -51,13 +50,14 @@ public class UniversityServiceImpl implements UniversityService{
 
     @Override
     public List<UniversityRes> searchUniversities(String search) {
-        List<University> l = null;
-        l = universityRepository.findByUniNameContaining(search);
-        if(l == null){
+        List<University> list = universityRepository.findByUniNameContaining(search);
+
+        if(list == null){
             return null;
         }
+
         List<UniversityRes> universityRes = new ArrayList<>();
-        for(University u : l){
+        for(University u : list){
             universityRes.add(UniversityRes.of(u));
         }
 
