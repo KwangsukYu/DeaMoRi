@@ -10,9 +10,15 @@ interface TeamDetailProps {
   teamInfo: teamType;
   teamNumber: number;
   leaguePk: number;
+  change: () => void;
 }
 
-function LeagueComment({ teamInfo, teamNumber, leaguePk }: TeamDetailProps) {
+function LeagueComment({
+  teamInfo,
+  teamNumber,
+  leaguePk,
+  change
+}: TeamDetailProps) {
   const commentDummy = [1, 2, 3, 4, 5];
   const [teamModal, setTeamModal] = useState(false);
 
@@ -30,8 +36,10 @@ function LeagueComment({ teamInfo, teamNumber, leaguePk }: TeamDetailProps) {
         </button>
       </div>
       <div className="leaguecomment-comment">
-        {commentDummy.map(() => {
-          return <CommentItem key={v4()} teamColor={teamInfo.teamColor} />;
+        {teamInfo.getCheers.map(cheer => {
+          return (
+            <CommentItem key={v4()} color={teamInfo.teamColor} cheer={cheer} />
+          );
         })}
       </div>
       {teamModal && (
@@ -40,6 +48,7 @@ function LeagueComment({ teamInfo, teamNumber, leaguePk }: TeamDetailProps) {
           teamInfo={teamInfo}
           teamNumber={teamNumber}
           signal={() => setTeamModal(false)}
+          change={change}
         />
       )}
       <div className="leaguecomment-pagination">{/* <Pagination /> */}</div>

@@ -46,7 +46,7 @@ function LeagueSupport({ leagueInfo, change }: leagueSupportType) {
           className="leaguesupport-support"
           type="button"
         >
-          후원 하기
+          대회 후원하기
         </button>
         {detailModal && (
           <SupportDetail

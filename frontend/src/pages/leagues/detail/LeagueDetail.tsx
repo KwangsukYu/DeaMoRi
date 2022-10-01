@@ -29,7 +29,6 @@ function LeagueDetail() {
       setLeagueInfo(res);
       setTeam1(res.team1);
       setTeam2(res.team2);
-      console.log(res);
     })();
   }, [leagueId, changed]);
 
@@ -156,11 +155,13 @@ function LeagueDetail() {
             leaguePk={leagueInfo.leaguePk}
             teamNumber={0}
             teamInfo={leagueInfo.team1}
+            change={change}
           />
           <TeamDetail
             leaguePk={leagueInfo.leaguePk}
             teamNumber={1}
             teamInfo={leagueInfo.team2}
+            change={change}
           />
         </div>
       </div>

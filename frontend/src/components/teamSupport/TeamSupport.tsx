@@ -4,7 +4,7 @@ import { teamType } from "apis/leagues/LeagueDetail";
 import { useSelector } from "react-redux";
 import { infoType } from "Slices/userInfo";
 import { cheerWithERC20 } from "apis/web3/web3";
-import { addCheer, addCheerType } from "apis/web3/Transactions";
+import { addCheer } from "apis/web3/Transactions";
 import PasswordInput from "components/passwordInput/PasswordInput";
 
 interface TeamSupport {
@@ -12,9 +12,16 @@ interface TeamSupport {
   teamInfo: teamType;
   teamNumber: number;
   leaguePk: number;
+  change: () => void;
 }
 
-function TeamSupport({ signal, teamInfo, teamNumber, leaguePk }: TeamSupport) {
+function TeamSupport({
+  signal,
+  teamInfo,
+  teamNumber,
+  leaguePk,
+  change
+}: TeamSupport) {
   const [supporter, setSupporter] = useState("");
   const [amount, setAmount] = useState(500);
   const [supMsg, setSupMsg] = useState("");
@@ -50,6 +57,7 @@ function TeamSupport({ signal, teamInfo, teamNumber, leaguePk }: TeamSupport) {
     };
     await addCheer(data);
 
+    change();
     signal();
   };
 

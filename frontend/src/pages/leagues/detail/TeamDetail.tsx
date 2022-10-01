@@ -8,9 +8,15 @@ interface LeagueDetailProps {
   teamInfo: teamType;
   teamNumber: number;
   leaguePk: number;
+  change: () => void;
 }
 
-function TeamDetail({ teamInfo, teamNumber, leaguePk }: LeagueDetailProps) {
+function TeamDetail({
+  teamInfo,
+  teamNumber,
+  leaguePk,
+  change
+}: LeagueDetailProps) {
   const [tap, setTap] = useState("응원");
 
   return (
@@ -37,18 +43,19 @@ function TeamDetail({ teamInfo, teamNumber, leaguePk }: LeagueDetailProps) {
             }}
             onClick={() => setTap("후원")}
           >
-            후원자 랭킹
+            후원 TOP 10
           </button>
         </div>
         <div className="teamdetail-detail">
           {tap === "응원" ? (
             <LeagueComment
+              change={change}
               leaguePk={leaguePk}
               teamInfo={teamInfo}
               teamNumber={teamNumber}
             />
           ) : (
-            <SupportList />
+            <SupportList supporters={teamInfo.getSupports} />
           )}
         </div>
       </div>

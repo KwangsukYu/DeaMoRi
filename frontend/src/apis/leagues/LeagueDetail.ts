@@ -1,5 +1,22 @@
 import axios from "axios";
 
+export interface commentType {
+  cheerBalance: number;
+  cheerContent: string;
+  cheerId: number;
+  cheerName: string;
+  selectTeam: string;
+  sendId: string;
+}
+
+export interface supporterType {
+  selectUniversity: string;
+  sendId: number;
+  supportBalance: number;
+  supportId: number;
+  supportName: string;
+}
+
 export interface teamType {
   teamId: number;
   teamName: string;
@@ -9,7 +26,8 @@ export interface teamType {
   teamUniversityIdv: string;
   teamUniversityName: string;
   teamUniversitylogoUrl: string;
-  getCheers: any;
+  getCheers: commentType[];
+  getSupports: supporterType[];
 }
 
 export interface leagueDetailType {
