@@ -2,7 +2,7 @@ package ohgwang.demori.api.controller;
 
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.request.UserLoginPostReq;
-import ohgwang.demori.api.response.UserLoginPostRes;
+import ohgwang.demori.api.response.User.UserLoginPostRes;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;

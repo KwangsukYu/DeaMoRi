@@ -1,16 +1,13 @@
-package ohgwang.demori.api.response;
+package ohgwang.demori.api.response.User;
 
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import ohgwang.demori.DB.entity.Image.Badge;
 import ohgwang.demori.DB.entity.Relation.UserBadge;
 import ohgwang.demori.DB.entity.User;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +23,7 @@ public class UserRes{
 	@ApiModelProperty(name="User ID")
 	private String userId;
 	private String userName;
+	private String profileUrl;
 	private String nickName;
 	private String badge;
 	private int donation;
@@ -45,6 +43,7 @@ public class UserRes{
 		UserRes res = new UserRes();
 		res.setUserPk(user.getId());
 		res.setUserId(user.getUserId());
+		res.setProfileUrl(user.getProfileUrl());
 		res.setUserName(user.getUsername());
 		res.setBadge(user.getBadge());
 		res.setNickName(user.getNickName());
