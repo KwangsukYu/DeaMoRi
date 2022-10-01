@@ -34,4 +34,9 @@ public class University {
     @OneToMany(mappedBy = "university" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<UniversityLeague> universityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "university" , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<User> userList = new ArrayList<>();
+
+
+
 }
