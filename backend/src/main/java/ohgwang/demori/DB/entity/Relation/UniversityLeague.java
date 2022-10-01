@@ -24,7 +24,6 @@ public class UniversityLeague {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "university_id")
-    @JsonIgnore
     private University university;
 
 }
