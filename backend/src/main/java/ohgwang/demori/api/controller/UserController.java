@@ -117,7 +117,24 @@ public class UserController {
 		}
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
 	}
-	
 
+	@ApiOperation(value = "유저 프로필 변경, multipart 형식으로 받음")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "저장완료"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	@PatchMapping("/profile")
+	public ResponseEntity<? extends BaseResponseBody> uploadProfileImage(Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file){
+		try {
+			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+			String userId = userDetails.getUsername();
+			User user = userService.getUserByUserId(userId);
+
+			userService.uploadProfileImage(file, user);
+		}catch (Exception e){
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"FAIL"));
+		}
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
+	}
 
 }
