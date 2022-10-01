@@ -17,7 +17,7 @@ public class UniversityLeague {
     @Column(name = "uni_league_pk")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "league_id")
     @JsonIgnore
     private League league;
