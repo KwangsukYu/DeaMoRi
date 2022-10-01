@@ -84,7 +84,7 @@ function SponRankings() {
 
         <p className="rank-main-name">{user.nickName}</p>
         <p className="rank-main-price">
-          {user.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} MOKO
+          {user.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
         </p>
       </div>
     );
