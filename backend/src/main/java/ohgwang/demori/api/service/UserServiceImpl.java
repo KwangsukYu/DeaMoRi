@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService{
 		user.setNickName(registerInfo.getNickName());
 		user.setBadge(badgeRepository.getById(1).getFileUrl());
 		user.setRole("ROLE_USER");
+		user.setProfileUrl("https://s3.ap-northeast-2.amazonaws.com/aws.ssafybucket/U/basicProfile.png");
 		user.setDonation(0);
 		user.setRanking(-1);
 
@@ -144,6 +145,20 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getByWallet(String walletAddress) {
 		return userRepository.findByWallet_Address(walletAddress);
+	}
+
+	@Override
+	public void uploadProfileImage(MultipartFile file, User user) throws IOException {
+		if(user.getProfileUrl()  != "https://s3.ap-northeast-2.amazonaws.com/aws.ssafybucket/U/basicProfile.png"){
+			String del[] = user.getProfileUrl().split("/U/");
+			s3Service.delete(del[1]);
+		}
+
+		Map<String, String> map = s3Service.upload(file, "U");
+
+		String fileUrl = map.get("fileUrl");
+		user.setProfileUrl(fileUrl);
+		userRepository.save(user);
 	}
 
 
