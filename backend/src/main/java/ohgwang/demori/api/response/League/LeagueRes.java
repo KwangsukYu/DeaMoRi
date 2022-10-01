@@ -105,6 +105,7 @@ public class LeagueRes extends BaseResponseBody {
                     .selectUniversity(support.getSendUniversity())
                     .sendId(user.getId())
                     .badge(user.getBadge())
+                    .profileUrl(user.getProfileUrl())
                     .universityLogoUrl(user.getUniversity().getLogoUrl())
                     .build();
 
@@ -157,6 +158,7 @@ class GetSupport {
     ////// 유저 정보
 
     private int sendId;
+    private String profileUrl;
     private String badge;
     private String universityLogoUrl;
 

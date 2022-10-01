@@ -27,6 +27,7 @@ public class User {
 
 	private String userId;
 	private String password;
+	private String profileUrl;
 	private String username;
 	private String nickName;
 	private String badge;

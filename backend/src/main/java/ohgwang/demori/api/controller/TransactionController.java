@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiResponses;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.request.CheerRegisterPostReq;
 import ohgwang.demori.api.request.SupportRegisterPostReq;
-import ohgwang.demori.api.response.UserAdminRes;
 import ohgwang.demori.api.service.TransactionService;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.auth.SsafyUserDetails;
@@ -17,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.List;
 
 @Api(value = "후원 API" , tags = {"transaction"})
 @RestController

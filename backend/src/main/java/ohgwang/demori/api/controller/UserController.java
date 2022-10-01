@@ -2,9 +2,8 @@ package ohgwang.demori.api.controller;
 
 import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.User;
-import ohgwang.demori.DB.repository.UniversityRepository;
 import ohgwang.demori.api.request.UserRegisterPostReq;
-import ohgwang.demori.api.response.UserRes;
+import ohgwang.demori.api.response.User.UserRes;
 import ohgwang.demori.api.service.UniversityService;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.auth.SsafyUserDetails;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 
 
 /**
