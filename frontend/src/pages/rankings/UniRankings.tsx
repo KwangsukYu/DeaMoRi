@@ -72,7 +72,7 @@ function UniRankings() {
         </div>
         <p className="rank-main-name">{uni.uniName}</p>
         <p className="rank-main-price">
-          {uni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} MOKO
+          {uni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
         </p>
       </div>
     );

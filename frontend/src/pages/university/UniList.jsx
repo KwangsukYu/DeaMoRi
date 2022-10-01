@@ -33,7 +33,7 @@ function UniList() {
     e.preventDefault();
     if (search) {
       axios({
-        url: `http://j7c208.p.ssafy.io:8080/api/univers/${search}`,
+        url: `http://j7c208.p.ssafy.io:8080/api/univers/search/${search}`,
         method: "get"
         // params: { search }
       })

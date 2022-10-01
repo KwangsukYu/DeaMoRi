@@ -3,6 +3,8 @@ import "./Create.scss";
 import ColorPicker from "components/colorPicker/ColorPicker";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { infoType } from "Slices/userInfo";
 import CreateLeague from "apis/leagues/CreateLeague";
 import UniversityData from "./UniversityData.json";
 
@@ -23,13 +25,17 @@ type Inputs = {
   team1Color: string;
   team2Color: string;
   broadcast: string;
+  ownerPk: string;
 };
 
 function Create() {
+  const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
+
   const [team1Color, setTeam1Color] = useState("#5c6bc0");
   const [team2Color, setTeam2Color] = useState("#5c6bc0");
   const [broadcast, setBroadcast] = useState("");
   const [files, setFiles] = useState([] as any);
+  const [userPk] = useState(String(storeUser.userPk));
 
   // 파일 객체 생성
   const createFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +52,13 @@ function Create() {
 
   // useForm submit시 어떤 데이터를 넘겨줄것인지 설정 및 추가해줌
   const onSubmit = (data: Inputs) => {
-    const newData = { ...data, team1Color, team2Color, broadcast };
+    const newData = {
+      ...data,
+      team1Color,
+      team2Color,
+      broadcast,
+      ownerPk: userPk
+    };
     CreateLeague(files, newData);
     console.log(newData);
   };
