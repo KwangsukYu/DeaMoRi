@@ -33,7 +33,6 @@ import java.util.List;
 public class LeagueController {
 
     private final String SUCCESS = "success";
-    private final String FAIL = "fail";
 
     @Autowired
     LeagueService leagueService;
@@ -51,7 +50,9 @@ public class LeagueController {
     @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 422, message = "대학 이름이 같습니다."),
+            @ApiResponse(code = 400, message = "대학 정보가 올바르지 않습니다"),
+            @ApiResponse(code = 400, message = "팀장 지갑 정보가 올바르지 않습니다"),
+            @ApiResponse(code = 422, message = "대학 이름이 같습니다"),
             @ApiResponse(code = 500, message = "실패"),
     })
     public ResponseEntity<? extends BaseResponseBody> registerLeague(
@@ -69,7 +70,7 @@ public class LeagueController {
         League league = leagueService.createLeague(registerInfo, file);
 
         if(league == null) {
-            return ResponseEntity.status(500).body(BaseResponseBody.of(500, FAIL));
+            return ResponseEntity.status(500).body(BaseResponseBody.of(500, "서버 에러"));
         }
         if (league.getTeam1().getUniversity().getUniName().equals(league.getTeam2().getUniversity().getUniName())) {
             return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
@@ -77,7 +78,7 @@ public class LeagueController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
     }
 
-    @ApiOperation(value = "대회 조회", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
+    @ApiOperation(value = "대회 조회 + 검색", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
     @GetMapping()
     @ApiResponses({
             @ApiResponse(code=200, message = "성공"),
@@ -118,6 +119,10 @@ public class LeagueController {
     @PatchMapping("/start")
     @ApiResponses({
             @ApiResponse(code=200, message = "성공"),
+            @ApiResponse(code=400, message = "잘못된 요청(대회 없음)"),
+            @ApiResponse(code=400, message = "잘못된 요청(대회가 이미 개최 중 or 종료)"),
+            @ApiResponse(code=403, message = "해당 유저에게 대회를 시작할 권한이 없음"),
+            @ApiResponse(code=500, message = "서버 오류"),
     })
     public ResponseEntity<? extends BaseResponseBody> startLeague(@ApiIgnore Authentication authentication, @RequestParam int leaguePK) {
 
@@ -150,6 +155,10 @@ public class LeagueController {
     @PatchMapping("/end")
     @ApiResponses({
             @ApiResponse(code=200, message = "성공"),
+            @ApiResponse(code=400, message = "잘못된 요청(대회 없음)"),
+            @ApiResponse(code=400, message = "잘못된 요청(대회가 시작 안함 or 이미 종료)"),
+            @ApiResponse(code=403, message = "해당 유저에게 대회를 종료할 권한이 없음"),
+            @ApiResponse(code=500, message = "서버 오류"),
     })
     public ResponseEntity<? extends BaseResponseBody> endLeague(@ApiIgnore Authentication authentication, @RequestBody LeaguePatchReq leagueReq) {
 
@@ -168,7 +177,7 @@ public class LeagueController {
             }
 
             if (user.getId() != league.getOwner().getId()) {
-                return ResponseEntity.status(403).body(BaseResponseBody.of(403, "해당 유저에게 대회를 시작할 권한이 없음"));
+                return ResponseEntity.status(403).body(BaseResponseBody.of(403, "해당 유저에게 대회를 종료할 권한이 없음"));
             }
 
             transactionService.endLeague(league , leagueReq);
@@ -184,6 +193,8 @@ public class LeagueController {
     @PatchMapping("/summary")
     @ApiResponses({
             @ApiResponse(code=200, message = "성공"),
+            @ApiResponse(code=400, message = "잘못된 요청"),
+            @ApiResponse(code=500, message = "서버 오류"),
     })
     public ResponseEntity<? extends BaseResponseBody> getLeagueSummary() {
 

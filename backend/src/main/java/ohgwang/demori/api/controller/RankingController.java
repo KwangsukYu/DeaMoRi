@@ -1,6 +1,9 @@
 package ohgwang.demori.api.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import ohgwang.demori.DB.entity.University;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.response.Ranking.UniversityRankingRes;
@@ -20,8 +23,12 @@ public class RankingController {
     @Autowired
     RankingService rankingService;
 
-
-    @PutMapping("/update/user")
+    @PatchMapping("/update/user")
+    @ApiOperation(value = "유저 랭킹 갱신")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "유저 랭킹 갱신"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
     public ResponseEntity<? extends BaseResponseBody> updateUserRanking() {
         try{
             rankingService.updateUserRanking();
@@ -32,6 +39,12 @@ public class RankingController {
     }
 
     @GetMapping("/user")
+    @ApiOperation(value = "유저 랭킹 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "유저 랭킹"),
+            @ApiResponse(code = 204, message = "데이터 없음"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
     public ResponseEntity<UserRankingRes> getUserRanking(@RequestParam(value = "page", defaultValue = "0") int page,
                                                          @RequestParam(value = "size", defaultValue = "10") int size) {
         try{
@@ -46,6 +59,11 @@ public class RankingController {
     }
 
     @PatchMapping("/update/university")
+    @ApiOperation(value = "대학 랭킹 갱신")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "대학 랭킹 갱신"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
     public ResponseEntity<? extends BaseResponseBody> updateUniversityRanking() {
         try{
             rankingService.updateUniversityRanking();
@@ -56,6 +74,12 @@ public class RankingController {
     }
 
     @GetMapping("/university")
+    @ApiOperation(value = "대학 랭킹 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "대학 랭킹"),
+            @ApiResponse(code = 204, message = "데이터 없음"),
+            @ApiResponse(code = 500, message = "서버 오류"),
+    })
     public ResponseEntity<UniversityRankingRes> getUniversityRanking(@RequestParam(value = "page", defaultValue = "0") int page,
                                                                      @RequestParam(value = "size", defaultValue = "10") int size) {
         try{
@@ -63,7 +87,7 @@ public class RankingController {
             if(universityList == null){
                 return ResponseEntity.status(204).body(UniversityRankingRes.of(204, "데이터 없음" , null));
             }
-            return ResponseEntity.status(200).body(UniversityRankingRes.of(200, "유저 랭킹" , universityList));
+            return ResponseEntity.status(200).body(UniversityRankingRes.of(200, "대학 랭킹" , universityList));
         }catch (Exception e){
             return ResponseEntity.status(500).body(UniversityRankingRes.of(500, "서버 오류", null));
         }

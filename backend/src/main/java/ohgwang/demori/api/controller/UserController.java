@@ -9,7 +9,6 @@ import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.auth.SsafyUserDetails;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -34,22 +33,26 @@ import javax.transaction.Transactional;
  	Authentication authentication
  	로그인 후 생성되는 엑세스 토큰이 헤더에 등록되어 있으면 자동으로 사용
  */
+
 @Api(value = "User API" , tags = {"Users"})
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 	
 	private final String SUCCESS = "success";
-	private final String FAIL = "fail";
-	
+
 	@Autowired
 	UserService userService;
 
 	@Autowired
 	UniversityService universityService;
 
-
 	@PostMapping()
+	@ApiOperation(value = "회원 가입")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "비밀번호가 4자 이하입니다"),
+	})
 	public ResponseEntity<? extends BaseResponseBody> register(
 			@RequestBody UserRegisterPostReq registerInfo) {
 		
@@ -62,8 +65,12 @@ public class UserController {
 	}
 
 	@GetMapping("/me")
+	@ApiOperation(value = "회원 정보 조회")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+	})
 	@Transactional
-	public ResponseEntity<UserRes> getUserInfo(Authentication authentication) {
+	public ResponseEntity<? extends BaseResponseBody> getUserInfo(Authentication authentication) {
 		/**
 		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
 		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
@@ -72,37 +79,47 @@ public class UserController {
 		String userId = userDetails.getUsername();
 		User user = userService.getUserByUserId(userId);
 
-		return ResponseEntity.status(200).body(UserRes.of(user));
+		return ResponseEntity.status(200).body(UserRes.of(200, SUCCESS, user));
 	}
 
 	@GetMapping("/check/id")
-	public ResponseEntity<?> getIdCheck(@RequestParam String userId){
+	@ApiOperation(value = "User Id 중복검사")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 400, message = "이미 존재하는 ID"),
+	})
+	public ResponseEntity<? extends BaseResponseBody> getIdCheck(@RequestParam String userId){
 		User user = userService.getUserByUserId(userId);
 
 		if(user == null) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
 		}else {
-			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "이미 존재하는 ID"));
 		}
 	}
 
 	@GetMapping("/check/nickname")
-	public ResponseEntity<?> getNicknameCheck(@RequestParam String nickName){
+	@ApiOperation(value = "User Nickname 중복검사")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 400, message = "이미 존재하는 닉네임"),
+	})
+	public ResponseEntity<? extends BaseResponseBody> getNicknameCheck(@RequestParam String nickName){
 		User user = userService.getUserByNickname(nickName);
 
 		if(user == null) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
 		}else {
-			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "이미 존재하는 Nickname"));
 		}
 	}
 
-	@ApiOperation(value = "대학 인증 사진 업로드 , 토큰 필요")
+	@PostMapping("/auth")
+	@ApiOperation(value = "대학 인증 사진 업로드", notes = "토큰 필요")
 	@ApiResponses({
-			@ApiResponse(code = 200, message = "저장완료"),
+			@ApiResponse(code = 200, message = "성공"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	@PostMapping("/auth")
 	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file ,@ApiParam(value = "대학 이름") @RequestParam String univesityName){
 		try {
 			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
@@ -113,17 +130,17 @@ public class UserController {
 			userService.uploadAuthImage(file, user);
 
 		}catch (Exception e){
-			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"FAIL"));
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"서버 오류"));
 		}
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200,SUCCESS));
 	}
 
-	@ApiOperation(value = "유저 프로필 변경, multipart 형식으로 받음")
+	@PatchMapping("/profile")
+	@ApiOperation(value = "유저 프로필 변경", notes = "multipart 형식으로 받음")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "저장완료"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	@PatchMapping("/profile")
 	public ResponseEntity<? extends BaseResponseBody> uploadProfileImage(Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file){
 		try {
 			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
