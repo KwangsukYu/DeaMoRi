@@ -24,6 +24,8 @@ public class AdminController {
     @ApiOperation(value = "유저 리스트",response = UserAdminRes.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "유저가 없습니다"),
+            @ApiResponse(code = 400, message = "잘못된 요청입니다"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> getUsers() {
@@ -35,7 +37,7 @@ public class AdminController {
             }else if(list.size() == 0){
                 return ResponseEntity.status(204).body(UserAdminRes.of(204,"유저가 없습니다" ,list));
             }else{
-                return ResponseEntity.status(200).body(UserAdminRes.of(200,"유저 리스트" ,list));
+                return ResponseEntity.status(200).body(UserAdminRes.of(200,"성공" ,list));
             }
 
         }catch (Exception e){
@@ -47,6 +49,8 @@ public class AdminController {
     @ApiOperation(value = "유저 권한 변경")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "없는 유저"),
+            @ApiResponse(code = 400, message = "message"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> changeRole(@ApiParam(value = "유저 PK",example = "1")@RequestParam int userPk, @ApiParam(value = "유저 권한(0 == 일반 유저, 1 == 인증 유저 , 2 == 중지 유저)")@RequestParam int role) {
@@ -68,8 +72,5 @@ public class AdminController {
         }
 
     }
-
-
-
 
 }

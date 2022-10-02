@@ -2,7 +2,6 @@ package ohgwang.demori.api.controller;
 
 import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.League;
-import ohgwang.demori.DB.entity.Relation.UniversityLeague;
 import ohgwang.demori.DB.entity.University;
 import ohgwang.demori.api.response.League.LeagueListRes;
 import ohgwang.demori.api.response.UniversityRes;

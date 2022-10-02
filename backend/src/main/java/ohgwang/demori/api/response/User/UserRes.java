@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ohgwang.demori.DB.entity.Relation.UserBadge;
 import ohgwang.demori.DB.entity.User;
+import ohgwang.demori.common.model.response.BaseResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @ApiModel("UserResponse")
-public class UserRes{
+public class UserRes extends BaseResponseBody {
 	private int userPk;
 	@ApiModelProperty(name="User ID")
 	private String userId;
@@ -39,8 +40,12 @@ public class UserRes{
 	private List<String> bagdeList;
 
 
-	public static UserRes of(User user) {
+	public static UserRes of(int statusCode, String message, User user) {
 		UserRes res = new UserRes();
+
+		res.setStatusCode(statusCode);
+		res.setMessage(message);
+
 		res.setUserPk(user.getId());
 		res.setUserId(user.getUserId());
 		res.setProfileUrl(user.getProfileUrl());
