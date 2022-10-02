@@ -9,11 +9,11 @@ interface SupportListProps {
 }
 
 function SupportList({ supporters }: SupportListProps) {
-  console.log(supporters);
-
-  const supportersRank = supporters.sort(function (a, b) {
-    return b.supportBalance - a.supportBalance;
-  });
+  const supportersRank = supporters
+    .sort(function (a, b) {
+      return b.supportBalance - a.supportBalance;
+    })
+    .slice(0, 10);
 
   console.log(supportersRank);
 
@@ -21,7 +21,7 @@ function SupportList({ supporters }: SupportListProps) {
     <div id="supportlist">
       <div className="supportlist">
         <p>후원 랭킹은 대회 후원을 기준으로 집계됩니다.</p>
-        {supporters.map((supporter, i) => {
+        {supportersRank.map((supporter, i) => {
           return <SupportItem key={v4()} rank={i + 1} supporter={supporter} />;
         })}
       </div>

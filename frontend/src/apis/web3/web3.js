@@ -10,14 +10,14 @@ import {
 // const web3 = new Web3("http://localhost:8545");
 const web3 = new Web3(process.env.REACT_APP_GETH_NODE);
 
-export const getCoinBase = async () => {
+export const getAdminAdress = async () => {
   const res = await web3.eth.getCoinbase();
   return res;
 };
 
 // 공개키, 개인키 생성
 export const createAccount = async () => {
-  const coinBase = await getCoinBase();
+  const coinBase = await getAdminAdress();
   const createdObj = web3.eth.accounts.create();
   const account = web3.eth.accounts.privateKeyToAccount(createdObj.privateKey);
   const wallet = web3.eth.accounts.wallet.add(account);
@@ -53,7 +53,7 @@ export const getWalletBalance = async address => {
 
 // 이더 충전
 export const chargeCoin = async (price, address) => {
-  const coinBase = await getCoinBase();
+  const coinBase = await getAdminAdress();
   web3.eth.personal.unlockAccount(
     coinBase,
     process.env.REACT_APP_COINBASE_PASSWORD,
@@ -73,8 +73,9 @@ export const chargeCoin = async (price, address) => {
 // IPFS 서버 업로드
 
 export const sendFileToIPFS = async (file, league, team, address) => {
-  const coinBase = await getCoinBase();
+  const coinBase = await getAdminAdress();
   let ImgHash;
+  let TrophyUrl;
   try {
     const formData = new FormData();
     formData.append("file", file);
@@ -88,9 +89,8 @@ export const sendFileToIPFS = async (file, league, team, address) => {
         "Content-Type": "multipart/form-data"
       }
     });
-
+    TrophyUrl = resFile.data.IpfsHash;
     ImgHash = `ipfs://${resFile.data.IpfsHash}`;
-    console.log(ImgHash);
   } catch (error) {
     console.log("Error sending File to IPFS: ");
     console.log(error);
@@ -115,12 +115,12 @@ export const sendFileToIPFS = async (file, league, team, address) => {
 
   const res = await axios(config);
 
-  console.log(res.data);
-
   await NFTContract.methods
-    .mintNFT(coinBase, `ipfs://${res.data.IpfsHash}`)
+    .mintNFT(address, `ipfs://${res.data.IpfsHash}`)
     .send({ from: coinBase })
-    .then(response => console.log(response));
+    .then(response => response);
+
+  return `https://gateway.pinata.cloud/ipfs/${TrophyUrl}`;
 };
 
 // 대회 열려있는지 확인
@@ -203,7 +203,7 @@ export const fundWithERC20 = async (
       .transferFrom(userAddress, leagueAddress, amount)
       .send({ from: coinBase })
       .then(res => res.transactionHash);
-
+    console.log(txHash);
     return txHash;
   }
   alert("종료된 대회입니다.");
@@ -213,11 +213,17 @@ export const fundWithERC20 = async (
 // 대회 종료하기
 export const closeLeague = async (ca, num, amount) => {
   const newCA = getContractCA(ca);
-  const coinBase = getCoinBase();
-  await newCA.methods
-    .ended(ca, num, amount)
+  const coinBase = await web3.eth.getCoinbase();
+  web3.eth.personal.unlockAccount(
+    coinBase,
+    process.env.REACT_APP_COINBASE_PASSWORD,
+    300
+  );
+  const txHash = await newCA.methods
+    .ended(TokenCA, num, amount)
     .call({ from: coinBase })
     .then(res => console.log(res));
+  return txHash;
 };
 
 export default {};
