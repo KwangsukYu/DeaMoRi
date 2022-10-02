@@ -1,15 +1,17 @@
 import React from "react";
 import "./SupportItem.scss";
-import numberComma from "utils/numberComma";
+import numberComma, { numberWithCommas } from "utils/numberComma";
+import { supporterType } from "apis/leagues/LeagueDetail";
 import UserDummy from "assets/images/UserDummy.svg";
 import SchoolIcon from "assets/images/SchoolIcon.svg";
 import RewardBadge from "assets/images/RewardBadge.svg";
 
 interface SupportListProps {
   rank: number;
+  supporter: supporterType;
 }
 
-function SupportItem({ rank }: SupportListProps) {
+function SupportItem({ rank, supporter }: SupportListProps) {
   const getRank = (num: number) => {
     if (rank === 1) {
       return "#5c6bc0";
@@ -39,10 +41,12 @@ function SupportItem({ rank }: SupportListProps) {
         </div>
         <div className="supportitem-content">
           <img className="supportitem-content-icon" src={UserDummy} alt="" />
-          <p className="supportitem-content-title">닉네임은팔글자야</p>
+          <p className="supportitem-content-title">{supporter.supportName}</p>
           <img className="supportitem-content-icon" src={RewardBadge} alt="" />
         </div>
-        <div className="supportitem-amount">100,000,000</div>
+        <div className="supportitem-amount">
+          {numberWithCommas(supporter.supportBalance)} WON
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,8 @@ import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
 import Loading from "components/Loading/Loading";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
 import UniCompo from "./UniCompo";
 
@@ -21,6 +23,9 @@ function UniList() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [searchNum, setSearchNum] = useState(0);
+  const [myUni, setMyUni] = useState({});
+
+  const storeUser = useSelector(state => state.userInfo.userInfo);
 
   const searchUni = e => {
     console.log(search);
@@ -28,7 +33,7 @@ function UniList() {
     e.preventDefault();
     if (search) {
       axios({
-        url: `http://j7c208.p.ssafy.io:8080/api/univers/${search}`,
+        url: `http://j7c208.p.ssafy.io:8080/api/univers/search/${search}`,
         method: "get"
         // params: { search }
       })
@@ -90,20 +95,35 @@ function UniList() {
     // }, 500);
   }, [currentpage, indexOfFirstPost, indexOfLastPost, items, postPerPage]);
 
+  useEffect(() => {
+    axios({
+      url: `http://j7c208.p.ssafy.io:8080/api/univers`,
+      method: "get",
+      headers: { Authorization: `Bearer ${localStorage.token}` },
+      params: { id: storeUser.universityPk }
+    })
+      .then(res => {
+        setMyUni(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
   const setPage = e => {
     setCurrentpage(e);
   };
 
-  const myUni = { rank: 3, name: "싸피대학교", price: "53000000" };
+  // const myUni = { rank: 3, name: "싸피대학교", price: "53000000" };
   let rankImg = "";
   let rankClass = "";
-  if (myUni.rank === 1) {
+  if (myUni.ranking === 1) {
     rankImg = rankLogo1;
     rankClass = "rankLogo1";
-  } else if (myUni.rank === 2) {
+  } else if (myUni.ranking === 2) {
     rankImg = rankLogo2;
     rankClass = "rankLogo2";
-  } else if (myUni.rank === 3) {
+  } else if (myUni.ranking === 3) {
     rankImg = rankLogo3;
     rankClass = "rankLogo3";
   } else {
@@ -111,39 +131,65 @@ function UniList() {
     rankClass = "rankLogo4";
   }
 
-  console.log(currentPosts.length);
-  console.log(searchNum);
-
+  console.log(storeUser);
+  console.log(myUni);
   return (
     <div id="uni-list">
       <div className="uni-list">
         <p className="uni-list-title">내 대학교</p>
         <div className="uni-list-background">
-          <div className="uni-list-background-my">
-            <div className="uni-list-background-my-logo-box">
-              <div className="uni-list-background-my-logo-box-logo">
-                <img src={uniLogo1} alt="asdf" />
-              </div>
-              <p className="uni-list-background-my-logo-box-text">
-                {myUni.name}
-              </p>
-            </div>
-            <div className="uni-list-my-text-box">
-              <div className="uni-list-my-text">
-                <p>랭킹</p>
-                <p>총 후원 받은 금액</p>
-                <p>내가 후원 한 금액</p>
-              </div>
-              <div className="uni-list-my-text">
-                <div className="uni-list-my-text-logo-box">
-                  <img className={rankClass} src={rankImg} alt="" />
-                  <p className="uni-list-my-text-logo-box-text">{myUni.rank}</p>
+          {storeUser.universityName ? (
+            <div className="uni-list-background-my">
+              <div className="uni-list-background-my-logo-box">
+                <div className="uni-list-background-my-logo-box-logo">
+                  <img
+                    className="uni-list-background-my-logo-box-logo-unilogo"
+                    src={myUni.logoUrl}
+                    alt="asdf"
+                  />
                 </div>
-                <p>{myUni.price}</p>
-                <p>100,000 MOK</p>
+                <p className="uni-list-background-my-logo-box-text">
+                  {myUni.universityName}
+                </p>
+              </div>
+              <div className="uni-list-my-text-box">
+                <div className="uni-list-my-text">
+                  <p>랭킹</p>
+                  <p>총 후원 받은 금액</p>
+                  <p>내가 후원 한 금액</p>
+                </div>
+                <div className="uni-list-my-text">
+                  <div className="uni-list-my-text-logo-box">
+                    <img className={rankClass} src={rankImg} alt="" />
+                    <p className="uni-list-my-text-logo-box-text">
+                      {myUni.ranking}
+                    </p>
+                  </div>
+                  <p>
+                    {Number(myUni.donation)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                    WON
+                  </p>
+                  <p>
+                    {Number(storeUser.donation)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                    WON
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="no-uni-box">
+              <p className="no-uni-box-text">등록된 대학이 없습니다.</p>
+              <Link to="/mypage">
+                <button className="no-uni-box-button" type="button">
+                  등록하러 가기
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="uni-list-total">
           <div className="uni-list-total-title-box">

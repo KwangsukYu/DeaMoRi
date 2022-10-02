@@ -20,18 +20,6 @@ interface userRankType {
   universityLogo: null;
 }
 
-interface userRankType {
-  userPk: number;
-  ranking: number;
-  donation: number;
-  nickName: string;
-  userName: string;
-  badge: string;
-  universityPk: number;
-  universityName: null;
-  universityLogo: null;
-}
-
 function SponRankings() {
   const [userRank, setUserRank] = useState<userRankType[]>([]);
   useEffect(() => {
@@ -82,12 +70,22 @@ function SponRankings() {
 
     return (
       <div key={v4()} className="rank-main">
-        <div className="logo-box">
-          <img className={rankClass} src={rankImg} alt="" />
-          <p className="rank-main-rank">{user.ranking}</p>
-        </div>
+        {user.donation === 0 ? (
+          <div className="logo-box">
+            <img className={rankClass} src={rankLogo4} alt="" />
+            <p className="rank-main-unrank">-</p>
+          </div>
+        ) : (
+          <div className="logo-box">
+            <img className={rankClass} src={rankImg} alt="" />
+            <p className="rank-main-rank">{user.ranking}</p>
+          </div>
+        )}
+
         <p className="rank-main-name">{user.nickName}</p>
-        <p className="rank-main-price">{user.donation} MOKO</p>
+        <p className="rank-main-price">
+          {user.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
+        </p>
       </div>
     );
   });

@@ -1,20 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./LeagueDetail.scss";
-import SchoolIcon from "assets/images/SchoolIcon.svg";
-import SchoolIcon2 from "assets/images/SchoolIcon2.svg";
+import {
+  getLeagueDetail,
+  leagueDetailType,
+  teamType
+} from "apis/leagues/LeagueDetail";
+import CreateRoom from "pages/live/CreateRoom";
 import LeagueSupport from "./LeagueSupport";
 import TeamDetail from "./TeamDetail";
 import LeaegueInfo from "./LeagueInfo";
 import ResultModal from "./ResultModal";
 
 function LeagueDetail() {
-  const [leagueState, setLeagueState] = useState("end");
+  const [leagueState, setLeagueState] = useState("start");
   const [detailModal, setDetailModal] = useState(false);
   const [isOwner, setIsOwner] = useState(true);
   const [resultModal, setResultModal] = useState(false);
+  const [leagueInfo, setLeagueInfo] = useState<leagueDetailType>();
+  const [team1, setTeam1] = useState<teamType>();
+  const [team2, setTeam2] = useState<teamType>();
+  const [changed, setChanged] = useState(false);
+  const { leagueId } = useParams();
 
-  const teamColor1 = "#007350";
-  const teamColor2 = "#5b89e6";
+  useEffect(() => {
+    (async () => {
+      const res = await getLeagueDetail(parseInt(leagueId as string, 10));
+      setLeagueInfo(res);
+      setTeam1(res.team1);
+      setTeam2(res.team2);
+    })();
+  }, [leagueId, changed]);
 
   const signal = (type: string) => {
     if (type === "info") {
@@ -23,6 +39,14 @@ function LeagueDetail() {
       setResultModal(false);
     }
   };
+
+  const change = () => {
+    setChanged(!changed);
+  };
+
+  if (!leagueInfo) {
+    return <div>123</div>;
+  }
 
   return (
     <div id="leaguedetail">
@@ -48,7 +72,7 @@ function LeagueDetail() {
             <div
               className={`circle ${leagueState === "end" ? "active" : "white"}`}
             />
-            <p>경기 종료</p>
+            <p>대회 종료</p>
           </div>
           <div className="leaguedetail-status-bar" />
         </div>
@@ -58,23 +82,23 @@ function LeagueDetail() {
             <select onChange={e => setLeagueState(e.target.value)}>
               <option value="start">대회시작 전</option>
               <option value="playing">대회진행 중</option>
-              <option value="end">대회완료</option>
+              <option value="end">대회종료</option>
             </select>
           </div>
         )}
-        <p className="leaguedetail-title">대회는 최대 몇 글자입니까</p>
+        <p className="leaguedetail-title">{leagueInfo?.leagueId}</p>
         <div className="leaguedetail-info">
           <div
             className="leaguedetail-info-team"
-            style={{ backgroundColor: teamColor1 }}
+            style={{ backgroundColor: team1?.teamColor }}
           >
             <div className="leaguedetail-info-team-info">
               <p>60%</p>
               <button type="button">대학 정보</button>
             </div>
             <div className="leaguedetail-info-team-profile">
-              <img src={SchoolIcon} alt="team" />
-              <p>전남대학교</p>
+              <img src={team1?.teamUniversitylogoUrl} alt="team" />
+              <p>{team1?.teamUniversityName}</p>
             </div>
           </div>
           <div className="leaguedetail-info-desc">
@@ -85,15 +109,16 @@ function LeagueDetail() {
             <p>VS</p>
             {leagueState === "start" && (
               <div>
-                <p>대회 기간</p>
-                <p>2022.08.11 ~ 2022.09.11</p>
+                <p>대회 시작 일</p>
+                <p>{leagueInfo?.leagueStartDate}</p>
               </div>
             )}
-            {leagueState === "playing" && (
+            {leagueState === "playing" && !isOwner && (
               <button type="button" className="live-button">
                 중계
               </button>
             )}
+            {leagueState === "playing" && isOwner && <CreateRoom />}
             {leagueState === "end" && !isOwner && (
               <button type="button" className="end-button ">
                 경기 종료
@@ -112,11 +137,11 @@ function LeagueDetail() {
           </div>
           <div
             className="leaguedetail-info-team"
-            style={{ backgroundColor: teamColor2 }}
+            style={{ backgroundColor: team2?.teamColor }}
           >
             <div className="leaguedetail-info-team-profile">
-              <img src={SchoolIcon2} alt="team" />
-              <p>조선대학교</p>
+              <img src={team2?.teamUniversitylogoUrl} alt="team" />
+              <p>{team2?.teamUniversityName}</p>
             </div>
             <div className="leaguedetail-info-team-info">
               <p>40%</p>
@@ -124,10 +149,20 @@ function LeagueDetail() {
             </div>
           </div>
         </div>
-        <LeagueSupport />
+        <LeagueSupport leagueInfo={leagueInfo} change={change} />
         <div className="leaguedetail-tip">
-          <TeamDetail teamColor={teamColor1} />
-          <TeamDetail teamColor={teamColor2} />
+          <TeamDetail
+            leaguePk={leagueInfo.leaguePk}
+            teamNumber={0}
+            teamInfo={leagueInfo.team1}
+            change={change}
+          />
+          <TeamDetail
+            leaguePk={leagueInfo.leaguePk}
+            teamNumber={1}
+            teamInfo={leagueInfo.team2}
+            change={change}
+          />
         </div>
       </div>
     </div>

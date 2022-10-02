@@ -36,7 +36,7 @@ function Search({ leagueStatus }: searchProps) {
       const res = await fetch(
         // `http://j7c208.p.ssafy.io:8080/api/league?field=id&_page=0&size=8`
         // `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=0&size=8`
-        `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=0&size=1000`
+        `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=0&size=8`
       );
       const data = await res.json();
       setEnterSubmit(false);

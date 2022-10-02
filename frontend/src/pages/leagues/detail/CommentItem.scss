@@ -21,7 +21,10 @@
     &-user {
       height: 20%;
       font-size: 12px;
+      display: flex;
+      justify-content: space-between;
       > p {
+        padding-left: 10px;
         font-weight: bold;
         text-align: end;
         margin: 0;
