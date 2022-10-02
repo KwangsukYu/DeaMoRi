@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { infoType } from "Slices/userInfo";
+import { CircularProgress } from "@mui/material";
 import CreateLeague from "apis/leagues/CreateLeague";
 import UniversityData from "./UniversityData.json";
 
@@ -36,6 +37,7 @@ function Create() {
   const [broadcast, setBroadcast] = useState("0");
   const [files, setFiles] = useState([] as any);
   const [userPk] = useState(String(storeUser.userPk));
+  const [isLoading, setIsLoading] = useState(false);
 
   // 파일 객체 생성
   const createFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +51,9 @@ function Create() {
   const [isHaveInputValue2, setIsHaveInputValue2] = useState(false);
   const [team1uni, setTeam1uni] = useState("");
   const [team2uni, setTeam2uni] = useState("");
-
   // useForm submit시 어떤 데이터를 넘겨줄것인지 설정 및 추가해줌
-  const onSubmit = (data: Inputs) => {
+  const onSubmit = async (data: Inputs) => {
+    setIsLoading(true);
     const newData = {
       ...data,
       team1Color,
@@ -59,8 +61,8 @@ function Create() {
       broadcast,
       ownerPk: userPk
     };
-    CreateLeague(files, newData);
-    console.log(newData);
+    await CreateLeague(files, newData);
+    setIsLoading(false);
   };
 
   const broadcasting = (e: string) => {
@@ -218,15 +220,6 @@ function Create() {
               placeholder="대회 장소"
               id="leagueend"
               {...register("place", {
-                required: "대회 장소를 입력해주세요."
-              })}
-            />
-            <input
-              className="create-option-input"
-              type="text"
-              placeholder="컨트랙트 어드레스"
-              id="leagueend"
-              {...register("contractAddress", {
                 required: "대회 장소를 입력해주세요."
               })}
             />
@@ -399,21 +392,26 @@ function Create() {
               <ColorPicker team={2} teamColorProps={teamColorProps} />
             </div>
           </span>
-
-          <div className="create-buttoncontainer">
-            <Link to="/leagues">
-              <button className="create-buttoncontainer-cancel" type="button">
-                취소
+          {isLoading ? (
+            <div className="create-buttoncontainer">
+              <CircularProgress />
+            </div>
+          ) : (
+            <div className="create-buttoncontainer">
+              <Link to="/leagues">
+                <button className="create-buttoncontainer-cancel" type="button">
+                  취소
+                </button>
+              </Link>
+              <button
+                className="create-buttoncontainer-approve"
+                // onClick={handleSubmit}
+                type="submit"
+              >
+                대회 생성
               </button>
-            </Link>
-            <button
-              className="create-buttoncontainer-approve"
-              // onClick={handleSubmit}
-              type="submit"
-            >
-              대회 생성
-            </button>
-          </div>
+            </div>
+          )}
         </form>
       </div>
     </div>
