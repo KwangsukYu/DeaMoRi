@@ -44,7 +44,7 @@ public class League {
     @JoinColumn(name = "team2")
     private Team team2;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
     private User owner;
 
