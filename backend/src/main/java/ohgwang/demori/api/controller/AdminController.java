@@ -2,16 +2,13 @@ package ohgwang.demori.api.controller;
 
 import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.User;
-import ohgwang.demori.api.request.UserRegisterPostReq;
-import ohgwang.demori.api.response.UserAdminRes;
-import ohgwang.demori.api.response.UserRes;
+import ohgwang.demori.api.response.User.UserAdminRes;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "admin API" , tags = {"admin"})

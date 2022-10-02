@@ -28,4 +28,5 @@ public interface UserService {
 
 	User getByWallet(String walletAddress);
 
+    void uploadProfileImage(MultipartFile file, User user) throws IOException;
 }

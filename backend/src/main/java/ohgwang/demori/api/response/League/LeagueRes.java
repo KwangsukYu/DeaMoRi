@@ -7,6 +7,7 @@ import lombok.Setter;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.Relation.Cheer;
 import ohgwang.demori.DB.entity.Relation.Support;
+import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.common.model.response.BaseResponseBody;
 
 import javax.transaction.Transactional;
@@ -97,12 +98,16 @@ public class LeagueRes extends BaseResponseBody {
         res.getTeam1().setGetSupports(new ArrayList<>());
         res.getTeam2().setGetSupports(new ArrayList<>());
         for(Support support : league.getSupports()) {
+            User user = support.getUser();
             GetSupport getSupport = GetSupport.builder()
                     .supportId(support.getId())
                     .supportName(support.getSupportName())
                     .supportBalance(support.getSupportBalance())
                     .selectUniversity(support.getSendUniversity())
-                    .sendId(support.getUser().getId())
+                    .sendId(user.getId())
+                    .badge(user.getBadge())
+                    .profileUrl(user.getProfileUrl())
+                    .universityLogoUrl(user.getUniversity().getLogoUrl())
                     .build();
 
             if(support.getSendUniversity().equals("0")) {
@@ -150,5 +155,13 @@ class GetSupport {
     private String supportName;
     private int supportBalance;
     private String selectUniversity;
+
+    ////// 유저 정보
+
     private int sendId;
+    private String profileUrl;
+    private String badge;
+    private String universityLogoUrl;
+
+
 }

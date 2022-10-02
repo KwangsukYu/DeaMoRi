@@ -2,9 +2,8 @@ package ohgwang.demori.api.controller;
 
 import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.User;
-import ohgwang.demori.DB.repository.UniversityRepository;
 import ohgwang.demori.api.request.UserRegisterPostReq;
-import ohgwang.demori.api.response.UserRes;
+import ohgwang.demori.api.response.User.UserRes;
 import ohgwang.demori.api.service.UniversityService;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.auth.SsafyUserDetails;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 
 
 /**
@@ -120,25 +118,23 @@ public class UserController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
 	}
 
-	@ApiOperation(value = "유저에 인증안하고 대학 등록해주는 테스트용 api 나중에 삭제 예정, 토큰 필요")
+	@ApiOperation(value = "유저 프로필 변경, multipart 형식으로 받음")
 	@ApiResponses({
 			@ApiResponse(code = 200, message = "저장완료"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	@PostMapping("/authtest")
-	public ResponseEntity<? extends BaseResponseBody> testSetUniversity(Authentication authentication,@ApiParam(value = "대학 이름") @RequestParam String univesityName){
+	@PatchMapping("/profile")
+	public ResponseEntity<? extends BaseResponseBody> uploadProfileImage(Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file){
 		try {
 			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 			String userId = userDetails.getUsername();
 			User user = userService.getUserByUserId(userId);
-			user.setUniversity(universityService.getUniversityByName(univesityName));
-			userService.save(user);
+
+			userService.uploadProfileImage(file, user);
 		}catch (Exception e){
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"FAIL"));
 		}
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));
 	}
-
-
 
 }
