@@ -9,6 +9,7 @@ import ohgwang.demori.api.request.LeaguePatchReq;
 import ohgwang.demori.api.request.LeagueRegisterPostReq;
 import ohgwang.demori.api.response.League.LeaguePageRes;
 import ohgwang.demori.api.response.League.LeagueRes;
+import ohgwang.demori.api.response.League.LeagueSummaryRes;
 import ohgwang.demori.api.service.LeagueService;
 import ohgwang.demori.api.service.TransactionService;
 import ohgwang.demori.api.service.UniversityService;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/league")
@@ -178,6 +180,25 @@ public class LeagueController {
         }
     }
 
+    @ApiOperation(value = "대회 요약 및 후원금", notes = "진행 중, 종료 된, 전체 대회 수 + 총 후원금 반환", response = LeagueSummaryRes.class)
+    @PatchMapping("/summary")
+    @ApiResponses({
+            @ApiResponse(code=200, message = "성공"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> getLeagueSummary() {
+
+        try {
+            List<League> league = leagueService.findAll();
+
+            if(league == null){
+                return ResponseEntity.status(400).body(BaseResponseBody.of(400, "잘못된 요청"));
+            }
+
+            return ResponseEntity.status(200).body(LeagueSummaryRes.of(200, SUCCESS,league));
+        }catch (Exception e){
+            return ResponseEntity.status(500).body(BaseResponseBody.of(500, "서버 오류"));
+        }
+    }
 
 
 }

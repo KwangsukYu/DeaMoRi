@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.print.Pageable;
 import java.io.IOException;
+import java.util.List;
 
 public interface LeagueService {
 
@@ -19,4 +20,6 @@ public interface LeagueService {
     League getByPk(int leaguePK);
 
     void updateLeagueStatus(League league, String s);
+
+    List<League> findAll();
 }

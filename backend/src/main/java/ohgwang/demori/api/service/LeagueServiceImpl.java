@@ -102,4 +102,9 @@ public class LeagueServiceImpl implements LeagueService {
         leagueRepository.save(league);
     }
 
+    @Override
+    public List<League> findAll() {
+        return leagueRepository.findAll();
+    }
+
 }
