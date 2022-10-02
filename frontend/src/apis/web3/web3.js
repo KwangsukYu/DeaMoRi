@@ -221,8 +221,12 @@ export const closeLeague = async (ca, num, amount) => {
   );
   const txHash = await newCA.methods
     .ended(TokenCA, num, amount)
-    .call({ from: coinBase })
-    .then(res => console.log(res));
+    .send({ from: coinBase })
+    .then(function (receipt) {
+      console.log(receipt);
+    });
+
+  console.log("end");
   return txHash;
 };
 

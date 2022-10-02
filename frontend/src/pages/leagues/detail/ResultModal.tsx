@@ -37,9 +37,8 @@ function ResultModal({ signal, leagueInfo, change }: LeagueDetailProps) {
     console.log(txHash);
 
     await changeToEnd(leagueInfo.leaguePk, txHash, TrophyImg, selectTeam);
-    // change();
-    // return signal("result");
-    return 0;
+    change();
+    return signal("result");
   };
 
   return (

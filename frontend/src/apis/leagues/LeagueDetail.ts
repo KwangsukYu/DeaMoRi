@@ -65,7 +65,7 @@ export function getLeagueDetail(leagueId: number) {
 export function changeToPlaying(leaguePk: number) {
   const res = axios({
     url: "http://j7c208.p.ssafy.io:8080/api/league/start",
-    method: "get",
+    method: "patch",
     headers: { Authorization: `Bearer ${localStorage.token}` },
     params: { leaguePk }
   })
