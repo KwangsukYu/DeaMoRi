@@ -98,16 +98,16 @@ public class LeagueRes extends BaseResponseBody {
         res.getTeam1().setGetSupports(new ArrayList<>());
         res.getTeam2().setGetSupports(new ArrayList<>());
         for(Support support : league.getSupports()) {
-            User user = support.getUser();
+
             GetSupport getSupport = GetSupport.builder()
                     .supportId(support.getId())
                     .supportName(support.getSupportName())
                     .supportBalance(support.getSupportBalance())
                     .selectUniversity(support.getSendUniversity())
-                    .sendId(user.getId())
-                    .badge(user.getBadge())
-                    .profileUrl(user.getProfileUrl())
-                    .universityLogoUrl(user.getUniversity().getLogoUrl())
+                    .sendId(support.getUser().getId())
+                    .badge(support.getUser().getBadge())
+                    .profileUrl(support.getUser().getProfileUrl())
+                    .universityLogoUrl(support.getUser().getUniversity().getLogoUrl())
                     .build();
 
             if(support.getSendUniversity().equals("0")) {
