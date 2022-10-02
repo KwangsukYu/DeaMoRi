@@ -879,9 +879,10 @@ const LeagueCA = "0x8cBf8cC0a22EeC674477cB7C6838Cd9F16A8bA01";
 const LeagueContract = new web3.eth.Contract(LeagueABI, LeagueCA);
 
 // Deploy Clone League Contract
-export const deployCloneLeagueContract = async (creator, teamA, teamB) => {
+export const deployCloneLeagueContract = async (teamA, teamB) => {
   // 코인베이스 잠금 해제
-  const coinBase = web3.eth.getCoinbase();
+
+  const coinBase = await web3.eth.getCoinbase();
   web3.eth.personal.unlockAccount(
     coinBase,
     process.env.REACT_APP_COINBASE_PASSWORD,
@@ -893,11 +894,10 @@ export const deployCloneLeagueContract = async (creator, teamA, teamB) => {
   const newContractCA = newContract
     .deploy({
       data: LeagueByte,
-      arguments: [creator, teamA, teamB]
+      arguments: [coinBase, teamA, teamB]
     })
     .send({ from: coinBase })
     .then(res => res.options.address);
-  console.timeLog(newContractCA);
   return newContractCA;
 };
 
