@@ -4,8 +4,12 @@ import "./LeagueDetail.scss";
 import {
   getLeagueDetail,
   leagueDetailType,
-  teamType
+  teamType,
+  changeToPlaying
 } from "apis/leagues/LeagueDetail";
+import { isOpened } from "apis/web3/web3";
+import { useSelector } from "react-redux";
+import { infoType } from "Slices/userInfo";
 import CreateRoom from "pages/live/CreateRoom";
 import LeagueSupport from "./LeagueSupport";
 import TeamDetail from "./TeamDetail";
@@ -13,15 +17,18 @@ import LeaegueInfo from "./LeagueInfo";
 import ResultModal from "./ResultModal";
 
 function LeagueDetail() {
-  const [leagueState, setLeagueState] = useState("start");
+  const [leagueState, setLeagueState] = useState("0");
   const [detailModal, setDetailModal] = useState(false);
-  const [isOwner, setIsOwner] = useState(true);
+  const [isOwner, setIsOwner] = useState(false);
   const [resultModal, setResultModal] = useState(false);
   const [leagueInfo, setLeagueInfo] = useState<leagueDetailType>();
   const [team1, setTeam1] = useState<teamType>();
   const [team2, setTeam2] = useState<teamType>();
   const [changed, setChanged] = useState(false);
+  const [isClose, setIsClosed] = useState(false);
   const { leagueId } = useParams();
+
+  const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
 
   useEffect(() => {
     (async () => {
@@ -29,6 +36,14 @@ function LeagueDetail() {
       setLeagueInfo(res);
       setTeam1(res.team1);
       setTeam2(res.team2);
+      setLeagueState(res.status);
+      const isOpen = await isOpened(res.leagueContractAddress);
+      if (!isOpen) {
+        setIsClosed(true);
+      }
+      if (res.ownerPk === userInfo.userPk && isOpen) {
+        setIsOwner(true);
+      }
     })();
   }, [leagueId, changed]);
 
@@ -48,29 +63,32 @@ function LeagueDetail() {
     return <div>123</div>;
   }
 
+  const handleChange = async () => {
+    if (leagueState === "0") {
+      await changeToPlaying(leagueInfo.leaguePk);
+      setLeagueState("1");
+    }
+  };
+
   return (
     <div id="leaguedetail">
       <div className="leaguedetail">
         <div className="leaguedetail-status">
           <div className="leaguedetail-status-circle">
             <div
-              className={`circle ${
-                leagueState === "start" ? "active" : "white"
-              }`}
+              className={`circle ${leagueState === "0" ? "active" : "white"}`}
             />
             <p>진행 예정</p>
           </div>
           <div className="leaguedetail-status-circle">
             <div
-              className={`circle ${
-                leagueState === "playing" ? "active" : "white"
-              }`}
+              className={`circle ${leagueState === "1" ? "active" : "white"}`}
             />
             <p>진행 중</p>
           </div>
           <div className="leaguedetail-status-circle">
             <div
-              className={`circle ${leagueState === "end" ? "active" : "white"}`}
+              className={`circle ${leagueState === "2" ? "active" : "white"}`}
             />
             <p>대회 종료</p>
           </div>
@@ -79,11 +97,16 @@ function LeagueDetail() {
         {isOwner && (
           <div className="leaguedetail-status-change">
             <p>주최자만 경기 상태를 변경할 수 있습니다.</p>
-            <select onChange={e => setLeagueState(e.target.value)}>
-              <option value="start">대회시작 전</option>
-              <option value="playing">대회진행 중</option>
-              <option value="end">대회종료</option>
-            </select>
+            {leagueState === "0" && (
+              <button type="button" onClick={handleChange}>
+                대회 시작하기
+              </button>
+            )}
+            {leagueState === "1" && (
+              <button type="button" onClick={() => setResultModal(true)}>
+                대회 종료하기
+              </button>
+            )}
           </div>
         )}
         <p className="leaguedetail-title">{leagueInfo?.leagueId}</p>
@@ -107,33 +130,30 @@ function LeagueDetail() {
             </button>
             {detailModal && <LeaegueInfo signal={signal} />}
             <p>VS</p>
-            {leagueState === "start" && (
+            {leagueState === "0" && (
               <div>
                 <p>대회 시작 일</p>
                 <p>{leagueInfo?.leagueStartDate}</p>
               </div>
             )}
-            {leagueState === "playing" && !isOwner && (
+            {leagueState === "1" && !isOwner && (
               <button type="button" className="live-button">
                 중계
               </button>
             )}
-            {leagueState === "playing" && isOwner && <CreateRoom />}
-            {leagueState === "end" && !isOwner && (
+            {leagueState === "1" && isOwner && <CreateRoom />}
+            {leagueState === "2" && !isOwner && (
               <button type="button" className="end-button ">
                 경기 종료
               </button>
             )}
-            {leagueState === "end" && isOwner && (
-              <button
-                type="button"
-                onClick={() => setResultModal(true)}
-                className="live-button"
-              >
-                정산 하기
-              </button>
+            {resultModal && (
+              <ResultModal
+                change={change}
+                leagueInfo={leagueInfo}
+                signal={signal}
+              />
             )}
-            {resultModal && <ResultModal signal={signal} />}
           </div>
           <div
             className="leaguedetail-info-team"
@@ -149,7 +169,11 @@ function LeagueDetail() {
             </div>
           </div>
         </div>
-        <LeagueSupport leagueInfo={leagueInfo} change={change} />
+        <LeagueSupport
+          leagueInfo={leagueInfo}
+          change={change}
+          isClose={isClose}
+        />
         <div className="leaguedetail-tip">
           <TeamDetail
             leaguePk={leagueInfo.leaguePk}
