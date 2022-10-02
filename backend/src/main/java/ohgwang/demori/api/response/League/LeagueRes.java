@@ -107,9 +107,12 @@ public class LeagueRes extends BaseResponseBody {
                     .sendId(support.getUser().getId())
                     .badge(support.getUser().getBadge())
                     .profileUrl(support.getUser().getProfileUrl())
-                    .universityLogoUrl(support.getUser().getUniversity().getLogoUrl())
                     .build();
-
+            if(support.getUser().getUniversity() == null){
+                getSupport.setUniversityLogoUrl(null);
+            }else{
+                getSupport.setUniversityLogoUrl(support.getUser().getUniversity().getLogoUrl());
+            }
             if(support.getSendUniversity().equals("0")) {
                 res.getTeam1().getGetSupports().add(getSupport);
             }
