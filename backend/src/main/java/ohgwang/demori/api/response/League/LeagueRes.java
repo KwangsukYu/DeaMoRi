@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Getter @Setter @Transactional
 public class LeagueRes extends BaseResponseBody {
 
     private int leaguePk;
