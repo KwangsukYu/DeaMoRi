@@ -158,7 +158,11 @@ function University() {
               )}
             </div>
             <div className="tab-main">
-              {bar === "ing" ? <LeaguesIng /> : <LeaguesEd />}
+              {bar === "ing" ? (
+                <LeaguesIng uniPk={uniId} />
+              ) : (
+                <LeaguesEd uniPk={uniId} />
+              )}
             </div>
           </div>
         </div>
