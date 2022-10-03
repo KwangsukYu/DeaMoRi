@@ -42,7 +42,7 @@ function App() {
           <Route path="/signup" element={<SingUp />} />
           <Route path="/edit" element={<Edit />} />
           <Route path="/live/broadcast:title" element={<LivePage />} />
-          <Route path="/createroom/:id" element={<CreateRoom />} />
+
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>

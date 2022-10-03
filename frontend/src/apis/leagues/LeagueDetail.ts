@@ -15,6 +15,9 @@ export interface supporterType {
   supportBalance: number;
   supportId: number;
   supportName: string;
+  profileUrl: undefined | string;
+  badge: string;
+  universityLogoUrl: undefined | string;
 }
 
 export interface teamType {

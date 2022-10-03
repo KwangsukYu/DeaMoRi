@@ -19,8 +19,6 @@ function LeagueComment({
   change
 }: TeamDetailProps) {
   const [teamModal, setTeamModal] = useState(false);
-  const [page, setPage] = useState(1);
-  const itemCount = 6;
 
   return (
     <div id="leaguecomment">
