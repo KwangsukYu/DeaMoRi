@@ -21,9 +21,11 @@ public class AdminController {
 
 
     @GetMapping()
-    @ApiOperation(value = "유저 리스트",response = UserAdminRes.class)
+    @ApiOperation(value = "유저 리스트",notes = "Access Tocken 필요없음",response = UserAdminRes.class)
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "유저 없음"),
+            @ApiResponse(code = 400, message = "잘못된 요청"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> getUsers() {
@@ -44,12 +46,12 @@ public class AdminController {
     }
 
     @PatchMapping()
-    @ApiOperation(value = "유저 권한 변경")
+    @ApiOperation(value = "유저 권한 변경",notes = "Access Tocken 필요없음")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> changeRole(@ApiParam(value = "유저 PK",example = "1")@RequestParam int userPk, @ApiParam(value = "유저 권한(0 == 일반 유저, 1 == 인증 유저 , 2 == 중지 유저)")@RequestParam int role) {
+    public ResponseEntity<? extends BaseResponseBody> changeRole(@ApiParam(value = "유저 PK",example = "1")@RequestParam int userPk, @ApiParam(value = "유저 권한(0 == 일반 유저, 1 == 인증 유저 , 2 == 중지 유저)",example = "1")@RequestParam int role) {
 
         try{
             User user = userService.findByPk(userPk);

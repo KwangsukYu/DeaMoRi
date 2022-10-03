@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.transaction.Transactional;
 
@@ -49,6 +50,11 @@ public class UserController {
 	UniversityService universityService;
 
 
+	@ApiOperation(value = "회원가입",notes = "Access Tocken 필요없음")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "저장완료"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
 	@PostMapping()
 	public ResponseEntity<? extends BaseResponseBody> register(
 			@RequestBody UserRegisterPostReq registerInfo) {
@@ -61,9 +67,14 @@ public class UserController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
 	}
 
+	@ApiOperation(value = "자기 정보 보기",notes = "Access Tocken 필요")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "호출 완료"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
 	@GetMapping("/me")
 	@Transactional
-	public ResponseEntity<UserRes> getUserInfo(Authentication authentication) {
+	public ResponseEntity<UserRes> getUserInfo(@ApiIgnore Authentication authentication) {
 		/**
 		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
 		 * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
@@ -75,8 +86,14 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserRes.of(user));
 	}
 
+	@ApiOperation(value = "ID 중복체크",notes = "Access Tocken 필요없음")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "중복없음"),
+			@ApiResponse(code = 400, message = "ID중복"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
 	@GetMapping("/check/id")
-	public ResponseEntity<?> getIdCheck(@RequestParam String userId){
+	public ResponseEntity<?> getIdCheck(@ApiParam(value = "유저ID", example = "test") @RequestParam String userId){
 		User user = userService.getUserByUserId(userId);
 
 		if(user == null) {
@@ -86,8 +103,15 @@ public class UserController {
 		}
 	}
 
+
+	@ApiOperation(value = "닉네임 중복체크",notes = "Access Tocken 필요없음")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "중복없음"),
+			@ApiResponse(code = 400, message = "닉네임 중복"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
 	@GetMapping("/check/nickname")
-	public ResponseEntity<?> getNicknameCheck(@RequestParam String nickName){
+	public ResponseEntity<?> getNicknameCheck(@ApiParam(value = "유저 닉네임", example = "nickName") @RequestParam String nickName){
 		User user = userService.getUserByNickname(nickName);
 
 		if(user == null) {
@@ -103,7 +127,7 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	@PostMapping("/auth")
-	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file ,@ApiParam(value = "대학 이름") @RequestParam String univesityName){
+	public ResponseEntity<? extends BaseResponseBody> uploadAuthImage(@ApiIgnore Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file ,@ApiParam(value = "대학 이름") @RequestParam String univesityName){
 		try {
 			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 			String userId = userDetails.getUsername();
@@ -124,7 +148,7 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	@PatchMapping("/profile")
-	public ResponseEntity<? extends BaseResponseBody> uploadProfileImage(Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file){
+	public ResponseEntity<? extends BaseResponseBody> uploadProfileImage(@ApiIgnore Authentication authentication, @ApiParam(value = "multipart 타입으로 파일 전송") @RequestPart MultipartFile file){
 		try {
 			SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 			String userId = userDetails.getUsername();
