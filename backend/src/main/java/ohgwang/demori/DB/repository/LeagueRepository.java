@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LeagueRepository extends JpaRepository<League, Integer> {
 
-    Page<League> findAllByLeagueIdContaining(String leagueId, Pageable pageable);
+    Page<League> findAllByStatusIsNotContaining(String status, Pageable pageable);
+    Page<League> findAllByLeagueIdContainingAndStatusIsNotContaining(String leagueId,String status, Pageable pageable);
+
+    Page<League> findAllByStatus(String status, Pageable pageable);
+    Page<League> findAllByLeagueIdContainingAndStatusIs(String leagueId,String status, Pageable pageable);
 
 }
