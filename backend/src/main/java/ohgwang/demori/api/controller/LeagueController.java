@@ -78,7 +78,7 @@ public class LeagueController {
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
     }
 
-    @ApiOperation(value = "대회 조회", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
+    @ApiOperation(value = "진행중 대회 조회", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
     @GetMapping()
     @ApiResponses({
             @ApiResponse(code=200, message = "성공"),
@@ -91,6 +91,26 @@ public class LeagueController {
             @RequestParam(value = "keyword", required = false) String keyword) {
 
         Page<League> leaguePage = leagueService.getLeaguePage(page, size, field, keyword);
+
+        if (leaguePage.isEmpty()) {
+            return ResponseEntity.status(204).body(BaseResponseBody.of(204, "대회가 존재하지 않습니다."));
+        }
+        return ResponseEntity.status(200).body(LeaguePageRes.of(200, SUCCESS, leaguePage));
+    }
+
+    @ApiOperation(value = "종료된 대회 조회", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
+    @GetMapping("/closed")
+    @ApiResponses({
+            @ApiResponse(code=200, message = "성공"),
+            @ApiResponse(code=204, message = "대회가 존재하지 않습니다"),
+    })
+    public ResponseEntity<? extends BaseResponseBody> getClosedLeagueList(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "8") int size,
+            @RequestParam(value = "field", defaultValue = "id") String field,
+            @RequestParam(value = "keyword", required = false) String keyword) {
+
+        Page<League> leaguePage = leagueService.getClosedLeaguePage(page, size, field, keyword);
 
         if (leaguePage.isEmpty()) {
             return ResponseEntity.status(204).body(BaseResponseBody.of(204, "대회가 존재하지 않습니다."));
