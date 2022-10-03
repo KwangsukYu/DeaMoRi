@@ -17,6 +17,8 @@ public interface LeagueService {
 
     Page<League> getLeaguePage(int page, int size, String field, String keyword);
 
+    Page<League> getClosedLeaguePage(int page, int size, String field, String keyword);
+
     League getByPk(int leaguePK);
 
     void updateLeagueStatus(League league, String s);
