@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./LeagueDetail.scss";
 import {
   getLeagueDetail,
@@ -27,6 +27,7 @@ function LeagueDetail() {
   const [changed, setChanged] = useState(false);
   const [isClose, setIsClosed] = useState(false);
   const { leagueId } = useParams();
+  const navigate = useNavigate();
 
   const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
 
@@ -137,11 +138,22 @@ function LeagueDetail() {
               </div>
             )}
             {leagueState === "1" && !isOwner && (
-              <button type="button" className="live-button">
+              <button
+                type="button"
+                className="live-button"
+                onClick={() =>
+                  navigate(`/live/broadcast${leagueInfo.leaguePk}`)
+                }
+              >
                 중계
               </button>
             )}
-            {leagueState === "1" && isOwner && <CreateRoom />}
+            {leagueState === "1" && isOwner && (
+              <CreateRoom
+                leaguePk={leagueInfo.leaguePk as number}
+                leagueId={leagueInfo.leagueId as string}
+              />
+            )}
             {leagueState === "2" && !isOwner && (
               <button type="button" className="end-button ">
                 경기 종료
