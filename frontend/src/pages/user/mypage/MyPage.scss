@@ -24,6 +24,12 @@
       &-img {
         width: 100px;
         height: 100px;
+        > img {
+          width: 100px;
+          height: 100px;
+          background-color: #fff;
+          border-radius: 100%;
+        }
       }
       &-detail {
         display: flex;
@@ -38,8 +44,15 @@
         }
         .mypage-school {
           display: flex;
+          align-items: center;
           &-icon {
+            width: 30px;
+            height: 30px;
             margin-right: 12px;
+            > img {
+              width: 30px;
+              height: 30px;
+            }
           }
           &-chk {
             box-shadow: none;

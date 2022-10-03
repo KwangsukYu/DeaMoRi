@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.scss";
 import NavLogo from "assets/images/DAMORI_navBar.svg";
-import UserDummy from "assets/images/UserDummy.svg";
-import Badge from "assets/images/RewardBadge.svg";
+import UserDummy from "assets/images/userDummy2.png";
 import { useSelector, useDispatch } from "react-redux";
 import { infoType } from "Slices/userInfo";
 import { delInfo } from "../../Slices/userInfo";
@@ -69,7 +68,7 @@ function NavBar() {
               <div className="navbar-content-tap-profile">
                 <div>{storeUser.nickName}</div>
                 <div className="badge-container">
-                  <img src={Badge} alt="school-icon" />
+                  <img src={storeUser.badge} alt="school-icon" />
                 </div>
                 <div className="profile-container">
                   <button
@@ -77,7 +76,12 @@ function NavBar() {
                     type="button"
                     onClick={() => setdropDown(!dropDown)}
                   >
-                    <img src={UserDummy} alt="dummy" />
+                    <img
+                      src={
+                        storeUser.profileUrl ? storeUser.profileUrl : UserDummy
+                      }
+                      alt="dummy"
+                    />
                   </button>
                 </div>
                 {dropDown && (
