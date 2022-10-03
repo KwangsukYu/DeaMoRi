@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./MyPage.scss";
-import UserDummy from "assets/images/UserDummy.svg";
-import SchoolIcon from "assets/images/SchoolIcon.svg";
+import UserDummy from "assets/images/userDummy2.png";
 import WalletIcon from "assets/images/Wallet.svg";
 import Badge from "assets/images/RewardBadge.svg";
 import { v4 } from "uuid";
@@ -12,6 +11,7 @@ import { infoType } from "Slices/userInfo";
 import SupportAmount from "./SupportAmount";
 import CoinCharge from "./CoinCharge";
 import CreateWallet from "./CreateWallet";
+import UniAuth from "./UniAuth";
 
 function MyPage() {
   const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
@@ -19,8 +19,10 @@ function MyPage() {
     !!userInfo.universityName || false
   );
   const [modal, setModal] = useState(false);
+  const [changed, setCahnged] = useState(false);
   const [haveWallet, setHaveWallet] = useState(!!userInfo.address || false);
   const [userBalance, setUserBalance] = useState<string | number>("???");
+  const [authModal, setAuthModal] = useState(false);
   const supportDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const getUserBalance = async () => {
@@ -38,6 +40,10 @@ function MyPage() {
     setHaveWallet(true);
   };
 
+  const change = () => {
+    setCahnged(!changed);
+  };
+
   return (
     <div id="mypage">
       <div className="mypage">
@@ -50,18 +56,25 @@ function MyPage() {
             {schoolChk ? (
               <div className="mypage-school">
                 <div className="mypage-school-icon">
-                  <img src={userInfo.universityLgo} alt="" />
+                  <img src={userInfo.universityLogo} alt="" />
                 </div>
                 <div className="mypage-school-name">
                   {userInfo.universityName}
                 </div>
               </div>
             ) : (
-              <button type="button" className="mypage-school-chk">
+              <button
+                type="button"
+                className="mypage-school-chk"
+                onClick={() => setAuthModal(true)}
+              >
                 대학 인증
               </button>
             )}
           </div>
+          {authModal && (
+            <UniAuth change={change} closeModal={() => setAuthModal(false)} />
+          )}
         </div>
         <div className="mypage-wallet">
           <div className="mypage-wallet-icon">
@@ -92,15 +105,17 @@ function MyPage() {
         <div className="mypage-badge">
           <p>보유 뱃지</p>
           <div className="mypage-badge-container">
-            {[userInfo.badge].map(() => (
-              <img
-                src={Badge}
-                alt="badge"
-                title="후원1등"
-                key={v4()}
-                className="badge-item"
-              />
-            ))}
+            {userInfo.badgeList
+              ? userInfo.badgeList.map(() => (
+                  <img
+                    src={Badge}
+                    alt="badge"
+                    title="후원1등"
+                    key={v4()}
+                    className="badge-item"
+                  />
+                ))
+              : null}
           </div>
         </div>
         <div className="mypage-support">

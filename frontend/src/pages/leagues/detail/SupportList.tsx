@@ -15,8 +15,6 @@ function SupportList({ supporters }: SupportListProps) {
     })
     .slice(0, 10);
 
-  console.log(supportersRank);
-
   return (
     <div id="supportlist">
       <div className="supportlist">
