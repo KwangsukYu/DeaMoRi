@@ -1,8 +1,6 @@
 package ohgwang.demori.api.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.League;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.request.LeaguePatchReq;
@@ -16,6 +14,7 @@ import ohgwang.demori.api.service.UniversityService;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.auth.SsafyUserDetails;
 import ohgwang.demori.common.model.response.BaseResponseBody;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -28,6 +27,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.io.IOException;
 import java.util.List;
 
+@Api(value = "League API" , tags = {"League"})
 @RestController
 @RequestMapping("/api/league")
 public class LeagueController {
@@ -55,7 +55,8 @@ public class LeagueController {
             @ApiResponse(code = 500, message = "실패"),
     })
     public ResponseEntity<? extends BaseResponseBody> registerLeague(
-            @RequestPart MultipartFile file, @RequestPart LeagueRegisterPostReq registerInfo) throws IOException {
+            @RequestPart MultipartFile file,
+            @RequestPart LeagueRegisterPostReq registerInfo) throws IOException {
 
         if(universityService.getUniversityByName(registerInfo.getTeam1University()) == null
                 || universityService.getUniversityByName(registerInfo.getTeam2University()) == null) {
@@ -131,7 +132,7 @@ public class LeagueController {
 
             if (league == null) {
                 return ResponseEntity.status(400).body(BaseResponseBody.of(400, "잘못된 요청(대회 없음)"));
-            }else if("0".equals(league.getStatus())){
+            }else if(!"0".equals(league.getStatus())){
                 return ResponseEntity.status(400).body(BaseResponseBody.of(400, "잘못된 요청(대회가 이미 개최 중 or 종료)"));
             }
 
@@ -163,7 +164,7 @@ public class LeagueController {
 
             if (league == null) {
                 return ResponseEntity.status(400).body(BaseResponseBody.of(400, "잘못된 요청(대회 없음)"));
-            }else if("1".equals(league.getStatus())){
+            }else if(!"1".equals(league.getStatus())){
                 return ResponseEntity.status(400).body(BaseResponseBody.of(400, "잘못된 요청(대회가 시작 안함 or 이미 종료)"));
             }
 

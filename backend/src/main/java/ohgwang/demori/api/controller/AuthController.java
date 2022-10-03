@@ -1,7 +1,12 @@
 package ohgwang.demori.api.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.request.UserLoginPostReq;
+import ohgwang.demori.api.response.User.UserAdminRes;
 import ohgwang.demori.api.response.User.UserLoginPostRes;
 import ohgwang.demori.api.service.UserService;
 import ohgwang.demori.common.util.JwtTokenUtil;
@@ -25,6 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 
  생성된 엑세스 토큰을 herder에 Authorization : Bearer + 엑세스 토큰 형태로 저장
  */
+
+@Api(value = "auth API" , tags = {"auth"})
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -33,7 +40,15 @@ public class AuthController {
 	
 	@Autowired
     PasswordEncoder passwordEncoder;
-	
+
+	@ApiOperation(value = "로그인",notes = "Access Tocken 필요없음",response = UserLoginPostRes.class)
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 400, message = "잘못된 요청"),
+			@ApiResponse(code = 401, message = "로그인 실패"),
+			@ApiResponse(code = 403, message = "정지 유저"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
 	@PostMapping("/login")
 	public ResponseEntity<UserLoginPostRes> login(@RequestBody UserLoginPostReq loginInfo) {
 		String userId = loginInfo.getUserId();
