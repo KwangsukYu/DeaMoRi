@@ -63,7 +63,7 @@ export const chargeCoin = async (price, address) => {
   const txHash = await TokenContract.methods
     .transfer(address, price)
     .send({ from: coinBase })
-    .then(res => res);
+    .then(res => res.transactionHash);
 
   console.log(txHash);
 
