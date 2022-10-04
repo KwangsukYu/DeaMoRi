@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Leagues.scss";
 import { v4 } from "uuid";
 import { Link } from "react-router-dom";
-import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
-import Scroll from "./Scroll";
 import SearchIng from "./SearchIng";
 import SearchEnd from "./SearchEnd";
 
@@ -12,7 +10,6 @@ function Leagues() {
   const [ing, setIng] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [isValue, setIsvalue] = useState(false);
-  // date : 대회중 & 대회종료 필터 구분
   const [date, setDate] = useState("start");
 
   const changeSearch = (value: boolean) => {
@@ -21,26 +18,19 @@ function Leagues() {
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    // if (inputValue.length >= )
-    console.log(inputValue);
   };
 
-  // enter클릭시 해당 키워드에 해당하는 대회 찾기
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsvalue(true);
     if (inputValue === "") {
       setIsvalue(false);
     }
-    // return null;
-    // Search(inputValue);
   };
 
   const reset = () => {
     setIsvalue(false);
   };
-
-  // useEffect(() => {}, [inputValue]);
 
   return (
     <div id="leagues">
@@ -55,7 +45,7 @@ function Leagues() {
             <div className="leagues-function-leaguelist">우리 대학 대회</div>
           </span>
         </div>
-        <Carousel />
+        {/* <Carousel /> */}
         <div className="leagues-function-leaguelist">대회 목록</div>
         <div className="leagues-buttonlist">
           <div>

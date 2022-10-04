@@ -19,25 +19,28 @@ function Carousel({ sliders }: any) {
 
   useEffect(() => {
     function getMyLeagues() {
-      axios({
-        url: `http://j7c208.p.ssafy.io:8080/api/univers/league/${userInfo.universityPk}`,
-        method: "get",
-        headers: { Authorization: `Bearer ${localStorage.token}` }
-      })
-        .then(res => {
-          console.log(res.data, "내 대학 리그");
-          // console.log(res);
-          const data = res.data.getLeagues;
-          setItems(data);
+      if (userInfo.universityPk) {
+        axios({
+          url: `http://j7c208.p.ssafy.io:8080/api/univers/league/${userInfo.universityPk}`,
+          method: "get",
+          headers: { Authorization: `Bearer ${localStorage.token}` }
         })
-        .catch(err => {
-          console.error(err);
-        });
+          .then(res => {
+            console.log(res, "내 대학 리그");
+            // console.log(res);
+            const data = res.data.getLeagues;
+            setItems(data);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else setItems([]);
     }
     getMyLeagues();
   }, []);
 
-  console.log(items);
+  const scroll = Math.ceil(items.length / 3);
+
   const settings = {
     dots: true,
     infinite: true,

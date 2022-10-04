@@ -60,7 +60,9 @@ function SearchEnd() {
     setPage(page + 1);
   };
 
-  const handleEnterSubmit = async () => {
+  const handleEnterSubmit = async async () => {
+    setPage(0);
+    await fetchComments();
     setPage(0);
     await fetchComments();
     setEnterSubmit(!enterSubmit);

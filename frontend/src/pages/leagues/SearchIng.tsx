@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./SearchIng.scss";
+import { getLeagues } from "apis/leagues/InfinityScroll";
 import SearchIcon from "assets/images/searchIcon.svg";
+import { CircularProgress } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import Poster from "./Poster";
 import Loader from "./Loader";
@@ -13,6 +15,7 @@ function SearchIng() {
   const [hasMore, setHasMore] = useState(true);
   const [enterSubmit, setEnterSubmit] = useState(false);
   const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
