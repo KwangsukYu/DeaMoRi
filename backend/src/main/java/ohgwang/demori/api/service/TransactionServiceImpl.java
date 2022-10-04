@@ -142,6 +142,8 @@ public class TransactionServiceImpl implements TransactionService {
         map.put("sender",t.getTo());
         map.put("receiver",t.getFrom());
         map.put("balance" , t.getValue().toString());
+
+
         saveTransaction(t,leagueReq.getTransactionHash(),map,walletRepository.findByAddress(map.get("receiver")),"0");   // 받는 사람 지갑에 트랜션 저장
 
 
@@ -171,8 +173,27 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void chargeCoin(String transactionHash) throws IOException {
         org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get();
-        Map<String,String> map = inputCutting(t.getInput());
-        saveTransaction(t,transactionHash,map,walletRepository.findByAddress(map.get("receiver")),"0");   // 받는 사람 지갑에 트랜션 저장
+
+        Map<String, String> map = new HashMap<>();
+        map.put("receiver","0x"+t.getInput().substring(34, 74));
+        map.put("balance",t.getInput().substring(98, 138));
+
+
+        System.out.println(t.getInput().substring(98, 138));
+
+        // 충전할때는 input에 보내는 사람 주소가 빠져서 한칸 땡겨짐
+        Transaction transaction = Transaction.builder()
+                .blockHash(t.getBlockHash())
+                .blockNumber(t.getBlockNumber().toString())
+                .transactionHash(transactionHash)
+                .value(Integer.toString(Integer.parseInt(map.get("balance"),16)))
+                .fromAddress("0x228440ad0ef8de50627bab44cd1f82ac3b3a1db690c6ec86115636c595f0cd09")
+                .toAddress(map.get("receiver"))
+                .isRemit("0")
+                .wallet(walletRepository.findByAddress(map.get("sender")))
+                .build();
+
+        transactionRepository.save(transaction);
 
     }
 

@@ -98,6 +98,7 @@ public class TransactionController {
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, "서버 오류"));
         }
 
