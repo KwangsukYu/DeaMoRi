@@ -9,6 +9,7 @@ interface CreateRoomProps {
 
 function CreateRoom({ leagueInfo }: CreateRoomProps) {
   const pk = 2;
+  const leaguePk = "3";
 
   // https://j7c208.p.ssafy.io:4443
   const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:8443";
