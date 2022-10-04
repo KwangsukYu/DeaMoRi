@@ -59,6 +59,8 @@ async function CreateLeague(files: any, data: createLeague) {
     type: "application/json"
   });
   formData.append("registerInfo", blob);
+  console.log(newData);
+  console.log(123);
 
   const Re = await axios({
     url: "https://j7c208.p.ssafy.io:8080/api/league",
