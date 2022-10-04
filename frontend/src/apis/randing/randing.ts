@@ -9,8 +9,7 @@ export interface TotalType {
 export function getTotal() {
   const res = axios({
     url: "http://j7c208.p.ssafy.io:8080/api/league/summary",
-    method: "patch",
-    headers: { Authorization: `Bearer ${localStorage.token}` }
+    method: "patch"
   })
     .then(re => re.data)
     .catch(err => {
