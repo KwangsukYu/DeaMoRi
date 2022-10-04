@@ -65,8 +65,6 @@ export const chargeCoin = async (price, address) => {
     .send({ from: coinBase })
     .then(res => res.transactionHash);
 
-  console.log(txHash);
-
   return txHash;
 };
 
