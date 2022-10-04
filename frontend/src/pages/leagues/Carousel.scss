@@ -1,11 +1,26 @@
 #carousel {
-  width: 700px;
-  height: 240px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  .poster {
-    width: 200px;
-    height: 200px;
-    background-color: orange;
-  }
+  width: 100%;
+  padding-top: 20px;
+  text-align: center;
+}
+.slick-list {
+  height: 500px;
+}
+.carousel {
+  width: 90%;
+  margin: 0px auto;
+}
+.slick-slide {
+  margin: 10px;
+}
+
+.slick-slide img {
+  width: 100%;
+
+  // border: 2px solid #fff;
+}
+.wrapper .slick-dots li button:before {
+  font-size: 20px;
+  color: white;
+  margin-top: 100px;
 }
