@@ -54,7 +54,7 @@ export interface leagueDetailType {
 
 export function getLeagueDetail(leagueId: number) {
   const res = axios({
-    url: `http://j7c208.p.ssafy.io:8080/api/league/${leagueId}`,
+    url: `https://j7c208.p.ssafy.io:8080/api/league/${leagueId}`,
     method: "get",
     headers: { Authorization: `Bearer ${localStorage.token}` }
   })

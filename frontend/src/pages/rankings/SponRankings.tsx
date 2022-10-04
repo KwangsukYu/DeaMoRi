@@ -24,7 +24,7 @@ function SponRankings() {
   const [userRank, setUserRank] = useState<userRankType[]>([]);
   useEffect(() => {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/ranking/user",
+      url: "https://j7c208.p.ssafy.io:8080/api/ranking/user",
       method: "get",
       params: { page: 0, size: 10 }
     })
@@ -38,7 +38,7 @@ function SponRankings() {
 
   useEffect(() => {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/ranking/update/user",
+      url: "https://j7c208.p.ssafy.io:8080/api/ranking/update/user",
       method: "put",
       params: { page: 0, size: 10 }
     })

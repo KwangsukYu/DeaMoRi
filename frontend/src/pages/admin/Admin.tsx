@@ -21,7 +21,7 @@ function Admin() {
 
   useEffect(() => {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/admin",
+      url: "https://j7c208.p.ssafy.io:8080/api/admin",
       method: "get",
       headers: { Authorization: `Bearer ${localStorage.token}` }
     })
@@ -48,7 +48,7 @@ function Admin() {
     }
     e.preventDefault();
     axios({
-      url: `http://j7c208.p.ssafy.io:8080/api/admin`,
+      url: `https://j7c208.p.ssafy.io:8080/api/admin`,
       method: "patch",
       headers: { Authorization: `Bearer ${localStorage.token}` },
       params: { role: userRoleNum, userPk: pk }
