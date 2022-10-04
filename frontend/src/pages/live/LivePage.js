@@ -6,7 +6,8 @@ import closechat from "assets/images/closechat.png";
 import openchat from "assets/images/openchat.png";
 import { useSelector, useDispatch } from "react-redux";
 import { infoType } from "Slices/userInfo";
-
+import { io } from "socket.io-client";
+import { v4 } from "uuid";
 import UserVideoComponent from "./UserVideoComponent";
 import LiveChat from "./LiveChat";
 import Donation from "./Donation";
@@ -15,6 +16,11 @@ const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "ohgwang12";
 
 let OV;
+
+const socket = io.connect(`localhost:3001`, {
+  cors: { origin: "http://localhost:3001" }
+});
+export const SocketContext = React.createContext();
 
 export default function LivePage() {
   // const [ov, setOv] = useState(null);
@@ -38,6 +44,33 @@ export default function LivePage() {
   const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
   const [donation, setDonation] = useState("text");
   const [donationSwitch, setDonationSwitch] = useState("false");
+  const [chat, setChat] = useState([]);
+  const [message, setMessage] = useState("");
+
+  const sendMessageHandler = () => {
+    socket.emit("message", message);
+    setDonation(message);
+    setMessage("");
+  };
+
+  const donaitonOff = () => {
+    setDonationSwitch(false);
+  };
+
+  const donationOn = () => {
+    setDonationSwitch(true);
+    setTimeout(donaitonOff, 2000);
+  };
+
+  useEffect(() => {
+    console.log("왜 중복실행", chat);
+    socket.on("message", messageing => {
+      setChat([messageing]);
+      donationOn();
+      const msg = new SpeechSynthesisUtterance(messageing);
+      window.speechSynthesis.speak(msg);
+    });
+  }, [chat]);
 
   const getToken = sessionId => {
     return new Promise((resolve, reject) => {
@@ -59,7 +92,6 @@ export default function LivePage() {
           resolve(response.data.token);
         })
         .catch(error => {
-          console.log(error);
           // document.location.href = '/'
         });
     });
@@ -87,14 +119,79 @@ export default function LivePage() {
         const newPublisher = OV.initPublisher(undefined, {
           audioSource: undefined,
           videoSource: videoDevices[0].deviceId,
+
           publishAudio: true,
           publishVideo: true,
-          resolution: "1280x960",
           frameRate: 30,
           insertMode: "APPEND",
           mirror: false
         });
-        console.log("여기체크", OV.initPublisher);
+        newPublisher.once("accessAllowed", () => {
+          try {
+            newPublisher.stream
+              .getMediaStream()
+              .getVideoTracks()[0]
+              .applyConstraints({
+                width: 640,
+                height: 480
+              });
+          } catch (error) {
+            console.error("Error applying constraints: ", error);
+          }
+        });
+
+        session.publish(newPublisher);
+        setMainStreamManager(newPublisher);
+        setPublisher(newPublisher);
+        setCurrentVideoDevice(videoDevices[0]);
+        setLoading(true);
+      });
+    });
+  };
+  const shareSession = () => {
+    session.on("streamCreated", event => {
+      // const subscriber = session.subscribe(event.stream, undefined);
+      // setSubscribers(prevSubscribers => [subscriber, ...prevSubscribers]);
+    });
+    session.on("streamDestroyed", event => {
+      // setSubscribers(prevSubscribers => {
+      //   return prevSubscribers.filter(
+      //     stream => stream !== event.stream.streamManager
+      //   );
+      // });
+    });
+
+    getToken(mySessionId).then(token => {
+      session.connect(token, { clientData: myUserName }).then(async () => {
+        const devices = await OV.getDevices();
+        const videoDevices = devices.filter(
+          device => device.kind === "videoinput"
+        );
+        const newPublisher = OV.initPublisher(undefined, {
+          audioSource: undefined,
+          // videoSource: videoDevices[0].deviceId,
+          videoSource: "screen",
+          publishAudio: true,
+          publishVideo: true,
+
+          frameRate: 30,
+          insertMode: "APPEND",
+          mirror: false
+        });
+        newPublisher.once("accessAllowed", () => {
+          try {
+            newPublisher.stream
+              .getMediaStream()
+              .getVideoTracks()[0]
+              .applyConstraints({
+                width: 640,
+                height: 480
+              });
+          } catch (error) {
+            console.error("Error applying constraints: ", error);
+          }
+        });
+
         session.publish(newPublisher);
         setMainStreamManager(newPublisher);
         setPublisher(newPublisher);
@@ -108,14 +205,6 @@ export default function LivePage() {
     OV = new OpenVidu();
     setSession(OV.initSession());
   }, []);
-
-  useEffect(() => {
-    if (!session) return;
-
-    joinSession();
-    console.log("셋션", session);
-    console.log("세션", session.subscribe);
-  }, [session]);
 
   const leaveSession = () => {
     if (session) session.disconnect();
@@ -190,24 +279,13 @@ export default function LivePage() {
   useEffect(() => {
     reqCameraAndAudio();
     // window.location.replace(`/live/${title}`);
-    console.log("타이틀", title);
   }, []);
 
-  const donaitonOff = () => {
-    setDonationSwitch(false);
-  };
-
-  const donationOn = () => {
-    setDonationSwitch(true);
-    setTimeout(donaitonOff, 2000);
-  };
-
-  const playTTS = e => {
-    donationOn();
-    console.log("컨설", e);
-    const msg = new SpeechSynthesisUtterance(e);
-    window.speechSynthesis.speak(msg);
-  };
+  // const playTTS = e => {
+  //   donationOn();
+  //   const msg = new SpeechSynthesisUtterance(e);
+  //   window.speechSynthesis.speak(msg);
+  // };
 
   return (
     <div className="broad">
@@ -216,7 +294,13 @@ export default function LivePage() {
           <div className="live">
             <div className="live-box">
               <div className="donation">
-                {donationSwitch === true ? <Donation /> : null}
+                {donationSwitch === true ? (
+                  <Donation
+                    props={{
+                      donation
+                    }}
+                  />
+                ) : null}
               </div>
               {mainStreamManager !== null ? (
                 <UserVideoComponent
@@ -245,18 +329,24 @@ export default function LivePage() {
                     }}
                   />
                   <div>
+                    <ul>
+                      {/* {chat.map(data => {
+                        return <li key={v4()}>{data}</li>;
+                      })} */}
+                    </ul>
+                  </div>
+
+                  <div>
+                    {/* <input
+                      value={coin}
+                      onChange={e => setMessage(e.target.value)}
+                    /> */}
                     <input
-                      type="text"
-                      onChange={event => setDonation(event.target.value)}
+                      value={message}
+                      onChange={e => setMessage(e.target.value)}
                     />
-                    ;
-                    <button
-                      type="submit"
-                      onClick={() => {
-                        playTTS(donation);
-                      }}
-                    >
-                      도네이션
+                    <button onClick={sendMessageHandler} type="button">
+                      도네이션 보내기
                     </button>
                   </div>
                 </div>
@@ -278,6 +368,12 @@ export default function LivePage() {
         </button>
         <button type="button" onClick={VoiceOff}>
           소리전환
+        </button>
+        <button type="button" onClick={shareSession}>
+          화면공유
+        </button>
+        <button type="button" onClick={joinSession}>
+          카메라공유
         </button>
       </div>
     </div>

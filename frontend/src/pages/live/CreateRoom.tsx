@@ -2,13 +2,15 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-interface CreateRoomProps {
-  leaguePk: number;
-  leagueId: string;
-}
+// interface CreateRoomProps {
+//   leaguePk: number;
+//   leagueId: string;
+// }
 
-function CreateRoom({ leaguePk, leagueId }: CreateRoomProps) {
+function CreateRoom() {
+  //  { leaguePk, leagueId }: CreateRoomProps
   const pk = 2;
+  const leaguePk = "3";
 
   // https://j7c208.p.ssafy.io:4443
   const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:8443";

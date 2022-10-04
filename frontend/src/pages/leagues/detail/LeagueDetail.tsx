@@ -150,8 +150,8 @@ function LeagueDetail() {
             )}
             {leagueState === "1" && isOwner && (
               <CreateRoom
-                leaguePk={leagueInfo.leaguePk as number}
-                leagueId={leagueInfo.leagueId as string}
+              // leaguePk={leagueInfo.leaguePk as number}
+              // leagueId={leagueInfo.leagueId as string}
               />
             )}
             {leagueState === "2" && !isOwner && (
