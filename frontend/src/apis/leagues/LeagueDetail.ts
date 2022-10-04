@@ -26,7 +26,7 @@ export interface teamType {
   teamColor: string;
   teamWalletAddress: string;
   teamDonation: number;
-  teamUniversityIdv: string;
+  teamUniversityId: string;
   teamUniversityName: string;
   teamUniversitylogoUrl: string;
   getCheers: commentType[];
@@ -87,8 +87,7 @@ export function changeToEnd(
 ) {
   const data = {
     leaguePk,
-    transactionHash:
-      "0x28078d1de93df68f76d924b581e4135120f49f92a14a46eeb5bf181b742e5eff",
+    transactionHash,
     trophyUrl,
     winner
   };
