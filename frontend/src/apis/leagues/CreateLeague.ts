@@ -42,11 +42,6 @@ type createLeague = {
 };
 
 async function CreateLeague(files: any, data: createLeague) {
-  // // function CreateLeague(data) {
-  // // data.poster = data.poster[0];
-  // console.log(data.poster);
-  // console.log("잘 되나?");
-
   const CA = await deployCloneLeagueContract(
     data.team1Wallet,
     data.team2Wallet
@@ -65,7 +60,7 @@ async function CreateLeague(files: any, data: createLeague) {
   });
   formData.append("registerInfo", blob);
 
-  axios({
+  const Re = await axios({
     url: "http://j7c208.p.ssafy.io:8080/api/league",
     method: "post",
     data: formData,
@@ -75,11 +70,15 @@ async function CreateLeague(files: any, data: createLeague) {
     }
   })
     .then(response => {
-      alert("대회 등록이 완료되었습니다.");
+      console.log(response.data.message);
+      // alert("대회 등록이 완료되었습니다.");
+      return response.data.message;
+      // useNavigate(`/${}`)
     })
     .catch(err => {
       console.log(err);
     });
+  return Re;
 }
 
 export default CreateLeague;

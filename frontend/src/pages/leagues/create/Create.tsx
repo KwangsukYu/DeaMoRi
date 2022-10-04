@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Create.scss";
 import ColorPicker from "components/colorPicker/ColorPicker";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { infoType } from "Slices/userInfo";
@@ -30,6 +30,7 @@ type Inputs = {
 };
 
 function Create() {
+  const navigate = useNavigate();
   const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
 
   const [team1Color, setTeam1Color] = useState("#5c6bc0");
@@ -61,8 +62,10 @@ function Create() {
       broadcast,
       ownerPk: userPk
     };
-    await CreateLeague(files, newData);
+    const Res = await CreateLeague(files, newData);
     setIsLoading(false);
+    navigate(`/leagues/detail/${Res}`);
+    alert("대회 등록이 완료되었습니다.");
   };
 
   const broadcasting = (e: string) => {
