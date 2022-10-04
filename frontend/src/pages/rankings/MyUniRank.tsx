@@ -5,6 +5,7 @@ import rankLogo2 from "assets/images/rank2.png";
 import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { infoType } from "Slices/userInfo";
 import { useSelector } from "react-redux";
 
@@ -20,6 +21,7 @@ interface myUniType {
 }
 
 function MyUniRank() {
+  const navigate = useNavigate();
   // const myUni = { rank: 112, name: "싸피대학교", price: "53000000" };
   const [myUni, setMyUni] = useState<myUniType>({
     donation: 0,
@@ -63,7 +65,15 @@ function MyUniRank() {
     rankClass = "rankLogo4";
   }
   return (
-    <div key={storeUser.ranking} className="rank-main">
+    <button
+      type="button"
+      key={storeUser.ranking}
+      className="rank-main"
+      onClick={() => {
+        navigate(`/university/${storeUser.universityPk}`);
+      }}
+      style={{ cursor: "pointer" }}
+    >
       <div className="logo-box">
         <img className={rankClass} src={rankImg} alt="" />
         <p className="rank-main-rank">{myUni.ranking}</p>
@@ -72,7 +82,7 @@ function MyUniRank() {
       <p className="rank-main-price">
         {myUni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
       </p>
-    </div>
+    </button>
   );
 }
 
