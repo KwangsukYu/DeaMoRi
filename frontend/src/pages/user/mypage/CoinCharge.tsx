@@ -22,8 +22,8 @@ function CoinCharge({ signal, userAddress }: CoinChargeProps) {
     setLoading(true);
     const res = await chargeCoin(num, userAddress);
     await sendTx(res);
-    signal();
     setLoading(false);
+    signal();
   };
 
   return (
