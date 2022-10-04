@@ -8,9 +8,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import posterSample from "assets/images/posterSample.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 
 interface leagueType {
+  donation(donation: any): unknown;
+  prizeMoney: string;
   leagueEndDate: string;
   leagueId: number;
   leagueName: string;
@@ -23,6 +26,8 @@ interface leagueType {
 export interface Leaguestype extends Array<leagueType> {}
 
 export default function LeaguesIng({ uniPk }: any) {
+  const navigate = useNavigate();
+
   const [leagueList, setLeagueList] = useState<Leaguestype>([]);
   const [loading, setLoading] = useState(false);
 
@@ -63,21 +68,92 @@ export default function LeaguesIng({ uniPk }: any) {
                 return (
                   <Card
                     id="card"
-                    sx={{ width: 200, height: 300, padding: 1, margin: 1 }}
+                    sx={{
+                      width: 200,
+                      // height: 300,
+                      padding: 1,
+                      margin: 1,
+                      cursor: "pointer"
+                    }}
                     key={v4()}
+                    onClick={() => {
+                      navigate(`/leagues/detail/${league.leagueId}`);
+                    }}
                   >
                     <CardMedia
                       component="img"
-                      height="200"
+                      // height="200"
                       image={league.posterURL}
                       alt="green iguana"
                     />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                    <hr />
+                    <CardContent
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                      }}
+                    >
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{
+                          fontWeight: "bold",
+                          fontSize: "17px",
+                          width: "210px",
+                          textAlign: "center"
+                        }}
+                      >
                         {league.leagueName}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {league.leagueStartDate} - {league.leagueEndDate}
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          fontWeight: "bold",
+                          marginTop: "15px",
+                          width: "214px",
+                          textAlign: "center"
+                        }}
+                      >
+                        {league.leagueStartDate} ~ {league.leagueEndDate} <br />
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          fontWeight: "bold",
+                          marginTop: "15px",
+                          width: "214px",
+                          marginLeft: "50px"
+
+                          // textAlign: "center"
+                        }}
+                      >
+                        {`대회상금 : ${Number(league.prizeMoney)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON`}
+                        {/* 대회상금 :
+                        {Number(league.prizeMoney)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                        WON <br /> */}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          fontWeight: "bold",
+                          marginTop: "15px",
+                          width: "214px",
+                          marginLeft: "50px"
+                          // textAlign: "center"
+                        }}
+                      >
+                        {`후원금 : ${Number(league.donation)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON`}
                       </Typography>
                     </CardContent>
                   </Card>

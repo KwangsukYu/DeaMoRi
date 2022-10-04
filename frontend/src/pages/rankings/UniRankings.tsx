@@ -6,6 +6,7 @@ import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
 import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 import MyUniRank from "./MyUniRank";
 
 interface uniRankType {
@@ -19,6 +20,8 @@ interface uniRankType {
 }
 
 function UniRankings() {
+  const navigate = useNavigate();
+
   const [uniRank, setUniRank] = useState<uniRankType[]>([]);
 
   useEffect(() => {
@@ -65,7 +68,15 @@ function UniRankings() {
       rankClass = "rankLogo4";
     }
     return (
-      <div key={v4()} className="rank-main">
+      <button
+        type="button"
+        key={v4()}
+        className="rank-main"
+        onClick={() => {
+          navigate(`/university/${uni.uniPk}`);
+        }}
+        style={{ cursor: "pointer" }}
+      >
         <div className="logo-box">
           <img className={rankClass} src={rankImg} alt="" />
           <p className="rank-main-rank">{uni.ranking}</p>
@@ -74,7 +85,7 @@ function UniRankings() {
         <p className="rank-main-price">
           {uni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
         </p>
-      </div>
+      </button>
     );
   });
 
