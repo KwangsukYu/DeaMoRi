@@ -190,7 +190,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .fromAddress("0x228440ad0ef8de50627bab44cd1f82ac3b3a1db690c6ec86115636c595f0cd09")
                 .toAddress(map.get("receiver"))
                 .isRemit("0")
-                .wallet(walletRepository.findByAddress(map.get("sender")))
+                .wallet(walletRepository.findByAddress(map.get("receiver")))
                 .build();
 
         transactionRepository.save(transaction);
