@@ -30,19 +30,18 @@ function MyPage() {
     const balance = await getWalletBalance(userInfo.address);
     setUserBalance(balance);
   };
+  const change = () => {
+    setCahnged(!changed);
+  };
 
   useEffect(() => {
     if (userInfo.address) {
       getUserBalance();
     }
-  }, [userInfo.address]);
+  }, [userInfo.address, change]);
 
   const signal = () => {
     setHaveWallet(true);
-  };
-
-  const change = () => {
-    setCahnged(!changed);
   };
 
   const fileUpload = () => {
@@ -99,7 +98,12 @@ function MyPage() {
             )}
           </div>
           {authModal && (
-            <UniAuth change={change} closeModal={() => setAuthModal(false)} />
+            <UniAuth
+              change={change}
+              closeModal={() => {
+                setAuthModal(false);
+              }}
+            />
           )}
         </div>
         <div className="mypage-wallet">
@@ -166,10 +170,16 @@ function MyPage() {
             <p>금액</p>
           </div>
         </div>
-        {tap === 0 ? (
-          <SupportTxList state={tap} />
+        {haveWallet ? (
+          <div className="list-container">
+            {tap === 0 ? (
+              <SupportTxList state={tap} changed={changed} />
+            ) : (
+              <SupportTxList state={tap} changed={changed} />
+            )}
+          </div>
         ) : (
-          <SupportTxList state={tap} />
+          <div className="none-wallet">지갑을 생성해주세요.</div>
         )}
       </div>
       {modal && (
@@ -178,6 +188,7 @@ function MyPage() {
           signal={() => {
             setModal(!modal);
             getUserBalance();
+            change();
           }}
         />
       )}
