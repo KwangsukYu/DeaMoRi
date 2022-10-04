@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./MyPage.scss";
 import UserDummy from "assets/images/userDummy2.png";
 import WalletIcon from "assets/images/Wallet.svg";
-import Badge from "assets/images/RewardBadge.svg";
 import { v4 } from "uuid";
+import { setProfile } from "apis/myPage/myPage";
 import { numberWithCommas } from "utils/numberComma";
 import { getWalletBalance } from "apis/web3/web3";
 import { useSelector } from "react-redux";
 import { infoType } from "Slices/userInfo";
-import SupportAmount from "./SupportAmount";
+import SupportTxList from "pages/leagues/detail/SupportTxList";
 import CoinCharge from "./CoinCharge";
 import CreateWallet from "./CreateWallet";
 import UniAuth from "./UniAuth";
@@ -23,7 +23,8 @@ function MyPage() {
   const [haveWallet, setHaveWallet] = useState(!!userInfo.address || false);
   const [userBalance, setUserBalance] = useState<string | number>("???");
   const [authModal, setAuthModal] = useState(false);
-  const supportDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [tap, setTap] = useState(1);
+  const imgRef = useRef<HTMLInputElement>(null);
 
   const getUserBalance = async () => {
     const balance = await getWalletBalance(userInfo.address);
@@ -44,13 +45,38 @@ function MyPage() {
     setCahnged(!changed);
   };
 
+  const fileUpload = () => {
+    if (imgRef.current) {
+      imgRef.current.click();
+    }
+  };
+
+  const changeProfile = () => {
+    if (imgRef.current?.files) {
+      const file = imgRef.current.files[0];
+      if (file) {
+        setProfile(file);
+      }
+    }
+  };
+
   return (
     <div id="mypage">
       <div className="mypage">
         <div className="mypage-profile">
-          <div className="mypage-profile-img">
+          <input
+            type="file"
+            className="img-input"
+            ref={imgRef}
+            onChange={changeProfile}
+          />
+          <button
+            type="button"
+            className="mypage-profile-img"
+            onClick={fileUpload}
+          >
             <img src={UserDummy} alt="" />
-          </div>
+          </button>
           <div className="mypage-profile-detail">
             <div className="mypage-username">{userInfo.nickName}</div>
             {schoolChk ? (
@@ -106,9 +132,9 @@ function MyPage() {
           <p>보유 뱃지</p>
           <div className="mypage-badge-container">
             {userInfo.badgeList
-              ? userInfo.badgeList.map(() => (
+              ? userInfo.badgeList.map((item: string) => (
                   <img
-                    src={Badge}
+                    src={item}
                     alt="badge"
                     title="후원1등"
                     key={v4()}
@@ -119,16 +145,33 @@ function MyPage() {
           </div>
         </div>
         <div className="mypage-support">
-          <p>후원 기록</p>
+          <div className="mypage-support-tap">
+            <button
+              type="button"
+              className={tap === 1 ? "active" : ""}
+              onClick={() => setTap(1)}
+            >
+              출금 내역
+            </button>
+            <button
+              type="button"
+              className={tap === 0 ? "active" : ""}
+              onClick={() => setTap(0)}
+            >
+              입금 내역
+            </button>
+          </div>
           <div className="mypage-support-desc">
             <p>일시</p>
             <p>후원 내용</p>
             <p>금액</p>
           </div>
         </div>
-        {supportDummy.map(() => {
-          return <SupportAmount key={v4()} />;
-        })}
+        {tap === 0 ? (
+          <SupportTxList state={tap} />
+        ) : (
+          <SupportTxList state={tap} />
+        )}
       </div>
       {modal && (
         <CoinCharge

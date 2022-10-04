@@ -1,6 +1,7 @@
 import React, { useEffect, Component, useState } from "react";
 import axios from "axios";
 import "./LivePage.scss";
+import { useLocation, useNavigate } from "react-router-dom";
 import { OpenVidu, Stream } from "openvidu-browser";
 import closechat from "assets/images/closechat.png";
 import openchat from "assets/images/openchat.png";
@@ -38,6 +39,14 @@ export default function LivePage() {
   const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
   const [donation, setDonation] = useState("text");
   const [donationSwitch, setDonationSwitch] = useState("false");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { leaguePk } = location.state;
+
+  useEffect(() => {
+    const id = location.state.leaguePk;
+    setRoomTitile(id);
+  });
 
   const getToken = sessionId => {
     return new Promise((resolve, reject) => {
@@ -184,7 +193,7 @@ export default function LivePage() {
           )}`
         }
       })
-      .then((document.location.href = `/createroom/id`));
+      .then(navigate(`/leagues/detail/${leaguePk}`));
   };
 
   useEffect(() => {

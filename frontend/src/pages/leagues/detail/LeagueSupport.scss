@@ -20,6 +20,19 @@
         height: 60px;
         display: flex;
         align-items: center;
+        position: relative;
+        > p {
+          z-index: 1;
+          position: absolute;
+          width: 300px;
+          margin: 0;
+        }
+        .team1 {
+          text-align: start;
+        }
+        .team2 {
+          text-align: end;
+        }
       }
       :nth-child(1) {
         border-top-left-radius: 15px;
