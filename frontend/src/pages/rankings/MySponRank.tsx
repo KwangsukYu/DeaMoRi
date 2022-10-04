@@ -46,7 +46,7 @@ function MySponRank() {
     rankClass = "rankLogo4";
   }
   return (
-    <div key={storeUser.ranking} className="rank-main">
+    <button type="button" key={storeUser.ranking} className="rank-main">
       <div className="logo-box">
         <img className={rankClass} src={rankImg} alt="" />
         <p className="rank-main-rank">{storeUser.ranking}</p>
@@ -56,7 +56,7 @@ function MySponRank() {
         {storeUser.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
         WON
       </p>
-    </div>
+    </button>
   );
 }
 

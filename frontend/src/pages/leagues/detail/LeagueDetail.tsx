@@ -117,8 +117,15 @@ function LeagueDetail() {
             style={{ backgroundColor: team1?.teamColor }}
           >
             <div className="leaguedetail-info-team-info">
-              <p>60%</p>
-              <button type="button">대학 정보</button>
+              <p>{team1?.teamName}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate(`/university/${team1?.teamUniversityId}`);
+                }}
+              >
+                대학 정보
+              </button>
             </div>
             <div className="leaguedetail-info-team-profile">
               <img src={team1?.teamUniversitylogoUrl} alt="team" />
@@ -129,7 +136,9 @@ function LeagueDetail() {
             <button type="button" onClick={() => setDetailModal(true)}>
               대회 정보
             </button>
-            {detailModal && <LeaegueInfo signal={signal} />}
+            {detailModal && (
+              <LeaegueInfo leagueInfo={leagueInfo} signal={signal} />
+            )}
             <p>VS</p>
             {leagueState === "0" && (
               <div>
@@ -142,17 +151,16 @@ function LeagueDetail() {
                 type="button"
                 className="live-button"
                 onClick={() =>
-                  navigate(`/live/broadcast${leagueInfo.leaguePk}`)
+                  navigate(`/live/broadcast${leagueInfo.leaguePk}`, {
+                    state: leagueInfo
+                  })
                 }
               >
                 중계
               </button>
             )}
             {leagueState === "1" && isOwner && (
-              <CreateRoom
-              // leaguePk={leagueInfo.leaguePk as number}
-              // leagueId={leagueInfo.leagueId as string}
-              />
+              <CreateRoom leagueInfo={leagueInfo} />
             )}
             {leagueState === "2" && !isOwner && (
               <button type="button" className="end-button ">
@@ -176,8 +184,15 @@ function LeagueDetail() {
               <p>{team2?.teamUniversityName}</p>
             </div>
             <div className="leaguedetail-info-team-info">
-              <p>40%</p>
-              <button type="button">대학 정보</button>
+              <p>{team2?.teamName}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate(`/university/${team2?.teamUniversityId}`);
+                }}
+              >
+                대학 정보
+              </button>
             </div>
           </div>
         </div>

@@ -4,15 +4,16 @@ import testImg from "assets/images/posterSample.png";
 
 interface CoinChargeProps {
   signal: () => void;
+  userFile: string;
 }
 
-function CheckUniModal({ signal }: CoinChargeProps) {
+function CheckUniModal({ signal, userFile }: CoinChargeProps) {
   return (
     <div className="wrapper">
       <div id="check-uni">
         <div className="check-uni">
-          <p>추후 구현</p>
-          <button type="button" onClick={signal}>
+          <img className="admin-img" src={userFile} alt="" />
+          <button className="admin-button" type="button" onClick={signal}>
             취소
           </button>
         </div>

@@ -20,4 +20,24 @@
   flex-direction: row;
   justify-content: start;
   width: 700px;
+
+  hr {
+    height: 3px;
+    background-color: #5c6bc0;
+  }
+}
+
+.no-content-background {
+  background-color: white;
+  width: 700px;
+  height: 300px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  .no-content-text {
+    font-weight: bold;
+    text-align: center;
+  }
 }

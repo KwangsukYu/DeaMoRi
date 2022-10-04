@@ -69,7 +69,7 @@ function SponRankings() {
     }
 
     return (
-      <div key={v4()} className="rank-main">
+      <button type="button" key={v4()} className="rank-main">
         {user.donation === 0 ? (
           <div className="logo-box">
             <img className={rankClass} src={rankLogo4} alt="" />
@@ -86,7 +86,7 @@ function SponRankings() {
         <p className="rank-main-price">
           {user.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
         </p>
-      </div>
+      </button>
     );
   });
 
