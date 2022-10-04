@@ -73,7 +73,12 @@ function SponRank({ userList }: any) {
             <p className="spon-rank-rank">{index + 1}</p>
           </div>
           <p className="spon-rank-name">{user.nickName}</p>
-          <p className="spon-rank-price">{user.donation}</p>
+          <p className="spon-rank-price">
+            {Number(user.donation)
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+            WON
+          </p>
         </div>
       );
     }
