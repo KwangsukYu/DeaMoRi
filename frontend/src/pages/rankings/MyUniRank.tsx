@@ -65,24 +65,52 @@ function MyUniRank() {
     rankClass = "rankLogo4";
   }
   return (
-    <button
-      type="button"
-      key={storeUser.ranking}
-      className="rank-main"
-      onClick={() => {
-        navigate(`/university/${storeUser.universityPk}`);
-      }}
-      style={{ cursor: "pointer" }}
-    >
-      <div className="logo-box">
-        <img className={rankClass} src={rankImg} alt="" />
-        <p className="rank-main-rank">{myUni.ranking}</p>
-      </div>
-      <p className="rank-main-name">{myUni.universityName}</p>
-      <p className="rank-main-price">
-        {myUni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
-      </p>
-    </button>
+    <div>
+      {storeUser.universityPk === 0 ? (
+        <div className="rank-main">
+          <div className="no-uni-box">
+            <p>등록된 대학이 없습니다.</p>
+            <button
+              type="button"
+              className="go-button"
+              onClick={() => {
+                navigate("/mypage");
+              }}
+            >
+              대학 등록하기
+            </button>
+          </div>
+        </div>
+      ) : (
+        <button
+          type="button"
+          key={storeUser.ranking}
+          className="rank-main"
+          onClick={() => {
+            navigate(`/university/${storeUser.universityPk}`);
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          {myUni.donation === 0 ? (
+            <div className="logo-box-my">
+              <img className={rankClass} src={rankLogo4} alt="" />
+              <p className="rank-main-unrank">-</p>
+            </div>
+          ) : (
+            <div className="logo-box-my">
+              <img className={rankClass} src={rankImg} alt="" />
+              <p className="rank-main-rank">{myUni.ranking}</p>
+            </div>
+          )}
+
+          <p className="rank-main-name">{myUni.universityName}</p>
+          <p className="rank-main-price">
+            {myUni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+            WON
+          </p>
+        </button>
+      )}
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Accounts.scss";
 import logo from "assets/images/DAEMORI_logo.svg";
 import axios from "axios";
@@ -13,6 +13,13 @@ function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const loginForm = { userId: id, password };
+
+  useEffect(() => {
+    if (localStorage.token) {
+      alert("이미 로그인 되어있습니다.");
+      navigate("/");
+    }
+  });
 
   function getMyInfo() {
     axios({
