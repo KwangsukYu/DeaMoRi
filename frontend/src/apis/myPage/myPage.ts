@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const sendTx = async (tx: string) => {
   const re = await axios({
-    url: "http://j7c208.p.ssafy.io:8080/api/transaction/charge",
+    url: "https://j7c208.p.ssafy.io:8080/api/transaction/charge",
     method: "post",
     headers: {
       Authorization: `Bearer ${localStorage.token}`
@@ -25,7 +25,7 @@ export const sendUniAuth = (file: File, uniName: string) => {
   formData.append("univesityName", uniName);
 
   axios({
-    url: "http://j7c208.p.ssafy.io:8080/api/users/auth",
+    url: "https://j7c208.p.ssafy.io:8080/api/users/auth",
     method: "post",
     data: formData,
     headers: { Authorization: `Bearer ${localStorage.token}` }
