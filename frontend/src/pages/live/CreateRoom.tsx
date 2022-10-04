@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { leagueDetailType } from "apis/leagues/LeagueDetail";
 
 interface CreateRoomProps {
-  leaguePk: number;
-  leagueId: string;
+  leagueInfo: leagueDetailType;
 }
 
-function CreateRoom({ leaguePk, leagueId }: CreateRoomProps) {
+function CreateRoom({ leagueInfo }: CreateRoomProps) {
   const pk = 2;
 
   // https://j7c208.p.ssafy.io:4443
@@ -16,7 +16,9 @@ function CreateRoom({ leaguePk, leagueId }: CreateRoomProps) {
   const navigate = useNavigate();
 
   function createSession() {
-    const data = JSON.stringify({ customSessionId: `broadcast${leaguePk}` });
+    const data = JSON.stringify({
+      customSessionId: `broadcast${leagueInfo.leaguePk}`
+    });
     axios
       .post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, data, {
         headers: {
@@ -28,7 +30,9 @@ function CreateRoom({ leaguePk, leagueId }: CreateRoomProps) {
       })
       .then(response => {
         // document.openvidution.href = `/live/broadcast${title}`;\
-        navigate(`/live/broadcast${leaguePk}`);
+        navigate(`/live/broadcast${leagueInfo.leaguePk}`, {
+          state: leagueInfo
+        });
       })
       .catch(err => {
         if (err.response.status === 409) {
