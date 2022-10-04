@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import { v4 } from "uuid";
-import Badge from "assets/images/RewardBadge.svg";
 import "./UniSponRank.scss";
 import rankLogo1 from "assets/images/rank1.png";
 import rankLogo2 from "assets/images/rank2.png";
@@ -8,13 +7,6 @@ import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 
 function SponRank({ userList }: any) {
-  const universities = [
-    { rank: 1, name: "홍석호홍석호홍석호", price: "5000000" },
-    { rank: 2, name: "유광석", price: "4000000" },
-    { rank: 3, name: "이민재", price: "3000000" },
-    { rank: 4, name: "김성민", price: "2000000" },
-    { rank: 5, name: "이성조", price: "1000000" }
-  ];
   console.log(userList, "유저리스트");
   const RankMain = userList?.map(
     (

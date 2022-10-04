@@ -68,24 +68,39 @@ function UniRankings() {
       rankClass = "rankLogo4";
     }
     return (
-      <button
-        type="button"
-        key={v4()}
-        className="rank-main"
-        onClick={() => {
-          navigate(`/university/${uni.uniPk}`);
-        }}
-        style={{ cursor: "pointer" }}
-      >
-        <div className="logo-box">
-          <img className={rankClass} src={rankImg} alt="" />
-          <p className="rank-main-rank">{uni.ranking}</p>
-        </div>
-        <p className="rank-main-name">{uni.uniName}</p>
-        <p className="rank-main-price">
-          {uni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON
-        </p>
-      </button>
+      <div key={v4()}>
+        {uni.uniName ? (
+          <button
+            type="button"
+            key={v4()}
+            className="rank-main"
+            onClick={() => {
+              navigate(`/university/${uni.uniPk}`);
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            {uni.donation === 0 ? (
+              <div className="logo-box">
+                <img className={rankClass} src={rankLogo4} alt="" />
+                <p className="rank-main-unrank">-</p>
+              </div>
+            ) : (
+              <div className="logo-box">
+                <img className={rankClass} src={rankImg} alt="" />
+                <p className="rank-main-rank">{uni.ranking}</p>
+              </div>
+            )}
+
+            <p className="rank-main-name">{uni.uniName}</p>
+            <p className="rank-main-price">
+              {uni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              WON
+            </p>
+          </button>
+        ) : (
+          <div>대학없어용</div>
+        )}
+      </div>
     );
   });
 

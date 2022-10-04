@@ -132,9 +132,28 @@
       align-items: center;
       justify-content: space-around;
       font-weight: bold;
+      .no-uni-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .go-button {
+          height: 30px;
+          margin-inline: 10px;
+          color: white;
+          width: 100px;
+          border-radius: 10px;
+          border: #5c6bc0;
+          background-color: #ff7f22;
+          margin-block: 10px;
+          cursor: pointer;
+          font-weight: bold;
+          box-shadow: 2px 2px rgb(180, 180, 180);
+        }
+      }
 
-      .logo-box {
+      .logo-box-my {
         position: relative;
+        left: 9px;
         .rankLogo1 {
           position: absolute;
           left: -35px;
@@ -168,7 +187,52 @@
         .rank-main-unrank {
           position: absolute;
           bottom: -47px;
-          left: -21px;
+          left: -30px;
+          color: white;
+          font-weight: bold;
+          text-align: center;
+          width: 50px;
+          font-size: 30px;
+        }
+      }
+
+      .logo-box {
+        position: relative;
+        right: -7px;
+        .rankLogo1 {
+          position: absolute;
+          left: -35px;
+          bottom: -33px;
+        }
+        .rankLogo2 {
+          position: absolute;
+          left: -36px;
+          bottom: -33px;
+        }
+        .rankLogo3 {
+          position: absolute;
+          left: -36px;
+          bottom: -33px;
+        }
+        .rankLogo4 {
+          position: absolute;
+          left: -26px;
+          bottom: -33px;
+        }
+        .rank-main-rank {
+          position: absolute;
+          bottom: -29px;
+          left: -22px;
+          color: white;
+          font-weight: bold;
+          font-size: 18px;
+          text-align: center;
+          width: 50px;
+        }
+        .rank-main-unrank {
+          position: absolute;
+          bottom: -47px;
+          left: -30px;
           color: white;
           font-weight: bold;
           text-align: center;
