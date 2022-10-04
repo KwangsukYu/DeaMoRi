@@ -15,4 +15,6 @@ public interface TransactionService {
 
 
     void endLeague(League league, LeaguePatchReq leagueReq) throws IOException;
+
+    void chargeCoin(String transactionHash) throws IOException;
 }

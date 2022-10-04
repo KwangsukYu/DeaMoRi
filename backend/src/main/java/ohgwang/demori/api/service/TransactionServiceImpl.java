@@ -164,5 +164,13 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
+    @Override
+    public void chargeCoin(String transactionHash) throws IOException {
+        org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get();
+        Map<String,String> map = inputCutting(t.getInput());
+        saveTransaction(t,transactionHash,map,walletRepository.findByAddress(map.get("receiver")),"0");   // 받는 사람 지갑에 트랜션 저장
+
+    }
+
 
 }

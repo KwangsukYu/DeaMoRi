@@ -1,9 +1,6 @@
 package ohgwang.demori.api.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import ohgwang.demori.DB.entity.User;
 import ohgwang.demori.api.request.CheerRegisterPostReq;
 import ohgwang.demori.api.request.SupportRegisterPostReq;
@@ -77,4 +74,32 @@ public class TransactionController {
     }
 
 
+    @PostMapping("/charge")
+    @ApiOperation(value = "코인충전")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 204, message = "충전 완료"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> requestEth(@ApiIgnore Authentication authentication, @RequestParam  @ApiParam(value = "트랜잭션 해쉬") String transactionHash) {
+        try {
+            SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+            String userId = userDetails.getUsername();
+            User user = userService.getUserByUserId(userId);
+
+
+            if(user == null){
+                return ResponseEntity.status(400).body(BaseResponseBody.of(400, "유저 없음"));
+            }
+
+            transactionService.chargeCoin(transactionHash);
+
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "충전 완료"));
+
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(BaseResponseBody.of(500, "서버 오류"));
+        }
+
+    }
 }
