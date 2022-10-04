@@ -15,7 +15,7 @@ function MySponRank() {
 
   useEffect(() => {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/users/me",
+      url: "https://j7c208.p.ssafy.io:8080/api/users/me",
       method: "get",
       headers: { Authorization: `Bearer ${localStorage.token}` }
     })

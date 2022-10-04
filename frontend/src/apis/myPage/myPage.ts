@@ -42,7 +42,7 @@ export const setProfile = (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
   axios({
-    url: "http://j7c208.p.ssafy.io:8080/api/users/profile",
+    url: "https://j7c208.p.ssafy.io:8080/api/users/profile",
     method: "patch",
     data: formData,
     headers: {
@@ -61,7 +61,7 @@ export const setProfile = (file: File) => {
 export const getTransactions = async (state: number) => {
   console.log(state);
   const re = await axios({
-    url: "http://j7c208.p.ssafy.io:8080/api/wallet/transaction",
+    url: "https://j7c208.p.ssafy.io:8080/api/wallet/transaction",
     method: "get",
     headers: {
       Authorization: `Bearer ${localStorage.token}`

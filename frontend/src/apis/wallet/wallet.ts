@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://j7c208.p.ssafy.io:8080/api/";
+const BASE_URL = "https://j7c208.p.ssafy.io:8080/api/";
 
 export const addWallet = async (address: string) => {
   const res = await axios({

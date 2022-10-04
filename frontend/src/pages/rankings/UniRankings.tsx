@@ -26,7 +26,7 @@ function UniRankings() {
 
   useEffect(() => {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/ranking/university",
+      url: "https://j7c208.p.ssafy.io:8080/api/ranking/university",
       method: "get",
       params: { page: 0, size: 10 }
     })
@@ -40,7 +40,7 @@ function UniRankings() {
 
   useEffect(() => {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/ranking/update/university",
+      url: "https://j7c208.p.ssafy.io:8080/api/ranking/update/university",
       method: "patch"
     })
       .then(res => {

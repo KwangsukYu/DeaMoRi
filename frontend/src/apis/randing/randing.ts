@@ -8,7 +8,7 @@ export interface TotalType {
 
 export function getTotal() {
   const res = axios({
-    url: "http://j7c208.p.ssafy.io:8080/api/league/summary",
+    url: "https://j7c208.p.ssafy.io:8080/api/league/summary",
     method: "patch"
   })
     .then(re => re.data)

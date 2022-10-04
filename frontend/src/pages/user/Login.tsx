@@ -16,7 +16,7 @@ function Login() {
 
   function getMyInfo() {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/users/me",
+      url: "https://j7c208.p.ssafy.io:8080/api/users/me",
       method: "get",
       headers: { Authorization: `Bearer ${localStorage.token}` }
     })
@@ -33,7 +33,7 @@ function Login() {
   function tryLogin(getLoginForm: { userId: string; password: string }) {
     // console.log(getLoginForm)
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/auth/login",
+      url: "https://j7c208.p.ssafy.io:8080/api/auth/login",
       method: "post",
       data: getLoginForm
     })

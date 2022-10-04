@@ -29,7 +29,7 @@ function SignUp() {
     userId: string;
   }) {
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/users",
+      url: "https://j7c208.p.ssafy.io:8080/api/users",
       method: "post",
       data: credentials
     })
@@ -82,7 +82,7 @@ function SignUp() {
       alert("아이디를 입력해주세요");
     } else {
       axios({
-        url: "http://j7c208.p.ssafy.io:8080/api/users/check/id",
+        url: "https://j7c208.p.ssafy.io:8080/api/users/check/id",
         method: "get",
         params: { userId }
       })
@@ -106,7 +106,7 @@ function SignUp() {
     } else {
       e.preventDefault();
       axios({
-        url: "http://j7c208.p.ssafy.io:8080/api/users/check/nickname",
+        url: "https://j7c208.p.ssafy.io:8080/api/users/check/nickname",
         method: "get",
         params: { nickName: nickname }
       })
