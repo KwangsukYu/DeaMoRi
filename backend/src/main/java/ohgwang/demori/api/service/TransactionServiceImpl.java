@@ -136,10 +136,19 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void endLeague(League league, LeaguePatchReq leagueReq) throws IOException {
-        org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(leagueReq.getTransactionHash()).send().getTransaction().get();
-        Map<String,String> map = inputCutting(t.getInput());
-        saveTransaction(t,leagueReq.getTransactionHash(),map,walletRepository.findByAddress(map.get("receiver")),"0");   // 받는 사람 지갑에 트랜션 저장
 
+        Transaction transaction = Transaction.builder()
+                .blockHash("")
+                .blockNumber("")
+                .transactionHash("")
+                .value(Integer.toString(Integer.parseInt(leagueReq.getValue().substring(5),16)))
+                .fromAddress(leagueReq.getFromAddress().substring(26))
+                .toAddress(leagueReq.getToAddress().substring(26))
+                .isRemit("0")
+                .wallet(walletRepository.findByAddress(leagueReq.getFromAddress().substring(26)))
+                .build();
+
+        transactionRepository.save(transaction);
 
 
         Trophy trophy = new Trophy();  // 트로피
