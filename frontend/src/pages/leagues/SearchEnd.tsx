@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import "./Search.scss";
+import "./SearchIng.scss";
+import axios from "axios";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Poster from "./Poster";
 import Loader from "./Loader";
@@ -10,74 +11,75 @@ interface searchProps {
   leagueStatus: boolean;
 }
 
-// function Search({ keyword, change }: searchProps) {
-function Search({ leagueStatus }: searchProps) {
+function SearchEnd({ leagueStatus }: searchProps) {
   const [keyword, setKeyword] = useState("");
 
-  console.log(keyword);
   const [items, setItems] = useState([] as any);
 
   // 끝까지 갈 경우 페이지를 더이상 불러오지 않도록 설정
   const [hasMore, setHasMore] = useState(true);
   const [enterSubmit, setEnterSubmit] = useState(false);
   const [page, setPage] = useState(0);
-  // const [page, setPage] = useState(1);
 
   const handleKeyword = (changeValue: string) => {
     setKeyword(changeValue);
   };
 
-  // const handlePage = () => {
-  //   setPage(1);
-  // };
-
+  console.log("endpage");
+  console.log(page);
   useEffect(() => {
     const getComments = async () => {
       const res = await fetch(
-        // `http://j7c208.p.ssafy.io:8080/api/league?field=id&_page=0&size=8`
-        // `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=0&size=8`
-        `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=0&size=8`
+        `http://j7c208.p.ssafy.io:8080/api/league/closed?field=id&keyword=${keyword}&page=0&size=8`
       );
       const data = await res.json();
       setEnterSubmit(false);
       setItems(data.getLeagues);
+      if (data.getLeagues.length === 0 || data.getLeagues.length < 8) {
+        // 화면이 끝까지 불러올 경우 false로 변경하여 더이상 불러오지 않음
+        setHasMore(false);
+      }
     };
     getComments();
-    // if (keyword) {
-    //   setItems([]);
-    // }
   }, [enterSubmit]);
 
-  // useEffect(() => {
-  //   // console.log(items.length);
-  //   const getComments = async () => {
-  //     const res = await fetch(
-  //       // `http://j7c208.p.ssafy.io:8080/api/league?field=id&_page=0&size=8`
-  //       // `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=0&size=8`
-  //       `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=0&size=8`
-  //     );
-  //     const data = await res.json();
-  //     setEnterSubmit(false);
-  //     setItems(data.getLeagues);
-  //   };
-  //   getComments();
-  // }, [keyword]);
-
   const fetchComments = async () => {
-    // if (keyword.length > 0 && page) {
-    // }
     const res = await fetch(
-      // `http://j7c208.p.ssafy.io:8080/api/league?field=id&page=${page}&size=8`
-      // `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=${page}&size=8`
-      `http://j7c208.p.ssafy.io:8080/api/league?field=id&keyword=${keyword}&page=${
+      `http://j7c208.p.ssafy.io:8080/api/league/closed?field=id&keyword=${keyword}&page=${
         page + 1
       }&size=8`
     );
     console.log(res);
     const data = await res.json();
-    console.log(data, "22");
-    console.log(data.getLeagues);
     return data.getLeagues;
+
+    // async function fetchComments() {
+    //   axios({
+    //     url: `http://j7c208.p.ssafy.io:8080/api/league/closed?field=id&keyword=${keyword}&page=${
+    //       page + 1
+    //     }&size=8`,
+    //     method: "get"
+    //   })
+    //     .then(res => {
+    //       console.log("성공인디?");
+    //       console.log(res);
+    //       return res;
+    //       // const data = res.json()
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // }
+
+    // .then(res => {
+    //   console.log(res.data, "내 대학 리그");
+    //   // console.log(res);
+    //   const data = res.data.getLeagues;
+    //   setItems(data);
+    // })
+    // .catch(err => {
+    //   console.error(err);
+    // });
   };
 
   // fetchData : 화면이 아래까지 도착함을 감지할 경우 다음 페이지를 불러옴
@@ -96,9 +98,11 @@ function Search({ leagueStatus }: searchProps) {
 
   const handleEnterSubmit = () => {
     setEnterSubmit(!enterSubmit);
-    setItems([]);
+    setPage(0);
+    // setItems([]);
     fetchComments();
   };
+
   return (
     <div id="search">
       <div className="search">
@@ -131,29 +135,14 @@ function Search({ leagueStatus }: searchProps) {
         loader={<Loader />}
         endMessage={<EndMessage />}
       >
-        {/* 대회 진행중 */}
-        {leagueStatus && (
-          <div className="scroll">
-            {items
-              .filter((item: any) => item.status < 2)
-              .map((item: any) => {
-                return <Poster key={item.leagueId} item={item} />;
-              })}
-          </div>
-        )}
-        {/* 대회 종료 */}
-        {!leagueStatus && (
-          <div className="scroll">
-            {items
-              .filter((item: any) => item.status > 1)
-              .map((item: any) => {
-                return <Poster key={item.leagueId} item={item} />;
-              })}
-          </div>
-        )}
+        <div className="scroll">
+          {items.map((item: any) => {
+            return <Poster key={item.leagueId} item={item} />;
+          })}
+        </div>
       </InfiniteScroll>
     </div>
   );
 }
 
-export default Search;
+export default SearchEnd;

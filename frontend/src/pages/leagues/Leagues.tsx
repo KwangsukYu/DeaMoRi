@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Leagues.scss";
+import { v4 } from "uuid";
 import { Link } from "react-router-dom";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
 import Scroll from "./Scroll";
-import Search from "./Search";
+import SearchIng from "./SearchIng";
+import SearchEnd from "./SearchEnd";
 
 function Leagues() {
   const [ing, setIng] = useState(true);
@@ -97,35 +99,8 @@ function Leagues() {
             )}
           </div>
         </div>
-        {/* <div className="leagues-function-search">
-          <form
-            action="submit"
-            onSubmit={e => {
-              handleSearch(e);
-            }}
-          >
-            <input
-              className="leagues-function-search-bar"
-              onChange={e => {
-                handleInputValue(e);
-              }}
-              type="text"
-            />
-            <img
-              src={SearchIcon}
-              alt="searchIcon"
-              className="leagues-function-search-icon"
-            />
-          </form>
-        </div> */}
-        <Search leagueStatus={ing} />
-        {inputValue && (
-          <div>
-            {/* <Search keyword={inputValue} change={changeSearch} /> */}
-          </div>
-        )}
-        {/* {isValue && <Search keyword={inputValue} />} */}
-        {/* {!isValue && <Scroll />} */}
+        {ing && <SearchIng leagueStatus={v4()} />}
+        {!ing && <SearchEnd leagueStatus={ing} />}
       </div>
     </div>
   );

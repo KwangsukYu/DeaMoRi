@@ -4,10 +4,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import "./Poster.scss";
+import "./CarouselPoster.scss";
+
+// type itemProps = {
+//   leagueId: string,
+//   leagueName: string,
+//   posterURL: string,
+//   uniName1: string,
+//   uniName2: string,
+//   leagueStartDat: string,
+//   leagueEndDate: string,
+//   status: string,
+//   donation: string,
+//   prizeMone: string
+// };
 
 /* eslint-disable react/prop-types */
-function Poster({
+function CarouselPoster({
   item: {
     leagueId,
     leagueName,
@@ -57,4 +70,4 @@ function Poster({
     </Link>
   );
 }
-export default Poster;
+export default CarouselPoster;
