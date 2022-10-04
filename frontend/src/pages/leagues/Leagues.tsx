@@ -3,12 +3,18 @@ import "./Leagues.scss";
 import { Link } from "react-router-dom";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
+import LeagueOpen from "./LeagueOpen";
+
 import Scroll from "./Scroll";
 import Search from "./Search";
 
 function Leagues() {
   const [ing, setIng] = useState(true);
+  const [keyword, setKeyword] = useState("");
 
+  const handleKeyword = (e: string) => {
+    setKeyword(e);
+  };
   return (
     <div id="leagues">
       <div className="leagues">
@@ -78,6 +84,10 @@ function Leagues() {
             className="leagues-function-search-icon"
           />
         </div>
+        <div>
+          <input onChange={e => handleKeyword(e.target.value)} type="text" />
+        </div>
+        {ing ? <LeagueOpen keyword={keyword} /> : null}
         {/* <Search /> */}
         <Scroll />
       </div>
