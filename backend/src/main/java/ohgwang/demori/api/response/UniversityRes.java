@@ -94,9 +94,12 @@ public class UniversityRes {
 					.badge(u.getBadge())
 					.donation(u.getDonation())
 					.ranking(u.getRanking())
-					.address(u.getWallet().getAddress())
 					.role(u.getRole())
 					.build();
+			if(u.getWallet() != null){
+				uRes.setAddress(u.getWallet().getAddress());
+			}
+
 			res.userList.add(uRes);
 		}
 
