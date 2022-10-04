@@ -17,6 +17,8 @@ interface SupportAmountProps {
 }
 
 function SupportAmount({ item, state }: SupportAmountProps) {
+  console.log(state);
+  console.log(item);
   return (
     <div id="support-amount">
       <div className="support-amount">

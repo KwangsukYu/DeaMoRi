@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CoinCharge.scss";
 import { numberWithCommas } from "utils/numberComma";
+import { sendTx } from "apis/myPage/myPage";
 import { chargeCoin } from "apis/web3/web3";
 import { CircularProgress } from "@mui/material";
 
@@ -19,7 +20,8 @@ function CoinCharge({ signal, userAddress }: CoinChargeProps) {
 
   const charge = async (num: number) => {
     setLoading(true);
-    await chargeCoin(num, userAddress);
+    const res = await chargeCoin(num, userAddress);
+    await sendTx(res);
     signal();
     setLoading(false);
   };

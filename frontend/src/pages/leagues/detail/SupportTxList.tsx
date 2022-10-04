@@ -27,6 +27,7 @@ function SupportTxList({ state }: SupportTxListProps) {
   useEffect(() => {
     (async () => {
       const res = await getTransactions(state);
+      console.log(res);
       if (res) {
         setRecentlyTxList(res.splice(0, 10));
         setTxList(res);
@@ -46,7 +47,7 @@ function SupportTxList({ state }: SupportTxListProps) {
       ) : (
         <p>거래 내역이 없습니다.</p>
       )}
-      {!!recentlyTxList && !!txList && !allTx && (
+      {!!recentlyTxList && !!txList && !allTx && txList.length >= 1 && (
         <button
           className="support-tx-add"
           type="button"

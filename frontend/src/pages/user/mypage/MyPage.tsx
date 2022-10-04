@@ -162,8 +162,7 @@ function MyPage() {
             </button>
           </div>
           <div className="mypage-support-desc">
-            <p>일시</p>
-            <p>후원 내용</p>
+            <p>해당 주소</p>
             <p>금액</p>
           </div>
         </div>

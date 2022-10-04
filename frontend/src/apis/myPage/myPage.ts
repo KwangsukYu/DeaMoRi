@@ -1,5 +1,23 @@
 import axios from "axios";
 
+export const sendTx = async (tx: string) => {
+  const re = await axios({
+    url: "http://j7c208.p.ssafy.io:8080/api/transaction/charge",
+    method: "post",
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`
+    },
+    params: {
+      transactionHash: tx
+    }
+  })
+    .then(res => res.data)
+    .catch(err => {
+      console.log(err);
+    });
+  return re;
+};
+
 export const sendUniAuth = (file: File, uniName: string) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -40,8 +58,9 @@ export const setProfile = (file: File) => {
     });
 };
 
-export const getTransactions = (state: number) => {
-  const re = axios({
+export const getTransactions = async (state: number) => {
+  console.log(state);
+  const re = await axios({
     url: "http://j7c208.p.ssafy.io:8080/api/wallet/transaction",
     method: "get",
     headers: {
@@ -55,6 +74,7 @@ export const getTransactions = (state: number) => {
     .catch(err => {
       console.log(err);
     });
+  console.log(re);
   return re;
 };
 
