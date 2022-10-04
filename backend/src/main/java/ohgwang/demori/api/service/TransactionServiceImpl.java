@@ -48,8 +48,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     public Map<String,String> inputCutting(String input){
         Map<String, String> map = new HashMap<>();
-        map.put("sender","0x"+input.substring(34, 74));
-        map.put("receiver","0x"+input.substring(98, 138));
+        map.put("sender","0x"+input.substring(34, 74).toLowerCase());
+        map.put("receiver","0x"+input.substring(98, 138).toLowerCase());
         map.put("balance" , input.substring(138));
 
 
@@ -175,7 +175,7 @@ public class TransactionServiceImpl implements TransactionService {
         org.web3j.protocol.core.methods.response.Transaction t = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get();
 
         Map<String, String> map = new HashMap<>();
-        map.put("receiver","0x"+t.getInput().substring(34, 74));
+        map.put("receiver","0x"+t.getInput().substring(34, 74).toLowerCase());
         map.put("balance",t.getInput().substring(98, 138));
 
 
