@@ -1,11 +1,13 @@
 #carousel {
-  width: 1000px;
-  height: 1000px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  .carousel {
-    display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    // justify-items: center;
+  width: 100%;
+  .slick-dots {
+    .slick-active {
+      button::before {
+        color: #c1c1c1;
+      }
+    }
+    button::before {
+      color: #e9e9e9;
+    }
   }
 }

@@ -19,52 +19,52 @@ function Carousel() {
 
   useEffect(() => {
     function getMyLeagues() {
-      axios({
-        url: `http://j7c208.p.ssafy.io:8080/api/univers/league/${userInfo.universityPk}`,
-        method: "get",
-        headers: { Authorization: `Bearer ${localStorage.token}` }
-      })
-        .then(res => {
-          console.log(res.data, "내 대학 리그");
-          // console.log(res);
-          const data = res.data.getLeagues;
-          setItems(data);
+      if (userInfo.universityPk) {
+        axios({
+          url: `http://j7c208.p.ssafy.io:8080/api/univers/league/${userInfo.universityPk}`,
+          method: "get",
+          headers: { Authorization: `Bearer ${localStorage.token}` }
         })
-        .catch(err => {
-          console.error(err);
-        });
+          .then(res => {
+            console.log(res, "내 대학 리그");
+            // console.log(res);
+            const data = res.data.getLeagues;
+            setItems(data);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      } else setItems([]);
     }
     getMyLeagues();
   }, []);
 
-  console.log(items);
+  const scroll = Math.ceil(items.length / 3);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3
+    slidesToScroll: scroll,
+    arrows: false
   };
 
   return (
     <div id="carousel">
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <Slider {...settings} className="carousel">
-        {/* <div className="carousel"> */}
-        {items
-          .filter((item: any) => item.status < 2)
-          .map((item: any) => {
-            return <Poster key={item.leagueId} item={item} />;
-          })}
-        {/* </div> */}
-        {/* <div className="poster">Slide 1</div>
-        <div className="poster">Slide 2</div>
-        <div className="poster">Slide 3</div>
-        <div className="poster">Slide 4</div>
-        <div className="poster">Slide 5</div>
-        <div className="poster">Slide 6</div>
-        <div className="poster">Slide 7</div> */}
-      </Slider>
+      {userInfo.universityPk ? (
+        <Slider {...settings}>
+          <div className="poster">
+            {items
+              .filter((item: any) => item.status < 2)
+              .map((item: any) => {
+                return <Poster key={item.leagueId} item={item} />;
+              })}
+          </div>
+        </Slider>
+      ) : (
+        <div>대학을 등록해주세요</div>
+      )}
     </div>
   );
 }
