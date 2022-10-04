@@ -223,7 +223,7 @@ export const closeLeague = async (ca, num, amount) => {
     .ended(TokenCA, num, amount)
     .send({ from: coinBase })
     .then(function (receipt) {
-      console.log(receipt);
+      return receipt.transactionHash;
     });
 
   console.log("end");

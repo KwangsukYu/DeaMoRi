@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LeagueSupport.scss";
-import { leagueDetailType, teamType } from "apis/leagues/LeagueDetail";
+import { leagueDetailType } from "apis/leagues/LeagueDetail";
 import { numberWithCommas } from "utils/numberComma";
 import Counter from "components/Counter/Counter";
 import SupportDetail from "./SupportDetail";
@@ -12,9 +12,17 @@ interface leagueSupportType {
 }
 
 function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
-  const test = 60;
-  const test2 = 40;
+  const [team1, setTeam1] = useState(50);
   const [detailModal, setDetailModal] = useState(false);
+
+  useEffect(() => {
+    const team1Amount = leagueInfo.team1.teamDonation;
+    const team2Amount = leagueInfo.team2.teamDonation;
+    const perCent = (team1Amount / (team1Amount + team2Amount)) * 100;
+    if (perCent) {
+      setTeam1(perCent);
+    }
+  }, [leagueInfo]);
 
   return (
     <div id="leaguesupport">
@@ -26,20 +34,24 @@ function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
           <div
             className="leaguesupport-bar-item"
             style={{
-              width: test * 10,
+              width: team1 * 10,
               backgroundColor: leagueInfo.team1.teamColor
             }}
           >
-            {numberWithCommas(leagueInfo.team1.teamDonation)} WON
+            <p className="team1">
+              {numberWithCommas(leagueInfo.team1.teamDonation)} WON
+            </p>
           </div>
           <div
             className="leaguesupport-bar-item"
             style={{
-              width: test2 * 10,
+              width: (100 - team1) * 10,
               backgroundColor: leagueInfo.team2.teamColor
             }}
           >
-            {numberWithCommas(leagueInfo.team2.teamDonation)} WON
+            <p className="team2">
+              {numberWithCommas(leagueInfo.team2.teamDonation)} WON
+            </p>
           </div>
         </div>
         <button
