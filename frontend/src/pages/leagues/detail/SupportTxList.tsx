@@ -7,6 +7,7 @@ import { array } from "prop-types";
 
 interface SupportTxListProps {
   state: number;
+  changed: boolean;
 }
 
 interface txType {
@@ -19,7 +20,7 @@ interface txType {
   value: string;
 }
 
-function SupportTxList({ state }: SupportTxListProps) {
+function SupportTxList({ state, changed }: SupportTxListProps) {
   const [txList, setTxList] = useState<txType[]>();
   const [recentlyTxList, setRecentlyTxList] = useState<txType[]>();
   const [allTx, setAllTx] = useState(false);
@@ -27,8 +28,8 @@ function SupportTxList({ state }: SupportTxListProps) {
   useEffect(() => {
     (async () => {
       const res = await getTransactions(state);
-      console.log(res);
-      if (res) {
+      if (res !== "조회된 내용이 없습니다") {
+        res.reverse();
         setRecentlyTxList(res.splice(0, 10));
         setTxList(res);
       } else {
@@ -36,7 +37,7 @@ function SupportTxList({ state }: SupportTxListProps) {
         setTxList(undefined);
       }
     })();
-  }, [state]);
+  }, [state, changed]);
 
   return (
     <div className="support-tx">
