@@ -33,7 +33,7 @@ function Edit() {
     } else {
       e.preventDefault();
       axios({
-        url: "http://j7c208.p.ssafy.io:8080/api/users/check/nickname",
+        url: "https://j7c208.p.ssafy.io:8080/api/users/check/nickname",
         method: "get",
         params: { nickName: nickname }
       })

@@ -61,7 +61,7 @@ async function CreateLeague(files: any, data: createLeague) {
   formData.append("registerInfo", blob);
 
   const Re = await axios({
-    url: "http://j7c208.p.ssafy.io:8080/api/league",
+    url: "https://j7c208.p.ssafy.io:8080/api/league",
     method: "post",
     data: formData,
     headers: {
