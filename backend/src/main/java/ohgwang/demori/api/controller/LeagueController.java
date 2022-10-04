@@ -75,7 +75,7 @@ public class LeagueController {
         if (league.getTeam1().getUniversity().getUniName().equals(league.getTeam2().getUniversity().getUniName())) {
             return ResponseEntity.status(422).body(BaseResponseBody.of(422, "대학 이름이 같습니다."));
         }
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, SUCCESS));
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, Integer.toString(league.getId())));
     }
 
     @ApiOperation(value = "진행중 대회 조회", notes = "[page : 페이지], [size : 페이당 정보 개수], [field : 정렬 기준]")
