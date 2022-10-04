@@ -9,6 +9,11 @@ export interface infoType {
   nickName: string | null;
   ranking: number;
   donation: number;
+  ownerPk: number;
+  ownerAddress: number;
+  badge: string;
+  badgeList: string[];
+  profileUrl: string | null;
 }
 
 interface InitialStateType {

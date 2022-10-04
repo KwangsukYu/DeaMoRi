@@ -8,9 +8,10 @@ import SupportDetail from "./SupportDetail";
 interface leagueSupportType {
   leagueInfo: leagueDetailType;
   change: () => void;
+  isClose: boolean;
 }
 
-function LeagueSupport({ leagueInfo, change }: leagueSupportType) {
+function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
   const test = 60;
   const test2 = 40;
   const [detailModal, setDetailModal] = useState(false);
@@ -42,7 +43,12 @@ function LeagueSupport({ leagueInfo, change }: leagueSupportType) {
           </div>
         </div>
         <button
-          onClick={() => setDetailModal(true)}
+          onClick={() => {
+            if (isClose) {
+              return alert("종료 된 대회입니다.");
+            }
+            return setDetailModal(true);
+          }}
           className="leaguesupport-support"
           type="button"
         >

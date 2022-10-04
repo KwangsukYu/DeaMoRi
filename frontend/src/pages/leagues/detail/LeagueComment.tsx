@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./LeagueComment.scss";
 import { v4 } from "uuid";
-import Pagination from "components/Pagination/Pagination";
 import TeamSupport from "components/teamSupport/TeamSupport";
 import { teamType } from "apis/leagues/LeagueDetail";
 import CommentItem from "./CommentItem";
@@ -19,7 +18,6 @@ function LeagueComment({
   leaguePk,
   change
 }: TeamDetailProps) {
-  const commentDummy = [1, 2, 3, 4, 5];
   const [teamModal, setTeamModal] = useState(false);
 
   return (
@@ -51,7 +49,6 @@ function LeagueComment({
           change={change}
         />
       )}
-      <div className="leaguecomment-pagination">{/* <Pagination /> */}</div>
     </div>
   );
 }
