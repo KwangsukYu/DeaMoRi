@@ -21,6 +21,7 @@ interface myUniType {
   trophyList: [];
   universityAddress: string;
   universityName: string;
+  userList: [];
 }
 
 function University() {
@@ -33,7 +34,8 @@ function University() {
     ranking: 0,
     trophyList: [],
     universityAddress: "",
-    universityName: ""
+    universityName: "",
+    userList: []
   });
 
   const uniId = useParams().id;
@@ -111,7 +113,7 @@ function University() {
           </p>
         </div>
         <Trophy />
-        <UniSponRank />
+        <UniSponRank userList={myUni.userList} />
         <div id="rankings">
           <div className="modal">
             <div className="button-list">
@@ -158,7 +160,11 @@ function University() {
               )}
             </div>
             <div className="tab-main">
-              {bar === "ing" ? <LeaguesIng /> : <LeaguesEd />}
+              {bar === "ing" ? (
+                <LeaguesIng uniPk={uniId} />
+              ) : (
+                <LeaguesEd uniPk={uniId} />
+              )}
             </div>
           </div>
         </div>

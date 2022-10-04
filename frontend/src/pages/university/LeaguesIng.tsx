@@ -22,20 +22,26 @@ interface leagueType {
 
 export interface Leaguestype extends Array<leagueType> {}
 
-export default function LeaguesIng() {
+export default function LeaguesIng({ uniPk }: any) {
   const [leagueList, setLeagueList] = useState<Leaguestype>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     axios({
-      url: "http://j7c208.p.ssafy.io:8080/api/league",
+      url: `http://j7c208.p.ssafy.io:8080/api/univers/league/${uniPk}`,
       method: "get",
-      params: { page: 0, size: 8 }
+      headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
-        setLeagueList(res.data.getLeagues);
-        console.log(res);
+        const Leagues = res.data.getLeagues;
+        console.log(Leagues);
+        const IngLeagues = Leagues?.filter(
+          (league: { status: string; "": any }) => league.status === "0"
+        );
+        setLeagueList(IngLeagues);
+        console.log(res.data);
+        console.log(IngLeagues, "11");
         setLoading(false);
       })
       .catch(err => {
@@ -44,35 +50,47 @@ export default function LeaguesIng() {
   }, []);
 
   console.log(leagueList);
-
+  console.log(loading);
   return (
-    <div className="card-box">
-      {leagueList.map(league => {
-        return (
-          <Card
-            id="card"
-            sx={{ width: 200, height: 300, padding: 1, margin: 1 }}
-            key={v4()}
-          >
-            <CardMedia
-              component="img"
-              height="200"
-              image={league.posterURL}
-              alt="green iguana"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                123
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                123
-                <br />
-                123
-              </Typography>
-            </CardContent>
-          </Card>
-        );
-      })}
+    <div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div>
+          {leagueList ? (
+            <div className="card-box">
+              {leagueList.map(league => {
+                return (
+                  <Card
+                    id="card"
+                    sx={{ width: 200, height: 300, padding: 1, margin: 1 }}
+                    key={v4()}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={league.posterURL}
+                      alt="green iguana"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {league.leagueName}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {league.leagueStartDate} - {league.leagueEndDate}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="no-content-background">
+              <p className="no-content-text">진행중인 대회가 없습니다.</p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
