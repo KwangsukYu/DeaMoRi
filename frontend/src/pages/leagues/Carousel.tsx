@@ -9,7 +9,7 @@ import { infoType } from "Slices/userInfo";
 // import CarouselPoster from "./CarouselPoster";
 import Poster from "./Poster";
 
-function Carousel() {
+function Carousel({ sliders }: any) {
   // Redux 안에 universityPk 확인 가능
   const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
   const [items, setItems] = useState([] as any);
@@ -41,31 +41,59 @@ function Carousel() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3
+    // speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    centerPadding: "0px"
   };
 
   return (
     <div id="carousel">
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      {/* <Slider {...settings} className="carousel"> */}
+      {/* <div className="carousel"> */}
       <Slider {...settings} className="carousel">
-        {/* <div className="carousel"> */}
         {items
           .filter((item: any) => item.status < 2)
           .map((item: any) => {
             return <Poster key={item.leagueId} item={item} />;
           })}
-        {/* </div> */}
-        {/* <div className="poster">Slide 1</div>
+      </Slider>
+      {/* </div> */}
+      {/* <div className="poster">Slide 1</div>
         <div className="poster">Slide 2</div>
         <div className="poster">Slide 3</div>
         <div className="poster">Slide 4</div>
         <div className="poster">Slide 5</div>
         <div className="poster">Slide 6</div>
         <div className="poster">Slide 7</div> */}
-      </Slider>
+      {/* </Slider> */}
     </div>
   );
 }
+
+//   return (
+//     <div id="carousel">
+//       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+//       <Slider {...settings} className="carousel">
+//         {/* <div className="carousel"> */}
+//         {items
+//           .filter((item: any) => item.status < 2)
+//           .map((item: any) => {
+//             return <Poster key={item.leagueId} item={item} />;
+//           })}
+//         {/* </div> */}
+//         {/* <div className="poster">Slide 1</div>
+//         <div className="poster">Slide 2</div>
+//         <div className="poster">Slide 3</div>
+//         <div className="poster">Slide 4</div>
+//         <div className="poster">Slide 5</div>
+//         <div className="poster">Slide 6</div>
+//         <div className="poster">Slide 7</div> */}
+//       </Slider>
+//     </div>
+//   );
+// }
 export default Carousel;

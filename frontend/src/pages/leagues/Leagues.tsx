@@ -99,8 +99,8 @@ function Leagues() {
             )}
           </div>
         </div>
-        {ing && <SearchIng leagueStatus={v4()} />}
-        {!ing && <SearchEnd leagueStatus={ing} />}
+        {ing && <SearchIng />}
+        {!ing && <SearchEnd />}
       </div>
     </div>
   );

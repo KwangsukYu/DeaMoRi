@@ -1,11 +1,19 @@
 #carousel {
-  width: 1000px;
-  height: 1000px;
+  // width: 1000px;
+  // height: 1000px;
   margin-top: 20px;
   margin-bottom: 30px;
   .carousel {
-    display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    // justify-items: center;
+    .slick-list {
+      width: 300px;
+      height: 500px;
+      // margin: 0 auto;
+    }
+    .slick-slide {
+      cursor: pointer;
+    }
+    .slick-track {
+      overflow-x: hidden;
+    }
   }
 }
