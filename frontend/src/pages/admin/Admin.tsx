@@ -12,7 +12,7 @@ interface usersType {
   role: string;
   nickName: string;
   badge: string;
-  fileUrl: string | undefined;
+  fileUrl: string;
 }
 
 function Admin() {
@@ -64,6 +64,7 @@ function Admin() {
   }
 
   const [modal, setModal] = useState(false);
+  const [file, setFile] = useState("");
   // const [userRoleNum, setUserRoleNum] = useState(-1);
 
   console.log(users);
@@ -84,8 +85,8 @@ function Admin() {
     return (
       <div className="admin-main-list" key={v4()}>
         <p>
-          {user.userName}
-          {` (${userRole})`}
+          {`${user.userName}(${user.nickName}) - `}
+          {` [${userRole}]`}
         </p>
         <div className="admin-main-list-desc">
           {user.fileUrl === null ? null : (
@@ -94,6 +95,7 @@ function Admin() {
               type="button"
               onClick={() => {
                 setModal(true);
+                setFile(user.fileUrl);
               }}
             >
               파일확인
@@ -133,7 +135,9 @@ function Admin() {
         <p className="admin-title">회원 관리</p>
         <div className="admin-main">{mainList}</div>
       </div>
-      {modal && <CheckUniModal signal={() => setModal(!modal)} />}
+      {modal && (
+        <CheckUniModal signal={() => setModal(!modal)} userFile={file} />
+      )}
     </div>
   );
 }

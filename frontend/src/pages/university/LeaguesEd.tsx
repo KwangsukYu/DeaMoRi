@@ -50,7 +50,7 @@ export default function LeaguesEd({ uniPk }: any) {
 
   return (
     <div>
-      {leagueList.length >= 1 ? (
+      {leagueList ? (
         <div className="card-box">
           {leagueList.map(league => {
             return (
