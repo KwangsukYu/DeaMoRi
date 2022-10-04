@@ -47,10 +47,18 @@ function MySponRank() {
   }
   return (
     <button type="button" key={storeUser.ranking} className="rank-main">
-      <div className="logo-box">
-        <img className={rankClass} src={rankImg} alt="" />
-        <p className="rank-main-rank">{storeUser.ranking}</p>
-      </div>
+      {storeUser.donation === 0 ? (
+        <div className="logo-box-my">
+          <img className={rankClass} src={rankLogo4} alt="" />
+          <p className="rank-main-unrank">-</p>
+        </div>
+      ) : (
+        <div className="logo-box-my">
+          <img className={rankClass} src={rankImg} alt="" />
+          <p className="rank-main-rank">{storeUser.ranking}</p>
+        </div>
+      )}
+
       <p className="rank-main-name">{storeUser.nickName}</p>
       <p className="rank-main-price">
         {storeUser.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
