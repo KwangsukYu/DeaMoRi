@@ -27,12 +27,12 @@ function UniList() {
 
   const storeUser = useSelector(state => state.userInfo.userInfo);
 
-  const searchUni = e => {
+  const searchUni = async e => {
     console.log(search);
     setLoading(true);
     e.preventDefault();
     if (search) {
-      axios({
+      await axios({
         url: `https://j7c208.p.ssafy.io:8080/api/univers/search/${search}`,
         method: "get"
         // params: { search }
@@ -47,7 +47,7 @@ function UniList() {
           console.log(err);
         });
     } else {
-      axios({
+      await axios({
         url: "https://j7c208.p.ssafy.io:8080/api/univers/list",
         method: "get"
         // headers: { Authorization: `Bearer ${localStorage.token}` }
@@ -68,7 +68,7 @@ function UniList() {
     setLoading(true);
 
     axios({
-      url: "https://j7c208.p.ssafy.io:8080/api/univers/list",
+      url: "httpss://j7c208.p.ssafy.io:8080/api/univers/list",
       method: "get"
       // headers: { Authorization: `Bearer ${localStorage.token}` }
     })
@@ -97,7 +97,7 @@ function UniList() {
 
   useEffect(() => {
     axios({
-      url: `https://j7c208.p.ssafy.io:8080/api/univers`,
+      url: `httpss://j7c208.p.ssafy.io:8080/api/univers`,
       method: "get",
       headers: { Authorization: `Bearer ${localStorage.token}` },
       params: { id: storeUser.universityPk }

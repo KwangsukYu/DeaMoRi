@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Create.scss";
 import ColorPicker from "components/colorPicker/ColorPicker";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { infoType } from "Slices/userInfo";
+import DAMORI from "assets/images/DAEMORI_logo.svg";
 import { CircularProgress } from "@mui/material";
 import CreateLeague from "apis/leagues/CreateLeague";
 import UniversityData from "./UniversityData.json";
@@ -30,7 +31,6 @@ type Inputs = {
 };
 
 function Create() {
-  const navigate = useNavigate();
   const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
 
   const [team1Color, setTeam1Color] = useState("#5c6bc0");
@@ -39,10 +39,21 @@ function Create() {
   const [files, setFiles] = useState([] as any);
   const [userPk] = useState(String(storeUser.userPk));
   const [isLoading, setIsLoading] = useState(false);
+  const [imageSrc, setImageSrc] = useState("");
+
+  // 프리뷰
 
   // 파일 객체 생성
   const createFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFiles(e.target.files);
+    if (e.target.files) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onloadend = () => {
+        const res = reader.result;
+        setImageSrc(res as string);
+      };
+    }
   };
 
   // 대학 검색 드롭다운
@@ -62,10 +73,8 @@ function Create() {
       broadcast,
       ownerPk: userPk
     };
-    const Res = await CreateLeague(files, newData);
+    await CreateLeague(files, newData);
     setIsLoading(false);
-    navigate(`/leagues/detail/${Res}`);
-    alert("대회 등록이 완료되었습니다.");
   };
 
   const broadcasting = (e: string) => {
@@ -159,117 +168,143 @@ function Create() {
         >
           {/* 공통 옵션 선택 */}
           <div className="create-option">
-            <h1>대회생성</h1>
-            <div className="create-option-text">대회명</div>
+            <h1>대회 생성</h1>
+            <div className="create-container">
+              <div className="create-container-poster">
+                <p className="create-container-poster-label">
+                  대회 포스터 등록
+                </p>
+                <div className="create-container-poster-box">
+                  {imageSrc ? (
+                    <img src={imageSrc} alt="" />
+                  ) : (
+                    <img src={DAMORI} alt="" />
+                  )}
+                </div>
+                <label className="create-option-poster" htmlFor="poster">
+                  포스터 등록
+                  <input
+                    className="create-option-poster-register"
+                    type="file"
+                    placeholder="포스터"
+                    id="poster"
+                    // {...register("poster", {
+                    //   required: "포스터를 등록해주세요."
+                    // })}
+                    onChange={e => {
+                      createFile(e);
+                    }}
+                  />
+                </label>
+                {errors.poster && (
+                  <small role="alert">{errors.poster.message}</small>
+                )}
+              </div>
+              <div className="create-container-info">
+                <div className="create-info-wrapper">
+                  <div className="create-container-info_title">
+                    <p>대회 명</p>
+                    <input
+                      className="create-container-info_title_input"
+                      type="text"
+                      placeholder="대회명"
+                      id="leaguetitle"
+                      {...register("leagueTitle", {
+                        required: "대회명을 입력해주세요."
+                      })}
+                    />
+                  </div>
+                  {/* 입력값이 없으면 오류 메세지를 띄워줌 */}
+                  {errors.leagueTitle && (
+                    <small role="alert">{errors.leagueTitle.message}</small>
+                  )}
+                  <div className="create-container-info_place">
+                    <p className="create-container-info_place_label">
+                      대회 장소
+                    </p>
+                    <input
+                      className="create-container-info_place_input"
+                      type="text"
+                      placeholder="대회 장소"
+                      id="leagueend"
+                      {...register("place", {
+                        required: "대회 장소를 입력해주세요."
+                      })}
+                    />
+                    {errors.place && (
+                      <small role="alert">{errors.place.message}</small>
+                    )}
+                  </div>
+                  <div className="create-container-info_prize">
+                    <p>대회 상금</p>
+                    <input
+                      className="create-container-info_prize_input"
+                      type="text"
+                      id="sponstart"
+                      placeholder="대회 상금"
+                      {...register("prizeMoney")}
+                    />
+                    {errors.prizeMoney && (
+                      <small role="alert">{errors.prizeMoney.message}</small>
+                    )}
+                  </div>
+                </div>
 
-            <input
-              className="create-option-input"
-              type="text"
-              placeholder="대회명"
-              id="leaguetitle"
-              {...register("leagueTitle", {
-                required: "대회명을 입력해주세요."
-              })}
-            />
-            {/* 입력값이 없으면 오류 메세지를 띄워줌 */}
-            {errors.leagueTitle && (
-              <small role="alert">{errors.leagueTitle.message}</small>
-            )}
-            <div className="create-option-text">대회 상금</div>
-
-            <input
-              className="create-option-input"
-              type="text"
-              id="sponstart"
-              placeholder="대회 상금"
-              {...register("prizeMoney", {
-                required: "대회 상금을 입력해주세요."
-              })}
-            />
-            {errors.prizeMoney && (
-              <small role="alert">{errors.prizeMoney.message}</small>
-            )}
-            <div className="create-option-text">대회 일정</div>
-            <div className="create-option-comment">
-              후원 종료일은 대회 종료일과 동일하게 적용됩니다.
+                <div className="create-broadcast-wrapper">
+                  <p>중계</p>
+                  <div className="create-container-info_broadcast">
+                    <p>대회 중계 여부를 선택해주세요.</p>
+                    <p>중계방은 주최자만 만들 수 있습니다.</p>
+                    {broadcast === "1" ? (
+                      <button
+                        type="button"
+                        className="create-container-info_broadcast_on"
+                        onClick={() => broadcasting("0")}
+                      >
+                        ON
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="create-container-info_broadcast_off"
+                        onClick={() => broadcasting("1")}
+                      >
+                        OFF
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="create-container-date">
+                  <div className="create-option-text">
+                    대회 일정
+                    <div className="create-option-comment">
+                      후원 종료일은 대회 종료일과 동일하게 적용됩니다.
+                    </div>
+                  </div>
+                  <span>
+                    <input
+                      className="create-option-input"
+                      type="date"
+                      id="leaguestart"
+                      {...register("leagueStart")}
+                    />{" "}
+                    -{" "}
+                    <input
+                      className="create-option-input"
+                      type="date"
+                      id="leagueend"
+                      {...register("leagueEnd")}
+                    />
+                  </span>
+                  {errors.leagueStart && (
+                    <small role="alert">{errors.leagueStart.message}</small>
+                  )}
+                  {errors.leagueEnd && (
+                    <small role="alert">{errors.leagueEnd.message}</small>
+                  )}
+                </div>
+              </div>
             </div>
-            <span>
-              <input
-                className="create-option-input"
-                type="date"
-                id="leaguestart"
-                {...register("leagueStart", {
-                  required: "대회 시작일을 입력해주세요."
-                })}
-              />{" "}
-              -{" "}
-              <input
-                className="create-option-input"
-                type="date"
-                id="leagueend"
-                {...register("leagueEnd", {
-                  required: "대회 종료일을 입력해주세요."
-                })}
-              />
-            </span>
-            {errors.leagueStart && (
-              <small role="alert">{errors.leagueStart.message}</small>
-            )}
-            {errors.leagueEnd && (
-              <small role="alert">{errors.leagueEnd.message}</small>
-            )}
-            <input
-              className="create-option-input"
-              type="text"
-              placeholder="대회 장소"
-              id="leagueend"
-              {...register("place", {
-                required: "대회 장소를 입력해주세요."
-              })}
-            />
-            {errors.place && <small role="alert">{errors.place.message}</small>}
-            <label className="create-option-poster" htmlFor="poster">
-              포스터 등록
-              <input
-                className="create-option-poster-register"
-                type="file"
-                placeholder="포스터"
-                id="poster"
-                // {...register("poster", {
-                //   required: "포스터를 등록해주세요."
-                // })}
-                onChange={e => {
-                  createFile(e);
-                }}
-              />
-            </label>
-            {errors.poster && (
-              <small role="alert">{errors.poster.message}</small>
-            )}
-            <span className="create-option-broadcast">
-              <button
-                className={
-                  broadcast === "0"
-                    ? "create-option-broadcast-on"
-                    : "create-option-broadcast-off"
-                }
-                onClick={() => broadcasting("0")}
-                type="button"
-              >
-                중개 Off
-              </button>
-              <button
-                className={
-                  broadcast === "1"
-                    ? "create-option-broadcast-on"
-                    : "create-option-broadcast-off"
-                }
-                onClick={() => broadcasting("1")}
-                type="button"
-              >
-                중개 On
-              </button>
-            </span>
           </div>
 
           {/* 팀별 옵션 선택 */}
