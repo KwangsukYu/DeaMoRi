@@ -18,14 +18,6 @@ public class LeaguePatchReq {
    @ApiModelProperty(name="트로피 url")
    private String trophyUrl;
 
-//   @ApiModelProperty(name="트랜잭션 해쉬")
-//   private String transactionHash;
-   @ApiModelProperty(name="보내는 사람(주최자) 주소")
-   private String fromAddress;
-
-   @ApiModelProperty(name="받는 사람(우승자) 주소")
-   private String toAddress;
-
-   @ApiModelProperty(name="총상금")
-   private String value;
+   @ApiModelProperty(name="트랜잭션 해쉬")
+   private String transactionHash;
 }
