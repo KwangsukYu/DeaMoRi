@@ -12,9 +12,13 @@ function CheckUniModal({ signal, userFile }: CoinChargeProps) {
     <div className="wrapper">
       <div id="check-uni">
         <div className="check-uni">
-          <img className="admin-img" src={userFile} alt="" />
+          <p className="check-uni-title">대학 인증</p>
+          <div className="file-box">
+            <img className="admin-img" src={userFile} alt="" />
+          </div>
+
           <button className="admin-button" type="button" onClick={signal}>
-            취소
+            확인
           </button>
         </div>
       </div>
