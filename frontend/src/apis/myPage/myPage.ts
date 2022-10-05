@@ -18,13 +18,15 @@ export const sendTx = async (tx: string) => {
   return re;
 };
 
-export const sendUniAuth = (file: File, uniName: string) => {
+export const sendUniAuth = async (file: File, uniName: string) => {
+  console.log(file, uniName);
+
   const formData = new FormData();
   formData.append("file", file);
 
   formData.append("univesityName", uniName);
 
-  axios({
+  await axios({
     url: "https://j7c208.p.ssafy.io:8080/api/users/auth",
     method: "post",
     data: formData,
@@ -34,20 +36,20 @@ export const sendUniAuth = (file: File, uniName: string) => {
       console.log(res.data);
     })
     .catch(err => {
-      console.log(err);
+      alert("대학이름을 제대로 입력해주세요 OO대학교");
     });
 };
 
-export const setProfile = (file: File) => {
+export const setProfile = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
-  axios({
+  await axios({
     url: "https://j7c208.p.ssafy.io:8080/api/users/profile",
     method: "patch",
     data: formData,
     headers: {
-      Authorization: `Bearer ${localStorage.token}`
-      // "Content-Type": "multipart/form-data"
+      Authorization: `Bearer ${localStorage.token}`,
+      "Content-Type": "multipart/form-data"
     }
   })
     .then(res => {

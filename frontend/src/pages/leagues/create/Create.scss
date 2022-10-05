@@ -7,6 +7,154 @@
     color: white;
     flex-direction: column;
 
+    &-container {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: relative;
+      &-poster {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        &-label {
+          margin: 0px;
+          font-size: 20px;
+          color: #5c6bc0;
+          font-weight: bold;
+        }
+        &-box {
+          width: 200px;
+          height: 300px;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          background-color: #fff;
+          border-radius: 15px;
+          > img {
+            width: 200px;
+            height: 300px;
+          }
+        }
+      }
+      &-info {
+        padding-right: 30px;
+        width: 60%;
+        display: flex;
+        flex-direction: flex;
+        align-items: flex-start;
+        justify-content: center;
+        &_title {
+          > p {
+            margin: 0;
+            font-size: 16px;
+            color: #5c6bc0;
+            font-weight: bold;
+          }
+          &_input {
+            margin-top: 12px;
+            width: 200px;
+            height: 35px;
+            border-radius: 12px;
+            text-align: center;
+          }
+        }
+        &_place {
+          margin-top: 20px;
+          width: 100%;
+          &_label {
+            margin: 0;
+            font-weight: bold;
+            color: #5c6bc0;
+            margin: 0px;
+          }
+          &_input {
+            margin-top: 12px;
+
+            width: 200px;
+            height: 35px;
+            border-radius: 12px;
+            text-align: center;
+          }
+        }
+        &_prize {
+          margin-top: 20px;
+          > p {
+            margin: 0px;
+            margin-left: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #5c6bc0;
+            margin: 0;
+          }
+          &_input {
+            margin-top: 12px;
+            width: 200px;
+            height: 35px;
+            border-radius: 12px;
+            text-align: center;
+          }
+        }
+        .create-info-wrapper {
+          padding-left: 10px;
+          width: 50%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+        .create-broadcast-wrapper {
+          width: 50%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          > p {
+            font-size: 16px;
+            font-weight: bold;
+            color: #5c6bc0;
+            margin: 0;
+            margin-top: 40px;
+          }
+        }
+        &_broadcast {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          > p {
+            color: #999;
+            font-size: 12px;
+          }
+          > button {
+            margin-top: 40px;
+            height: 38px;
+            width: 80px;
+            border-radius: 15px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            font-weight: bold;
+          }
+          &_on {
+            background-color: red;
+          }
+          &_off {
+            background-color: #666;
+          }
+        }
+      }
+      &-date {
+        position: absolute;
+        bottom: 0px;
+        right: 60px;
+      }
+    }
+
     &-option {
       display: flex;
       width: 800px;
@@ -19,25 +167,28 @@
       border-top: 4px solid #5c6bc0;
       border-bottom: 4px solid #5c6bc0;
       small {
+        display: inline-block;
         color: rgb(202, 0, 0);
       }
       &-text {
-        margin: 10px;
+        font-size: 16px;
         font-weight: bold;
         color: #5c6bc0;
-        margin-bottom: -1px;
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 24px;
       }
       &-input {
         width: 200px;
         height: 35px;
-        margin: 8px;
         border-radius: 12px;
         text-align: center;
       }
       &-comment {
-        font-size: 14px;
-        margin-top: 4px;
-        color: #ff7f22;
+        font-size: 12px;
+        font-weight: normal;
+        margin-left: 20px;
+        color: #999;
       }
       input[type="file"] {
         color: red;
@@ -46,7 +197,6 @@
       }
       &-poster {
         cursor: pointer;
-        margin-top: 10px;
         font-size: 14px;
         width: 120px;
         height: 38px;
@@ -57,9 +207,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      &-poster:hover {
-        background-color: #007350;
       }
 
       &-broadcast {
@@ -181,6 +328,12 @@
       }
     }
     &-buttoncontainer {
+      &-loading {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 60px;
+      }
       &-cancel {
         cursor: pointer;
         margin-left: 275px;
@@ -202,12 +355,6 @@
         width: 120px;
         height: 40px;
         font-weight: bold;
-      }
-      &-cancel:hover {
-        background-color: #007350;
-      }
-      &-approve:hover {
-        background-color: #007350;
       }
     }
   }

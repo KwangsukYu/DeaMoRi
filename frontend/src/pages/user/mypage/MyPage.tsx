@@ -30,19 +30,18 @@ function MyPage() {
     const balance = await getWalletBalance(userInfo.address);
     setUserBalance(balance);
   };
+  const change = () => {
+    setCahnged(!changed);
+  };
 
   useEffect(() => {
     if (userInfo.address) {
       getUserBalance();
     }
-  }, [userInfo.address]);
+  }, [userInfo.address, change]);
 
   const signal = () => {
     setHaveWallet(true);
-  };
-
-  const change = () => {
-    setCahnged(!changed);
   };
 
   const fileUpload = () => {
@@ -51,11 +50,12 @@ function MyPage() {
     }
   };
 
-  const changeProfile = () => {
+  const changeProfile = async () => {
     if (imgRef.current?.files) {
       const file = imgRef.current.files[0];
       if (file) {
         setProfile(file);
+        window.location.href = "/mypage";
       }
     }
   };
@@ -99,7 +99,12 @@ function MyPage() {
             )}
           </div>
           {authModal && (
-            <UniAuth change={change} closeModal={() => setAuthModal(false)} />
+            <UniAuth
+              change={change}
+              closeModal={() => {
+                setAuthModal(false);
+              }}
+            />
           )}
         </div>
         <div className="mypage-wallet">
@@ -166,10 +171,16 @@ function MyPage() {
             <p>금액</p>
           </div>
         </div>
-        {tap === 0 ? (
-          <SupportTxList state={tap} />
+        {haveWallet ? (
+          <div className="list-container">
+            {tap === 0 ? (
+              <SupportTxList state={tap} changed={changed} />
+            ) : (
+              <SupportTxList state={tap} changed={changed} />
+            )}
+          </div>
         ) : (
-          <SupportTxList state={tap} />
+          <div className="none-wallet">지갑을 생성해주세요.</div>
         )}
       </div>
       {modal && (
@@ -178,6 +189,7 @@ function MyPage() {
           signal={() => {
             setModal(!modal);
             getUserBalance();
+            change();
           }}
         />
       )}

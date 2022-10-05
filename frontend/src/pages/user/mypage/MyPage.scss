@@ -213,5 +213,12 @@
         }
       }
     }
+    .list-container {
+      display: flex;
+      width: 100%;
+    }
+    .none-wallet {
+      margin-top: 20px;
+    }
   }
 }
