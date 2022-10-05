@@ -14,7 +14,6 @@ function LeagueOpen({ keyword }: keywordPorps) {
     (async () => {
       const res = await LeagueStart();
       console.log(res);
-      console.log(res[0].id);
       setItems(res);
     })();
   }, []);
@@ -22,9 +21,11 @@ function LeagueOpen({ keyword }: keywordPorps) {
   return (
     <div id="LeagueOpen">
       <div className="LeagueOpen">
-        {items.map(item => {
-          return <Poster key={item.id} item={item} />;
-        })}
+        {items
+          .filter((item: any) => item.status < 2)
+          .map(item => {
+            return <Poster key={item.leagueId} item={item} />;
+          })}
         {/* {items
       .filter((item: any) => item.status < 2)
       .map(item => {
