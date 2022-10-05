@@ -54,8 +54,8 @@ function MyPage() {
     if (imgRef.current?.files) {
       const file = imgRef.current.files[0];
       if (file) {
-        setProfile(file);
-        window.location.href = "/mypage";
+        await setProfile(file);
+        alert("프로필 변경은 재 로그인 시 적용됩니다.");
       }
     }
   };
@@ -75,7 +75,11 @@ function MyPage() {
             className="mypage-profile-img"
             onClick={fileUpload}
           >
-            <img src={UserDummy} alt="" />
+            {userInfo.profileUrl ? (
+              <img src={userInfo.profileUrl} alt="" />
+            ) : (
+              <img src={UserDummy} alt="" />
+            )}
           </button>
           <div className="mypage-profile-detail">
             <div className="mypage-username">{userInfo.nickName}</div>
