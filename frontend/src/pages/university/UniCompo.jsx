@@ -15,7 +15,7 @@ function UniCompo({ currentPosts }) {
               type="button"
               className="uni-card-background-button"
               onClick={() => {
-                navigate(`/university/${uni.id}`, { state: uni.id });
+                navigate(`/university/${uni.id}`);
               }}
             >
               <div className="uni-card">

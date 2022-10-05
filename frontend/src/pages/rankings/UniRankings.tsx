@@ -21,22 +21,7 @@ interface uniRankType {
 
 function UniRankings() {
   const navigate = useNavigate();
-
   const [uniRank, setUniRank] = useState<uniRankType[]>([]);
-
-  useEffect(() => {
-    axios({
-      url: "https://j7c208.p.ssafy.io:8080/api/ranking/university",
-      method: "get",
-      params: { page: 0, size: 10 }
-    })
-      .then(res => {
-        setUniRank(res.data.universityRankings);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }, []);
 
   useEffect(() => {
     axios({
@@ -45,6 +30,17 @@ function UniRankings() {
     })
       .then(res => {
         console.log(res.data);
+        axios({
+          url: "https://j7c208.p.ssafy.io:8080/api/ranking/university",
+          method: "get",
+          params: { page: 0, size: 10 }
+        })
+          .then(resp => {
+            setUniRank(resp.data.universityRankings);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       })
       .catch(err => {
         console.error(err);

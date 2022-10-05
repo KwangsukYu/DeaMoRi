@@ -1,26 +1,5 @@
-// import React from "react";
 import axios from "axios";
 import { deployCloneLeagueContract } from "apis/web3/SmartContract";
-
-// type createLeague = {
-//   leagueId: string;
-//   sponStartDatetime: string;
-//   leagueStartDatetime: string;
-//   leagueEndDatetime: string;
-//   location: string;
-//   contractAddress: string;
-
-//   team1Id: string;
-//   team1University: string;
-//   team1Wallet: string;
-//   team1Color: string;
-
-//   team2Id: string;
-//   team2University: string;
-//   team2Wallet: string;
-//   team2Color: string;
-//   // broadcast: number;
-// };
 
 type createLeague = {
   leagueTitle: string;
@@ -73,7 +52,7 @@ async function CreateLeague(files: any, data: createLeague) {
     }
   })
     .then(response => {
-      console.log(response.data.message);
+      console.log(response.data.message, "대회 생성 객체");
       // alert("대회 등록이 완료되었습니다.");
       return response.data.message;
       // useNavigate(`/${}`)
