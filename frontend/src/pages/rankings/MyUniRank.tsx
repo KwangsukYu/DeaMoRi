@@ -35,18 +35,20 @@ function MyUniRank() {
   });
   const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
   useEffect(() => {
-    axios({
-      url: `https://j7c208.p.ssafy.io:8080/api/univers`,
-      method: "get",
-      headers: { Authorization: `Bearer ${localStorage.token}` },
-      params: { id: storeUser.universityPk }
-    })
-      .then(res => {
-        setMyUni(res.data);
+    if (localStorage.token) {
+      axios({
+        url: `https://j7c208.p.ssafy.io:8080/api/univers`,
+        method: "get",
+        headers: { Authorization: `Bearer ${localStorage.token}` },
+        params: { id: storeUser.universityPk }
       })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          setMyUni(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }, []);
 
   let rankImg = "";
@@ -66,49 +68,83 @@ function MyUniRank() {
   }
   return (
     <div>
-      {storeUser.universityPk === 0 ? (
-        <div className="rank-main">
-          <div className="no-uni-box">
-            <p>등록된 대학이 없습니다.</p>
-            <button
-              type="button"
-              className="go-button"
-              onClick={() => {
-                navigate("/mypage");
-              }}
-            >
-              대학 등록하기
-            </button>
-          </div>
-        </div>
-      ) : (
-        <button
-          type="button"
-          key={storeUser.ranking}
-          className="rank-main"
-          onClick={() => {
-            navigate(`/university/${storeUser.universityPk}`);
-          }}
-          style={{ cursor: "pointer" }}
-        >
-          {myUni.donation === 0 ? (
-            <div className="logo-box-my">
-              <img className={rankClass} src={rankLogo4} alt="" />
-              <p className="rank-main-unrank">-</p>
+      {localStorage.token ? (
+        <div>
+          {storeUser.universityPk === 0 ? (
+            <div className="rank-main">
+              <div className="no-uni-box">
+                <p>등록된 대학이 없습니다.</p>
+                <button
+                  type="button"
+                  className="go-button"
+                  onClick={() => {
+                    navigate("/mypage");
+                  }}
+                >
+                  대학 등록하기
+                </button>
+              </div>
             </div>
           ) : (
-            <div className="logo-box-my">
-              <img className={rankClass} src={rankImg} alt="" />
-              <p className="rank-main-rank">{myUni.ranking}</p>
-            </div>
-          )}
+            <button
+              type="button"
+              key={storeUser.ranking}
+              className="rank-main"
+              onClick={() => {
+                navigate(`/university/${storeUser.universityPk}`);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              {myUni.donation === 0 ? (
+                <div className="logo-box-my">
+                  <img className={rankClass} src={rankLogo4} alt="" />
+                  <p className="rank-main-unrank">-</p>
+                </div>
+              ) : (
+                <div className="logo-box-my">
+                  <img className={rankClass} src={rankImg} alt="" />
+                  <p className="rank-main-rank">{myUni.ranking}</p>
+                </div>
+              )}
 
-          <p className="rank-main-name">{myUni.universityName}</p>
-          <p className="rank-main-price">
-            {myUni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-            WON
-          </p>
-        </button>
+              <p className="rank-main-name">{myUni.universityName}</p>
+              <p className="rank-main-price">
+                {myUni.donation
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                WON
+              </p>
+            </button>
+          )}
+        </div>
+      ) : (
+        <div>
+          <div className="rank-main">
+            <div className="no-uni-box">
+              <p>로그인이 필요합니다.</p>
+              <div className="login-signup-box">
+                <button
+                  type="button"
+                  className="go-button"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  로그인
+                </button>
+                <button
+                  type="button"
+                  className="go-button"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
+                  회원가입
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
