@@ -28,7 +28,7 @@ import java.util.List;
 @Service
 public class WalletServiceImpl implements WalletService {
 
-    private final Web3j web3j = Web3j.build(new HttpService("http://j7c2081.p.ssafy.io:8545"));
+    private final Web3j web3j = Web3j.build(new HttpService("https://j7c2081.p.ssafy.io/blockchain"));
 
     @Autowired
     WalletRepository walletRepository;
