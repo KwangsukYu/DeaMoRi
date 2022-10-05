@@ -32,7 +32,11 @@ function Admin() {
         headers: { Authorization: `Bearer ${localStorage.token}` }
       })
         .then(res => {
-          setUsers(res.data.userAdmins);
+          setUsers(
+            res.data.userAdmins.filter(
+              (user: any) => user.role !== "ROLE_ADMIN"
+            )
+          );
         })
         .catch(err => {
           console.log(err);
