@@ -40,10 +40,10 @@ export const sendUniAuth = async (file: File, uniName: string) => {
     });
 };
 
-export const setProfile = (file: File) => {
+export const setProfile = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
-  axios({
+  await axios({
     url: "https://j7c208.p.ssafy.io:8080/api/users/profile",
     method: "patch",
     data: formData,

@@ -50,11 +50,12 @@ function MyPage() {
     }
   };
 
-  const changeProfile = () => {
+  const changeProfile = async () => {
     if (imgRef.current?.files) {
       const file = imgRef.current.files[0];
       if (file) {
         setProfile(file);
+        window.location.href = "/mypage";
       }
     }
   };
