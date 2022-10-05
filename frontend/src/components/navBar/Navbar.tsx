@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./NavBar.scss";
 import NavLogo from "assets/images/DAMORI_navBar.svg";
 import UserDummy from "assets/images/userDummy2.png";
@@ -16,12 +16,25 @@ function NavBar() {
   // });
   // let storeUser;
   const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
-
   const [dropDown, setdropDown] = useState(false);
   const [active, setActive] = useState("대회");
+  const location = useLocation();
   console.log(storeUser);
   // localStorage.token
   // console.log(storeUser);
+
+  useEffect(() => {
+    const url = location.pathname;
+    if (url.includes("leagues")) {
+      setActive("대회");
+    } else if (url.includes("rankings")) {
+      setActive("랭킹");
+    } else if (url.includes("university")) {
+      setActive("대학");
+    } else {
+      setActive("");
+    }
+  }, [location.pathname]);
 
   function Logout(e: any) {
     e.preventDefault();
