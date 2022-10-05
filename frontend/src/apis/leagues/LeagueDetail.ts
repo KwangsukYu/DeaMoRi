@@ -65,15 +65,16 @@ export async function getLeagueDetail(leagueId: number) {
   return res;
 }
 
-export function changeToPlaying(leaguePk: number) {
+export function changeToPlaying(leaguePK: number) {
   const res = axios({
     url: "https://j7c208.p.ssafy.io:8080/api/league/start",
     method: "patch",
     headers: { Authorization: `Bearer ${localStorage.token}` },
-    params: { leaguePk }
+    params: { leaguePK }
   })
-    .then(re => re.data)
+    .then(re => console.log(re.data))
     .catch(err => {
+      console.log(leaguePK, typeof leaguePK);
       console.error(err);
     });
   return res;
@@ -95,7 +96,7 @@ export function changeToEnd(
 
   const res = axios({
     url: "https://j7c208.p.ssafy.io:8080/api/league/end",
-    method: "petch",
+    method: "patch",
     headers: { Authorization: `Bearer ${localStorage.token}` },
     data
   })
