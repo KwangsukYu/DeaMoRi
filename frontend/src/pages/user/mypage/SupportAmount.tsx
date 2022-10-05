@@ -23,7 +23,7 @@ function SupportAmount({ item, state }: SupportAmountProps) {
     <div id="support-amount">
       <div className="support-amount">
         <p>{state === 0 ? item.fromAddress : item.toAddress}</p>
-        <p>{item.value} MOK</p>
+        <p>{item.value} WON</p>
       </div>
     </div>
   );
