@@ -156,6 +156,7 @@ public class UserController {
 
 			userService.uploadProfileImage(file, user);
 		}catch (Exception e){
+			e.printStackTrace();
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500,"FAIL"));
 		}
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200,"저장완료"));

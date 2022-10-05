@@ -86,7 +86,7 @@ public class S3Service {
         StringTokenizer st = new StringTokenizer(fileName ,"_");
         String link = st.nextToken();
 
-        s3Client.deleteObject(new DeleteObjectRequest(bucket + link, fileName));
+        s3Client.deleteObject(new DeleteObjectRequest(bucket + "/"+link, fileName));
     }
 
 }
