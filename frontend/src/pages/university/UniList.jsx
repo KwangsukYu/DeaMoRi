@@ -133,8 +133,6 @@ function UniList() {
     rankClass = "rankLogo4";
   }
 
-  console.log(storeUser);
-  console.log(myUni);
   return (
     <div id="uni-list">
       {localStorage.token ? (
