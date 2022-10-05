@@ -328,6 +328,12 @@
       }
     }
     &-buttoncontainer {
+      &-loading {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 60px;
+      }
       &-cancel {
         cursor: pointer;
         margin-left: 275px;
@@ -349,12 +355,6 @@
         width: 120px;
         height: 40px;
         font-weight: bold;
-      }
-      &-cancel:hover {
-        background-color: #007350;
-      }
-      &-approve:hover {
-        background-color: #007350;
       }
     }
   }

@@ -68,7 +68,7 @@ function UniList() {
     setLoading(true);
 
     axios({
-      url: "httpss://j7c208.p.ssafy.io:8080/api/univers/list",
+      url: "https://j7c208.p.ssafy.io:8080/api/univers/list",
       method: "get"
       // headers: { Authorization: `Bearer ${localStorage.token}` }
     })
@@ -97,7 +97,7 @@ function UniList() {
 
   useEffect(() => {
     axios({
-      url: `httpss://j7c208.p.ssafy.io:8080/api/univers`,
+      url: `https://j7c208.p.ssafy.io:8080/api/univers`,
       method: "get",
       headers: { Authorization: `Bearer ${localStorage.token}` },
       params: { id: storeUser.universityPk }
