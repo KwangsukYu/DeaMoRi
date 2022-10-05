@@ -77,6 +77,24 @@ export default function LivePage() {
   const navigate = useNavigate();
   const { leaguePk } = location.state;
 
+  const leaveSession = () => {
+    if (session) session.disconnect();
+
+    OV = null;
+    setSession(null);
+    // setSubscribers([]);
+    setMySessionId("user");
+    setMyUserName(nickName);
+    setMainStreamManager(null);
+    setPublisher(null);
+  };
+
+  const leavePublisher = () => {
+    // if (session) session.disconnect();
+
+    setPublisher(null);
+  };
+
   useEffect(() => {
     const id = location.state.leaguePk;
     setRoomTitile(id);
@@ -108,6 +126,7 @@ export default function LivePage() {
   };
 
   const joinSession = () => {
+    leavePublisher();
     session.on("streamCreated", event => {
       // const subscriber = session.subscribe(event.stream, undefined);
       // setSubscribers(prevSubscribers => [subscriber, ...prevSubscribers]);
@@ -216,17 +235,12 @@ export default function LivePage() {
     setSession(OV.initSession());
   }, []);
 
-  const leaveSession = () => {
-    if (session) session.disconnect();
+  useEffect(() => {
+    if (!session) return;
+    console.log("체크확인");
 
-    OV = null;
-    setSession(null);
-    // setSubscribers([]);
-    setMySessionId("user");
-    setMyUserName(nickName);
-    setMainStreamManager(null);
-    setPublisher(null);
-  };
+    shareSession();
+  }, [session]);
 
   const reqCameraAndAudio = async () => {
     try {
@@ -324,6 +338,39 @@ export default function LivePage() {
                 <p className="live-box-information-subscribers">
                   {/* 시청자 수 : {subscribers.length} */}
                 </p>
+                <div className="live-admin">
+                  <button
+                    type="button"
+                    onClick={deleteSession}
+                    className="d-button"
+                  >
+                    중계방 제거
+                  </button>
+                  <button
+                    type="button"
+                    onClick={CameraOff}
+                    className="c-button"
+                  >
+                    카메라 전환
+                  </button>
+                  <button type="button" onClick={VoiceOff} className="v-button">
+                    소리전환
+                  </button>
+                  <button
+                    type="button"
+                    onClick={shareSession}
+                    className="s-button"
+                  >
+                    화면공유
+                  </button>
+                  <button
+                    type="button"
+                    onClick={joinSession}
+                    className="j-button"
+                  >
+                    카메라공유
+                  </button>
+                </div>
               </div>
             </div>
             <div className="live-chat">
@@ -346,7 +393,7 @@ export default function LivePage() {
                     </ul>
                   </div>
 
-                  <div>
+                  <div className="donation-group">
                     {/* <input
                       value={coin}
                       onChange={e => setMessage(e.target.value)}
@@ -354,9 +401,14 @@ export default function LivePage() {
                     <input
                       value={message}
                       onChange={e => setMessage(e.target.value)}
+                      className="donation-input"
                     />
-                    <button onClick={sendMessageHandler} type="button">
-                      도네이션 보내기
+                    <button
+                      onClick={sendMessageHandler}
+                      type="button"
+                      className="donation-button"
+                    >
+                      후원하기
                     </button>
                   </div>
                 </div>
@@ -368,23 +420,6 @@ export default function LivePage() {
             </div>
           </div>
         ) : null}
-      </div>
-      <div className="live-admin">
-        <button type="button" onClick={deleteSession} className="d-button">
-          중계방 제거
-        </button>
-        <button type="button" onClick={CameraOff} className="c-button">
-          카메라 전환
-        </button>
-        <button type="button" onClick={VoiceOff} className="v-button">
-          소리전환
-        </button>
-        <button type="button" onClick={shareSession} className="s-button">
-          화면공유
-        </button>
-        <button type="button" onClick={joinSession} className="j-button">
-          카메라공유
-        </button>
       </div>
     </div>
   );
