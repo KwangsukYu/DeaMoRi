@@ -13,6 +13,7 @@ interface leagueSupportType {
 
 function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
   const [team1, setTeam1] = useState(50);
+  const [team2, setTeam2] = useState(50);
   const [detailModal, setDetailModal] = useState(false);
 
   useEffect(() => {
@@ -21,6 +22,13 @@ function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
     const perCent = (team1Amount / (team1Amount + team2Amount)) * 100;
     if (perCent) {
       setTeam1(perCent);
+      setTeam2(100 - perCent);
+    } else if (!team1Amount && !team2Amount) {
+      setTeam1(50);
+      setTeam2(50);
+    } else {
+      setTeam1(0);
+      setTeam2(100);
     }
   }, [leagueInfo]);
 
@@ -28,7 +36,12 @@ function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
     <div id="leaguesupport">
       <div className="leaguesupport">
         <div className="leaguesupport-amount">
-          <Counter end={leagueInfo.allDonation} timer={0.1} /> WON
+          {leagueInfo.allDonation === 0 ? (
+            <div className="empty-support">0</div>
+          ) : (
+            <Counter end={leagueInfo.allDonation} timer={0.1} />
+          )}
+          WON
         </div>
         <div className="leaguesupport-bar">
           <div
@@ -45,7 +58,7 @@ function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
           <div
             className="leaguesupport-bar-item"
             style={{
-              width: (100 - team1) * 10,
+              width: team2 * 10,
               backgroundColor: leagueInfo.team2.teamColor
             }}
           >

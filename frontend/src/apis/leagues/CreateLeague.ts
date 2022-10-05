@@ -21,11 +21,14 @@ type createLeague = {
 };
 
 async function CreateLeague(files: any, data: createLeague) {
-  const CA = await deployCloneLeagueContract(
-    data.team1Wallet,
-    data.team2Wallet
-  );
+  const Axios = axios.create();
+  const CA = await deployCloneLeagueContract(data.team1Wallet, data.team2Wallet)
+    .then(res => res)
+    .catch(err => "err");
   console.log(CA);
+  if (CA === "err") {
+    return "지갑오류";
+  }
   const newData = { ...data, contractAddress: CA };
 
   const formData = new FormData();
@@ -39,7 +42,7 @@ async function CreateLeague(files: any, data: createLeague) {
   });
   formData.append("registerInfo", blob);
 
-  const Re = await axios({
+  const Re = await Axios({
     url: "https://j7c208.p.ssafy.io:8080/api/league",
     method: "post",
     data: formData,
@@ -54,10 +57,7 @@ async function CreateLeague(files: any, data: createLeague) {
       return response.data.message;
       // useNavigate(`/${}`)
     })
-    .catch(err => {
-      console.log(data);
-      console.log(err);
-    });
+    .catch(err => err);
   return Re;
 }
 

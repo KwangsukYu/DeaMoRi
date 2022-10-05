@@ -78,10 +78,23 @@ function Create() {
       broadcast,
       ownerPk: userPk
     };
+    if (files.length === 0) {
+      alert("포스터를 등록해주세요!");
+      setIsLoading(false);
+      return 0;
+    }
     const Res = await CreateLeague(files, newData);
-    setIsLoading(false);
-    navigate(`/leagues/detail/${Res}`);
-    alert("대회 등록이 완료되었습니다.");
+    if (Res === "지갑오류") {
+      setIsLoading(false);
+      return alert("올바른 지갑 정보를 입력해주세요!");
+    }
+    if (Res) {
+      setIsLoading(false);
+      alert("대회 등록이 완료되었습니다.");
+      return navigate(`/leagues/detail/${Res}`);
+    }
+    alert("알 수 없는 오류가 발생했당");
+    return navigate("/");
   };
 
   const broadcasting = (e: string) => {
