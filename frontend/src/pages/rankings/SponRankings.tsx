@@ -22,19 +22,6 @@ interface userRankType {
 
 function SponRankings() {
   const [userRank, setUserRank] = useState<userRankType[]>([]);
-  useEffect(() => {
-    axios({
-      url: "https://j7c208.p.ssafy.io:8080/api/ranking/user",
-      method: "get",
-      params: { page: 0, size: 10 }
-    })
-      .then(res => {
-        setUserRank(res.data.userRankings);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }, []);
 
   useEffect(() => {
     axios({
@@ -44,6 +31,17 @@ function SponRankings() {
     })
       .then(res => {
         console.log(res.data);
+        axios({
+          url: "https://j7c208.p.ssafy.io:8080/api/ranking/user",
+          method: "get",
+          params: { page: 0, size: 10 }
+        })
+          .then(resp => {
+            setUserRank(resp.data.userRankings);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       })
       .catch(err => {
         console.error(err);
