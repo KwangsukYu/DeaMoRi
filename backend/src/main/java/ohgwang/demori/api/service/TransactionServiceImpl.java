@@ -20,7 +20,7 @@ import java.util.Map;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private final Web3j web3j = Web3j.build(new HttpService("https://j7c2081.p.ssafy.io/blockchain"));
+    private final Web3j web3j = Web3j.build(new HttpService("https://j7c208.p.ssafy.io/blockchain"));
 
     @Autowired
     LeagueRepository leagueRepository;
