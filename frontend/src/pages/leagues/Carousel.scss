@@ -2,6 +2,13 @@
   width: 100%;
   padding-top: 20px;
   text-align: center;
+  .carousel {
+    &-comment {
+      color: #5c6bc0;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  }
 }
 .slick-list {
   height: 500px;

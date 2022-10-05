@@ -209,7 +209,7 @@ function Create() {
               <div className="create-container-info">
                 <div className="create-info-wrapper">
                   <div className="create-container-info_title">
-                    <p>대회 명</p>
+                    <p>대회명</p>
                     <input
                       className="create-container-info_title_input"
                       type="text"

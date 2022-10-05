@@ -3,7 +3,7 @@ import "./Leagues.scss";
 import { Link } from "react-router-dom";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
-import LeagueOpen from "./LeagueOpen";
+import LeagueList from "./LeagueList";
 
 import Scroll from "./Scroll";
 import Search from "./Search";
@@ -73,9 +73,10 @@ function Leagues() {
           </div>
         </div>
         <div className="leagues-function-search">
+          {/* "대회 검색" */}
           <input
             className="leagues-function-search-bar"
-            // placeholder="대회 검색"
+            onChange={e => handleKeyword(e.target.value)}
             type="text"
           />
           <img
@@ -84,12 +85,14 @@ function Leagues() {
             className="leagues-function-search-icon"
           />
         </div>
-        <div>
+        {/* <div>
           <input onChange={e => handleKeyword(e.target.value)} type="text" />
-        </div>
-        {ing ? <LeagueOpen keyword={keyword} /> : null}
+        </div> */}
+        <LeagueList keyword={keyword} status={ing} />
+
+        {/* {ing ? <LeagueOpen keyword={keyword} status={ing} /> : null} */}
         {/* <Search /> */}
-        <Scroll />
+        {/* <Scroll /> */}
       </div>
     </div>
   );
