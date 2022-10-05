@@ -126,7 +126,6 @@ export default function LivePage() {
   };
 
   const joinSession = () => {
-    leavePublisher();
     session.on("streamCreated", event => {
       // const subscriber = session.subscribe(event.stream, undefined);
       // setSubscribers(prevSubscribers => [subscriber, ...prevSubscribers]);
