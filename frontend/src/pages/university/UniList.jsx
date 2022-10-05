@@ -8,7 +8,7 @@ import rankLogo4 from "assets/images/rank4.png";
 import axios from "axios";
 import Loading from "components/Loading/Loading";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
 import UniCompo from "./UniCompo";
 
@@ -26,7 +26,7 @@ function UniList() {
   const [myUni, setMyUni] = useState({});
 
   const storeUser = useSelector(state => state.userInfo.userInfo);
-
+  const navigate = useNavigate();
   const searchUni = async e => {
     console.log(search);
     setLoading(true);
@@ -141,17 +141,26 @@ function UniList() {
           <div className="uni-list-background">
             {storeUser.universityName ? (
               <div className="uni-list-background-my">
-                <div className="uni-list-background-my-logo-box">
-                  <div className="uni-list-background-my-logo-box-logo">
-                    <img
-                      className="uni-list-background-my-logo-box-logo-unilogo"
-                      src={myUni.logoUrl}
-                      alt="asdf"
-                    />
-                  </div>
-                  <p className="uni-list-background-my-logo-box-text">
-                    {myUni.universityName}
-                  </p>
+                <div type="button" className="uni-list-background-my-logo-box">
+                  <button
+                    type="button"
+                    className="navi-button"
+                    onClick={() => {
+                      console.log(myUni);
+                      navigate(`/university/${storeUser.universityPk}`);
+                    }}
+                  >
+                    <div className="uni-list-background-my-logo-box-logo">
+                      <img
+                        className="uni-list-background-my-logo-box-logo-unilogo"
+                        src={myUni.logoUrl}
+                        alt="asdf"
+                      />
+                    </div>
+                    <p className="uni-list-background-my-logo-box-text">
+                      {myUni.universityName}
+                    </p>
+                  </button>
                 </div>
                 <div className="uni-list-my-text-box">
                   <div className="uni-list-my-text">
