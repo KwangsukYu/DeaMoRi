@@ -13,7 +13,6 @@ function Carousel() {
     (async () => {
       const res = await LeagueStart();
       console.log(res);
-      console.log(res[0].id);
       setItems(res);
     })();
   }, []);
@@ -25,13 +24,10 @@ function Carousel() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3
-    // nextArrow: true,
-    // prevArrow: true,
   };
 
   return (
     <div id="carousel">
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Slider className="carousel" {...settings}>
         {items.map(item => {
           return <Poster key={item.id} item={item} />;
@@ -52,3 +48,7 @@ function Carousel() {
   );
 }
 export default Carousel;
+
+// {
+//   /* eslint-disable-next-line react/jsx-props-no-spreading */
+// }
