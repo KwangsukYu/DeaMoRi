@@ -6,9 +6,11 @@
   .leagues {
     display: flex;
     width: 1000px;
+    min-height: 1000px;
     border: 1px solid;
     border-radius: 20px;
     flex-direction: column;
+    padding-bottom: 80px;
     // justify-content: center;
     align-items: center;
     background-color: #1c1c1c;
