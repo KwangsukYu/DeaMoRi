@@ -24,6 +24,9 @@ import CreateRoom from "pages/live/CreateRoom";
 // admin
 import Admin from "pages/admin/Admin";
 
+// 404
+import PageNotFound from "pages/404";
+
 function App() {
   return (
     <BrowserRouter>
@@ -42,8 +45,8 @@ function App() {
           <Route path="/signup" element={<SingUp />} />
           <Route path="/edit" element={<Edit />} />
           <Route path="/live/broadcast:title" element={<LivePage />} />
-
           <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </BrowserRouter>
