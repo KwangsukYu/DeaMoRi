@@ -18,8 +18,8 @@ const OPENVIDU_SERVER_SECRET = "ohgwang12";
 
 let OV;
 
-const socket = io.connect(`https://j7c208.p.ssafy.io:3001`, {
-  cors: { origin: "https://j7c208.p.ssafy.io:3001" }
+const socket = io.connect(`https://j7c208.p.ssafy.io/chat`, {
+  cors: { origin: "https://j7c208.p.ssafy.io/chat" }
 });
 export const SocketContext = React.createContext();
 
