@@ -3,6 +3,7 @@ import "./ResultModal.scss";
 import { closeLeague } from "apis/web3/web3";
 import { numberWithCommas } from "utils/numberComma";
 import { leagueDetailType, changeToEnd } from "apis/leagues/LeagueDetail";
+import { CircularProgress } from "@mui/material";
 import TrophyGenerator from "./TrophyGenerator";
 
 interface LeagueDetailProps {
@@ -14,6 +15,7 @@ interface LeagueDetailProps {
 function ResultModal({ signal, leagueInfo, change }: LeagueDetailProps) {
   const [selectTeam, setSelectTeam] = useState("-1");
   const [TrophyImg, setTrophyImg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const isGenerated = (tx: string) => {
     setTrophyImg(tx);
@@ -28,6 +30,7 @@ function ResultModal({ signal, leagueInfo, change }: LeagueDetailProps) {
       return alert("트로피를 만들어주세요!");
     }
 
+    setLoading(true);
     const txHash = await closeLeague(
       leagueInfo.leagueContractAddress,
       parseInt(selectTeam, 10),
@@ -38,6 +41,7 @@ function ResultModal({ signal, leagueInfo, change }: LeagueDetailProps) {
 
     await changeToEnd(leagueInfo.leaguePk, txHash, TrophyImg, selectTeam);
     change();
+    setLoading(false);
     return signal("result");
   };
 
@@ -96,14 +100,20 @@ function ResultModal({ signal, leagueInfo, change }: LeagueDetailProps) {
               />
             )}
           </div>
-          <div className="resultmodal-button">
-            <button type="button" onClick={leagueEnd}>
-              정산
-            </button>
-            <button type="button" onClick={() => signal("result")}>
-              닫기
-            </button>
-          </div>
+          {loading ? (
+            <div className="resultmodal-button">
+              <CircularProgress />
+            </div>
+          ) : (
+            <div className="resultmodal-button">
+              <button className="resultend" type="button" onClick={leagueEnd}>
+                정산
+              </button>
+              <button type="button" onClick={() => signal("result")}>
+                닫기
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
