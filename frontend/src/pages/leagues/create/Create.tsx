@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Create.scss";
 import ColorPicker from "components/colorPicker/ColorPicker";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { infoType } from "Slices/userInfo";
@@ -32,7 +32,7 @@ type Inputs = {
 
 function Create() {
   const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
-
+  const navigate = useNavigate();
   const [team1Color, setTeam1Color] = useState("#5c6bc0");
   const [team2Color, setTeam2Color] = useState("#5c6bc0");
   const [broadcast, setBroadcast] = useState("");
@@ -41,7 +41,12 @@ function Create() {
   const [isLoading, setIsLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
 
-  // 프리뷰
+  useEffect(() => {
+    if (!storeUser.address) {
+      alert("주최자 지갑을 생성해주세요.");
+      navigate("/mypage");
+    }
+  }, []);
 
   // 파일 객체 생성
   const createFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,8 +78,9 @@ function Create() {
       broadcast,
       ownerPk: userPk
     };
-    await CreateLeague(files, newData);
+    const articlePk = await CreateLeague(files, newData);
     setIsLoading(false);
+    navigate(`/leagues/detail/${articlePk}`);
   };
 
   const broadcasting = (e: string) => {
@@ -432,7 +438,7 @@ function Create() {
             </div>
           </span>
           {isLoading ? (
-            <div className="create-buttoncontainer">
+            <div className="create-buttoncontainer-loading">
               <CircularProgress />
             </div>
           ) : (

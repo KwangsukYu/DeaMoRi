@@ -14,6 +14,7 @@ export interface infoType {
   badge: string;
   badgeList: string[];
   profileUrl: string | null;
+  universityPk: number;
 }
 
 interface InitialStateType {
