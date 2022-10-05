@@ -18,8 +18,8 @@ const OPENVIDU_SERVER_SECRET = "ohgwang12";
 
 let OV;
 
-const socket = io.connect(`localhost:3001`, {
-  cors: { origin: "http://localhost:3001" }
+const socket = io.connect(`https://j7c208.p.ssafy.io:3001`, {
+  cors: { origin: "https://j7c208.p.ssafy.io:3001" }
 });
 export const SocketContext = React.createContext();
 
@@ -370,19 +370,19 @@ export default function LivePage() {
         ) : null}
       </div>
       <div className="live-admin">
-        <button type="button" onClick={deleteSession} className="delete-button">
+        <button type="button" onClick={deleteSession} className="d-button">
           중계방 제거
         </button>
-        <button type="button" onClick={CameraOff}>
+        <button type="button" onClick={CameraOff} className="c-button">
           카메라 전환
         </button>
-        <button type="button" onClick={VoiceOff}>
+        <button type="button" onClick={VoiceOff} className="v-button">
           소리전환
         </button>
-        <button type="button" onClick={shareSession}>
+        <button type="button" onClick={shareSession} className="s-button">
           화면공유
         </button>
-        <button type="button" onClick={joinSession}>
+        <button type="button" onClick={joinSession} className="j-button">
           카메라공유
         </button>
       </div>
