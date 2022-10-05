@@ -19,7 +19,7 @@ import ResultModal from "./ResultModal";
 function LeagueDetail() {
   const [leagueState, setLeagueState] = useState("0");
   const [detailModal, setDetailModal] = useState(false);
-  const [isOwner, setIsOwner] = useState(false);
+  const [isOwner, setIsOwner] = useState(true);
   const [resultModal, setResultModal] = useState(false);
   const [leagueInfo, setLeagueInfo] = useState<leagueDetailType>();
   const [team1, setTeam1] = useState<teamType>();
@@ -42,9 +42,9 @@ function LeagueDetail() {
       if (!isOpen) {
         setIsClosed(true);
       }
-      if (res.ownerPk === userInfo.userPk && isOpen) {
-        setIsOwner(true);
-      }
+      // if (res.ownerPk === userInfo.userPk && isOpen) {
+      //   setIsOwner(true);
+      // }
     })();
   }, [leagueId, changed]);
 
