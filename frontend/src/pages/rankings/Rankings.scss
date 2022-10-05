@@ -156,28 +156,24 @@
         left: 9px;
         .rankLogo1 {
           position: absolute;
-          left: -35px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo2 {
           position: absolute;
-          left: -36px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo3 {
           position: absolute;
-          left: -36px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo4 {
           position: absolute;
-          left: -26px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rank-main-rank {
           position: absolute;
-          bottom: -29px;
-          left: -22px;
+          bottom: -26px;
+          left: -26px;
           color: white;
           font-weight: bold;
           font-size: 18px;
@@ -186,8 +182,8 @@
         }
         .rank-main-unrank {
           position: absolute;
-          bottom: -47px;
-          left: -30px;
+          top: -51px;
+          left: -25px;
           color: white;
           font-weight: bold;
           text-align: center;
@@ -201,28 +197,24 @@
         right: -7px;
         .rankLogo1 {
           position: absolute;
-          left: -35px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo2 {
           position: absolute;
-          left: -36px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo3 {
           position: absolute;
-          left: -36px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo4 {
           position: absolute;
-          left: -26px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rank-main-rank {
           position: absolute;
-          bottom: -29px;
-          left: -22px;
+          bottom: -26px;
+          left: -26px;
           color: white;
           font-weight: bold;
           font-size: 18px;
@@ -231,8 +223,8 @@
         }
         .rank-main-unrank {
           position: absolute;
-          bottom: -47px;
-          left: -30px;
+          bottom: -42px;
+          left: -25px;
           color: white;
           font-weight: bold;
           text-align: center;
