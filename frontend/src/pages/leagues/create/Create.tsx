@@ -78,9 +78,10 @@ function Create() {
       broadcast,
       ownerPk: userPk
     };
-    const articlePk = await CreateLeague(files, newData);
+    const Res = await CreateLeague(files, newData);
     setIsLoading(false);
-    navigate(`/leagues/detail/${articlePk}`);
+    navigate(`/leagues/detail/${Res}`);
+    alert("대회 등록이 완료되었습니다.");
   };
 
   const broadcasting = (e: string) => {
@@ -209,7 +210,7 @@ function Create() {
               <div className="create-container-info">
                 <div className="create-info-wrapper">
                   <div className="create-container-info_title">
-                    <p>대회 명</p>
+                    <p>대회명</p>
                     <input
                       className="create-container-info_title_input"
                       type="text"

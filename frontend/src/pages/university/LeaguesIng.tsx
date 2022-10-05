@@ -35,8 +35,8 @@ export default function LeaguesIng({ uniPk }: any) {
     setLoading(true);
     axios({
       url: `https://j7c208.p.ssafy.io:8080/api/univers/league/${uniPk}`,
-      method: "get",
-      headers: { Authorization: `Bearer ${localStorage.token}` }
+      method: "get"
+      // headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
         const Leagues = res.data.getLeagues;
@@ -100,7 +100,7 @@ export default function LeaguesIng({ uniPk }: any) {
                         component="div"
                         sx={{
                           fontWeight: "bold",
-                          fontSize: "17px",
+                          fontSize: "18px",
                           width: "210px",
                           textAlign: "center"
                         }}
@@ -112,7 +112,21 @@ export default function LeaguesIng({ uniPk }: any) {
                         color="text.secondary"
                         sx={{
                           fontWeight: "bold",
-                          marginTop: "15px",
+                          marginTop: "12px",
+                          width: "214px",
+                          // marginLeft: "50px"
+
+                          textAlign: "center"
+                        }}
+                      >
+                        {league.uniName1} VS {league.uniName2} <br />
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          fontWeight: "bold",
+                          marginTop: "12px",
                           width: "214px",
                           textAlign: "center"
                         }}
@@ -124,31 +138,23 @@ export default function LeaguesIng({ uniPk }: any) {
                         color="text.secondary"
                         sx={{
                           fontWeight: "bold",
-                          marginTop: "15px",
+                          marginTop: "12px",
                           width: "214px",
                           marginLeft: "50px"
-
-                          // textAlign: "center"
                         }}
                       >
                         {`대회상금 : ${Number(league.prizeMoney)
                           .toString()
                           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} WON`}
-                        {/* 대회상금 :
-                        {Number(league.prizeMoney)
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                        WON <br /> */}
                       </Typography>
                       <Typography
                         variant="body2"
                         color="text.secondary"
                         sx={{
                           fontWeight: "bold",
-                          marginTop: "15px",
+                          marginTop: "12px",
                           width: "214px",
                           marginLeft: "50px"
-                          // textAlign: "center"
                         }}
                       >
                         {`후원금 : ${Number(league.donation)

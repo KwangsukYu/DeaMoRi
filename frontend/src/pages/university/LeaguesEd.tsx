@@ -34,8 +34,8 @@ export default function LeaguesEd({ uniPk }: any) {
     setLoading(true);
     axios({
       url: `https://j7c208.p.ssafy.io:8080/api/univers/league/${uniPk}`,
-      method: "get",
-      headers: { Authorization: `Bearer ${localStorage.token}` }
+      method: "get"
+      // headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
         const Leagues = res.data.getLeagues;

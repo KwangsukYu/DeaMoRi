@@ -65,7 +65,7 @@ function University() {
     axios({
       url: `https://j7c208.p.ssafy.io:8080/api/univers`,
       method: "get",
-      headers: { Authorization: `Bearer ${localStorage.token}` },
+      // headers: { Authorization: `Bearer ${localStorage.token}` },
       params: { id: uniId }
     })
       .then(res => {

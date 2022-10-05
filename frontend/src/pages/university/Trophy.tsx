@@ -5,13 +5,19 @@ import { v4 } from "uuid";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+interface ImgType {
+  fileUrl: string;
+  id: number;
+  leaguePk: number;
+}
+
 interface myUniType {
   donation: number;
   homepage: string;
   id: number;
   logoUrl: string;
   ranking: number;
-  trophyList: [];
+  trophyList: ImgType[];
   universityAddress: string;
   universityName: string;
   userList: [];
@@ -41,6 +47,7 @@ function Trophy() {
       params: { id: uniId }
     })
       .then(res => {
+        console.log(res.data);
         setMyUni(res.data);
       })
       .catch(err => {
@@ -48,6 +55,7 @@ function Trophy() {
       });
   }, []);
 
+  console.log(myUni, "현재 대학");
   return (
     <div className="trophy">
       <p className="trophy-title">트로피</p>
@@ -55,7 +63,7 @@ function Trophy() {
         <div className="trophy-box-container">
           {myUni.trophyList.map(img => (
             <img
-              src={img}
+              src={img.fileUrl}
               alt="badge"
               title="후원1등"
               key={v4()}
