@@ -96,18 +96,20 @@ function UniList() {
   }, [currentpage, indexOfFirstPost, indexOfLastPost, items, postPerPage]);
 
   useEffect(() => {
-    axios({
-      url: `https://j7c208.p.ssafy.io:8080/api/univers`,
-      method: "get",
-      headers: { Authorization: `Bearer ${localStorage.token}` },
-      params: { id: storeUser.universityPk }
-    })
-      .then(res => {
-        setMyUni(res.data);
+    if (localStorage.token) {
+      axios({
+        url: `https://j7c208.p.ssafy.io:8080/api/univers`,
+        method: "get",
+        headers: { Authorization: `Bearer ${localStorage.token}` },
+        params: { id: storeUser.universityPk }
       })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          setMyUni(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }, []);
 
   const setPage = e => {
@@ -135,99 +137,162 @@ function UniList() {
   console.log(myUni);
   return (
     <div id="uni-list">
-      <div className="uni-list">
-        <p className="uni-list-title">내 대학교</p>
-        <div className="uni-list-background">
-          {storeUser.universityName ? (
-            <div className="uni-list-background-my">
-              <div className="uni-list-background-my-logo-box">
-                <div className="uni-list-background-my-logo-box-logo">
-                  <img
-                    className="uni-list-background-my-logo-box-logo-unilogo"
-                    src={myUni.logoUrl}
-                    alt="asdf"
-                  />
+      {localStorage.token ? (
+        <div className="uni-list">
+          <p className="uni-list-title">내 대학교</p>
+          <div className="uni-list-background">
+            {storeUser.universityName ? (
+              <div className="uni-list-background-my">
+                <div className="uni-list-background-my-logo-box">
+                  <div className="uni-list-background-my-logo-box-logo">
+                    <img
+                      className="uni-list-background-my-logo-box-logo-unilogo"
+                      src={myUni.logoUrl}
+                      alt="asdf"
+                    />
+                  </div>
+                  <p className="uni-list-background-my-logo-box-text">
+                    {myUni.universityName}
+                  </p>
                 </div>
-                <p className="uni-list-background-my-logo-box-text">
-                  {myUni.universityName}
-                </p>
-              </div>
-              <div className="uni-list-my-text-box">
-                <div className="uni-list-my-text">
-                  <p>랭킹</p>
-                  <p>총 후원 받은 금액</p>
-                  <p>내가 후원 한 금액</p>
-                </div>
-                <div className="uni-list-my-text">
-                  <div className="uni-list-my-text-logo-box">
-                    <img className={rankClass} src={rankImg} alt="" />
-                    <p className="uni-list-my-text-logo-box-text">
-                      {myUni.ranking}
+                <div className="uni-list-my-text-box">
+                  <div className="uni-list-my-text">
+                    <p>랭킹</p>
+                    <p>총 후원 받은 금액</p>
+                    <p>내가 후원 한 금액</p>
+                  </div>
+                  <div className="uni-list-my-text">
+                    <div className="uni-list-my-text-logo-box">
+                      <img className={rankClass} src={rankImg} alt="" />
+                      <p className="uni-list-my-text-logo-box-text">
+                        {myUni.ranking}
+                      </p>
+                    </div>
+                    <p>
+                      {Number(myUni.donation)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                      WON
+                    </p>
+                    <p>
+                      {Number(storeUser.donation)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                      WON
                     </p>
                   </div>
-                  <p>
-                    {Number(myUni.donation)
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                    WON
-                  </p>
-                  <p>
-                    {Number(storeUser.donation)
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
-                    WON
-                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="no-uni-box">
+                <p className="no-uni-box-text">등록된 대학이 없습니다.</p>
+                <Link to="/mypage">
+                  <button className="no-uni-box-button" type="button">
+                    등록하러 가기
+                  </button>
+                </Link>
+              </div>
+            )}
+          </div>
+          <div className="uni-list-total">
+            <div className="uni-list-total-title-box">
+              <div className="uni-list-total-title-box-title">전체 대학교</div>
+              <form
+                className="input-box"
+                onSubmit={e => {
+                  searchUni(e);
+                }}
+              >
+                <input
+                  className="search-input"
+                  type="text"
+                  onChange={e => {
+                    setSearch(e.target.value);
+                  }}
+                />
+                <button type="submit" className="search-button">
+                  검색
+                </button>
+              </form>
+            </div>
+            {loading ? (
+              <Loading />
+            ) : (
+              <div>
+                {currentPosts.length === 10 || items.length === searchNum ? (
+                  <UniCompo currentPosts={currentPosts} />
+                ) : (
+                  <div className="uni-list-total-background-err">
+                    <p className="search-err">없는 항목입니다.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <Pagination page={currentpage} count={count} setPage={setPage} />
+        </div>
+      ) : (
+        <div id="uni-list">
+          <div className="uni-list">
+            <p className="uni-list-title">내 대학교</p>
+            <div className="uni-list-background">
+              <div className="no-uni-box">
+                <p className="no-uni-box-text">로그인이 필요합니다.</p>
+                <div className="login-signup-box">
+                  <Link to="/login">
+                    <button className="no-uni-box-button" type="button">
+                      로그인
+                    </button>
+                  </Link>
+                  <Link to="/signup">
+                    <button className="no-uni-box-button" type="button">
+                      회원가입
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
-          ) : (
-            <div className="no-uni-box">
-              <p className="no-uni-box-text">등록된 대학이 없습니다.</p>
-              <Link to="/mypage">
-                <button className="no-uni-box-button" type="button">
-                  등록하러 가기
-                </button>
-              </Link>
-            </div>
-          )}
-        </div>
-        <div className="uni-list-total">
-          <div className="uni-list-total-title-box">
-            <div className="uni-list-total-title-box-title">전체 대학교</div>
-            <form
-              className="input-box"
-              onSubmit={e => {
-                searchUni(e);
-              }}
-            >
-              <input
-                className="search-input"
-                type="text"
-                onChange={e => {
-                  setSearch(e.target.value);
-                }}
-              />
-              <button type="submit" className="search-button">
-                검색
-              </button>
-            </form>
-          </div>
-          {loading ? (
-            <Loading />
-          ) : (
-            <div>
-              {currentPosts.length === 10 || items.length === searchNum ? (
-                <UniCompo currentPosts={currentPosts} />
+            <div className="uni-list-total">
+              <div className="uni-list-total-title-box">
+                <div className="uni-list-total-title-box-title">
+                  전체 대학교
+                </div>
+                <form
+                  className="input-box"
+                  onSubmit={e => {
+                    searchUni(e);
+                  }}
+                >
+                  <input
+                    className="search-input"
+                    type="text"
+                    onChange={e => {
+                      setSearch(e.target.value);
+                    }}
+                  />
+                  <button type="submit" className="search-button">
+                    검색
+                  </button>
+                </form>
+              </div>
+              {loading ? (
+                <Loading />
               ) : (
-                <div className="uni-list-total-background-err">
-                  <p className="search-err">없는 항목입니다.</p>
+                <div>
+                  {currentPosts.length === 10 || items.length === searchNum ? (
+                    <UniCompo currentPosts={currentPosts} />
+                  ) : (
+                    <div className="uni-list-total-background-err">
+                      <p className="search-err">없는 항목입니다.</p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-          )}
+            <Pagination page={currentpage} count={count} setPage={setPage} />
+          </div>
         </div>
-        <Pagination page={currentpage} count={count} setPage={setPage} />
-      </div>
+      )}
     </div>
   );
 }

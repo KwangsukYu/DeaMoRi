@@ -33,6 +33,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        .login-signup-box {
+          display: flex;
+        }
         &-text {
           color: black;
         }
@@ -46,6 +49,7 @@
           font-weight: bold;
           background-color: #ff7f22;
           box-shadow: 2px #1c1c1c;
+          margin: 5px;
         }
       }
       &-my {
