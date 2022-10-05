@@ -18,8 +18,8 @@ const OPENVIDU_SERVER_SECRET = "ohgwang12";
 
 let OV;
 
-const socket = io.connect(`https://j7c208.p.ssafy.io/chat`, {
-  cors: { origin: "https://j7c208.p.ssafy.io/chat" }
+const socket = io.connect(`https://j7c208.p.ssafy.io:3001`, {
+  cors: { origin: "https://j7c208.p.ssafy.io:3001" }
 });
 export const SocketContext = React.createContext();
 
@@ -89,12 +89,6 @@ export default function LivePage() {
     setPublisher(null);
   };
 
-  const leavePublisher = () => {
-    // if (session) session.disconnect();
-
-    setPublisher(null);
-  };
-
   useEffect(() => {
     const id = location.state.leaguePk;
     setRoomTitile(id);
@@ -125,6 +119,12 @@ export default function LivePage() {
     });
   };
 
+  const onSession = () => {
+    getToken(leaguePk).then(token => {
+      session.connect(token, { clientData: myUserName });
+    });
+  };
+
   const joinSession = () => {
     session.on("streamCreated", event => {
       // const subscriber = session.subscribe(event.stream, undefined);
@@ -137,8 +137,9 @@ export default function LivePage() {
       //   );
       // });
     });
+    console.log("내 세션아이디", mySessionId);
 
-    getToken(mySessionId).then(token => {
+    getToken(leaguePk).then(token => {
       session.connect(token, { clientData: myUserName }).then(async () => {
         const devices = await OV.getDevices();
         const videoDevices = devices.filter(
@@ -189,7 +190,7 @@ export default function LivePage() {
       // });
     });
 
-    getToken(mySessionId).then(token => {
+    getToken(leaguePk).then(token => {
       session.connect(token, { clientData: myUserName }).then(async () => {
         const devices = await OV.getDevices();
         const videoDevices = devices.filter(
@@ -233,13 +234,9 @@ export default function LivePage() {
     OV = new OpenVidu();
     setSession(OV.initSession());
   }, []);
-
   useEffect(() => {
-    if (!session) return;
-    console.log("체크확인");
-
-    shareSession();
-  }, [session]);
+    onSession();
+  });
 
   const reqCameraAndAudio = async () => {
     try {
@@ -287,7 +284,6 @@ export default function LivePage() {
   };
 
   const deleteSession = () => {
-    leaveSession();
     axios
       .delete(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${title}`, {
         headers: {
