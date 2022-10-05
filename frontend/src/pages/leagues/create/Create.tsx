@@ -78,9 +78,10 @@ function Create() {
       broadcast,
       ownerPk: userPk
     };
-    const articlePk = await CreateLeague(files, newData);
+    const Res = await CreateLeague(files, newData);
     setIsLoading(false);
-    navigate(`/leagues/detail/${articlePk}`);
+    navigate(`/leagues/detail/${Res}`);
+    alert("대회 등록이 완료되었습니다.");
   };
 
   const broadcasting = (e: string) => {
