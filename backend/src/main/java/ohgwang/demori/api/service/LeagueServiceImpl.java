@@ -70,12 +70,14 @@ public class LeagueServiceImpl implements LeagueService {
 
         ///////////////////////////////////////////////////////////////////////////////////////////
 
-        UniversityLeague universityLeague = new UniversityLeague();
-        universityLeague.setLeague(league);
-        universityLeague.setUniversity(universityRepository.getByUniName(registerInfo.getTeam2University()));
-        universityLeagueRepository.save(universityLeague);
-        universityLeague.setUniversity(universityRepository.getByUniName(registerInfo.getTeam1University()));
-        universityLeagueRepository.save(universityLeague);
+        UniversityLeague universityLeague1 = new UniversityLeague();
+        UniversityLeague universityLeague2 = new UniversityLeague();
+        universityLeague1.setLeague(league);
+        universityLeague2.setLeague(league);
+        universityLeague1.setUniversity(universityRepository.getByUniName(registerInfo.getTeam2University()));
+        universityLeagueRepository.save(universityLeague1);
+        universityLeague2.setUniversity(universityRepository.getByUniName(registerInfo.getTeam1University()));
+        universityLeagueRepository.save(universityLeague2);
 
         //////////////////////////////////////////////////////////////////////////////////////////////
 
