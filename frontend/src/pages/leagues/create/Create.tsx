@@ -447,7 +447,7 @@ function Create() {
               <div className="create-container-teamoption2-text">
                 팀장 계정으로 각 팀의 후원이 제공됩니다.
               </div>
-              <h4>1팀 대표 색상 선택</h4>
+              <h4>2팀 대표 색상 선택</h4>
               <ColorPicker team={2} teamColorProps={teamColorProps} />
             </div>
           </span>
