@@ -8,7 +8,6 @@ async function LeagueEnd(keyword: string) {
     headers: {}
   })
     .then(res => {
-      console.log(res);
       if (res.status === 200) {
         return res.data.getLeagues;
       }

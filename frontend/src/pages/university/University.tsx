@@ -91,7 +91,7 @@ function University() {
         {/* <div className="trophy-box"></div>
         <div className="leagues-box"></div> */}
         <div className="uni-box-text">
-          <p className="uni-box-text-title">
+          <div className="uni-box-text-title">
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -104,7 +104,7 @@ function University() {
               <img className={uniRankClass} src={rankImg} alt="" />
               <p className={`rank-logo-text-${textClass}`}>{myUni.ranking}</p>
             </div>
-          </p>
+          </div>
           <p className="uni-box-text-total">{myUni.universityAddress}</p>
           <p className="uni-box-text-price">
             {myUni.donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}

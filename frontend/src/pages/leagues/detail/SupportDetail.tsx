@@ -72,6 +72,10 @@ function SupportDetail({ signal, leagueInfo }: SupportDetailProps) {
       return alert("값을 입력해주세요!");
     }
 
+    if (userBalance <= parseInt(inputRef.current?.value.trim(), 10)) {
+      return alert("보유 코인을 확인해주세요!");
+    }
+
     return setInputModal(true);
   };
 
@@ -144,6 +148,7 @@ function SupportDetail({ signal, leagueInfo }: SupportDetailProps) {
                 className="supportdetail-amount"
                 placeholder="금액을 입력해주세요"
                 type="number"
+                min={1}
                 ref={inputRef}
               />
             </div>
