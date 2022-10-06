@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+/* eslint-disable jsx-a11y/media-has-caption */
 
 export default function OpenViduVideoComponent({ streamManager }) {
   const videoRef = useRef();
@@ -8,5 +9,5 @@ export default function OpenViduVideoComponent({ streamManager }) {
     }
   }, [streamManager]);
 
-  return <video ref={videoRef} autoPlay muted />;
+  return <video ref={videoRef} autoPlay />;
 }

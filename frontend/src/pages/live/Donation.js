@@ -11,8 +11,6 @@ export default function Donation(props) {
   const [discription, setDiscription] =
     useState("이것은 상세내용입니다 확인해주세요");
 
-  console.log("정보", myProps);
-
   return (
     <div className="donation">
       <h3 className="donation-title">
