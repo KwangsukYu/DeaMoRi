@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./SupportDetail.scss";
-import SchoolIcon from "assets/images/SchoolIcon.svg";
-import SchoolIcon2 from "assets/images/SchoolIcon2.svg";
 import WalletIcon from "assets/images/Wallet.svg";
 import { leagueDetailType, teamType } from "apis/leagues/LeagueDetail";
 import { addSupport, addSupportType } from "apis/web3/Transactions";
@@ -23,7 +21,6 @@ function SupportDetail({ signal, leagueInfo }: SupportDetailProps) {
   const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRef2 = useRef<HTMLInputElement>(null);
-  const tmpCA = "0x8cBf8cC0a22EeC674477cB7C6838Cd9F16A8bA01";
 
   const getUserBalance = async () => {
     const balance = await getWalletBalance(userInfo.address);
