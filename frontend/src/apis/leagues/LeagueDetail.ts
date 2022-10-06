@@ -91,7 +91,6 @@ export function changeToEnd(
     trophyUrl,
     winner
   };
-  console.log(data);
 
   const res = axios({
     url: "https://j7c208.p.ssafy.io:8080/api/league/end",

@@ -24,7 +24,7 @@ async function CreateLeague(files: any, data: createLeague) {
   const CA = await deployCloneLeagueContract(data.team1Wallet, data.team2Wallet)
     .then(res => res)
     .catch(err => "err");
-  console.log(CA);
+
   if (CA === "err") {
     return "지갑오류";
   }
@@ -46,7 +46,6 @@ async function CreateLeague(files: any, data: createLeague) {
     }
   })
     .then(response => {
-      console.log(response.data.message, "대회 생성 객체");
       return response.data.message;
     })
     .catch(err => "지갑오류");
