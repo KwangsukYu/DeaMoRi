@@ -27,7 +27,7 @@ function Poster({
         id="card"
         sx={{
           width: 230,
-          height: 430,
+          height: 490,
           padding: 0,
           marginTop: 3,
           textAlign: "center"
@@ -35,7 +35,7 @@ function Poster({
       >
         <CardMedia
           component="img"
-          height="260"
+          height="300"
           image={posterURL}
           alt="green iguana"
         />

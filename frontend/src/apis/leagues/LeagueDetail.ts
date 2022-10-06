@@ -71,7 +71,7 @@ export function changeToPlaying(leaguePK: number) {
     headers: { Authorization: `Bearer ${localStorage.token}` },
     params: { leaguePK }
   })
-    .then(re => console.log(re.data))
+    .then(re => re)
     .catch(err => {
       console.log(leaguePK, typeof leaguePK);
       console.error(err);
