@@ -90,7 +90,7 @@ public class LeagueServiceImpl implements LeagueService {
             return leagueRepository.findAllByStatusIsNotContaining("2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
         }
 
-        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIsNotContaining(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field)));
+        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIsNotContaining(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
 
         return leaguePage;
     }
@@ -101,7 +101,7 @@ public class LeagueServiceImpl implements LeagueService {
             return leagueRepository.findAllByStatus("2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
         }
 
-        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIs(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field)));
+        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIs(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
 
         return leaguePage;
     }
