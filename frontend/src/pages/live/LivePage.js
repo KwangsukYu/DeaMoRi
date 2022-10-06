@@ -7,13 +7,19 @@ import { OpenVidu } from "openvidu-browser";
 import closechat from "assets/images/closechat.png";
 import exit from "assets/images/exit.png";
 import openchat from "assets/images/openchat.png";
+import { io } from "socket.io-client";
 import LiveSupport from "components/LiveSupport";
+import Donation from "./Donation";
 import LiveChat from "./LiveChat";
 import UserVideoComponent from "./UserVideoComponent";
 
 const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "ohgwang12";
 let OV;
+
+const socket = io.connect(`http://localhost:3001`, {
+  cors: { origin: "*" }
+});
 
 export default function LivePage() {
   const [session, setSession] = useState(null);
@@ -30,6 +36,11 @@ export default function LivePage() {
   const [myUserName, setMyUserName] = useState(nickName);
   const [RoomTitle, setRoomTitile] = useState("title");
   const [message, setMessage] = useState("");
+
+  const [donation, setDonation] = useState("text");
+  const [donationSwitch, setDonationSwitch] = useState("false");
+  const [chat, setChat] = useState([]);
+
   const [chattingBox, setChattingBox] = useState(true);
   const { userPk } = useSelector(state => state.userInfo.userInfo);
   const location = useLocation();
@@ -41,10 +52,36 @@ export default function LivePage() {
   const roomId = `broadcast${leaguePk}`;
 
   const sendMessageHandler = () => {
-    // socket.emit("message", message);
-    // setDonation(message);
-    // setMessage("");
+    socket.emit("message", message);
+    setDonation(message);
+    setMessage("");
   };
+
+  const donaitonOff = () => {
+    setDonationSwitch(false);
+  };
+
+  const donationOn = () => {
+    setDonationSwitch(true);
+    setTimeout(donaitonOff, 2000);
+  };
+
+  useEffect(() => {
+    console.log("왜 중복실행", chat);
+    socket.on("message", messageing => {
+      console.log("체크", messageing);
+      console.log("체크2", chat);
+      if (chat === []) {
+        setChat([messageing]);
+        donationOn();
+
+        console.log("말이 되냐고 ", messageing);
+        const msg = new SpeechSynthesisUtterance(messageing);
+        window.speechSynthesis.speak(msg);
+      }
+    });
+  }, [chat]);
+
   useEffect(() => {
     const id = location.state.leagueId;
     setRoomTitile(id);
@@ -276,25 +313,32 @@ export default function LivePage() {
         {session !== null ? (
           <div className="live">
             <div className="live-box">
+              <div className="donation">
+                {donationSwitch === true ? (
+                  <Donation
+                    props={{
+                      donation
+                    }}
+                  />
+                ) : null}
+              </div>
+
               <button className="exit" type="button" onClick={GoDetail}>
                 <img className="art" alt="open" src={exit} />
               </button>
+              {mainStreamManager === null && <div className="empty-video" />}
               {mainStreamManager !== null && ownerPk === userPk ? (
                 <UserVideoComponent
                   className="live-box-video"
                   streamManager={mainStreamManager}
                 />
-              ) : (
-                <div className="empty-video" />
-              )}
+              ) : null}
               {ownerPk !== userPk ? (
                 <UserVideoComponent
                   className="live-box-video"
                   streamManager={subscribers[0]}
                 />
-              ) : (
-                <div className="empty-video" />
-              )}
+              ) : null}
 
               <div className="live-box-information">
                 <h3 className="live-box-information-title">{RoomTitle}</h3>
@@ -362,11 +406,7 @@ export default function LivePage() {
                     </ul>
                   </div>
 
-                  <div className="donation-group">
-                    {/* <input
-                      value={coin}
-                      onChange={e => setMessage(e.target.value)}
-                    /> */}
+                  {/* <div className="donation-group">
                     <input
                       value={message}
                       onChange={e => setMessage(e.target.value)}
@@ -379,7 +419,7 @@ export default function LivePage() {
                     >
                       후원하기
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               ) : (
                 <button className="art4" type="button" onClick={ChattingOff}>
