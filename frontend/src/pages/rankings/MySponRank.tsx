@@ -22,7 +22,6 @@ function MySponRank() {
         headers: { Authorization: `Bearer ${localStorage.token}` }
       })
         .then(res => {
-          console.log(res.data, "로그인 시 스토어 저장 데이터");
           dispatch(getInfo(res.data));
         })
         .catch(err => {
@@ -31,7 +30,6 @@ function MySponRank() {
     }
   }, []);
 
-  console.log(storeUser);
   let rankImg = "";
   let rankClass = "";
   if (localStorage.token) {

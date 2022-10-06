@@ -16,8 +16,6 @@ function Landing() {
     })();
   }, []);
 
-  console.log(data);
-
   return (
     <div id="landing">
       <div className="landing">

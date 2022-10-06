@@ -11,14 +11,11 @@ import MyUniversityLeague from "../../apis/leagues/MyUniversityLeague";
 function Carousel() {
   const [items, setItems] = useState<any[]>([]);
 
-  // Redux 안에 universityPk 확인 가능
   const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
 
   useEffect(() => {
     (async () => {
-      console.log("캐러셀 컴포넌트까지 들어왔음");
       const res = await MyUniversityLeague(userInfo.universityPk);
-      console.log(res);
       setItems(res);
     })();
   }, []);

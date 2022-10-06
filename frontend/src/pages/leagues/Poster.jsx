@@ -16,7 +16,6 @@ function Poster({
     uniName2,
     leagueStartDate,
     leagueEndDate,
-    status,
     donation,
     prizeMoney
   }
@@ -27,7 +26,7 @@ function Poster({
         id="card"
         sx={{
           width: 230,
-          height: 450,
+          height: 430,
           padding: 0,
           marginTop: 3,
           textAlign: "center"
@@ -35,7 +34,7 @@ function Poster({
       >
         <CardMedia
           component="img"
-          height="300"
+          height="260"
           image={posterURL}
           alt="green iguana"
         />
@@ -44,14 +43,16 @@ function Poster({
             {leagueName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {uniName1} VS {uniName2}
+            {uniName1} <br /> {uniName2}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {leagueStartDate} ~ {leagueEndDate} <br />
-            대회 상금 : {prizeMoney}
-            <br />
-            후원금 : {donation}
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ marginTop: 1, marginBottom: 1 }}
+          >
+            {leagueStartDate} ~ {leagueEndDate}
           </Typography>
+          <Typography variant="body2">후원금 : {donation}</Typography>
         </CardContent>
       </Card>
     </Link>

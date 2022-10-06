@@ -55,8 +55,7 @@ export interface leagueDetailType {
 export async function getLeagueDetail(leagueId: number) {
   const res = await axios({
     url: `https://j7c208.p.ssafy.io:8080/api/league/${leagueId}`,
-    method: "get",
-    headers: { Authorization: `Bearer ${localStorage.token}` }
+    method: "get"
   })
     .then(re => re.data)
     .catch(err => {

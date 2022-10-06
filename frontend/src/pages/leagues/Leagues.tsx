@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Leagues.scss";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
 import LeagueList from "./LeagueList";
@@ -11,7 +11,7 @@ import Search from "./Search";
 function Leagues() {
   const [ing, setIng] = useState(true);
   const [keyword, setKeyword] = useState("");
-
+  const navigate = useNavigate();
   const handleKeyword = (e: string) => {
     setKeyword(e);
   };
@@ -19,12 +19,14 @@ function Leagues() {
     <div id="leagues">
       <div className="leagues">
         <div className="leagues-function">
+          <button
+            onClick={() => navigate("/leagues/create")}
+            className="leagues-function-createLeague"
+            type="button"
+          >
+            대회 생성
+          </button>
           <span>
-            <Link to="/leagues/create">
-              <button className="leagues-function-createLeague" type="button">
-                대회 생성
-              </button>
-            </Link>
             <div className="leagues-function-leaguelist">우리 대학 대회</div>
           </span>
         </div>

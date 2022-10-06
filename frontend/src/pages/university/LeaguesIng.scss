@@ -15,10 +15,12 @@
 }
 
 .card-box {
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: start;
+  gap: 4px;
   width: 700px;
 
   hr {

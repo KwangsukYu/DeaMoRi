@@ -9,7 +9,6 @@ export const addWallet = async (address: string) => {
     params: { address },
     headers: { Authorization: `Bearer ${localStorage.token}` }
   });
-  console.log(res);
   return res;
 };
 
@@ -20,7 +19,6 @@ export const getWalletTransactions = async (state: number) => {
     headers: { Authorization: `Bearer ${localStorage.token}` },
     params: state
   });
-  console.log(res);
   return res;
 };
 

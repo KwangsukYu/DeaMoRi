@@ -29,7 +29,6 @@ function UniRankings() {
       method: "patch"
     })
       .then(res => {
-        console.log(res.data);
         axios({
           url: "https://j7c208.p.ssafy.io:8080/api/ranking/university",
           method: "get",

@@ -7,7 +7,6 @@ type createLeague = {
   leagueStart: string;
   leagueEnd: string;
   place: string;
-  // poster: File;
   broadcast: string;
   team1University: string;
   team1Name: string;
@@ -33,10 +32,6 @@ async function CreateLeague(files: any, data: createLeague) {
 
   const formData = new FormData();
   formData.append("file", files[0]);
-  // formData.append(
-  //   "registerInfo ",
-  //   new Blob([JSON.stringify(data)], { type: "application/json" })
-  // );
   const blob = new Blob([JSON.stringify(newData)], {
     type: "application/json"
   });
@@ -48,16 +43,13 @@ async function CreateLeague(files: any, data: createLeague) {
     data: formData,
     headers: {
       Authorization: `Bearer ${localStorage.token}`
-      // "Content-Type": "multipart/form-data"
     }
   })
     .then(response => {
       console.log(response.data.message, "대회 생성 객체");
-      // alert("대회 등록이 완료되었습니다.");
       return response.data.message;
-      // useNavigate(`/${}`)
     })
-    .catch(err => err);
+    .catch(err => "지갑오류");
   return Re;
 }
 

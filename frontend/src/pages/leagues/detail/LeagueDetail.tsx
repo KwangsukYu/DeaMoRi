@@ -38,7 +38,6 @@ function LeagueDetail() {
       setTeam1(res.team1);
       setTeam2(res.team2);
       setLeagueState(res.status);
-      console.log(res);
       const isOpen = await isOpened(res.leagueContractAddress);
       if (!isOpen) {
         setIsClosed(true);

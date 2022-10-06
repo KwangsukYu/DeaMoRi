@@ -7,7 +7,6 @@ import {
   getContractCA
 } from "./SmartContract";
 
-// const web3 = new Web3("http://localhost:8545");
 const web3 = new Web3(process.env.REACT_APP_GETH_NODE);
 
 export const getAdminAdress = async () => {
@@ -15,14 +14,12 @@ export const getAdminAdress = async () => {
   return res;
 };
 
-// 공개키, 개인키 생성
 export const createAccount = async () => {
   const coinBase = await getAdminAdress();
   const createdObj = web3.eth.accounts.create();
   const account = web3.eth.accounts.privateKeyToAccount(createdObj.privateKey);
   const wallet = web3.eth.accounts.wallet.add(account);
 
-  // 임시 1이더 송금 (가스비 처리용, 추후 이벤트로 지급 or Besu서버로 해결)
   await web3.eth.personal.unlockAccount(
     coinBase,
     process.env.REACT_APP_COINBASE_PASSWORD,
@@ -35,14 +32,11 @@ export const createAccount = async () => {
     to: wallet.address,
     value: Eth
   };
-  web3.eth.sendTransaction(tx).then(receipt => {
-    console.log(receipt);
-  });
+  web3.eth.sendTransaction(tx).then(receipt => receipt);
 
   return [wallet.address, wallet.privateKey];
 };
 
-// 지갑 잔액 조회, 이더
 export const getWalletBalance = async address => {
   const res = TokenContract.methods
     .balanceOf(address)
@@ -51,7 +45,6 @@ export const getWalletBalance = async address => {
   return res;
 };
 
-// 이더 충전
 export const chargeCoin = async (price, address) => {
   const coinBase = await getAdminAdress();
   web3.eth.personal.unlockAccount(
@@ -67,8 +60,6 @@ export const chargeCoin = async (price, address) => {
 
   return txHash;
 };
-
-// IPFS 서버 업로드
 
 export const sendFileToIPFS = async (file, league, team, address) => {
   const coinBase = await getAdminAdress();
@@ -201,7 +192,6 @@ export const fundWithERC20 = async (
       .transferFrom(userAddress, leagueAddress, amount)
       .send({ from: coinBase })
       .then(res => res.transactionHash);
-    console.log(txHash);
     return txHash;
   }
   alert("종료된 대회입니다.");
@@ -224,7 +214,6 @@ export const closeLeague = async (ca, num, amount) => {
       return receipt.transactionHash;
     });
 
-  console.log("end");
   return txHash;
 };
 

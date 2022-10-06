@@ -13,10 +13,6 @@ function Search() {
   // 데이터들을 배열로 monsters 에 배열 state로 담아준 상태
   const [posters, setPosters] = useState([]);
 
-  const test = () => {
-    console.log(userInput);
-  };
-
   // 데이터 목록중, name에 사용자 입력값이 있는 데이터만 불러오기
   // 사용자 입력값을 소문자로 변경해주었기 때문에 데이터도 소문자로
   const searched = posters.filter((item: any) =>
@@ -36,9 +32,6 @@ function Search() {
 
   return (
     <div>
-      <button type="button" onClick={test}>
-        클릭시 입력값 console 확인
-      </button>
       <input onChange={getValue} />
       <div className="card-container">
         {searched.map((item: any) => (

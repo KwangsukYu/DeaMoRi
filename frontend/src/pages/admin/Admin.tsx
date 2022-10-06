@@ -68,11 +68,9 @@ function Admin() {
       params: { role: userRoleNum, userPk: pk }
     })
       .then(res => {
-        console.log(res.data.message);
         setDummy(res.data.message);
       })
       .catch(err => {
-        console.log(userRole, userRoleNum, pk);
         console.log(err);
       });
   }
@@ -80,8 +78,6 @@ function Admin() {
   const [modal, setModal] = useState(false);
   const [file, setFile] = useState("");
   // const [userRoleNum, setUserRoleNum] = useState(-1);
-
-  console.log(users);
 
   const mainList = users?.map(user => {
     let userRole: string;
@@ -126,7 +122,6 @@ function Admin() {
                 className="select-box"
                 onChange={e => {
                   updateUserRole = e.target.value;
-                  console.log(updateUserRole);
                 }}
               >
                 <option value="회원관리">회원관리</option>

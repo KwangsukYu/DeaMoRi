@@ -1,9 +1,7 @@
 import Web3 from "web3";
 
 const web3 = new Web3(process.env.REACT_APP_GETH_NODE);
-// const web3 = new Web3("http://localhost:8545");
 
-// Token Contract
 const TokenABI = [
   {
     inputs: [
@@ -291,7 +289,6 @@ export const TokenCA = "0x19CA7eFd9149975f1280a95F361d90F0A53bbD9c";
 
 export const TokenContract = new web3.eth.Contract(TokenABI, TokenCA);
 
-// NFT Contract
 const NFTABI = [
   {
     inputs: [],
@@ -741,7 +738,6 @@ const NFTCA = "0xf51863Fa4C4425ABfFaaE0757426b3bBe1C3a11a";
 
 export const NFTContract = new web3.eth.Contract(NFTABI, NFTCA);
 
-// League Contract
 const LeagueABI = [
   {
     inputs: [
@@ -878,10 +874,7 @@ const LeagueCA = "0xFb36DFa1f2A9DD7B2B5f63E6f32e3D81aA58E5cC";
 
 const LeagueContract = new web3.eth.Contract(LeagueABI, LeagueCA);
 
-// Deploy Clone League Contract
 export const deployCloneLeagueContract = async (teamA, teamB) => {
-  // 코인베이스 잠금 해제
-
   const coinBase = await web3.eth.getCoinbase();
   web3.eth.personal.unlockAccount(
     coinBase,
@@ -889,7 +882,6 @@ export const deployCloneLeagueContract = async (teamA, teamB) => {
     300
   );
 
-  // 컨트랙트 클론 후 배포
   const newContract = LeagueContract.clone();
   const newContractCA = newContract
     .deploy({
@@ -901,7 +893,6 @@ export const deployCloneLeagueContract = async (teamA, teamB) => {
   return newContractCA;
 };
 
-// 배포된 컨트랙트 주소 반환하기
 export const getContractCA = address => {
   const LC = new web3.eth.Contract(LeagueABI, address);
   return LC;

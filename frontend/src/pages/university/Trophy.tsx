@@ -47,7 +47,6 @@ function Trophy() {
       params: { id: uniId }
     })
       .then(res => {
-        console.log(res.data);
         setMyUni(res.data);
       })
       .catch(err => {
@@ -55,7 +54,6 @@ function Trophy() {
       });
   }, []);
 
-  console.log(myUni, "현재 대학");
   return (
     <div className="trophy">
       <p className="trophy-title">트로피</p>

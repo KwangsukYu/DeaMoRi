@@ -17,14 +17,12 @@ function LeagueList({ keyword, status }: keywordPorps) {
     if (status) {
       (async () => {
         const res = await LeagueStart(keyword);
-        console.log(res);
         setItems(res);
       })();
     } else {
       // 종료된 대회 LeagueEnd() 요청
       (async () => {
         const res = await LeagueEnd(keyword);
-        console.log(res);
         setItems(res);
       })();
     }

@@ -38,18 +38,14 @@ function SignUp() {
         document.location.href = "/login";
       })
       .catch(err => {
-        // console.log(credentials);
         console.log(err);
       });
   }
 
   function submitSignup(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(e);
     if (password !== pwConfirm) {
       alert("비밀번호가 서로 맞지 않습니다.");
-      // e.target.password.value = "";
-      // e.target.pwconfirm.value = "";
       setPassword("");
       setPwConfirm("");
     } else if (nickNameCheck === false) {
@@ -87,7 +83,6 @@ function SignUp() {
         params: { userId }
       })
         .then(res => {
-          console.log(res);
           // setWaitID(id)
           setIdCheck(true);
         })
@@ -111,14 +106,12 @@ function SignUp() {
         params: { nickName: nickname }
       })
         .then(res => {
-          console.log(res);
           // setnickNameCheck(id)
           setnickNameCheck(true);
         })
         .catch(err => {
           console.log(err);
           setIdCheck(false);
-          console.log(nickname);
           alert("이미 사용중인 닉네임 입니다.");
         });
     }

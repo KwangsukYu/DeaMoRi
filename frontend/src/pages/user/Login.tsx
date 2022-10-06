@@ -28,7 +28,6 @@ function Login() {
       headers: { Authorization: `Bearer ${localStorage.token}` }
     })
       .then(res => {
-        console.log(res.data, "로그인 시 스토어 저장 데이터");
         dispatch(getInfo(res.data));
         navigate("/");
       })
@@ -38,7 +37,6 @@ function Login() {
   }
 
   function tryLogin(getLoginForm: { userId: string; password: string }) {
-    // console.log(getLoginForm)
     axios({
       url: "https://j7c208.p.ssafy.io:8080/api/auth/login",
       method: "post",

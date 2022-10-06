@@ -19,8 +19,6 @@ export const sendTx = async (tx: string) => {
 };
 
 export const sendUniAuth = async (file: File, uniName: string) => {
-  console.log(file, uniName);
-
   const formData = new FormData();
   formData.append("file", file);
 
@@ -32,9 +30,7 @@ export const sendUniAuth = async (file: File, uniName: string) => {
     data: formData,
     headers: { Authorization: `Bearer ${localStorage.token}` }
   })
-    .then(res => {
-      console.log(res.data);
-    })
+    .then(res => res.data)
     .catch(err => {
       alert("대학이름을 제대로 입력해주세요 OO대학교");
     });
@@ -52,9 +48,7 @@ export const setProfile = async (file: File) => {
       "Content-Type": "multipart/form-data"
     }
   })
-    .then(res => {
-      console.log(res.data);
-    })
+    .then(res => res)
     .catch(err => {
       console.log(err);
     });
@@ -76,7 +70,6 @@ export const getTransactions = async (state: number) => {
     .catch(err => {
       console.log(err);
     });
-  console.log(re);
   return re;
 };
 

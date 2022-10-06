@@ -28,7 +28,6 @@ function UniList() {
   const storeUser = useSelector(state => state.userInfo.userInfo);
   const navigate = useNavigate();
   const searchUni = async e => {
-    console.log(search);
     setLoading(true);
     e.preventDefault();
     if (search) {
@@ -146,7 +145,6 @@ function UniList() {
                     type="button"
                     className="navi-button"
                     onClick={() => {
-                      console.log(myUni);
                       navigate(`/university/${storeUser.universityPk}`);
                     }}
                   >

@@ -76,7 +76,6 @@ function University() {
       });
   }, []);
 
-  console.log(myUni);
   return (
     <div id="university">
       <div className="background">

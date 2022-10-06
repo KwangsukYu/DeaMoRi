@@ -30,7 +30,6 @@ function SponRankings() {
       params: { page: 0, size: 10 }
     })
       .then(res => {
-        console.log(res.data);
         axios({
           url: "https://j7c208.p.ssafy.io:8080/api/ranking/user",
           method: "get",
@@ -51,7 +50,6 @@ function SponRankings() {
   const RankMain = userRank.map(user => {
     let rankImg = "";
     let rankClass = "";
-    console.log(user);
     if (user.ranking === 1) {
       rankImg = rankLogo1;
       rankClass = "rankLogo1";
@@ -87,8 +85,6 @@ function SponRankings() {
       </button>
     );
   });
-
-  console.log(userRank);
 
   return (
     <div id="rank-box">

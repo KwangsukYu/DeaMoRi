@@ -10,18 +10,10 @@ import { delInfo } from "../../Slices/userInfo";
 function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const storeUser = useSelector((state: infoType) => {
-  //   return state;
-  // });
-  // let storeUser;
   const storeUser = useSelector((state: infoType) => state.userInfo.userInfo);
   const [dropDown, setdropDown] = useState(false);
   const [active, setActive] = useState("대회");
   const location = useLocation();
-  console.log(storeUser);
-  // localStorage.token
-  // console.log(storeUser);
 
   useEffect(() => {
     const url = location.pathname;

@@ -7,8 +7,6 @@ async function MyUniversityLeague(universityPk: number) {
     headers: {}
   })
     .then(res => {
-      console.log("캐러셀 API 잘 들어왔나?");
-      console.log(res);
       if (res.status === 200) {
         return res.data.getLeagues;
       }

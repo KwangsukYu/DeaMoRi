@@ -7,7 +7,6 @@ import rankLogo3 from "assets/images/rank3.png";
 import rankLogo4 from "assets/images/rank4.png";
 
 function SponRank({ userList }: any) {
-  console.log(userList, "유저리스트");
   const RankMain = userList?.map(
     (
       user: {

@@ -38,14 +38,11 @@ function Edit() {
         params: { nickName: nickname }
       })
         .then(res => {
-          console.log(res);
-          // setnickNameCheck(id)
           setnickNameCheck(true);
         })
         .catch(err => {
           console.log(err);
           setnickNameCheck(false);
-          console.log(nickname);
           alert("이미 사용중인 닉네임 입니다.");
         });
     }
@@ -58,7 +55,6 @@ function Edit() {
     // userId: storeUser.userId
   };
 
-  console.log(signUpForm);
   return (
     <div id="login">
       <div className="input-list">

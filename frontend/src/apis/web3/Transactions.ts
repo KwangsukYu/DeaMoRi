@@ -16,7 +16,6 @@ export const addSupport = async (data: addSupportType) => {
     data,
     headers: { Authorization: `Bearer ${localStorage.token}` }
   });
-  console.log(res);
   return res;
 };
 
@@ -35,7 +34,6 @@ export const addCheer = async (data: addCheerType) => {
     data,
     headers: { Authorization: `Bearer ${localStorage.token}` }
   });
-  console.log(res);
   return res;
 };
 
