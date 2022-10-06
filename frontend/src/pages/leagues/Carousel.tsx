@@ -16,9 +16,7 @@ function Carousel() {
 
   useEffect(() => {
     (async () => {
-      console.log("캐러셀 컴포넌트까지 들어왔음");
       const res = await MyUniversityLeague(userInfo.universityPk);
-      console.log(res);
       setItems(res);
     })();
   }, []);
@@ -48,7 +46,3 @@ function Carousel() {
   );
 }
 export default Carousel;
-
-// {
-//   /* eslint-disable-next-line react/jsx-props-no-spreading */
-// }

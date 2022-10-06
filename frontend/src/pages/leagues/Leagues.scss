@@ -11,7 +11,6 @@
     border-radius: 20px;
     flex-direction: column;
     padding-bottom: 80px;
-    // justify-content: center;
     align-items: center;
     background-color: #1c1c1c;
     border-top: 4px solid #5c6bc0;
@@ -33,7 +32,6 @@
           height: 40px;
           border-radius: 12px;
           text-align: center;
-          // background-color: #ececec;
         }
 
         &-icon {
@@ -48,7 +46,6 @@
       &-createLeague {
         cursor: pointer;
         position: absolute;
-        // float: right;
         margin-left: 360px;
         background-color: #ff7f22;
         border-radius: 10px;
@@ -91,7 +88,6 @@
         height: 4px;
         position: relative;
         margin-bottom: 30px;
-        // left: 10%;
       }
       &-bar-nonactive {
         cursor: pointer;
@@ -100,7 +96,6 @@
         height: 4px;
         position: relative;
         margin-bottom: 30px;
-        // right: 20px;
       }
     }
   }

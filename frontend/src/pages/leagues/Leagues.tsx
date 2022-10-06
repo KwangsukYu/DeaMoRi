@@ -5,9 +5,6 @@ import SearchIcon from "assets/images/searchIcon.svg";
 import Carousel from "./Carousel";
 import LeagueList from "./LeagueList";
 
-import Scroll from "./Scroll";
-import Search from "./Search";
-
 function Leagues() {
   const [ing, setIng] = useState(true);
   const [keyword, setKeyword] = useState("");
@@ -85,14 +82,7 @@ function Leagues() {
             className="leagues-function-search-icon"
           />
         </div>
-        {/* <div>
-          <input onChange={e => handleKeyword(e.target.value)} type="text" />
-        </div> */}
         <LeagueList keyword={keyword} status={ing} />
-
-        {/* {ing ? <LeagueOpen keyword={keyword} status={ing} /> : null} */}
-        {/* <Search /> */}
-        {/* <Scroll /> */}
       </div>
     </div>
   );
