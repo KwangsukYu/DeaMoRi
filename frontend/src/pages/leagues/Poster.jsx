@@ -22,7 +22,7 @@ function Poster({
   }
 }) {
   return (
-    <Link id="poster" to={`detail/${leagueId}`}>
+    <Link id="poster" to={`/leagues/detail/${leagueId}`}>
       <Card
         id="card"
         sx={{
@@ -53,7 +53,9 @@ function Poster({
           >
             {leagueStartDate} ~ {leagueEndDate}
           </Typography>
-          <Typography variant="body2">후원금 : {donation}</Typography>
+          <Typography variant="body2">
+            후원금 : {numberWithCommas(donation)} W
+          </Typography>
         </CardContent>
       </Card>
     </Link>
