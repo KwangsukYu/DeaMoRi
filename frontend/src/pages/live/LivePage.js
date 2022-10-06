@@ -67,15 +67,10 @@ export default function LivePage() {
   };
 
   useEffect(() => {
-    console.log("왜 중복실행", chat);
     socket.on("message", messageing => {
-      console.log("체크", messageing);
-      console.log("체크2", chat);
-      if (chat === []) {
+      if (chat.length === 0) {
         setChat([messageing]);
         donationOn();
-
-        console.log("말이 되냐고 ", messageing);
         const msg = new SpeechSynthesisUtterance(messageing);
         window.speechSynthesis.speak(msg);
       }
@@ -309,11 +304,12 @@ export default function LivePage() {
 
   return (
     <div className="broad">
+      <LiveSupport leaguePk={leaguePk} />
       <div className="main">
         {session !== null ? (
           <div className="live">
             <div className="live-box">
-              <div className="donation">
+              {/* <div className="donation">
                 {donationSwitch === true ? (
                   <Donation
                     props={{
@@ -321,7 +317,7 @@ export default function LivePage() {
                     }}
                   />
                 ) : null}
-              </div>
+              </div> */}
 
               <button className="exit" type="button" onClick={GoDetail}>
                 <img className="art" alt="open" src={exit} />
@@ -430,7 +426,7 @@ export default function LivePage() {
           </div>
         ) : null}
       </div>
-      <LiveSupport leaguePk={leaguePk} />
+      <div className="empty-video2" />
     </div>
   );
 }
