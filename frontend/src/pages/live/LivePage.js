@@ -7,6 +7,7 @@ import { OpenVidu } from "openvidu-browser";
 import closechat from "assets/images/closechat.png";
 import exit from "assets/images/exit.png";
 import openchat from "assets/images/openchat.png";
+import LiveSupport from "components/LiveSupport";
 import LiveChat from "./LiveChat";
 import UserVideoComponent from "./UserVideoComponent";
 
@@ -64,7 +65,7 @@ export default function LivePage() {
     }
   };
 
-  const shareSession = () => {};
+  // const shareSession = () => {};
 
   const joinSession = () => {
     OV = new OpenVidu();
@@ -283,13 +284,17 @@ export default function LivePage() {
                   className="live-box-video"
                   streamManager={mainStreamManager}
                 />
-              ) : null}
+              ) : (
+                <div className="empty-video" />
+              )}
               {ownerPk !== userPk ? (
                 <UserVideoComponent
                   className="live-box-video"
                   streamManager={subscribers[0]}
                 />
-              ) : null}
+              ) : (
+                <div className="empty-video" />
+              )}
 
               <div className="live-box-information">
                 <h3 className="live-box-information-title">{RoomTitle}</h3>
@@ -321,7 +326,7 @@ export default function LivePage() {
                     </button>
                     <button
                       type="button"
-                      onClick={shareSession}
+                      // onClick={shareSession}
                       className="s-button"
                     >
                       화면공유
@@ -385,6 +390,7 @@ export default function LivePage() {
           </div>
         ) : null}
       </div>
+      <LiveSupport leaguePk={leaguePk} />
     </div>
   );
 }

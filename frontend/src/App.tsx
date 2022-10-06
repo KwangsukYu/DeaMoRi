@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Rankings from "pages/rankings/Rankings";
 import NavBar from "components/navBar/Navbar";
 import Landing from "pages/LandingPage/Landing";
+import "./App.css";
 
 // University
 import UniList from "pages/university/UniList";

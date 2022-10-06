@@ -55,7 +55,6 @@ export const setProfile = async (file: File) => {
 };
 
 export const getTransactions = async (state: number) => {
-  console.log(state);
   const re = await axios({
     url: "https://j7c208.p.ssafy.io:8080/api/wallet/transaction",
     method: "get",
