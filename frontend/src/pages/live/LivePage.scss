@@ -13,7 +13,7 @@
 
 .main {
   display: flex;
-  padding-top: 60px;
+
   justify-content: center;
 }
 .live {
@@ -168,4 +168,8 @@
   cursor: pointer;
   // padding-top: 10px;
   // padding-left: 10px;
+}
+
+.empty-video2 {
+  height: 50px;
 }
