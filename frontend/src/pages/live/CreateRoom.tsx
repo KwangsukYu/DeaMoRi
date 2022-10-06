@@ -16,37 +16,44 @@ function CreateRoom({ leagueInfo }: CreateRoomProps) {
   const OPENVIDU_SERVER_SECRET = "ohgwang12";
   const navigate = useNavigate();
 
-  function createSession() {
-    const data = JSON.stringify({
-      customSessionId: `broadcast${leagueInfo.leaguePk}`
+  // function createSession() {
+  //   const data = JSON.stringify({
+  //     customSessionId: `broadcast${leagueInfo.leaguePk}`
+  //   });
+
+  //   axios
+  //     .post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, data, {
+  //       headers: {
+  //         Authorization: `Basic ${btoa(
+  //           `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
+  //         )}`,
+  //         "Content-Type": "application/json"
+  //       }
+  //     })
+  //     .then(response => {
+  //       // document.openvidution.href = `/live/broadcast${title}`;\
+  //       navigate(`/live/broadcast${leagueInfo.leaguePk}`, {
+  //         state: leagueInfo
+  //       });
+  //     })
+  //     .catch(err => {
+  //       if (err.response.status === 409) {
+  //         // document.location.href = `/live/sell1`
+  //       }
+  //     });
+  // }
+
+  const goSession = () => {
+    navigate(`/live/broadcast${leagueInfo.leaguePk}`, {
+      state: leagueInfo
     });
-    axios
-      .post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, data, {
-        headers: {
-          Authorization: `Basic ${btoa(
-            `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
-          )}`,
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => {
-        // document.openvidution.href = `/live/broadcast${title}`;\
-        navigate(`/live/broadcast${leagueInfo.leaguePk}`, {
-          state: leagueInfo
-        });
-      })
-      .catch(err => {
-        if (err.response.status === 409) {
-          // document.location.href = `/live/sell1`
-        }
-      });
-  }
+  };
 
   return (
     <button
       className="inputform submitbutton-able"
       type="button"
-      onClick={createSession}
+      onClick={goSession}
     >
       방 생성하기
     </button>

@@ -1,241 +1,52 @@
-import React, { useEffect, Component, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import "./LivePage.scss";
+import axios from "axios";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { OpenVidu, Stream } from "openvidu-browser";
+import { OpenVidu } from "openvidu-browser";
 import closechat from "assets/images/closechat.png";
+import exit from "assets/images/exit.png";
 import openchat from "assets/images/openchat.png";
-import { useSelector, useDispatch } from "react-redux";
-import { infoType } from "Slices/userInfo";
-import { io } from "socket.io-client";
-import { v4 } from "uuid";
-import UserVideoComponent from "./UserVideoComponent";
 import LiveChat from "./LiveChat";
-import Donation from "./Donation";
+import UserVideoComponent from "./UserVideoComponent";
 
 const OPENVIDU_SERVER_URL = "https://j7c208.p.ssafy.io:8443";
 const OPENVIDU_SERVER_SECRET = "ohgwang12";
-
 let OV;
 
-const socket = io.connect(`https://j7c208.p.ssafy.io:3001`, {
-  cors: { origin: "https://j7c208.p.ssafy.io:3001" }
-});
-export const SocketContext = React.createContext();
-
 export default function LivePage() {
-  // const [ov, setOv] = useState(null);
-  const [loading, setLoading] = useState(null);
-  const [params, setParams] = useState(window.location.pathname.split("/"));
-  const [title, setTitle] = useState(params[2]);
-  const { nickName } = useSelector(state => state.userInfo.userInfo);
-  const [myUserName, setMyUserName] = useState(nickName);
   const [session, setSession] = useState(null);
-  const [mainStreamManager, setMainStreamManager] = useState(null);
-  const [publisher, setPublisher] = useState(null);
-  const [mySessionId, setMySessionId] = useState(null);
+  const [subscribers, setSubscribers] = useState([]);
+  const [currentAudioDevice, setCurrentAudioDevice] = useState(null);
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
-  const [RoomTitle, setRoomTitile] = useState(
-    "제목입니다아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아"
-  );
+  const [mainStreamManager, setMainStreamManager] = useState(null);
   const [camera, setCamera] = useState(true);
   const [voice, setVoice] = useState(true);
-  const [chattingBox, setChattingBox] = useState(true);
   const [permissionDenied, setPermissionDenied] = useState(false);
   const [activeCameraAndAudio, setActiveCameraAndAudio] = useState(false);
-  const [donation, setDonation] = useState("text");
-  const [donationSwitch, setDonationSwitch] = useState("false");
-  const [chat, setChat] = useState([]);
+  const [publisher, setPublisher] = useState(null);
+  const { nickName } = useSelector(state => state.userInfo.userInfo);
+  const [myUserName, setMyUserName] = useState(nickName);
+  const [RoomTitle, setRoomTitile] = useState("title");
   const [message, setMessage] = useState("");
-
-  const sendMessageHandler = () => {
-    socket.emit("message", message);
-    setDonation(message);
-    setMessage("");
-  };
-
-  const donaitonOff = () => {
-    setDonationSwitch(false);
-  };
-
-  const donationOn = () => {
-    setDonationSwitch(true);
-    setTimeout(donaitonOff, 2000);
-  };
-
-  useEffect(() => {
-    console.log("왜 중복실행", chat);
-    socket.on("message", messageing => {
-      setChat([messageing]);
-      donationOn();
-      const msg = new SpeechSynthesisUtterance(messageing);
-      window.speechSynthesis.speak(msg);
-    });
-  }, [chat]);
-
+  const [chattingBox, setChattingBox] = useState(true);
+  const { userPk } = useSelector(state => state.userInfo.userInfo);
   const location = useLocation();
   const navigate = useNavigate();
+  const { leagueId } = location.state;
+
   const { leaguePk } = location.state;
+  const { ownerPk } = location.state;
+  const roomId = `broadcast${leaguePk}`;
 
-  const leaveSession = () => {
-    if (session) session.disconnect();
-
-    OV = null;
-    setSession(null);
-    // setSubscribers([]);
-    setMySessionId("user");
-    setMyUserName(nickName);
-    setMainStreamManager(null);
-    setPublisher(null);
+  const sendMessageHandler = () => {
+    // socket.emit("message", message);
+    // setDonation(message);
+    // setMessage("");
   };
-
   useEffect(() => {
-    const id = location.state.leaguePk;
+    const id = location.state.leagueId;
     setRoomTitile(id);
-  });
-
-  const getToken = sessionId => {
-    return new Promise((resolve, reject) => {
-      const data = {};
-      axios
-        .post(
-          `${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${title}/connection`,
-          data,
-          {
-            headers: {
-              Authorization: `Basic ${btoa(
-                `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
-              )}`,
-              "Content-Type": "application/json"
-            }
-          }
-        )
-        .then(response => {
-          resolve(response.data.token);
-        })
-        .catch(error => {
-          // document.location.href = '/'
-        });
-    });
-  };
-
-  const onSession = () => {
-    getToken(leaguePk).then(token => {
-      session.connect(token, { clientData: myUserName });
-    });
-  };
-
-  const joinSession = () => {
-    session.on("streamCreated", event => {
-      // const subscriber = session.subscribe(event.stream, undefined);
-      // setSubscribers(prevSubscribers => [subscriber, ...prevSubscribers]);
-    });
-    session.on("streamDestroyed", event => {
-      // setSubscribers(prevSubscribers => {
-      //   return prevSubscribers.filter(
-      //     stream => stream !== event.stream.streamManager
-      //   );
-      // });
-    });
-    console.log("내 세션아이디", mySessionId);
-
-    getToken(leaguePk).then(token => {
-      session.connect(token, { clientData: myUserName }).then(async () => {
-        const devices = await OV.getDevices();
-        const videoDevices = devices.filter(
-          device => device.kind === "videoinput"
-        );
-        const newPublisher = OV.initPublisher(undefined, {
-          audioSource: undefined,
-          videoSource: videoDevices[0].deviceId,
-
-          publishAudio: true,
-          publishVideo: true,
-          frameRate: 30,
-          insertMode: "APPEND",
-          mirror: false
-        });
-        newPublisher.once("accessAllowed", () => {
-          try {
-            newPublisher.stream
-              .getMediaStream()
-              .getVideoTracks()[0]
-              .applyConstraints({
-                width: 640,
-                height: 480
-              });
-          } catch (error) {
-            console.error("Error applying constraints: ", error);
-          }
-        });
-
-        session.publish(newPublisher);
-        setMainStreamManager(newPublisher);
-        setPublisher(newPublisher);
-        setCurrentVideoDevice(videoDevices[0]);
-        setLoading(true);
-      });
-    });
-  };
-  const shareSession = () => {
-    session.on("streamCreated", event => {
-      // const subscriber = session.subscribe(event.stream, undefined);
-      // setSubscribers(prevSubscribers => [subscriber, ...prevSubscribers]);
-    });
-    session.on("streamDestroyed", event => {
-      // setSubscribers(prevSubscribers => {
-      //   return prevSubscribers.filter(
-      //     stream => stream !== event.stream.streamManager
-      //   );
-      // });
-    });
-
-    getToken(leaguePk).then(token => {
-      session.connect(token, { clientData: myUserName }).then(async () => {
-        const devices = await OV.getDevices();
-        const videoDevices = devices.filter(
-          device => device.kind === "videoinput"
-        );
-        const newPublisher = OV.initPublisher(undefined, {
-          audioSource: undefined,
-          // videoSource: videoDevices[0].deviceId,
-          videoSource: "screen",
-          publishAudio: true,
-          publishVideo: true,
-
-          frameRate: 30,
-          insertMode: "APPEND",
-          mirror: false
-        });
-        newPublisher.once("accessAllowed", () => {
-          try {
-            newPublisher.stream
-              .getMediaStream()
-              .getVideoTracks()[0]
-              .applyConstraints({
-                width: 640,
-                height: 480
-              });
-          } catch (error) {
-            console.error("Error applying constraints: ", error);
-          }
-        });
-
-        session.publish(newPublisher);
-        setMainStreamManager(newPublisher);
-        setPublisher(newPublisher);
-        setCurrentVideoDevice(videoDevices[0]);
-        setLoading(true);
-      });
-    });
-  };
-
-  useEffect(() => {
-    OV = new OpenVidu();
-    setSession(OV.initSession());
-  }, []);
-  useEffect(() => {
-    onSession();
   });
 
   const reqCameraAndAudio = async () => {
@@ -250,6 +61,189 @@ export default function LivePage() {
       if (err.message === "Permission denied") {
         setPermissionDenied(true);
       }
+    }
+  };
+
+  const shareSession = () => {};
+
+  const joinSession = () => {
+    OV = new OpenVidu();
+    setSession(OV.initSession());
+  };
+  useEffect(() => {
+    joinSession();
+  }, []);
+
+  const createSession = sessionId => {
+    return new Promise(resolve => {
+      const data = JSON.stringify({
+        customSessionId: sessionId
+      });
+      axios
+        .post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, data, {
+          headers: {
+            Authorization: `Basic ${btoa(
+              `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
+            )}`,
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          resolve(response.data.id);
+        })
+        .catch(response => {
+          const error = { ...response };
+          if (error.response && error.response.status === 409) {
+            resolve(sessionId);
+          } else {
+            console.warn(
+              `No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}`
+            );
+            if (
+              window.confirm(
+                `No connection to OpenVidu Server. This may be a certificate error at "${OPENVIDU_SERVER_URL}"\n\nClick OK to navigate and accept it.
+                  If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${OPENVIDU_SERVER_URL}"`
+              )
+            ) {
+              window.location.assign(
+                `${OPENVIDU_SERVER_URL}/accept-certificate`
+              );
+            }
+          }
+        });
+    });
+  };
+
+  const createToken = sessionId => {
+    return new Promise((resolve, reject) => {
+      const data = {};
+      axios
+        .post(
+          `${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`,
+          data,
+          {
+            headers: {
+              Authorization: `Basic ${btoa(
+                `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
+              )}`,
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(response => {
+          // console.log('TOKEN', response);
+          resolve(response.data.token);
+        })
+        .catch(error => reject(error));
+    });
+  };
+
+  const getToken = () =>
+    createSession(roomId).then(sessionId => createToken(sessionId));
+
+  useEffect(() => {
+    if (!session) return;
+
+    session.on("streamCreated", event => {
+      const subscriber = session.subscribe(event.stream, undefined);
+      setSubscribers(prevSubscribers => [...prevSubscribers, subscriber]);
+    });
+    session.on("streamDestroyed", event => {
+      setSubscribers(prevSubscribers => {
+        return prevSubscribers.filter(
+          stream => stream !== event.stream.streamManager
+        );
+      });
+    });
+    session.on("exception", exception => {
+      console.warn(exception);
+    });
+    getToken().then(token => {
+      session
+        .connect(token, { clientData: nickName })
+        .then(async () => {
+          if (ownerPk === userPk) {
+            const devices = await OV.getDevices();
+            const videoDevices = devices.filter(
+              device => device.kind === "videoinput"
+            );
+            const audioDevices = devices.filter(
+              device => device.kind === "audioinput"
+            );
+            const tmpPublisher = OV.initPublisher(undefined, {
+              audioSource: undefined,
+              videoSource: videoDevices[0].deviceId,
+              publishAudio: true,
+              publishVideo: true,
+              resolution: "640x480",
+              frameRate: 30,
+              insertMode: "APPEND",
+              mirror: false
+            });
+            session.publish(tmpPublisher);
+            setCurrentVideoDevice(videoDevices[0]);
+            setCurrentAudioDevice(audioDevices[0]);
+
+            setMainStreamManager(tmpPublisher);
+            setPublisher(tmpPublisher);
+          } else {
+            const devices = await OV.getDevices();
+            const videoDevices = devices.filter(
+              device => device.kind === "videoinput"
+            );
+            const audioDevices = devices.filter(
+              device => device.kind === "audioinput"
+            );
+            const tmpPublisher = OV.initPublisher(undefined, {
+              audioSource: false,
+              videoSource: false,
+              publishAudio: true,
+              publishVideo: true,
+              resolution: "640x480",
+              frameRate: 30,
+              insertMode: "APPEND",
+              mirror: false
+            });
+            session.publish(tmpPublisher);
+            setCurrentVideoDevice(videoDevices[0]);
+            setCurrentAudioDevice(audioDevices[0]);
+
+            setMainStreamManager(tmpPublisher);
+            setPublisher(tmpPublisher);
+          }
+        })
+        .catch(error => {
+          console.log(
+            "There was an error connecting to the session:",
+            error.code,
+            error.message
+          );
+        });
+    });
+  }, [session]);
+  const deleteSession = () => {
+    axios
+      .delete(
+        `${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${`broadcast${leaguePk}`}`,
+        {
+          headers: {
+            Authorization: `Basic ${btoa(
+              `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
+            )}`
+          }
+        }
+      )
+      .then(navigate(`/leagues/detail/${leaguePk}`));
+  };
+  const GoDetail = () => {
+    navigate(`/leagues/detail/${leaguePk}`);
+  };
+
+  const ChattingOff = () => {
+    if (chattingBox) {
+      setChattingBox(false);
+    } else {
+      setChattingBox(true);
     }
   };
 
@@ -275,56 +269,25 @@ export default function LivePage() {
     }
   };
 
-  const ChattingOff = () => {
-    if (chattingBox) {
-      setChattingBox(false);
-    } else {
-      setChattingBox(true);
-    }
-  };
-
-  const deleteSession = () => {
-    axios
-      .delete(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${title}`, {
-        headers: {
-          Authorization: `Basic                ${btoa(
-            `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
-          )}`
-        }
-      })
-      .then(navigate(`/leagues/detail/${leaguePk}`));
-  };
-
-  useEffect(() => {
-    reqCameraAndAudio();
-    // window.location.replace(`/live/${title}`);
-  }, []);
-
-  // const playTTS = e => {
-  //   donationOn();
-  //   const msg = new SpeechSynthesisUtterance(e);
-  //   window.speechSynthesis.speak(msg);
-  // };
-
   return (
     <div className="broad">
       <div className="main">
         {session !== null ? (
           <div className="live">
             <div className="live-box">
-              <div className="donation">
-                {donationSwitch === true ? (
-                  <Donation
-                    props={{
-                      donation
-                    }}
-                  />
-                ) : null}
-              </div>
-              {mainStreamManager !== null ? (
+              <button className="exit" type="button" onClick={GoDetail}>
+                <img className="art" alt="open" src={exit} />
+              </button>
+              {mainStreamManager !== null && ownerPk === userPk ? (
                 <UserVideoComponent
                   className="live-box-video"
                   streamManager={mainStreamManager}
+                />
+              ) : null}
+              {ownerPk !== userPk ? (
+                <UserVideoComponent
+                  className="live-box-video"
+                  streamManager={subscribers[0]}
                 />
               ) : null}
 
@@ -333,39 +296,45 @@ export default function LivePage() {
                 <p className="live-box-information-subscribers">
                   {/* 시청자 수 : {subscribers.length} */}
                 </p>
-                <div className="live-admin">
-                  <button
-                    type="button"
-                    onClick={deleteSession}
-                    className="d-button"
-                  >
-                    중계방 제거
-                  </button>
-                  <button
-                    type="button"
-                    onClick={CameraOff}
-                    className="c-button"
-                  >
-                    카메라 전환
-                  </button>
-                  <button type="button" onClick={VoiceOff} className="v-button">
-                    소리전환
-                  </button>
-                  <button
-                    type="button"
-                    onClick={shareSession}
-                    className="s-button"
-                  >
-                    화면공유
-                  </button>
-                  <button
-                    type="button"
-                    onClick={joinSession}
-                    className="j-button"
-                  >
-                    카메라공유
-                  </button>
-                </div>
+                {ownerPk === userPk ? (
+                  <div className="live-admin">
+                    <button
+                      type="button"
+                      onClick={deleteSession}
+                      className="d-button"
+                    >
+                      중계방 제거
+                    </button>
+                    <button
+                      type="button"
+                      onClick={CameraOff}
+                      className="c-button"
+                    >
+                      카메라 전환
+                    </button>
+                    <button
+                      type="button"
+                      onClick={VoiceOff}
+                      className="v-button"
+                    >
+                      소리전환
+                    </button>
+                    <button
+                      type="button"
+                      onClick={shareSession}
+                      className="s-button"
+                    >
+                      화면공유
+                    </button>
+                    <button
+                      type="button"
+                      onClick={joinSession}
+                      className="j-button"
+                    >
+                      카메라공유
+                    </button>
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className="live-chat">
