@@ -33,11 +33,13 @@
         &-title {
           font-weight: bold;
           font-size: 20px;
+          cursor: pointer;
         }
         &-title-active {
           font-weight: bold;
           font-size: 20px;
           color: #5c6bc0;
+          cursor: pointer;
         }
       }
     }
@@ -115,7 +117,7 @@
       }
 
       &-price {
-        margin-left: 272px;
+        margin-left: 245px;
       }
     }
     .rank-main {
@@ -131,37 +133,105 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-around;
-      .logo-box {
+      font-weight: bold;
+      .no-uni-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .go-button {
+          height: 30px;
+          margin-inline: 10px;
+          color: white;
+          width: 100px;
+          border-radius: 10px;
+          border: #5c6bc0;
+          background-color: #ff7f22;
+          margin-block: 10px;
+          cursor: pointer;
+          font-weight: bold;
+          box-shadow: 2px 2px rgb(180, 180, 180);
+        }
+      }
+
+      .logo-box-my {
         position: relative;
+        left: 9px;
         .rankLogo1 {
           position: absolute;
-          left: -35px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo2 {
           position: absolute;
-          left: -36px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo3 {
           position: absolute;
-          left: -36px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rankLogo4 {
           position: absolute;
-          left: -26px;
-          bottom: -33px;
+          transform: translate(-50%, -50%);
         }
         .rank-main-rank {
           position: absolute;
-          bottom: -29px;
-          left: -22px;
+          bottom: -26px;
+          left: -26px;
           color: white;
           font-weight: bold;
           font-size: 18px;
           text-align: center;
           width: 50px;
+        }
+        .rank-main-unrank {
+          position: absolute;
+          top: -51px;
+          left: -25px;
+          color: white;
+          font-weight: bold;
+          text-align: center;
+          width: 50px;
+          font-size: 30px;
+        }
+      }
+
+      .logo-box {
+        position: relative;
+        right: -7px;
+        .rankLogo1 {
+          position: absolute;
+          transform: translate(-50%, -50%);
+        }
+        .rankLogo2 {
+          position: absolute;
+          transform: translate(-50%, -50%);
+        }
+        .rankLogo3 {
+          position: absolute;
+          transform: translate(-50%, -50%);
+        }
+        .rankLogo4 {
+          position: absolute;
+          transform: translate(-50%, -50%);
+        }
+        .rank-main-rank {
+          position: absolute;
+          bottom: -26px;
+          left: -26px;
+          color: white;
+          font-weight: bold;
+          font-size: 18px;
+          text-align: center;
+          width: 50px;
+        }
+        .rank-main-unrank {
+          position: absolute;
+          bottom: -42px;
+          left: -25px;
+          color: white;
+          font-weight: bold;
+          text-align: center;
+          width: 50px;
+          font-size: 30px;
         }
       }
 

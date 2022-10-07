@@ -1,0 +1,175 @@
+.broad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-video {
+  margin: 0;
+  width: 600px;
+  height: 480px;
+}
+
+.main {
+  display: flex;
+
+  justify-content: center;
+}
+.live {
+  margin-right: 0px;
+  display: flex;
+  background-color: #1c1c1c;
+  justify-content: center;
+  width: 1040px;
+
+  &-box {
+    &-information {
+      color: white;
+      height: 115px;
+
+      &-title {
+        width: 600px;
+        color: white;
+        padding-inline: 20px;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  &-admin {
+    display: flex;
+    justify-content: center;
+  }
+}
+.d-button {
+  color: #d4d4d4;
+  background-color: #5c6bc0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  width: 100px;
+  height: 60px;
+  font-weight: bold;
+  outline: 0px;
+
+  border: 0px;
+}
+
+.c-button {
+  color: #d4d4d4;
+  background-color: #5c6bc0;
+  width: 100px;
+  height: 60px;
+  font-weight: bold;
+  outline: 0px;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-style: solid;
+  border-color: gray;
+}
+
+.v-button {
+  color: #d4d4d4;
+  background-color: #5c6bc0;
+  width: 100px;
+  height: 60px;
+  font-weight: bold;
+  outline: 0px;
+  border: 0px;
+}
+.s-button {
+  color: #d4d4d4;
+  background-color: #5c6bc0;
+  width: 100px;
+  height: 60px;
+  font-weight: bold;
+  outline: 0px;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-style: solid;
+  border-color: gray;
+}
+
+.j-button {
+  color: #d4d4d4;
+  background-color: #5c6bc0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  width: 100px;
+  height: 60px;
+  font-weight: bold;
+  outline: 0px;
+  border: 0px;
+}
+
+.art {
+  height: 25px;
+  width: 25px;
+}
+
+.art2 {
+  height: 25px;
+  width: 25px;
+}
+
+.art3 {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  z-index: 1;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+.art4 {
+  background-color: transparent;
+  border: none;
+}
+
+.donation {
+  position: absolute;
+  padding-left: 20px;
+}
+
+.donation-button {
+  color: #d4d4d4;
+  background-color: #5c6bc0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  width: 70px;
+  height: 50px;
+  font-weight: bold;
+  // margin-left: 3px;
+  border: 0px;
+  outline: 0px;
+}
+.donation-input {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  width: 300px;
+  height: 50px;
+  padding-left: 15px;
+  padding-block: 0px;
+  border-color: #d4d4d4;
+  color: #d4d4d4;
+  border: 0px;
+  outline: 0px;
+  background-color: #3c3c3c;
+}
+
+.exit {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  top: 15%;
+
+  z-index: 1;
+  cursor: pointer;
+  // padding-top: 10px;
+  // padding-left: 10px;
+}
+
+.empty-video2 {
+  height: 50px;
+}

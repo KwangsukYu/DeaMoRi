@@ -1,0 +1,11 @@
+#carousel {
+  width: 700px;
+  height: 240px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+#carousel .poster {
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+}
