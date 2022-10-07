@@ -1,8 +1,33 @@
 #supportitem .supportitem {
+  font-size: 12px;
+  color: #1c1c1c;
+  font-weight: bold;
   margin-top: 20px;
   border-radius: 15px;
   display: flex;
   width: 400px;
   height: 60px;
   background-color: #fff;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#supportitem .supportitem-profile > img {
+  width: 30px;
+  height: 30px;
+}
+#supportitem .supportitem-content {
+  display: flex;
+  align-items: center;
+  width: 180px;
+}
+#supportitem .supportitem-content > p {
+  margin-left: 10px;
+}
+#supportitem .supportitem-content-icon {
+  width: 30px;
+  height: 30px;
+}
+#supportitem .supportitem-amount {
+  width: 100px;
 }

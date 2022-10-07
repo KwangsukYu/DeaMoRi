@@ -1,0 +1,12 @@
+.support-tx {
+  width: 100%;
+  text-align: center;
+  &-add {
+    color: white;
+    background-color: #1c1c1c;
+    border: none;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+}

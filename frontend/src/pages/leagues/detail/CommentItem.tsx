@@ -1,25 +1,23 @@
 import React from "react";
+import { commentType } from "apis/leagues/LeagueDetail";
 import "./CommentItem.scss";
 
 interface LeagueCommentProps {
-  teamColor: string;
+  cheer: commentType;
+  color: string;
 }
 
-function CommentItem({ teamColor }: LeagueCommentProps) {
+function CommentItem({ cheer, color }: LeagueCommentProps) {
   return (
     <div id="commentitem">
-      <div className="commentitem" style={{ border: `4px solid ${teamColor}` }}>
+      <div className="commentitem" style={{ border: `4px solid ${color}` }}>
         <div className="commentitem-content ">
-          <p>
-            세게간채강자드르싸우민가세게간채강자드르싸우민가세게간채강자드르싸우민가
-          </p>
+          <p>{cheer.cheerContent}</p>
         </div>
-        <div
-          className="commentitem-hr"
-          style={{ backgroundColor: teamColor }}
-        />
+        <div className="commentitem-hr" style={{ backgroundColor: color }} />
         <div className="commentitem-user">
-          <p>서울대학교동문회</p>
+          <p>{cheer.cheerBalance} WON을 대표팀에게 후원했습니다.</p>
+          <p>from.{cheer.cheerName}</p>
         </div>
       </div>
     </div>

@@ -57,8 +57,8 @@
 #mypage .mypage-wallet {
   color: black;
   margin-top: 60px;
-  width: 400px;
-  height: 160px;
+  width: 600px;
+  height: 260px;
   border-radius: 15px;
   background-color: white;
   display: flex;
@@ -82,9 +82,10 @@
   justify-content: space-evenly;
 }
 #mypage .mypage-wallet-detail > p {
+  width: 100%;
   font-weight: 600;
   font-size: 20px;
-  width: 100%;
+  margin: 0;
   text-align: center;
 }
 #mypage .mypage-wallet-detail > p > span {

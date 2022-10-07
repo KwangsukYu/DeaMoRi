@@ -1,0 +1,103 @@
+.result-wrapper {
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #resultmodal {
+    padding-bottom: 30px;
+    z-index: 4;
+    border-radius: 15px;
+    width: 500px;
+    background-color: #1c1c1c;
+    .resultmodal {
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      &-title {
+        margin-top: 20px;
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 0px;
+      }
+
+      &-team {
+        margin-top: 10px;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        &-wrapper {
+          margin-top: 10px;
+          display: flex;
+          width: 400px;
+          justify-content: space-between;
+        }
+        &-container {
+          padding: 10px;
+          background-color: #1c1c1c;
+          color: white;
+          border-radius: 15px;
+          border: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          width: 180px;
+          cursor: pointer;
+
+          > p {
+            font-size: 16px;
+            font-weight: bold;
+          }
+          > img {
+            width: 130px;
+            height: 130px;
+          }
+        }
+      }
+      &-amount {
+        &-label {
+          margin: 0px;
+          margin-top: 20px;
+          font-size: 24px;
+          font-weight: bold;
+          color: #5c6bc0;
+        }
+        &-amount {
+          margin-top: 10px;
+          margin-bottom: 0;
+          font-size: 24px;
+        }
+      }
+      &-trophy {
+        margin-top: 30px;
+      }
+      &-button {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        > button {
+          margin-top: 20px;
+          color: white;
+          width: 150px;
+          height: 40px;
+          border-radius: 15px;
+          background-color: #ff7f22;
+          border: none;
+          font-weight: bold;
+          cursor: pointer;
+        }
+        .resultend {
+          background-color: #5c6bc0;
+        }
+      }
+    }
+  }
+}

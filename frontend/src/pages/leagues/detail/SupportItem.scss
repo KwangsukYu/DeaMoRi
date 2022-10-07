@@ -23,7 +23,7 @@
       align-items: center;
       width: 180px;
       > p {
-        margin-left: 10px;
+        margin-left: 20px;
       }
       &-icon {
         width: 30px;
@@ -31,6 +31,7 @@
       }
     }
     &-amount {
+      text-align: end;
       width: 100px;
     }
   }
