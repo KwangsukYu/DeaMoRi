@@ -1,7 +1,9 @@
 package ohgwang.demori.api.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +12,26 @@ import java.util.List;
 public class LeagueRegisterPostReq {
 
     // League
-    private String leagueId;
-    private LocalDateTime leagueStartDatetime;
-    private LocalDateTime leagueEndDatetime;
-    private LocalDateTime sponStartDatetime;
-    private LocalDateTime sponEndDatetime;
-    private String location;
+    private String leagueTitle;         // 리그 제목
+    private LocalDate leagueStart;      // 시작 날짜
+    private LocalDate leagueEnd;        // 종료
+    private String place;               // 장소
+    private String contractAddress;     // 컨트렉트 주소
+    private String broadcast;           // 중계 여부
+    private int prizeMoney;             // 상금
+
+    @ApiModelProperty(name="개최자 유저 PK")
+    private String ownerPk;
 
     // TEAM
-    private List<String> uniName = new ArrayList<>();
-    private List<String> teamId = new ArrayList<>();
-    private List<String> leaderId = new ArrayList<>();
-    private List<Integer> teamColor = new ArrayList<>();
+    private String team1Name;
+    private String team1University;
+    private String team1Wallet;
+    private String team1Color;
+
+    private String team2Name;
+    private String team2University;
+    private String team2Wallet;
+    private String team2Color;
 
 }

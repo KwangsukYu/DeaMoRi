@@ -11,7 +11,6 @@ public class TransactionRes {
     private String blockNumber;
     private String fromAddress;
     private String toAddress;
-    private String gas;
     private String value;
     private String isRemit;   // 송금여부 true 보내는 쪽, false 받는 쪽 트랜잭션
 
@@ -22,7 +21,6 @@ public class TransactionRes {
         TransR.setTransactionHash(transaction.getTransactionHash());
         TransR.setFromAddress(transaction.getFromAddress());
         TransR.setToAddress(transaction.getToAddress());
-        TransR.setGas(transaction.getGas());
         TransR.setValue(transaction.getValue());
         TransR.setIsRemit(transaction.getIsRemit());
         return TransR;

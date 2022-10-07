@@ -13,7 +13,6 @@ public interface WalletService {
     void registAddress(User user, String address);
 
 
-    void requestEth(String address, int coin) throws Exception;
 
     List<TransactionRes> getTransactions(Wallet wallet, String isRemit);
 }
