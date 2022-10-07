@@ -70,12 +70,14 @@ public class LeagueServiceImpl implements LeagueService {
 
         ///////////////////////////////////////////////////////////////////////////////////////////
 
-        UniversityLeague universityLeague = new UniversityLeague();
-        universityLeague.setLeague(league);
-        universityLeague.setUniversity(universityRepository.getByUniName(registerInfo.getTeam2University()));
-        universityLeagueRepository.save(universityLeague);
-        universityLeague.setUniversity(universityRepository.getByUniName(registerInfo.getTeam1University()));
-        universityLeagueRepository.save(universityLeague);
+        UniversityLeague universityLeague1 = new UniversityLeague();
+        UniversityLeague universityLeague2 = new UniversityLeague();
+        universityLeague1.setLeague(league);
+        universityLeague2.setLeague(league);
+        universityLeague1.setUniversity(universityRepository.getByUniName(registerInfo.getTeam2University()));
+        universityLeagueRepository.save(universityLeague1);
+        universityLeague2.setUniversity(universityRepository.getByUniName(registerInfo.getTeam1University()));
+        universityLeagueRepository.save(universityLeague2);
 
         //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -85,10 +87,10 @@ public class LeagueServiceImpl implements LeagueService {
     @Override
     public Page<League> getLeaguePage(int page, int size, String field, String keyword) {
         if(keyword == null) {
-            return leagueRepository.findAllByStatusIsNotContaining("2", PageRequest.of(page, size).withSort(Sort.by(field)));
+            return leagueRepository.findAllByStatusIsNotContaining("2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
         }
 
-        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIsNotContaining(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field)));
+        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIsNotContaining(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
 
         return leaguePage;
     }
@@ -96,10 +98,10 @@ public class LeagueServiceImpl implements LeagueService {
     @Override
     public Page<League> getClosedLeaguePage(int page, int size, String field, String keyword) {
         if(keyword == null) {
-            return leagueRepository.findAllByStatus("2", PageRequest.of(page, size).withSort(Sort.by(field)));
+            return leagueRepository.findAllByStatus("2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
         }
 
-        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIs(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field)));
+        Page<League> leaguePage = leagueRepository.findAllByLeagueIdContainingAndStatusIs(keyword, "2", PageRequest.of(page, size).withSort(Sort.by(field).descending()));
 
         return leaguePage;
     }
