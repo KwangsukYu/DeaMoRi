@@ -206,9 +206,67 @@
 ---
 
 ## 4. DB 덤프 파일
+ - [덤프파일](dump) 
 
-- 
 
 ## 5. 시연 시나리오
+- 메인페이지에는 후원 및 대회 내역을 확인할 수 있다.
+<img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.jpg" width="640" height="360"/>
 
--
+
+<br>
+<br>
+<br>
+
+- 로그인
+
+<img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/01_%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif" width="640" height="360"/>
+
+
+<br>
+<br>
+<br>
+
+- 마이페이지에서는 대학인증 및 지갑 생성을 할 수 있고, 본인의 입출금 내역을 확인할 수 있습니다
+
+<img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/02_%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80.gif" width="640" height="360"/>
+
+
+<br>
+<br>
+<br>
+
+- 대회 탭을 누르면, 진행중인 대학 대회를 확인할 수 있다.
+- 내 대학에서 진행중인 대회도 따로 확인할 수 있다.
+
+<img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/03_%EB%8C%80%ED%9A%8C%EC%A1%B0%ED%9A%8C.gif" width="640" height="360"/>
+
+
+
+<br>
+<br>
+<br>
+
+- 대회와 팀을 생성할 수 있다.
+
+<img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/04_%EB%8C%80%ED%9A%8C%EC%83%9D%EC%84%B1.gif" width="640" height="360"/>
+
+
+<br>
+<br>
+<br>
+
+- 후원금액에 따른 랭킹 정보를 대학별, 유저별로 확인할 수 있다.
+<img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/05_%EB%9E%AD%ED%82%B9.gif" width="640" height="360"/>
+
+<br>
+<br>
+<br>
+
+- 대학조회를 할 수 있고, 대학별 받은 트로피를 확인할 수 있다.
+
+<img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/06_%EB%8C%80%ED%95%99%EC%A1%B0%ED%9A%8C.gif" width="640" height="360"/>
+
+<br>
+<br>
+<br>
