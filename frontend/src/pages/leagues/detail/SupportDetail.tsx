@@ -72,7 +72,7 @@ function SupportDetail({ signal, leagueInfo }: SupportDetailProps) {
       return alert("값을 입력해주세요!");
     }
 
-    if (userBalance <= parseInt(inputRef.current?.value.trim(), 10)) {
+    if (userBalance < parseInt(inputRef.current?.value.trim(), 10)) {
       return alert("보유 코인을 확인해주세요!");
     }
 
