@@ -1,34 +1,93 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./LeagueSupport.scss";
-import getCounts from "utils/getCounts";
+import { leagueDetailType } from "apis/leagues/LeagueDetail";
+import { numberWithCommas } from "utils/numberComma";
+import Counter from "components/Counter/Counter";
+import SupportDetail from "./SupportDetail";
 
-function LeagueSupport() {
-  const test = 60;
-  const test2 = 40;
-  const teamColor1 = "#007350";
-  const teamColor2 = "#5b89e6";
+interface leagueSupportType {
+  leagueInfo: leagueDetailType;
+  change: () => void;
+  isClose: boolean;
+}
+
+function LeagueSupport({ leagueInfo, change, isClose }: leagueSupportType) {
+  const [team1, setTeam1] = useState(50);
+  const [team2, setTeam2] = useState(50);
+  const [detailModal, setDetailModal] = useState(false);
+
+  useEffect(() => {
+    const team1Amount = leagueInfo.team1.teamDonation;
+    const team2Amount = leagueInfo.team2.teamDonation;
+    const perCent = (team1Amount / (team1Amount + team2Amount)) * 100;
+    if (perCent) {
+      setTeam1(perCent);
+      setTeam2(100 - perCent);
+    } else if (!team1Amount && !team2Amount) {
+      setTeam1(50);
+      setTeam2(50);
+    } else {
+      setTeam1(0);
+      setTeam2(100);
+    }
+  }, [leagueInfo]);
 
   return (
     <div id="leaguesupport">
       <div className="leaguesupport">
-        <p className="leaguesupport-amount">200,000,000 WON</p>
+        <div className="leaguesupport-amount">
+          {leagueInfo.allDonation === 0 ? (
+            <div className="empty-support">0</div>
+          ) : (
+            <Counter end={leagueInfo.allDonation} timer={0.1} />
+          )}
+          WON
+        </div>
         <div className="leaguesupport-bar">
           <div
             className="leaguesupport-bar-item"
-            style={{ width: test * 10, backgroundColor: teamColor1 }}
+            style={{
+              width: team1 * 10,
+              backgroundColor: leagueInfo.team1.teamColor
+            }}
           >
-            120,000,000 MOK
+            <p className="team1">
+              {numberWithCommas(leagueInfo.team1.teamDonation)} WON
+            </p>
           </div>
           <div
             className="leaguesupport-bar-item"
-            style={{ width: test2 * 10, backgroundColor: teamColor2 }}
+            style={{
+              width: team2 * 10,
+              backgroundColor: leagueInfo.team2.teamColor
+            }}
           >
-            80,000,000 MOK
+            <p className="team2">
+              {numberWithCommas(leagueInfo.team2.teamDonation)} WON
+            </p>
           </div>
         </div>
-        <button className="leaguesupport-support" type="button">
-          후원 하기
+        <button
+          onClick={() => {
+            if (isClose) {
+              return alert("종료 된 대회입니다.");
+            }
+            return setDetailModal(true);
+          }}
+          className="leaguesupport-support"
+          type="button"
+        >
+          대회 후원하기
         </button>
+        {detailModal && (
+          <SupportDetail
+            leagueInfo={leagueInfo}
+            signal={() => {
+              change();
+              setDetailModal(false);
+            }}
+          />
+        )}
       </div>
     </div>
   );

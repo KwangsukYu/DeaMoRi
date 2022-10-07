@@ -18,6 +18,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      &-change {
+        > p {
+          font-size: 12px;
+        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        > button {
+          margin-top: 20px;
+          width: 120px;
+          height: 40px;
+          border-radius: 15px;
+          background-color: #5c6bc0;
+          border: none;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
       &-circle {
         display: flex;
         flex-direction: column;
@@ -68,7 +88,7 @@
           justify-content: space-evenly;
           > p {
             margin: 0;
-            font-size: 60px;
+            font-size: 30px;
           }
           > button {
             width: 100px;
@@ -126,13 +146,18 @@
           width: 100px;
           background-color: red;
         }
+        .end-button {
+          width: 100px;
+          background-color: #7c7c7c;
+          cursor: auto;
+        }
       }
     }
     &-tip {
       width: 1200px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
     }
   }
 }

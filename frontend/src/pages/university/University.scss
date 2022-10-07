@@ -26,6 +26,10 @@
         background-color: #ffffff;
         justify-content: center;
         align-items: center;
+        .uni-logo {
+          width: 90px;
+          height: 90px;
+        }
       }
     }
     .uni-box-text {
@@ -46,13 +50,50 @@
         justify-content: flex-start;
         position: relative;
         margin-top: 23px;
-        .rank-logo {
-          margin-left: 5px;
+        .homepage-link {
+          text-decoration: none;
+          color: white;
         }
-        .rank-logo-text {
-          position: absolute;
-          left: 162px;
-          bottom: -8px;
+        .rank-logo-box {
+          position: relative;
+          left: 5px;
+          top: 7px;
+
+          .rank-logo {
+            margin-left: 5px;
+          }
+          .rank-logo-text-1 {
+            font-size: 23px;
+            position: absolute;
+            left: 4px;
+            bottom: 1px;
+            width: 70px;
+            text-align: center;
+          }
+          .rank-logo-text-2 {
+            font-size: 23px;
+            position: absolute;
+            left: 5px;
+            bottom: 1px;
+            width: 70px;
+            text-align: center;
+          }
+          .rank-logo-text-3 {
+            font-size: 23px;
+            position: absolute;
+            left: 5px;
+            bottom: 1px;
+            width: 70px;
+            text-align: center;
+          }
+          .rank-logo-text-4 {
+            font-size: 23px;
+            position: absolute;
+            left: -4px;
+            bottom: 1px;
+            width: 70px;
+            text-align: center;
+          }
         }
       }
       &-total {
@@ -107,11 +148,13 @@
             &-title {
               font-weight: bold;
               font-size: 20px;
+              cursor: pointer;
             }
             &-title-active {
               font-weight: bold;
               font-size: 20px;
               color: #5c6bc0;
+              cursor: pointer;
             }
           }
         }

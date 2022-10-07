@@ -1,13 +1,27 @@
 import React from "react";
 import "./SupportAmount.scss";
 
-function SupportAmount() {
+interface txType {
+  blockHash: string;
+  blockNumber: string;
+  fromAddress: string;
+  isRemit: string;
+  toAddress: string;
+  transactionHash: string;
+  value: string;
+}
+
+interface SupportAmountProps {
+  item: txType;
+  state: number;
+}
+
+function SupportAmount({ item, state }: SupportAmountProps) {
   return (
     <div id="support-amount">
       <div className="support-amount">
-        <p>2022-09-21</p>
-        <p>LCK Summer 결승전</p>
-        <p>100,000 MOK</p>
+        <p>{state === 0 ? item.fromAddress : item.toAddress}</p>
+        <p>{item.value} WON</p>
       </div>
     </div>
   );

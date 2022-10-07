@@ -1,0 +1,131 @@
+#create .create {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+}
+#create .create-option {
+  display: flex;
+  width: 800px;
+  height: 530px;
+  border: 1px solid;
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1c1c1c;
+  border-top: 4px solid #5c6bc0;
+  border-bottom: 4px solid #5c6bc0;
+}
+#create .create-option-text {
+  margin: 10px;
+  font-weight: bold;
+  color: #5c6bc0;
+  margin-bottom: -3px;
+}
+#create .create-option-input {
+  width: 200px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 12px;
+  text-align: center;
+}
+#create .create-option-comment {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #ff7f22;
+}
+#create .create-option-poster {
+  margin: 10px;
+}
+#create .create-option-broadcast {
+  margin-top: 10px;
+}
+#create .create-container-teamoption1 {
+  float: left;
+  margin-top: 30px;
+  margin-right: 40px;
+  display: flex;
+  width: 380px;
+  height: 650px;
+  border: 1px solid;
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1c1c1c;
+  border-top: 4px solid #5c6bc0;
+  border-bottom: 4px solid #5c6bc0;
+}
+#create .create-container-teamoption1 h2 {
+  color: #5c6bc0;
+}
+#create .create-container-teamoption1 h4 {
+  color: #5c6bc0;
+}
+#create .create-container-teamoption1 input {
+  width: 200px;
+  height: 30px;
+  margin: 5px;
+  float: left;
+  border-radius: 12px;
+  text-align: center;
+}
+#create .create-container-teamoption1-text {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #ff7f22;
+}
+#create .create-container-teamoption2 {
+  margin-top: 30px;
+  display: flex;
+  width: 380px;
+  height: 650px;
+  border: 1px solid;
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1c1c1c;
+  border-top: 4px solid #5c6bc0;
+  border-bottom: 4px solid #5c6bc0;
+}
+#create .create-container-teamoption2 h2 {
+  color: #007350;
+}
+#create .create-container-teamoption2 h4 {
+  color: #007350;
+}
+#create .create-container-teamoption2 input {
+  width: 200px;
+  height: 30px;
+  margin: 5px;
+  float: left;
+  border-radius: 12px;
+  text-align: center;
+}
+#create .create-container-teamoption2-text {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #ff7f22;
+}
+#create .create-buttoncontainer {
+  margin-top: 20px;
+}
+#create .create-buttoncontainer-cancel {
+  margin-right: 10px;
+  margin-bottom: 50px;
+  background-color: #5c6bc0;
+  border-radius: 10px;
+  color: white;
+  width: 120px;
+  height: 40px;
+  font-weight: bold;
+}
+#create .create-buttoncontainer-approve {
+  background-color: #ff7f22;
+  border-radius: 10px;
+  color: white;
+  width: 120px;
+  height: 40px;
+  font-weight: bold;
+}
