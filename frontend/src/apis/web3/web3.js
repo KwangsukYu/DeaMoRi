@@ -101,7 +101,6 @@ export const sendFileToIPFS = async (file, league, team, address) => {
     },
     data
   };
-
   const res = await axios(config);
 
   await NFTContract.methods

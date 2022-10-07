@@ -42,7 +42,7 @@ function TrophyGenerator({
       canvas.height = 512;
       ctx?.drawImage(newImg, 0, 0, 512, 512);
       const dataUrl = canvas.toDataURL("image/jpeg");
-      setTrophyImg(dataUrl);
+      setTrophyImg(resp.output_url);
       const newFile = new File([dataurlToBlob(dataUrl)], v1());
       setProgressMsg("트로피를 NFT로 만들고있어요!");
       const TrophyUrl = await sendFileToIPFS(
@@ -51,7 +51,7 @@ function TrophyGenerator({
         teamInfo.teamName,
         teamInfo.teamWalletAddress
       );
-      isGenerated(TrophyUrl);
+      isGenerated(resp.output_url);
       setProgressMsg(null);
     };
   };
