@@ -36,7 +36,7 @@ public class UserRes{
 	private String universityName;
 	private String universityLogo;
 
-	private List<String> bagdeList;
+	private List<String> badgeList;
 
 
 	public static UserRes of(User user) {
@@ -60,9 +60,9 @@ public class UserRes{
 
 		res.setRole(user.getRole());
 
-		res.bagdeList = new ArrayList<>();
+		res.badgeList = new ArrayList<>();
 		for(UserBadge b : user.getBadgeList()){
-			res.bagdeList.add(b.getBadge().getFileUrl());
+			res.badgeList.add(b.getBadge().getFileUrl());
 		}
 		return res;
 	}
