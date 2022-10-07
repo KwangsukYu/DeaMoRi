@@ -212,7 +212,7 @@
 ## 5. 시연 시나리오
 - 메인페이지에는 후원 및 대회 내역을 확인할 수 있다.
 <img src="https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/-/blob/master/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.jpg" width="640" height="360"/>
-
+![alt text](https://lab.ssafy.com/s07-blockchain-contract-sub2/S07P22C208/blob/master/시연시나리오/메인페이지.jpg)
 
 <br>
 <br>
