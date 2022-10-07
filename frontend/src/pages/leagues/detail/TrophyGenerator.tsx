@@ -26,10 +26,11 @@ function TrophyGenerator({
     deepai.setApiKey(process.env.REACT_APP_DEEPAI_API_KEY as string);
 
     const resp = await deepai.callStandardApi("text2img", {
-      text: "colorful Trophy with top and bottom margins"
+      text: "Center Trophy with margin"
     });
 
     const generatedImg = resp.output_url;
+    console.log(generatedImg);
 
     const canvas = document.createElement("canvas");
     const newImg = new Image();
@@ -37,21 +38,21 @@ function TrophyGenerator({
     newImg.crossOrigin = "Anonmymous";
     newImg.onload = async () => {
       const ctx = canvas.getContext("2d");
-      canvas.width = 256;
-      canvas.height = 256;
-      ctx?.drawImage(newImg, 0, 0, 256, 256, 0, 0, 256, 256);
+      canvas.width = 512;
+      canvas.height = 512;
+      ctx?.drawImage(newImg, 0, 0, 512, 512);
       const dataUrl = canvas.toDataURL("image/jpeg");
       setTrophyImg(dataUrl);
       const newFile = new File([dataurlToBlob(dataUrl)], v1());
       setProgressMsg("트로피를 NFT로 만들고있어요!");
-      const TrophyUrl = await sendFileToIPFS(
-        newFile,
-        leagueInfo.leagueId,
-        teamInfo.teamName,
-        teamInfo.teamWalletAddress
-      );
-      isGenerated(TrophyUrl);
-      setProgressMsg(null);
+      // const TrophyUrl = await sendFileToIPFS(
+      //   newFile,
+      //   leagueInfo.leagueId,
+      //   teamInfo.teamName,
+      //   teamInfo.teamWalletAddress
+      // );
+      // isGenerated(TrophyUrl);
+      // setProgressMsg(null);
     };
   };
 
