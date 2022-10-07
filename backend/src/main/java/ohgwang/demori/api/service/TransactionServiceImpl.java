@@ -1,9 +1,11 @@
 package ohgwang.demori.api.service;
 
 import ohgwang.demori.DB.entity.*;
+import ohgwang.demori.DB.entity.Image.Badge;
 import ohgwang.demori.DB.entity.Image.Trophy;
 import ohgwang.demori.DB.entity.Relation.Cheer;
 import ohgwang.demori.DB.entity.Relation.Support;
+import ohgwang.demori.DB.entity.Relation.UserBadge;
 import ohgwang.demori.DB.repository.*;
 import ohgwang.demori.api.request.CheerRegisterPostReq;
 import ohgwang.demori.api.request.LeaguePatchReq;
@@ -46,6 +48,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     UniversityRepository universityRepository;
 
+    @Autowired
+    BadgeRepository badgeRepository;
+
+    @Autowired
+    UserBadgeRepository userBadgeRepository;
+
     public Map<String,String> inputCutting(String input){
         Map<String, String> map = new HashMap<>();
         map.put("sender","0x"+input.substring(34, 74).toLowerCase());
@@ -69,6 +77,21 @@ public class TransactionServiceImpl implements TransactionService {
                 .build();
 
         transactionRepository.save(transaction);
+
+    }
+
+    public int badgeCheck(int balance){
+        if(balance > 1000000){
+            return 5;
+        }else if(balance > 500000){
+            return 4;
+        }else if(balance > 100000){
+            return 3;
+        }else if(balance > 10000){
+            return 2;
+        }else{
+            return 1;
+        }
 
     }
 
@@ -129,6 +152,20 @@ public class TransactionServiceImpl implements TransactionService {
 
 
         user.setDonation(user.getDonation() + Integer.parseInt(map.get("balance"),16));
+        Badge b = badgeRepository.getById(badgeCheck(user.getDonation()));
+
+        if(!b.getFileUrl().equals(user.getBadge())){  // 둘이 다르면 교체 후에 새 뱃지 리스트 추가
+            user.setBadge(b.getFileUrl());
+
+            UserBadge userBadge = new UserBadge();
+            userBadge.setUser(user);
+            userBadge.setBadge(b);
+
+
+            userBadgeRepository.save(userBadge);
+        }
+
+
         userRepository.save(user);
 
 
