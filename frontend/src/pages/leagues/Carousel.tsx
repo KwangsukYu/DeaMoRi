@@ -15,10 +15,12 @@ function Carousel() {
   const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
 
   useEffect(() => {
-    (async () => {
-      const res = await MyUniversityLeague(userInfo.universityPk);
-      setItems(res);
-    })();
+    if (localStorage.token) {
+      (async () => {
+        const res = await MyUniversityLeague(userInfo.universityPk);
+        setItems(res);
+      })();
+    }
   }, []);
 
   const settings = {

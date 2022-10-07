@@ -37,7 +37,7 @@ function Create() {
   const [team2Color, setTeam2Color] = useState("#5c6bc0");
   const [broadcast, setBroadcast] = useState("");
   const [files, setFiles] = useState([] as any);
-  const [userPk] = useState(String(storeUser.userPk));
+  const [userPk, setUserPk] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState("");
 
@@ -47,6 +47,14 @@ function Create() {
       navigate("/mypage");
     }
   }, []);
+
+  useEffect(() => {
+    if (localStorage.token) {
+      setUserPk(String(storeUser.userPk));
+    } else {
+      setUserPk("");
+    }
+  });
 
   // 파일 객체 생성
   const createFile = (e: React.ChangeEvent<HTMLInputElement>) => {
