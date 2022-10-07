@@ -1,19 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "./LeagueDetail.scss";
-import SchoolIcon from "assets/images/SchoolIcon.svg";
-import SchoolIcon2 from "assets/images/SchoolIcon2.svg";
+import {
+  getLeagueDetail,
+  leagueDetailType,
+  teamType,
+  changeToPlaying
+} from "apis/leagues/LeagueDetail";
+import { isOpened } from "apis/web3/web3";
+import { useSelector } from "react-redux";
+import { infoType } from "Slices/userInfo";
+import CreateRoom from "pages/live/CreateRoom";
 import LeagueSupport from "./LeagueSupport";
 import TeamDetail from "./TeamDetail";
 import LeaegueInfo from "./LeagueInfo";
+import ResultModal from "./ResultModal";
 
 function LeagueDetail() {
-  const [leagueStatue, setLeagueStatue] = useState("playing");
+  const [leagueState, setLeagueState] = useState("0");
   const [detailModal, setDetailModal] = useState(false);
-  const teamColor1 = "#007350";
-  const teamColor2 = "#5b89e6";
+  const [isOwner, setIsOwner] = useState(false);
+  const [resultModal, setResultModal] = useState(false);
+  const [leagueInfo, setLeagueInfo] = useState<leagueDetailType>();
+  const [team1, setTeam1] = useState<teamType>();
+  const [team2, setTeam2] = useState<teamType>();
+  const [changed, setChanged] = useState(false);
+  const [isClose, setIsClosed] = useState(false);
+  const { leagueId } = useParams();
+  const navigate = useNavigate();
 
-  const signal = () => {
-    setDetailModal(false);
+  const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
+
+  useEffect(() => {
+    (async () => {
+      const res = await getLeagueDetail(parseInt(leagueId as string, 10));
+      setLeagueInfo(res);
+      setTeam1(res.team1);
+      setTeam2(res.team2);
+      setLeagueState(res.status);
+      const isOpen = await isOpened(res.leagueContractAddress);
+      if (!isOpen) {
+        setIsClosed(true);
+      }
+      if (res.ownerPk === userInfo.userPk && isOpen) {
+        setIsOwner(true);
+      }
+    })();
+  }, [leagueId, changed]);
+
+  const signal = (type: string) => {
+    if (type === "info") {
+      setDetailModal(false);
+    } else if (type === "result") {
+      setResultModal(false);
+    }
+  };
+
+  const change = () => {
+    setChanged(!changed);
+  };
+
+  if (!leagueInfo) {
+    return <div>123</div>;
+  }
+
+  const handleChange = async () => {
+    if (leagueState === "0") {
+      await changeToPlaying(leagueInfo.leaguePk);
+      setLeagueState("1");
+    }
   };
 
   return (
@@ -22,73 +77,143 @@ function LeagueDetail() {
         <div className="leaguedetail-status">
           <div className="leaguedetail-status-circle">
             <div
-              className={`circle ${
-                leagueStatue === "start" ? "active" : "white"
-              }`}
+              className={`circle ${leagueState === "0" ? "active" : "white"}`}
             />
             <p>진행 예정</p>
           </div>
           <div className="leaguedetail-status-circle">
             <div
-              className={`circle ${
-                leagueStatue === "playing" ? "active" : "white"
-              }`}
+              className={`circle ${leagueState === "1" ? "active" : "white"}`}
             />
             <p>진행 중</p>
           </div>
           <div className="leaguedetail-status-circle">
             <div
-              className={`circle ${
-                leagueStatue === "end" ? "active" : "white"
-              }`}
+              className={`circle ${leagueState === "2" ? "active" : "white"}`}
             />
-            <p>경기 종료</p>
+            <p>대회 종료</p>
           </div>
           <div className="leaguedetail-status-bar" />
         </div>
-        <p className="leaguedetail-title">대회는 최대 몇 글자입니까</p>
+        {isOwner && (
+          <div className="leaguedetail-status-change">
+            <p>주최자만 경기 상태를 변경할 수 있습니다.</p>
+            {leagueState === "0" && (
+              <button type="button" onClick={handleChange}>
+                대회 시작하기
+              </button>
+            )}
+            {leagueState === "1" && (
+              <button type="button" onClick={() => setResultModal(true)}>
+                대회 종료하기
+              </button>
+            )}
+          </div>
+        )}
+        <p className="leaguedetail-title">{leagueInfo?.leagueId}</p>
         <div className="leaguedetail-info">
           <div
             className="leaguedetail-info-team"
-            style={{ backgroundColor: teamColor1 }}
+            style={{ backgroundColor: team1?.teamColor }}
           >
             <div className="leaguedetail-info-team-info">
-              <p>60%</p>
-              <button type="button">대학 정보</button>
+              <p>{team1?.teamName}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate(`/university/${team1?.teamUniversityId}`);
+                }}
+              >
+                대학 정보
+              </button>
             </div>
             <div className="leaguedetail-info-team-profile">
-              <img src={SchoolIcon} alt="team" />
-              <p>전남대학교</p>
+              <img src={team1?.teamUniversitylogoUrl} alt="team" />
+              <p>{team1?.teamUniversityName}</p>
             </div>
           </div>
           <div className="leaguedetail-info-desc">
             <button type="button" onClick={() => setDetailModal(true)}>
               대회 정보
             </button>
-            {detailModal && <LeaegueInfo signal={signal} />}
+            {detailModal && (
+              <LeaegueInfo leagueInfo={leagueInfo} signal={signal} />
+            )}
             <p>VS</p>
-            <button type="button" className="live-button">
-              중계
-            </button>
+            {leagueState === "0" && (
+              <div>
+                <p>대회 시작 일</p>
+                <p>{leagueInfo?.leagueStartDate}</p>
+              </div>
+            )}
+            {leagueState === "1" && !isOwner && (
+              <button
+                type="button"
+                className="live-button"
+                onClick={() =>
+                  navigate(`/live/broadcast${leagueInfo.leaguePk}`, {
+                    state: leagueInfo
+                  })
+                }
+              >
+                중계
+              </button>
+            )}
+            {leagueState === "1" && isOwner && (
+              <CreateRoom leagueInfo={leagueInfo} />
+            )}
+            {leagueState === "2" && !isOwner && (
+              <button type="button" className="end-button ">
+                경기 종료
+              </button>
+            )}
+            {resultModal && (
+              <ResultModal
+                change={change}
+                leagueInfo={leagueInfo}
+                signal={signal}
+              />
+            )}
           </div>
           <div
             className="leaguedetail-info-team"
-            style={{ backgroundColor: teamColor2 }}
+            style={{ backgroundColor: team2?.teamColor }}
           >
             <div className="leaguedetail-info-team-profile">
-              <img src={SchoolIcon2} alt="team" />
-              <p>조선대학교</p>
+              <img src={team2?.teamUniversitylogoUrl} alt="team" />
+              <p>{team2?.teamUniversityName}</p>
             </div>
             <div className="leaguedetail-info-team-info">
-              <p>40%</p>
-              <button type="button">대학 정보</button>
+              <p>{team2?.teamName}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate(`/university/${team2?.teamUniversityId}`);
+                }}
+              >
+                대학 정보
+              </button>
             </div>
           </div>
         </div>
-        <LeagueSupport />
+        <LeagueSupport
+          leagueInfo={leagueInfo}
+          change={change}
+          isClose={isClose}
+        />
         <div className="leaguedetail-tip">
-          <TeamDetail teamColor={teamColor1} />
-          <TeamDetail teamColor={teamColor2} />
+          <TeamDetail
+            leaguePk={leagueInfo.leaguePk}
+            teamNumber={0}
+            teamInfo={leagueInfo.team1}
+            change={change}
+          />
+          <TeamDetail
+            leaguePk={leagueInfo.leaguePk}
+            teamNumber={1}
+            teamInfo={leagueInfo.team2}
+            change={change}
+          />
         </div>
       </div>
     </div>

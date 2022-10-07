@@ -1,49 +1,115 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./MyPage.scss";
-import UserDummy from "assets/images/UserDummy.svg";
-import SchoolIcon from "assets/images/SchoolIcon.svg";
+import UserDummy from "assets/images/userDummy2.png";
 import WalletIcon from "assets/images/Wallet.svg";
-import Badge from "assets/images/RewardBadge.svg";
 import { v4 } from "uuid";
+import { setProfile } from "apis/myPage/myPage";
+import { numberWithCommas } from "utils/numberComma";
 import { getWalletBalance } from "apis/web3/web3";
-import SupportAmount from "./SupportAmount";
+import { useSelector } from "react-redux";
+import { infoType } from "Slices/userInfo";
+import SupportTxList from "pages/leagues/detail/SupportTxList";
 import CoinCharge from "./CoinCharge";
 import CreateWallet from "./CreateWallet";
+import UniAuth from "./UniAuth";
 
 function MyPage() {
-  const [schoolChk, setSchoolChk] = useState(true);
+  const userInfo = useSelector((state: infoType) => state.userInfo.userInfo);
+  const [schoolChk, setSchoolChk] = useState(
+    !!userInfo.universityName || false
+  );
   const [modal, setModal] = useState(false);
-  const [haveWallet, setHaveWallet] = useState(true);
+  const [changed, setCahnged] = useState(false);
+  const [haveWallet, setHaveWallet] = useState(!!userInfo.address || false);
   const [userBalance, setUserBalance] = useState<string | number>("???");
-  const badgeDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const supportDummy = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const [authModal, setAuthModal] = useState(false);
+  const [tap, setTap] = useState(1);
+  const imgRef = useRef<HTMLInputElement>(null);
+
   const getUserBalance = async () => {
-    const balance = await getWalletBalance();
+    const balance = await getWalletBalance(userInfo.address);
     setUserBalance(balance);
+  };
+  const change = () => {
+    setCahnged(!changed);
+  };
+
+  useEffect(() => {
+    if (userInfo.address) {
+      getUserBalance();
+    }
+  }, [userInfo.address, change]);
+
+  const signal = () => {
+    setHaveWallet(true);
+  };
+
+  const fileUpload = () => {
+    if (imgRef.current) {
+      imgRef.current.click();
+    }
+  };
+
+  const changeProfile = async () => {
+    if (imgRef.current?.files) {
+      const file = imgRef.current.files[0];
+      if (file) {
+        await setProfile(file);
+        alert("프로필 변경은 재 로그인 시 적용됩니다.");
+      }
+    }
   };
 
   return (
     <div id="mypage">
       <div className="mypage">
         <div className="mypage-profile">
-          <div className="mypage-profile-img">
-            <img src={UserDummy} alt="" />
-          </div>
+          <input
+            type="file"
+            className="img-input"
+            ref={imgRef}
+            onChange={changeProfile}
+          />
+          <button
+            type="button"
+            className="mypage-profile-img"
+            onClick={fileUpload}
+          >
+            {userInfo.profileUrl ? (
+              <img src={userInfo.profileUrl} alt="" />
+            ) : (
+              <img src={UserDummy} alt="" />
+            )}
+          </button>
           <div className="mypage-profile-detail">
-            <div className="mypage-username">닉네임은팔글자임</div>
+            <div className="mypage-username">{userInfo.nickName}</div>
             {schoolChk ? (
               <div className="mypage-school">
                 <div className="mypage-school-icon">
-                  <img src={SchoolIcon} alt="" />
+                  <img src={userInfo.universityLogo} alt="" />
                 </div>
-                <div className="mypage-school-name">전남대학교</div>
+                <div className="mypage-school-name">
+                  {userInfo.universityName}
+                </div>
               </div>
             ) : (
-              <button type="button" className="mypage-school-chk">
+              <button
+                type="button"
+                className="mypage-school-chk"
+                onClick={() => setAuthModal(true)}
+              >
                 대학 인증
               </button>
             )}
           </div>
+          {authModal && (
+            <UniAuth
+              change={change}
+              closeModal={() => {
+                setAuthModal(false);
+              }}
+            />
+          )}
         </div>
         <div className="mypage-wallet">
           <div className="mypage-wallet-icon">
@@ -52,7 +118,11 @@ function MyPage() {
           {haveWallet ? (
             <div className="mypage-wallet-detail">
               <p>
-                보유 코인 : <span>{userBalance}</span>
+                지갑 주소 <br />
+                <span>{userInfo.address}</span>
+              </p>
+              <p>
+                보유 코인 <br /> <span>{numberWithCommas(userBalance)}</span>
               </p>
               <div className="mypage-wallet-detail-btn">
                 <button type="button" onClick={getUserBalance}>
@@ -64,36 +134,69 @@ function MyPage() {
               </div>
             </div>
           ) : (
-            <CreateWallet />
+            <CreateWallet signal={signal} />
           )}
         </div>
         <div className="mypage-badge">
           <p>보유 뱃지</p>
           <div className="mypage-badge-container">
-            {badgeDummy.map(() => (
-              <img
-                src={Badge}
-                alt="badge"
-                title="후원1등"
-                key={v4()}
-                className="badge-item"
-              />
-            ))}
+            {userInfo.badgeList
+              ? userInfo.badgeList.map((item: string) => (
+                  <img
+                    src={item}
+                    alt="badge"
+                    title="후원1등"
+                    key={v4()}
+                    className="badge-item"
+                  />
+                ))
+              : null}
           </div>
         </div>
         <div className="mypage-support">
-          <p>후원 기록</p>
+          <div className="mypage-support-tap">
+            <button
+              type="button"
+              className={tap === 1 ? "active" : ""}
+              onClick={() => setTap(1)}
+            >
+              출금 내역
+            </button>
+            <button
+              type="button"
+              className={tap === 0 ? "active" : ""}
+              onClick={() => setTap(0)}
+            >
+              입금 내역
+            </button>
+          </div>
           <div className="mypage-support-desc">
-            <p>일시</p>
-            <p>후원 내용</p>
+            <p>해당 주소</p>
             <p>금액</p>
           </div>
         </div>
-        {supportDummy.map(() => {
-          return <SupportAmount key={v4()} />;
-        })}
+        {haveWallet ? (
+          <div className="list-container">
+            {tap === 0 ? (
+              <SupportTxList state={tap} changed={changed} />
+            ) : (
+              <SupportTxList state={tap} changed={changed} />
+            )}
+          </div>
+        ) : (
+          <div className="none-wallet">지갑을 생성해주세요.</div>
+        )}
       </div>
-      {modal && <CoinCharge signal={() => setModal(!modal)} />}
+      {modal && (
+        <CoinCharge
+          userAddress={userInfo.address}
+          signal={() => {
+            setModal(!modal);
+            getUserBalance();
+            change();
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -1,0 +1,58 @@
+npm init -y
+package.json에서 scripts와 main 삭제
+
+nodemon.json,
+
+```
+{
+  "exec": "babel-node src/server.js"
+}
+```
+
+// src/server.js에 대해 babel-node 명령문을 실행
+
+babel.config.json
+
+```
+
+{
+  "presets": "@babel/presets-env"
+}
+
+```
+
+=> [nodemon] app crashed - waiting for file changes before starting
+
+```
+{
+  "presets": ["@babel/env"]
+}
+
+```
+
+=> 해결
+
+// 사용할 preset
+
+server.js 생성
+npm i @babel/core @babel/cli @babel/node -D
+npm i @babel/preset-env -D
+
+package.json에 추가
+
+```
+"scripts": {
+    "dev" : "nodemon"
+  }
+
+```
+
+npm i express
+npm i pug
+
+////////////////////
+
+npm i socket.io
+=> localhost${portNumber}/socket.io/socket.io.js 주소를줌
+
+npm run dev

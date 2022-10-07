@@ -1,0 +1,262 @@
+#uni-list {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  color: white;
+  .uni-list {
+    padding: 50px;
+    border-bottom: 4px solid #5c6bc0;
+    border-top: 4px solid #5c6bc0;
+
+    border-radius: 15px;
+    margin-top: 60px;
+    width: 800px;
+    background-color: #1c1c1c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-title {
+      font-weight: bold;
+      font-size: large;
+      margin-right: 720px;
+    }
+
+    &-background {
+      width: 100%;
+      height: 200px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .no-uni-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .login-signup-box {
+          display: flex;
+        }
+        &-text {
+          color: black;
+        }
+        &-button {
+          cursor: pointer;
+          width: 100px;
+          height: 40px;
+          border: #ff7f22;
+          border-radius: 15px;
+          color: white;
+          font-weight: bold;
+          background-color: #ff7f22;
+          box-shadow: 2px #1c1c1c;
+          margin: 5px;
+        }
+      }
+      &-my {
+        width: 95%;
+        height: 85%;
+        background-color: #1c1c1c;
+        border-radius: 15px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        &-logo-box {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .navi-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            border: 0;
+            outline: 0;
+            color: white;
+            cursor: pointer;
+            .uni-list-background-my-logo-box-logo {
+              display: flex;
+              width: 110px;
+              height: 110px;
+              border-radius: 15px;
+              background-color: #ffffff;
+              justify-content: center;
+              align-items: center;
+              margin-left: 15px;
+              .uni-list-background-my-logo-box-logo-unilogo {
+                width: 90px;
+                height: 90px;
+              }
+            }
+            .uni-list-background-my-logo-box-text {
+              margin-left: 15px;
+              margin-block: 0;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+      .uni-list-my-text-box {
+        font-weight: bold;
+        margin-left: 20px;
+        .uni-list-my-text {
+          display: flex;
+          width: 500px;
+          justify-content: space-around;
+          text-align: center;
+          :nth-child(1) {
+            width: 70px;
+          }
+          :nth-child(2) {
+            width: 200px;
+          }
+          :nth-child(3) {
+            width: 200px;
+          }
+          .uni-list-my-text-logo-box {
+            position: relative;
+            .rankLogo1 {
+              position: absolute;
+              top: 4px;
+              left: 2px;
+            }
+            .rankLogo2 {
+              position: absolute;
+              top: 4px;
+              left: 2px;
+            }
+            .rankLogo3 {
+              position: absolute;
+              top: 4px;
+              left: 2px;
+            }
+            .rankLogo4 {
+              position: absolute;
+              width: 50px;
+              height: 50px;
+              top: 4px;
+              left: 10px;
+            }
+            &-text {
+              font-size: 18px;
+              left: 13px;
+              position: absolute;
+              text-align: center;
+              top: -1px;
+              width: 45px;
+            }
+          }
+        }
+      }
+    }
+    .uni-list-total {
+      margin-top: 30px;
+      &-title-box {
+        display: flex;
+        /* width: 700px; */
+        justify-content: space-between;
+        margin-bottom: 18px;
+        &-title {
+          font-weight: bold;
+          font-size: large;
+        }
+        .input-box {
+          .search-input {
+            width: 200px;
+            height: 20px;
+            float: left;
+            border-radius: 12px;
+            text-align: center;
+          }
+          .search-button {
+            width: 50px;
+            margin-inline: 8px;
+            color: white;
+            height: 24px;
+            border-radius: 12px;
+            border: #5c6bc0;
+            background-color: #ff7f22;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 2px 2px rgb(80, 80, 80);
+          }
+        }
+      }
+      &-background-err {
+        background-color: #ffffff;
+        border-radius: 15px;
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 800px;
+        height: 368px;
+        align-content: center;
+        justify-content: center;
+        .search-err {
+          font-size: large;
+          font-weight: bold;
+          color: black;
+        }
+      }
+      &-background {
+        background-color: #ffffff;
+        border-radius: 15px;
+        display: flex;
+        align-items: flex-start;
+        // align-items: center;
+        flex-wrap: wrap;
+        width: 800px;
+        height: 368px;
+        .uni-card-background {
+          background-color: #1c1c1c;
+          width: 131px;
+          height: 156px;
+          border-radius: 15px;
+          margin: 14px;
+
+          &-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            border: 0;
+            outline: 0;
+            color: white;
+            cursor: pointer;
+          }
+        }
+
+        .go-detail {
+          text-decoration: none;
+          color: white;
+        }
+        .uni-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 10px;
+          .uni-card-back {
+            background-color: #ffffff;
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .uni-card-logo {
+              width: 70px;
+              height: 70px;
+            }
+          }
+          .uni-card-text {
+            width: 122px;
+            text-align: center;
+            font-size: 15px;
+            padding-top: 5px;
+            text-decoration: none;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
