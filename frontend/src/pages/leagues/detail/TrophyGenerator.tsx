@@ -45,14 +45,14 @@ function TrophyGenerator({
       setTrophyImg(dataUrl);
       const newFile = new File([dataurlToBlob(dataUrl)], v1());
       setProgressMsg("트로피를 NFT로 만들고있어요!");
-      // const TrophyUrl = await sendFileToIPFS(
-      //   newFile,
-      //   leagueInfo.leagueId,
-      //   teamInfo.teamName,
-      //   teamInfo.teamWalletAddress
-      // );
-      // isGenerated(TrophyUrl);
-      // setProgressMsg(null);
+      const TrophyUrl = await sendFileToIPFS(
+        newFile,
+        leagueInfo.leagueId,
+        teamInfo.teamName,
+        teamInfo.teamWalletAddress
+      );
+      isGenerated(TrophyUrl);
+      setProgressMsg(null);
     };
   };
 
