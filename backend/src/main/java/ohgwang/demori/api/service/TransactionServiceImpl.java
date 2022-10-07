@@ -124,6 +124,17 @@ public class TransactionServiceImpl implements TransactionService {
         saveTransaction(t,supportReq.getTransactionHash(),map,user.getWallet(),"1");  // 트랜잭선 저장
 
         user.setDonation(user.getDonation() + Integer.parseInt(map.get("balance"),16));
+        Badge b = badgeRepository.getById(badgeCheck(user.getDonation()));
+
+        if(!b.getFileUrl().equals(user.getBadge())){  // 둘이 다르면 교체 후에 새 뱃지 리스트 추가
+            user.setBadge(b.getFileUrl());
+
+            UserBadge userBadge = new UserBadge();
+            userBadge.setUser(user);
+            userBadge.setBadge(b);
+
+            userBadgeRepository.save(userBadge);
+        }
         userRepository.save(user);
 
 
@@ -160,7 +171,6 @@ public class TransactionServiceImpl implements TransactionService {
             UserBadge userBadge = new UserBadge();
             userBadge.setUser(user);
             userBadge.setBadge(b);
-
 
             userBadgeRepository.save(userBadge);
         }
