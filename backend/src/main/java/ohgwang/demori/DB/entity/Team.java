@@ -18,12 +18,16 @@ public class Team {
     private int id;
 
     private String teamId;
-    private String uniName;
-    private int teamColor;
+    private String teamColor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "leader")
+    @JoinColumn(name = "leader_wallet")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
+    private Wallet wallet;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "university_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private University university;
 
 }

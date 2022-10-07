@@ -1,10 +1,12 @@
 package ohgwang.demori.api.service;
 
-import ohgwang.demori.DB.entity.UniversityAuth;
+import ohgwang.demori.DB.entity.Image.UniversityAuth;
 import ohgwang.demori.DB.entity.User;
+import ohgwang.demori.DB.repository.BadgeRepository;
 import ohgwang.demori.DB.repository.UniversityAuthRepository;
 import ohgwang.demori.DB.repository.UserRepository;
 import ohgwang.demori.api.request.UserRegisterPostReq;
+import ohgwang.demori.common.util.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,13 @@ public class UserServiceImpl implements UserService{
     PasswordEncoder passwordEncoder;
 
 	@Autowired
-	S3Service s3Service;
+    S3Service s3Service;
 
 	@Autowired
 	UniversityAuthRepository universityAuthRepository;
+
+	@Autowired
+	BadgeRepository badgeRepository;
 
 	@Override
 	public User getUserByUserId(String userId) {
@@ -51,7 +56,13 @@ public class UserServiceImpl implements UserService{
 
 		user.setUserId(registerInfo.getUserId());
 		user.setUsername(registerInfo.getUserName());
+		user.setNickName(registerInfo.getNickName());
+		user.setBadge(badgeRepository.getById(1).getFileUrl());
 		user.setRole("ROLE_USER");
+		user.setProfileUrl("https://s3.ap-northeast-2.amazonaws.com/aws.ssafybucket/U/basicProfile.png");
+		user.setDonation(0);
+		user.setRanking(-1);
+
 		user.setPassword(passwordEncoder.encode(registerInfo.getPassword()));
 		
 		return userRepository.save(user);
@@ -78,6 +89,8 @@ public class UserServiceImpl implements UserService{
 		uniAuth.setUser(user);
 
 		universityAuthRepository.save(uniAuth);
+		user.setUniversityAuth(uniAuth);
+		userRepository.save(user);
 	}
 
 	@Override
@@ -117,6 +130,35 @@ public class UserServiceImpl implements UserService{
 		user.setRole(r);
 		userRepository.save(user);
 		return r + " 변경 완료";
+	}
+
+	@Override
+	public User getUserByNickname(String nickName) {
+		return userRepository.findByNickName(nickName);
+	}
+
+	@Override
+	public void save(User user) {
+		userRepository.save(user);
+	}
+
+	@Override
+	public User getByWallet(String walletAddress) {
+		return userRepository.findByWallet_Address(walletAddress);
+	}
+
+	@Override
+	public void uploadProfileImage(MultipartFile file, User user) throws IOException {
+		if(!user.getProfileUrl().equals("https://s3.ap-northeast-2.amazonaws.com/aws.ssafybucket/U/basicProfile.png")){
+			String del[] = user.getProfileUrl().split("/U/");
+			s3Service.delete(del[1]);
+		}
+
+		Map<String, String> map = s3Service.upload(file, "U");
+
+		String fileUrl = map.get("fileUrl");
+		user.setProfileUrl(fileUrl);
+		userRepository.save(user);
 	}
 
 

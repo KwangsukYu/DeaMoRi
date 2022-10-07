@@ -21,4 +21,12 @@ public interface UserService {
 	User findByPk(int userPk);
 
 	String changeRole(User user, int role);
+
+	User getUserByNickname(String nickName);
+
+	void save(User user);
+
+	User getByWallet(String walletAddress);
+
+    void uploadProfileImage(MultipartFile file, User user) throws IOException;
 }

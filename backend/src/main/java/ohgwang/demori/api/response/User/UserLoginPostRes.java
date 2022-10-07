@@ -1,6 +1,8 @@
-package ohgwang.demori.api.response;
+package ohgwang.demori.api.response.User;
 
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import ohgwang.demori.common.model.response.BaseResponseBody;
@@ -10,9 +12,9 @@ import ohgwang.demori.common.model.response.BaseResponseBody;
  */
 @Getter
 @Setter
-//@ApiModel("UserLoginPostResponse")
+@ApiModel("UserLoginPostResponse")
 public class UserLoginPostRes extends BaseResponseBody {
-	//@ApiModelProperty(name="JWT 인증 토큰", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN...")
+	@ApiModelProperty(name="JWT 인증 토큰", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN...")
 	String accessToken;
 	
 	public static UserLoginPostRes of(Integer statusCode, String message, String accessToken) {
